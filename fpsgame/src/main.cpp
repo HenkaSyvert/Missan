@@ -1,22 +1,24 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> 
 
-#include <iostream>
 #include <vector>
-#include <fstream>
+#include <iostream>
 
+#include "loader.h"
+#include "mesh.h"
+#include "shaderprogram.h"
+#include "renderer.h"
+#include "transform.h"
+#include "gameobject.h"
 
+// Error funcs
 void glfwErrorCallback(int error, const char* desc) {
-
     std::cout << "GLFW Error " << error << ": " << desc << std::endl;
-
 }
 
 void APIENTRY glErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* msg, const void* data){
-
     // credit to liam-middlebrook @github, with minor modifications
     // https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f
 
@@ -115,262 +117,17 @@ void APIENTRY glErrorCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 }
 
 
+//Transform* cam;
 
-
-class Mesh {
-public:
-    const GLuint vaoID, vertexCount;
-
-    Mesh(GLuint id, GLuint count) : vaoID(id), vertexCount(count){}
-};
-
-class Loader {
-public:
-
-    Mesh LoadMesh(std::vector<float>& vertices, std::vector<unsigned int>& indices) {
-        GLuint vaoID = CreateVAO();
-        GLuint iboID = CreateIndexBuffer(indices);
-        GLuint vboID = CreateVertexBuffer(vertices);
-        return Mesh(vaoID, indices.size());
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_E && action == GLFW_PRESS) {
+        //cam->position.x += 0.1;
     }
-
-    void FreeAssets() {
-        glDeleteVertexArrays(vaos.size(), vaos.data());
-        glDeleteBuffers(vbos.size(), vbos.data());
-    }
-
-    static std::string LoadShaderSrc(const std::string& filePath) {
-
-        std::fstream input(filePath);
-        if (!input.is_open()) {
-            std::cout << "error: could not open \"" << filePath << "\"\n";
-            exit(EXIT_FAILURE);
-        }
-
-        std::string str;
-        while (input.peek() != EOF)
-            str += input.get();
-
-        return str;
-
-    }
-
-private:
-    std::vector<GLuint> vaos, vbos; // for memory management
-
-    // functions
-    GLuint CreateVAO() {
-        GLuint vaoID;
-        glGenVertexArrays(1, &vaoID);
-        glBindVertexArray(vaoID);
-        vaos.push_back(vaoID);
-        return vaoID;
-    }
-
-    GLuint CreateVertexBuffer(std::vector<float>& vertices) {
-        GLuint vboID;
-        glGenBuffers(1, &vboID);
-        glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        vbos.push_back(vboID);
-        return vboID;
-    }
-
-    GLuint CreateIndexBuffer(std::vector<unsigned int>& indices) {
-        GLuint iboID;
-        glGenBuffers(1, &iboID);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-        vbos.push_back(iboID);
-        return iboID;
-    }
-
-   
-
-};
-
-class Transform {
-public:
-    glm::vec3 position = glm::vec3(0,0,0), 
-        rotation = glm::vec3(0,0,0), 
-        scale = glm::vec3(1,1,1);
-
-    glm::mat4 GetMatrix() {
-        glm::mat4 matrix = glm::mat4(1.0f);
-        matrix = glm::translate(matrix, position);
-        matrix = glm::rotate(matrix, rotation.x, glm::vec3(1, 0, 0));
-        matrix = glm::rotate(matrix, rotation.y, glm::vec3(0, 1, 0));
-        matrix = glm::rotate(matrix, rotation.z, glm::vec3(0, 0, 1));
-        matrix = glm::scale(matrix, scale);
-        return matrix;
-    }
-
-};
-
-class Entity {
-public:
-    Transform transform;
-
-    Mesh& mesh;
-
-    Entity(Mesh& m) : mesh(m) {}
-};
-
-class ShaderProgram {
-    // TODO:
-    // proper cleanup on delete
-    // 
-    // ShaderProgram handles communication with GPU via uniform variables
-
-private:
-    unsigned int programID, vertexShader, fragmentShader;
-    unsigned int u_projLocation, u_modelLocation, u_viewLocation;
-
-    // COMPILATION
-    void PrintGLErrorMsg(unsigned int id) {
-
-        int maxLength;
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
-
-        std::vector<char> infoLog(maxLength);
-        glGetShaderInfoLog(id, maxLength, &maxLength, &infoLog[0]);
-
-        std::cout << std::string(infoLog.data()) << std::endl;
-    }
-
-    unsigned int CompileShader(unsigned int shaderType, const std::string& shaderSource) {
-
-        unsigned int shader = glCreateShader(shaderType);
-        const char* source = shaderSource.c_str();
-        glShaderSource(shader, 1, &source, nullptr);
-
-        glCompileShader(shader);
-        int isCompiled = 0;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, (int*)&isCompiled);
-        if (isCompiled == GL_FALSE) {
-
-            PrintGLErrorMsg(shader);
-            glDeleteShader(shader);
-            exit(EXIT_FAILURE);
-        }
-
-        return shader;
-    }
-
-    void BindAttributes() {
-        glBindAttribLocation(programID, 0, "position");
-        glBindAttribLocation(programID, 1, "textureCoords");
-    }
-
-    void GetUniformLocations() {
-        u_projLocation = glGetUniformLocation(programID, "u_proj");
-        u_modelLocation = glGetUniformLocation(programID, "u_model");
-        u_viewLocation = glGetUniformLocation(programID, "u_view");
-    }
-
-public:
-    ShaderProgram(std::string vertexFile, std::string fragmentFile) {
-
-        std::string vssrc = Loader::LoadShaderSrc(vertexFile);
-        std::string fssrc = Loader::LoadShaderSrc(fragmentFile);
-
-        vertexShader = CompileShader(GL_VERTEX_SHADER, vssrc);
-        fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fssrc);
-
-        programID = glCreateProgram();
-        glAttachShader(programID, vertexShader);
-        glAttachShader(programID, fragmentShader);
-
-        // bind variables
-        //BindAttributes();
+}
 
 
-        glLinkProgram(programID);
-        int isLinked = 0;
-        glGetProgramiv(programID, GL_LINK_STATUS, (int*)&isLinked);
-        if (isLinked == GL_FALSE) {
 
-            PrintGLErrorMsg(programID);
-            glDeleteProgram(programID);
-            glDeleteShader(vertexShader);
-            glDeleteShader(fragmentShader);
-            return;
-        }
-        glDetachShader(programID, vertexShader);
-        glDetachShader(programID, fragmentShader);
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-
-    }
-
-    ~ShaderProgram() {
-        glDeleteProgram(programID);
-        glDetachShader(programID, vertexShader);
-        glDetachShader(programID, fragmentShader);
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-    }
-
-    void Use() {
-        glUseProgram(programID);
-    }
-
-    void Stop() {
-        glUseProgram(0);
-    }
-
-    
-
-    /*
-    // UNIFORM VARIABLES MANIPULATION
-    void LoadProjMat(glm::mat4& m) {
-        glUniformMatrix4fv(u_projLocation, 1, GL_FALSE, &m[0][0]);
-    }
-    
-    void LoadViewMat(glm::mat4& m) {
-        glUniformMatrix4fv(u_viewLocation, 1, GL_FALSE, &m[0][0]);
-    }
-   
-    void LoadModelMat(glm::mat4& m) {
-        glUniformMatrix4fv(u_modelLocation, 1, GL_FALSE, &m[0][0]);
-    }
-    */
-};
-
-class Renderer {
-
-public:
-    glm::mat4 proj = glm::ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 0.0);
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-
-
-    void Prepare() {    
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1, 0, 0, 1);
-    }
-
-    void Render(Mesh& mesh, ShaderProgram shader) {
-        //Mesh* mesh = &entity.mesh;
-
-        glBindVertexArray(mesh.vaoID);
-        glEnableVertexAttribArray(0);
-
-        
-        
-
-        //shader.LoadModelMat(model);
-
-
-        glDrawElements(GL_TRIANGLES, mesh.vertexCount, GL_UNSIGNED_INT, 0);
-        glDisableVertexAttribArray(0);
-        glBindVertexArray(0);
-    }
-
-};
-
-
+using namespace missan;
 
 int main(void){
     
@@ -408,16 +165,18 @@ int main(void){
 
         std::cout << glGetString(GL_VERSION) << std::endl;
 
+        glfwSetKeyCallback(window, keyCallback);
+
     }
 
     
 
     // DATA
     std::vector<float> vertices = {
-        -.5, -.5, 0.0,
+        -.25, -.5, 0.0,
         .5, -.5, 0.0,
         .5, .5, 0.0,
-        -.5, .5 ,0.0
+        -.5, .25 ,0.0
     };
 
     std::vector<unsigned int> indices = {
@@ -428,22 +187,45 @@ int main(void){
 
     // other stuff
     Loader loader;
-    Renderer renderer;
     ShaderProgram shader("shaders/vertex.shader", "shaders/fragment.shader");
 
-    Mesh mesh = loader.LoadMesh(vertices, indices);
-    //Entity entity(mesh);
+    Renderer renderer;
+    renderer.SetShader(shader);
 
+    Mesh mesh = loader.CreateCubeMesh();
+
+    GameObject go;
+    go.SetMesh(mesh);
+
+    Texture texture = loader.LoadTexture("textures/cat.png");
+    go.SetTexture(texture);
+
+    Transform camera;
+    renderer.SetCamera(camera);
+    renderer.SetProjection(glm::ortho(-1, 1, -1, 1, -1, 1));
+
+    GameObject go2;
+    go2.SetMesh(mesh);
+    go2.SetTexture(texture);
+    go2.GetTransform().position += glm::vec3(1, 0, 0);
+
+    // testing input
+    //cam = &camera;
 
     while (!glfwWindowShouldClose(window)) {
 
         glfwPollEvents();
 
 
-        shader.Use();
+
+
         renderer.Prepare();
-        renderer.Render(mesh, shader);
-        shader.Stop();
+        renderer.Render(go);
+        renderer.Render(go2);
+
+        go.GetTransform().rotation += glm::vec3(0.01, 0.01, 0.01);
+        go2.GetTransform().rotation += glm::vec3(-0.01, -0.01, 0.01);
+        //go2.GetTransform().position.x += -0.1;
 
         glfwSwapBuffers(window);          
     }
@@ -454,3 +236,7 @@ int main(void){
     return 0;
 
 }
+
+
+
+
