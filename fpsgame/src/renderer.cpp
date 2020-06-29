@@ -21,8 +21,9 @@ void Renderer::Render(GameObject& go) {
 
 	glm::mat4 model = go.GetTransform().GetMatrix();
 	shader_ptr->SetUniformMat4("u_model", model);
-	glm::mat4 view = camera_ptr->GetMatrix();
+	glm::mat4 view = camera_ptr->GetTransform().GetMatrix();
 	shader_ptr->SetUniformMat4("u_view", view);
+	glm::mat4 projMat = camera_ptr->GetProjection();
 	shader_ptr->SetUniformMat4("u_proj", projMat);
 
 	shader_ptr->SetUniform1i("u_texture", 0);
@@ -45,15 +46,12 @@ void Renderer::Render(GameObject& go) {
 	shader_ptr->Stop();
 }
 
-void Renderer::SetProjection(glm::mat4 projMat) {
-	this->projMat = projMat;
-}
 
 void Renderer::SetShader(ShaderProgram& shader) {
 	shader_ptr = &shader;
 }
 
-void Renderer::SetCamera(Transform& camera) {
+void Renderer::SetCamera(Camera& camera) {
 	camera_ptr = &camera;
 }
 

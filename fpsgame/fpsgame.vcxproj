@@ -132,7 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\stb\stb_image.cpp" />
+    <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\gameobject.cpp" />
+    <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\loader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mesh.cpp" />
@@ -140,6 +142,7 @@
     <ClCompile Include="src\shaderprogram.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\transform.cpp" />
+    <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment.shader" />
@@ -147,13 +150,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb\stb_image.h" />
+    <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\gameobject.h" />
+    <ClInclude Include="src\input.h" />
     <ClInclude Include="src\loader.h" />
     <ClInclude Include="src\mesh.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shaderprogram.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\transform.h" />
+    <ClInclude Include="src\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

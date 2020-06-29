@@ -14,3 +14,4 @@ glm::mat4 Transform::GetMatrix() {
 	matrix = glm::scale(matrix, scale);
 	return matrix;
 }
+

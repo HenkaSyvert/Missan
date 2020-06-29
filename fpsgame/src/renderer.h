@@ -6,14 +6,14 @@
 
 #include "gameobject.h"
 #include "shaderprogram.h"
+#include "camera.h"
 
 namespace missan {
 
     class Renderer {
 
     private:
-        glm::mat4 projMat;
-        Transform* camera_ptr = nullptr;
+        Camera* camera_ptr = nullptr;
         ShaderProgram* shader_ptr = nullptr;
 
     public:
@@ -21,9 +21,7 @@ namespace missan {
 
         void Render(GameObject& go);
 
-        void SetProjection(glm::mat4 projMat);
-
-        void SetCamera(Transform& camera);
+        void SetCamera(Camera& camera);
 
         void SetShader(ShaderProgram& shader);
 
