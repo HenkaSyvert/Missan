@@ -21,10 +21,12 @@ namespace missan {
 
         void FreeAssets();
 
-        static std::string LoadShader(const std::string& filePath);
+        static std::string LoadShader(std::string filename);
 
     private:
         std::vector<GLuint> vaos, vbos, texs;
+
+        static const std::string texturePath, shaderPath;
 
         GLuint CreateVAO();
 

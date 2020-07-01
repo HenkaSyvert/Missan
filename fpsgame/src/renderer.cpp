@@ -21,9 +21,9 @@ void Renderer::Render(GameObject& go) {
 
 	glm::mat4 model = go.GetTransform().GetMatrix();
 	shader_ptr->SetUniformMat4("u_model", model);
-	glm::mat4 view = camera_ptr->GetTransform().GetMatrix();
+	glm::mat4 view = camera_ptr->GetViewMatrix();
 	shader_ptr->SetUniformMat4("u_view", view);
-	glm::mat4 projMat = camera_ptr->GetProjection();
+	glm::mat4 projMat = camera_ptr->GetProjectionMatrix();
 	shader_ptr->SetUniformMat4("u_proj", projMat);
 
 	shader_ptr->SetUniform1i("u_texture", 0);
@@ -44,6 +44,11 @@ void Renderer::Render(GameObject& go) {
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);	
 	shader_ptr->Stop();
+}
+
+void Renderer::Render(std::vector<GameObject>& gos) {
+	for (GameObject& go : gos)
+		Render(go);
 }
 
 

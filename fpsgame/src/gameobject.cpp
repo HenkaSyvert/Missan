@@ -22,3 +22,16 @@ Texture& GameObject::GetTexture() {
 void GameObject::SetTexture(Texture& tex) {
 	texture_ptr = &tex;
 }
+
+GameObject::GameObject() {
+
+}
+
+GameObject::GameObject(Mesh& mesh) {
+	mesh_ptr = &mesh;
+}
+
+GameObject::GameObject(Mesh& mesh, Texture& texture) {
+	mesh_ptr = &mesh;
+	texture_ptr = &texture;
+}

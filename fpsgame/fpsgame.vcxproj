@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)fpsgame\dependencies\glew\include;$(SolutionDir)fpsgame\dependencies;$(SolutionDir)fpsgame\dependencies\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)fpsgame\dependencies\glew\include;$(SolutionDir)fpsgame\dependencies;$(SolutionDir)fpsgame\include;$(SolutionDir)fpsgame\dependencies\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -104,7 +104,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)fpsgame\dependencies\glew\include;$(SolutionDir)fpsgame\dependencies;$(SolutionDir)fpsgame\dependencies\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)fpsgame\dependencies\glew\include;$(SolutionDir)fpsgame\dependencies;$(SolutionDir)fpsgame\include;$(SolutionDir)fpsgame\dependencies\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -150,16 +150,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb\stb_image.h" />
-    <ClInclude Include="src\camera.h" />
-    <ClInclude Include="src\gameobject.h" />
-    <ClInclude Include="src\input.h" />
-    <ClInclude Include="src\loader.h" />
-    <ClInclude Include="src\mesh.h" />
-    <ClInclude Include="src\renderer.h" />
-    <ClInclude Include="src\shaderprogram.h" />
-    <ClInclude Include="src\texture.h" />
-    <ClInclude Include="src\transform.h" />
-    <ClInclude Include="src\window.h" />
+    <ClInclude Include="include\camera.h" />
+    <ClInclude Include="include\gameobject.h" />
+    <ClInclude Include="include\input.h" />
+    <ClInclude Include="include\loader.h" />
+    <ClInclude Include="include\mesh.h" />
+    <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\shaderprogram.h" />
+    <ClInclude Include="include\texture.h" />
+    <ClInclude Include="include\transform.h" />
+    <ClInclude Include="include\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -79,9 +79,12 @@ Mesh Loader::CreateCubeMesh(float size) {
 }
 
 Texture Loader::LoadTexture(std::string filename) {
+
+	std::string path = texturePath + filename;
+
 	stbi_set_flip_vertically_on_load(1);
 	int w, h, bpp;
-	unsigned char* localBuffer = stbi_load(filename.c_str(), &w, &h, &bpp, 4);
+	unsigned char* localBuffer = stbi_load(path.c_str(), &w, &h, &bpp, 4);
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
@@ -109,10 +112,12 @@ void Loader::FreeAssets() {
 	glDeleteTextures(texs.size(), texs.data());
 }
 
-std::string Loader::LoadShader(const std::string& filePath) {
-	std::fstream input(filePath);
+std::string Loader::LoadShader(std::string filename) {
+
+	std::string path = shaderPath + filename;
+	std::fstream input(path);
 	if (!input.is_open()) {
-		std::cout << "error: could not open \"" << filePath << "\"\n";
+		std::cout << "error: could not open \"" << path << "\"\n";
 		exit(EXIT_FAILURE);
 	}
 	
@@ -125,6 +130,9 @@ std::string Loader::LoadShader(const std::string& filePath) {
 
 
 // PRIVATE
+const std::string Loader::texturePath = "resources/textures/";
+const std::string Loader::shaderPath = "resources/shaders/";
+
 GLuint Loader::CreateVAO() {
 	GLuint vaoID;
 	glGenVertexArrays(1, &vaoID);

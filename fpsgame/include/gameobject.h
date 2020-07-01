@@ -14,6 +14,10 @@ namespace missan {
 		Texture* texture_ptr = nullptr;
 
 	public:
+		GameObject(Mesh& mesh, Texture& texture);
+		GameObject(Mesh& mesh);
+		GameObject();
+
 		Transform& GetTransform();
 
 		Mesh& GetMesh();

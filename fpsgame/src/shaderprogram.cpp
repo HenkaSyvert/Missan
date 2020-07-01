@@ -66,10 +66,10 @@ ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
 		return;
 	}
 
-	//glDetachShader(programID, vertexShader);
-	//glDetachShader(programID, fragmentShader);
-	//glDeleteShader(vertexShader);
-	//glDeleteShader(fragmentShader);
+	glDetachShader(programID, vertexShader);
+	glDetachShader(programID, fragmentShader);
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 }
 

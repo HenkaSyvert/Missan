@@ -25,45 +25,42 @@ int main(void){
 
     Window window(960, 720, "Missan 3D");
     Input input(window.GetHandle());
-
     Loader loader;
-    ShaderProgram shader("shaders/vertex.shader", "shaders/fragment.shader");
-
+    ShaderProgram shader("vertex.shader", "fragment.shader");
+    Camera camera(window.GetAspectRatio());
     Renderer renderer;
-    renderer.SetShader(shader);
+    renderer.SetShader(shader);  
+    renderer.SetCamera(camera);
+    camera.GetTransform().position.z += 5;
+
 
     Mesh mesh = loader.CreateCubeMesh();
+    Texture texture = loader.LoadTexture("cat.png");
+    Texture brickTex = loader.LoadTexture("brickwall.png");
 
-    GameObject go;
-    go.SetMesh(mesh);
-
-    Texture texture = loader.LoadTexture("textures/cat.png");
-    go.SetTexture(texture);
-    go.GetTransform().position.z += -5;
-
-    Camera camera(window.GetAspectRatio());
-    renderer.SetCamera(camera);
-
-
-    GameObject go2;
-    go2.SetMesh(mesh);
-    go2.SetTexture(texture);
-    go2.GetTransform().position += glm::vec3(1, 0, -5);
     
-    double deltaTime = 0.0f;
-    double time = glfwGetTime();
+    GameObject wall(mesh, brickTex);
+    //wall.GetTransform().rotationDeg.z = 45;
+    //wall.GetTransform().rotationDeg.y = 45;
+
+    
 
     while (!glfwWindowShouldClose(window.GetHandle())) {
-        deltaTime = glfwGetTime() - time;
-        time = glfwGetTime();
+        input.Update();
         glfwPollEvents();
 
-        camera.HandleInput(input, deltaTime);
+        camera.HandleInput(input);
 
         renderer.Prepare();
-        renderer.Render(go);
-        //renderer.Render(go2);
+        renderer.Render(wall);
 
+        float mag = 1;
+        float a = sinf(input.GetTime()) * mag;
+        float b = a;
+
+        glm::vec3 v = wall.GetTransform().GetUpVector();
+
+        //wall.GetTransform().position = v * a;
 
 
 

@@ -11,13 +11,18 @@ namespace missan {
 	private:
 
 		Transform transform;
-
-		float moveSpeed = 1.0f;
-		float rotationSpeed = 0.01f;
+	
 		float fieldOfViewDeg = 45.0f;
 		float zNear = 0.1f;
 		float zFar = 100.0f;
 		float aspectRatio;
+
+		float moveSpeed = 5.0f;
+		float rotationSpeedDeg = 30.0f;
+
+		float pitch = 0, yaw = 0;
+		float pitchConstraint = 89.0f;
+
 
 		glm::mat4 projectionMatrix;
 
@@ -28,16 +33,21 @@ namespace missan {
 
 		Transform& GetTransform();
 
-		void HandleInput(Input& input, double deltaTime);
+		void HandleInput(Input& input);
 
-		glm::mat4 GetProjection();
+		glm::mat4 GetProjectionMatrix();
+		glm::mat4 GetViewMatrix();
 
 		void SetZNear(float z);
 		void SetZFar(float z);
 		void SetFOV(float fov);
+		void SetAspectRatio(float ar);
+
+		// fps cam stuff
 		void SetRotationSpeed(float s);
 		void SetMoveSpeed(float s);
-		void SetAspectRatio(float ar);
+		//void SetPitch(float pitch);
+
 	};
 
 }

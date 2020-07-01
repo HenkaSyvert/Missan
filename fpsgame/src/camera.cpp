@@ -12,35 +12,39 @@ void Camera::UpdateMatrix() {
 
 // PUBLIC
 Camera::Camera(float aspectRatio) {
-    this->aspectRatio = aspectRatio;
-    UpdateMatrix();
+    SetAspectRatio(aspectRatio);
 }
 
 Transform& Camera::GetTransform() {
 	return transform;
 }
 
-void Camera::HandleInput(Input& input, double deltaTime) {
+void Camera::HandleInput(Input& input) {
+
     glm::dvec2 mouseDelta = input.GetMouseDelta();
-
-    glm::vec3 newRot(rotationSpeed * mouseDelta.y, rotationSpeed * mouseDelta.x, 0);
-
-    transform.rotation += newRot;
+    float deltaTime = (float)input.GetDeltaTime();
+    glm::vec3 deltaRotation = rotationSpeedDeg * deltaTime * glm::vec3(mouseDelta.y, mouseDelta.x, 0);
+    transform.rotationDeg += deltaRotation;
 
     int xAxis = 0, zAxis = 0;
-
     if (input.IsKeyPressed(GLFW_KEY_D)) xAxis += 1;
     if (input.IsKeyPressed(GLFW_KEY_A)) xAxis -= 1;
-    if (input.IsKeyPressed(GLFW_KEY_W)) zAxis += 1;
-    if (input.IsKeyPressed(GLFW_KEY_S)) zAxis -= 1;
+    if (input.IsKeyPressed(GLFW_KEY_W)) zAxis -= 1;
+    if (input.IsKeyPressed(GLFW_KEY_S)) zAxis += 1;
 
-    glm::vec3 deltaPos = (glm::vec3(xAxis,  0,zAxis) * moveSpeed) * transform.rotation;
-    transform.position += deltaPos;
+    transform.position += (float)xAxis * moveSpeed * deltaTime * transform.GetRightVector();
+    transform.position += (float)zAxis * moveSpeed * deltaTime * transform.GetBackwardVector();
 
 }
 
-glm::mat4 Camera::GetProjection() {
+glm::mat4 Camera::GetProjectionMatrix() {
     return projectionMatrix;
+}
+
+glm::mat4 Camera::GetViewMatrix() {
+    //return glm::lookAt(transform.position, transform.position - transform.GetBackwardVector(), transform.GetUpVector());
+    
+    return glm::inverse(transform.GetMatrix());
 }
 
 void Camera::SetZNear(float z) {
@@ -59,7 +63,7 @@ void Camera::SetFOV(float fov) {
 }
 
 void Camera::SetRotationSpeed(float s) {
-    rotationSpeed = s;
+    rotationSpeedDeg = s;
 }
 
 void Camera::SetMoveSpeed(float s) {
@@ -68,4 +72,5 @@ void Camera::SetMoveSpeed(float s) {
 
 void Camera::SetAspectRatio(float ar) {
     aspectRatio = ar;
+    UpdateMatrix();
 }

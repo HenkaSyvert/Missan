@@ -4,7 +4,8 @@ using namespace missan;
 
 Input::Input(GLFWwindow* window) {
 	this->window = window;
-	GetMousePos();
+	glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
+	Update();
 }
 
 bool Input::IsKeyPressed(int keycode) {
@@ -13,12 +14,25 @@ bool Input::IsKeyPressed(int keycode) {
 }
 
 glm::dvec2 Input::GetMousePos() {
-	glfwGetCursorPos(window, &mousePos[0], &mousePos[1]);
 	return mousePos;
 }
 
 glm::dvec2 Input::GetMouseDelta() {
+	return mouseDelta;
+}
+
+double Input::GetTime() {
+	return time;
+}
+
+double Input::GetDeltaTime() {
+	return deltaTime;
+}
+
+void Input::Update() {
+	deltaTime = glfwGetTime() - time;
+	time = glfwGetTime();
 	glm::dvec2 old = mousePos;
-	GetMousePos();
-	return mousePos - old;
+	glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
+	mouseDelta = mousePos - old;
 }

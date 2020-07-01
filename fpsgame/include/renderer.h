@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include <vector>
+
 #include "gameobject.h"
 #include "shaderprogram.h"
 #include "camera.h"
@@ -20,6 +22,7 @@ namespace missan {
         void Prepare();
 
         void Render(GameObject& go);
+        void Render(std::vector<GameObject>& gos);
 
         void SetCamera(Camera& camera);
 
