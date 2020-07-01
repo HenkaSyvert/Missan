@@ -21,10 +21,22 @@ Transform& Camera::GetTransform() {
 
 void Camera::HandleInput(Input& input) {
 
+    
     glm::dvec2 mouseDelta = input.GetMouseDelta();
     float deltaTime = (float)input.GetDeltaTime();
-    glm::vec3 deltaRotation = rotationSpeedDeg * deltaTime * glm::vec3(mouseDelta.y, mouseDelta.x, 0);
-    transform.rotationDeg += deltaRotation;
+    
+    
+    float dyRot = -mouseDelta.x * rotationSpeedDeg * deltaTime;
+    float dxRot = -mouseDelta.y * rotationSpeedDeg * deltaTime;
+
+    transform.rotationDeg.y += dyRot;
+    transform.rotationDeg.x += dxRot;
+
+    if (transform.rotationDeg.x > pitchConstraint) transform.rotationDeg.x = pitchConstraint;
+    else if (transform.rotationDeg.x < -pitchConstraint) transform.rotationDeg.x = -pitchConstraint;
+
+    
+    
 
     int xAxis = 0, zAxis = 0;
     if (input.IsKeyPressed(GLFW_KEY_D)) xAxis += 1;
@@ -32,8 +44,12 @@ void Camera::HandleInput(Input& input) {
     if (input.IsKeyPressed(GLFW_KEY_W)) zAxis -= 1;
     if (input.IsKeyPressed(GLFW_KEY_S)) zAxis += 1;
 
-    transform.position += (float)xAxis * moveSpeed * deltaTime * transform.GetRightVector();
-    transform.position += (float)zAxis * moveSpeed * deltaTime * transform.GetBackwardVector();
+    float dx = (float)xAxis * moveSpeed * deltaTime;
+    float dz = (float)zAxis * moveSpeed * deltaTime;
+
+
+    transform.position += dx * transform.GetRightVector();
+    transform.position += dz * transform.GetBackwardVector();
 
 }
 

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "transform.h"
-#include "mesh.h"
-#include "texture.h"
+#include "model.h"
 
 namespace missan {
 
@@ -10,21 +11,17 @@ namespace missan {
 
 	private:
 		Transform transform;
-		Mesh* mesh_ptr = nullptr;
-		Texture* texture_ptr = nullptr;
+		Model* model_ptr;
 
 	public:
-		GameObject(Mesh& mesh, Texture& texture);
-		GameObject(Mesh& mesh);
-		GameObject();
+		GameObject(
+			Model& model, 
+			glm::vec3 pos = glm::vec3(0,0,0),
+			glm::vec3 rot = glm::vec3(0,0,0)
+		);
 
 		Transform& GetTransform();
-
-		Mesh& GetMesh();
-		void SetMesh(Mesh& mesh);
-
-		Texture& GetTexture();
-		void SetTexture(Texture& tex);
+		Model& GetModel();
 
 	};
 

@@ -16,6 +16,7 @@
 #include "input.h"
 #include "camera.h"
 #include "window.h"
+#include "model.h"
 
 
 
@@ -31,19 +32,31 @@ int main(void){
     Renderer renderer;
     renderer.SetShader(shader);  
     renderer.SetCamera(camera);
-    camera.GetTransform().position.z += 5;
 
 
-    Mesh mesh = loader.CreateCubeMesh();
-    Texture texture = loader.LoadTexture("cat.png");
+    Mesh planeMesh = loader.CreatePlaneMesh(10, 2);
+    Mesh cubeMesh = loader.CreateCubeMesh();
+
+    Texture catTex = loader.LoadTexture("cat.png");
     Texture brickTex = loader.LoadTexture("brickwall.png");
+    Texture stoneTex = loader.LoadTexture("stonefloor.png");
 
-    
-    GameObject wall(mesh, brickTex);
-    //wall.GetTransform().rotationDeg.z = 45;
-    //wall.GetTransform().rotationDeg.y = 45;
+    Model brickWall(planeMesh, brickTex);
+    Model stoneFloor(planeMesh, stoneTex);
 
-    
+    std::vector<GameObject> gameObjects;
+
+    GameObject
+        wall1(brickWall, { 0,0,5 }),
+        wall2(brickWall, { 5,0,0 }, { 0,90,0 }),
+        wall3(brickWall, { -5,0,0 }, { 0,90,0 }),
+        floor(stoneFloor, { 0,-1,0 }, { 90,0,0 });
+    floor.GetTransform().scale.y = 5;
+
+    gameObjects.push_back(wall1);
+    gameObjects.push_back(wall2);
+    gameObjects.push_back(wall3);
+    gameObjects.push_back(floor);
 
     while (!glfwWindowShouldClose(window.GetHandle())) {
         input.Update();
@@ -52,16 +65,7 @@ int main(void){
         camera.HandleInput(input);
 
         renderer.Prepare();
-        renderer.Render(wall);
-
-        float mag = 1;
-        float a = sinf(input.GetTime()) * mag;
-        float b = a;
-
-        glm::vec3 v = wall.GetTransform().GetUpVector();
-
-        //wall.GetTransform().position = v * a;
-
+        renderer.Render(gameObjects);
 
 
         glfwSwapBuffers(window.GetHandle());          

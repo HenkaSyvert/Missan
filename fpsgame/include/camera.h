@@ -18,7 +18,7 @@ namespace missan {
 		float aspectRatio;
 
 		float moveSpeed = 5.0f;
-		float rotationSpeedDeg = 30.0f;
+		float rotationSpeedDeg = 15.0f;
 
 		float pitch = 0, yaw = 0;
 		float pitchConstraint = 89.0f;
@@ -46,7 +46,6 @@ namespace missan {
 		// fps cam stuff
 		void SetRotationSpeed(float s);
 		void SetMoveSpeed(float s);
-		//void SetPitch(float pitch);
 
 	};
 

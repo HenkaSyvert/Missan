@@ -7,31 +7,12 @@ Transform& GameObject::GetTransform() {
 	return transform;
 }
 
-Mesh& GameObject::GetMesh() {
-	return *mesh_ptr;
+Model& GameObject::GetModel() {
+	return *model_ptr;
 }
 
-void GameObject::SetMesh(Mesh& mesh) {
-	mesh_ptr = &mesh;
-}
-
-Texture& GameObject::GetTexture() {
-	return *texture_ptr;
-}
-
-void GameObject::SetTexture(Texture& tex) {
-	texture_ptr = &tex;
-}
-
-GameObject::GameObject() {
-
-}
-
-GameObject::GameObject(Mesh& mesh) {
-	mesh_ptr = &mesh;
-}
-
-GameObject::GameObject(Mesh& mesh, Texture& texture) {
-	mesh_ptr = &mesh;
-	texture_ptr = &texture;
+GameObject::GameObject(Model& model, glm::vec3 pos, glm::vec3 rot) {
+	model_ptr = &model;
+	transform.position = pos;
+	transform.rotationDeg = rot;
 }

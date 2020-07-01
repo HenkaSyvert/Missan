@@ -153,6 +153,6 @@ GLFWwindow* Window::GetHandle() {
 }
 
 float Window::GetAspectRatio() {
-    return width / height;
+    return width / (float)height;
 }
 

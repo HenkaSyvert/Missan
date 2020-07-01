@@ -45,6 +45,7 @@ Mesh Loader::CreateCubeMesh(float size) {
 	};
 
 	std::vector<float> texCoord = {
+		// these are wrong
 		0,0,
 		0,1,
 		1,1,
@@ -73,6 +74,30 @@ Mesh Loader::CreateCubeMesh(float size) {
 		0,1,
 		1,1,
 		1,0
+	};
+
+	return CreateMesh(vertices, indices, texCoord);
+}
+
+Mesh Loader::CreatePlaneMesh(float w, float h) {
+	w /= 2, h /= 2;
+	std::vector<float> vertices = {
+		-w, -h, 0,
+		 w, -h, 0,
+		 w,  h, 0,
+		-w,  h, 0
+	};
+
+	std::vector<unsigned int> indices = {
+		// counter clockwise
+		0, 3, 1,	3, 2, 1,	
+	};
+
+	std::vector<float> texCoord = {
+		0,0,
+		1,0,
+		1,1,
+		0,1
 	};
 
 	return CreateMesh(vertices, indices, texCoord);

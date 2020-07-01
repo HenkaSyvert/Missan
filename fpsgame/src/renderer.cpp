@@ -13,14 +13,15 @@ void Renderer::Prepare() {
 }
 
 void Renderer::Render(GameObject& go) {
-	Mesh& mesh = go.GetMesh();
-	Texture& texture = go.GetTexture();
+	Model& model = go.GetModel();
+	Mesh& mesh = model.GetMesh();
+	Texture& texture = model.GetTexture();
 	if (&texture == nullptr)std::cout << "hej";
 
 	shader_ptr->Use();
 
-	glm::mat4 model = go.GetTransform().GetMatrix();
-	shader_ptr->SetUniformMat4("u_model", model);
+	glm::mat4 transMat = go.GetTransform().GetMatrix();
+	shader_ptr->SetUniformMat4("u_model", transMat);
 	glm::mat4 view = camera_ptr->GetViewMatrix();
 	shader_ptr->SetUniformMat4("u_view", view);
 	glm::mat4 projMat = camera_ptr->GetProjectionMatrix();

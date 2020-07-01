@@ -16,6 +16,7 @@ namespace missan {
 
         Mesh CreateMesh(std::vector<float>& vertices, std::vector<unsigned int>& indices, std::vector<float>& texCoords);
         Mesh CreateCubeMesh(float size = 1);
+        Mesh CreatePlaneMesh(float w, float h);
 
         Texture LoadTexture(std::string filename);
 
