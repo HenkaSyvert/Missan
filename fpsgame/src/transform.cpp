@@ -20,20 +20,12 @@ glm::mat4 Transform::GetMatrix() {
 
 
 glm::vec3 Transform::GetBackwardVector() {
-	//glm::vec3 v;
-	//v.x = cos(glm::radians(rotationDeg.y)) * cos(glm::radians(rotationDeg.x));
-	//v.y = sin(glm::radians(rotationDeg.x));
-	//v.z = sin(glm::radians(rotationDeg.y)) * cos(glm::radians(rotationDeg.x));
-	//v = glm::normalize(v);
-	//return v;
 	return glm::normalize(GetMatrix()[2]);
 }
 glm::vec3 Transform::GetRightVector() {
-	//glm::vec3 back = GetBackwardVector();
-	//return glm::normalize(glm::cross())
-
 	return glm::normalize(GetMatrix()[0]);
 }
 glm::vec3 Transform::GetUpVector() {
 	return glm::normalize(GetMatrix()[1]);
 }
+

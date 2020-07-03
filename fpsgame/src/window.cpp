@@ -126,7 +126,7 @@ Window::Window(int w, int h, std::string name) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+    window = glfwCreateWindow(width, height, title.c_str(), NULL/*glfwGetPrimaryMonitor() // fullscreen*/, NULL);
     if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -156,3 +156,10 @@ float Window::GetAspectRatio() {
     return width / (float)height;
 }
 
+int Window::GetWidth() {
+    return width;
+}
+
+int Window::GetHeight() {
+    return height;
+}

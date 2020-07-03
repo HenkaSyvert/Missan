@@ -6,17 +6,28 @@ using namespace missan;
 
 // PRIVATE
 void Camera::UpdateMatrix() {
-    projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, zNear, zFar);
+    projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearZ, farZ);
 }
 
 
 // PUBLIC
-Camera::Camera(float aspectRatio) {
-    SetAspectRatio(aspectRatio);
+Camera::Camera(Window& window) {
+    window_ptr = &window;
+    RestoreDefaults();
 }
 
 Transform& Camera::GetTransform() {
 	return transform;
+}
+
+void Camera::RestoreDefaults() {
+    fieldOfViewDeg = 45.0f;
+    nearZ = 0.1f;
+    farZ = 100.0f;
+    aspectRatio = window_ptr->GetAspectRatio();
+
+    moveSpeed = 5.0f;
+    rotationSpeedDeg = 15.0f;
 }
 
 void Camera::HandleInput(Input& input) {
@@ -58,19 +69,29 @@ glm::mat4 Camera::GetProjectionMatrix() {
 }
 
 glm::mat4 Camera::GetViewMatrix() {
-    //return glm::lookAt(transform.position, transform.position - transform.GetBackwardVector(), transform.GetUpVector());
-    
     return glm::inverse(transform.GetMatrix());
 }
 
-void Camera::SetZNear(float z) {
-    zNear = z;
+float Camera::GetNearZ() {
+    return nearZ;
+}
+
+void Camera::SetNearZ(float z) {
+    nearZ = z;
     UpdateMatrix();
 }
 
-void Camera::SetZFar(float z) {
-    zFar = z;
+float Camera::GetFarZ() {
+    return farZ;
+}
+
+void Camera::SetFarZ(float z) {
+    farZ = z;
     UpdateMatrix();
+}
+
+float Camera::GetFOV() {
+    return fieldOfViewDeg;
 }
 
 void Camera::SetFOV(float fov) {
@@ -78,15 +99,20 @@ void Camera::SetFOV(float fov) {
     UpdateMatrix();
 }
 
+float Camera::GetAspectRatio() {
+    return aspectRatio;
+}
+
+void Camera::SetAspectRatio(float ar) {
+    aspectRatio = ar;
+    UpdateMatrix();
+}
+
+
 void Camera::SetRotationSpeed(float s) {
     rotationSpeedDeg = s;
 }
 
 void Camera::SetMoveSpeed(float s) {
     moveSpeed = s;
-}
-
-void Camera::SetAspectRatio(float ar) {
-    aspectRatio = ar;
-    UpdateMatrix();
 }

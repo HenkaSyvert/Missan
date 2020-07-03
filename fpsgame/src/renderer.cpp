@@ -5,6 +5,11 @@
 using namespace missan;
 
 // PUBLIC
+Renderer::Renderer(ShaderProgram& shader, Camera& camera) {
+	shader_ptr = &shader;
+	camera_ptr = &camera;
+}
+
 void Renderer::Prepare() {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -50,6 +55,10 @@ void Renderer::Render(GameObject& go) {
 void Renderer::Render(std::vector<GameObject>& gos) {
 	for (GameObject& go : gos)
 		Render(go);
+}
+
+void Renderer::Render(Scene& scene) {
+	Render(scene.GetGameObjects());
 }
 
 

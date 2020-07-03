@@ -4,23 +4,19 @@
 
 #include "transform.h"
 #include "input.h"
+#include "window.h"
 
 namespace missan {
 
 	class Camera {
 	private:
-
+		Window* window_ptr;
 		Transform transform;
 	
-		float fieldOfViewDeg = 45.0f;
-		float zNear = 0.1f;
-		float zFar = 100.0f;
-		float aspectRatio;
+		float fieldOfViewDeg, nearZ, farZ, aspectRatio;
 
-		float moveSpeed = 5.0f;
-		float rotationSpeedDeg = 15.0f;
+		float moveSpeed, rotationSpeedDeg;
 
-		float pitch = 0, yaw = 0;
 		float pitchConstraint = 89.0f;
 
 
@@ -29,21 +25,26 @@ namespace missan {
 		void UpdateMatrix();
 
 	public:
-		Camera(float aspectRatio);
-
+		Camera(Window& window);
+		void RestoreDefaults();
 		Transform& GetTransform();
-
 		void HandleInput(Input& input);
 
 		glm::mat4 GetProjectionMatrix();
 		glm::mat4 GetViewMatrix();
 
-		void SetZNear(float z);
-		void SetZFar(float z);
+		float GetNearZ();
+		void SetNearZ(float z);
+		
+		float GetFarZ();
+		void SetFarZ(float z);
+		
+		float GetFOV();
 		void SetFOV(float fov);
+
+		float GetAspectRatio();
 		void SetAspectRatio(float ar);
 
-		// fps cam stuff
 		void SetRotationSpeed(float s);
 		void SetMoveSpeed(float s);
 

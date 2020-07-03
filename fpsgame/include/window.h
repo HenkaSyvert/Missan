@@ -11,7 +11,6 @@ namespace missan {
 	private:
 		int width, height;
 		std::string title;
-
 		GLFWwindow* window;
 
 	public:
@@ -20,6 +19,8 @@ namespace missan {
 		GLFWwindow* GetHandle();
 
 		float GetAspectRatio();
+		int GetWidth();
+		int GetHeight();
 
 	};
 

@@ -4,16 +4,18 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "window.h"
+
 namespace missan {
 
 	class Input {
 	private:
-		GLFWwindow* window;
+		Window* window_ptr;
 		glm::dvec2 mousePos, mouseDelta = glm::dvec2(0, 0);
 		double time = 0, deltaTime = 0;
 
 	public:
-		Input(GLFWwindow* window);
+		Input(Window& window);
 
 		bool IsKeyPressed(int keycode);
 		

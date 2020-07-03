@@ -9,6 +9,7 @@
 #include "gameobject.h"
 #include "shaderprogram.h"
 #include "camera.h"
+#include "scene.h"
 
 namespace missan {
 
@@ -19,10 +20,13 @@ namespace missan {
         ShaderProgram* shader_ptr = nullptr;
 
     public:
+        Renderer(ShaderProgram& shader, Camera& camera);
+
         void Prepare();
 
         void Render(GameObject& go);
         void Render(std::vector<GameObject>& gos);
+        void Render(Scene& scene);
 
         void SetCamera(Camera& camera);
 

@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> 
 
+
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -17,6 +18,8 @@
 #include "camera.h"
 #include "window.h"
 #include "model.h"
+#include "gui.h"
+#include "scene.h"
 
 
 
@@ -24,16 +27,18 @@ using namespace missan;
 
 int main(void){
 
+    // SETUP
     Window window(960, 720, "Missan 3D");
-    Input input(window.GetHandle());
+    Input input(window);
     Loader loader;
     ShaderProgram shader("vertex.shader", "fragment.shader");
-    Camera camera(window.GetAspectRatio());
-    Renderer renderer;
-    renderer.SetShader(shader);  
-    renderer.SetCamera(camera);
+    Camera camera(window);
+    Renderer renderer(shader, camera);
+    GUI gui(window, camera);
+    Scene scene;
 
 
+    // LOAD ASSETS
     Mesh planeMesh = loader.CreatePlaneMesh(10, 2);
     Mesh cubeMesh = loader.CreateCubeMesh();
 
@@ -44,33 +49,39 @@ int main(void){
     Model brickWall(planeMesh, brickTex);
     Model stoneFloor(planeMesh, stoneTex);
 
-    std::vector<GameObject> gameObjects;
-
+    
+    // CREATE GAME OBJECTS
     GameObject
         wall1(brickWall, { 0,0,5 }),
         wall2(brickWall, { 5,0,0 }, { 0,90,0 }),
         wall3(brickWall, { -5,0,0 }, { 0,90,0 }),
         floor(stoneFloor, { 0,-1,0 }, { 90,0,0 });
     floor.GetTransform().scale.y = 5;
+    
+    scene.Instantiate(wall1);
+    scene.Instantiate(wall2);
+    scene.Instantiate(wall3);
+    scene.Instantiate(floor);
 
-    gameObjects.push_back(wall1);
-    gameObjects.push_back(wall2);
-    gameObjects.push_back(wall3);
-    gameObjects.push_back(floor);
+
+    
+
 
     while (!glfwWindowShouldClose(window.GetHandle())) {
         input.Update();
-        glfwPollEvents();
-
+        
+        
         camera.HandleInput(input);
 
         renderer.Prepare();
-        renderer.Render(gameObjects);
-
+        renderer.Render(scene);
+        
+        gui.Run();  // do after renderer, or will get overdrawn
 
         glfwSwapBuffers(window.GetHandle());          
     }
     
+    gui.Exit();
     
     loader.FreeAssets();
     glfwTerminate();
