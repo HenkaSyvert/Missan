@@ -1,7 +1,5 @@
-#include "loader.h"
+#include "loader.hpp"
 
-#include <GL/glew.h>
-#include <glfw/glfw3.h>
 #include <stb/stb_image.h>
 
 #include <iostream>
@@ -11,7 +9,30 @@ using namespace missan;
 
 
 // PUBLIC
-Mesh Loader::CreateMesh(std::vector<float>& vertices, std::vector<unsigned int>& indices, std::vector<float>& texCoords) {
+std::string Loader::LoadShader(std::string filename) {
+	
+	std::string path = shaderPath + filename;
+	std::fstream input(path);
+
+	if (!input.is_open()) {
+		std::cout << "error: could not open \"" << path << "\"\n";
+		exit(EXIT_FAILURE);
+	}
+
+	std::string str;
+	while (input.peek() != EOF)
+		str += input.get();
+
+	return str;
+}
+
+
+
+Mesh Loader::CreateMesh(
+	const std::vector<float>& vertices, 
+	const std::vector<unsigned int>& indices, 
+	const std::vector<float>& texCoords) 
+{
     GLuint vaoID = CreateVAO();
     GLuint iboID = CreateIndexBuffer(indices);
 	GLuint vboID = StoreInAttribList(0, 3, vertices);
@@ -90,7 +111,7 @@ Mesh Loader::CreatePlaneMesh(float w, float h) {
 
 	std::vector<unsigned int> indices = {
 		// counter clockwise
-		0, 3, 1,	3, 2, 1,	
+		0, 3, 1,	3, 2, 1,
 	};
 
 	std::vector<float> texCoord = {
@@ -103,13 +124,20 @@ Mesh Loader::CreatePlaneMesh(float w, float h) {
 	return CreateMesh(vertices, indices, texCoord);
 }
 
-Texture Loader::LoadTexture(std::string filename) {
+
+
+Texture Loader::LoadTexture(const std::string& filename) {
 
 	std::string path = texturePath + filename;
 
 	stbi_set_flip_vertically_on_load(1);
 	int w, h, bpp;
 	unsigned char* localBuffer = stbi_load(path.c_str(), &w, &h, &bpp, 4);
+
+	if (!localBuffer) {
+		std::cout << "could not open file:" << filename;
+		exit(EXIT_FAILURE);
+	}
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
@@ -123,13 +151,47 @@ Texture Loader::LoadTexture(std::string filename) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-
-
 	if(localBuffer) stbi_image_free(localBuffer);
 	texs.push_back(textureID);
 
 	return Texture(textureID, w, h, bpp);
 }
+
+Texture Loader::LoadCubeMapTexture(const std::vector<std::string>& faces) {
+	
+	// https://learnopengl.com/Advanced-OpenGL/Cubemaps
+	// 
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+				0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+			);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Cubemap tex failed to load at path: " << faces[i] << std::endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return Texture(textureID, width, height, nrChannels);
+}
+
+
 
 void Loader::FreeAssets() {
 	glDeleteVertexArrays(vaos.size(), vaos.data());
@@ -137,26 +199,11 @@ void Loader::FreeAssets() {
 	glDeleteTextures(texs.size(), texs.data());
 }
 
-std::string Loader::LoadShader(std::string filename) {
-
-	std::string path = shaderPath + filename;
-	std::fstream input(path);
-	if (!input.is_open()) {
-		std::cout << "error: could not open \"" << path << "\"\n";
-		exit(EXIT_FAILURE);
-	}
-	
-	std::string str;
-	while (input.peek() != EOF)
-		str += input.get();
-
-	return str;
-}
 
 
 // PRIVATE
 const std::string Loader::texturePath = "resources/textures/";
-const std::string Loader::shaderPath = "resources/shaders/";
+const std::string Loader::shaderPath  = "resources/shaders/";
 
 GLuint Loader::CreateVAO() {
 	GLuint vaoID;
@@ -166,7 +213,7 @@ GLuint Loader::CreateVAO() {
 	return vaoID;
 }
 
-GLuint Loader::CreateIndexBuffer(std::vector<unsigned int>& indices) {
+GLuint Loader::CreateIndexBuffer(const std::vector<unsigned int>& indices) {
 	GLuint iboID;
 	glGenBuffers(1, &iboID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
@@ -175,7 +222,7 @@ GLuint Loader::CreateIndexBuffer(std::vector<unsigned int>& indices) {
 	return iboID;
 }
 
-GLuint Loader::StoreInAttribList(int attribIndex, int elementSize, std::vector<float>& data) {
+GLuint Loader::StoreInAttribList(int attribIndex, int elementSize, const std::vector<float>& data) {
 	GLuint vboID;
 	vbos.push_back(vboID);
 	glGenBuffers(1, &vboID);
@@ -186,3 +233,11 @@ GLuint Loader::StoreInAttribList(int attribIndex, int elementSize, std::vector<f
 	
 	return vboID;
 }
+
+
+
+
+
+
+
+

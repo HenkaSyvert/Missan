@@ -9,18 +9,21 @@ namespace missan {
 
 	class Window {
 	private:
-		int width, height;
-		std::string title;
-		GLFWwindow* window;
+		int width  = 0;
+		int height = 0;
+		std::string title = "";
+		GLFWwindow* windowHandle;
 
 	public:
-		Window(int w, int h, std::string name);
+		Window(int w, int h, std::string name = "Window Title");
 
 		GLFWwindow* GetHandle();
 
 		float GetAspectRatio();
 		int GetWidth();
 		int GetHeight();
+
+		void SetCursorVisible(bool isVisible);
 
 	};
 

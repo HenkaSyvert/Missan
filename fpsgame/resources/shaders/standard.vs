@@ -1,11 +1,10 @@
-#version 400 core
+#version 330 core
 
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec2 texCoord;
 
 out vec2 v_texCoord;
 
-uniform vec3 u_color;
 uniform mat4 u_model;
 uniform mat4 u_view;
 uniform mat4 u_proj;

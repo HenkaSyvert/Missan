@@ -1,11 +1,15 @@
-#include "scene.h"
+#include "scene.hpp"
 
 using namespace missan;
 
-void Scene::Instantiate(GameObject& go) {
-	gameObjects.push_back(go);
+// PUBLIC
+
+GameObject& Scene::Instantiate(GameObject& prefab) {
+    gameObjects.push_back(prefab);
+    return gameObjects.back();
 }
 
 std::vector<GameObject>& Scene::GetGameObjects() {
-	return gameObjects;
+    return gameObjects;
 }
+

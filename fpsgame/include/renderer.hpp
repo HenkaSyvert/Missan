@@ -6,10 +6,10 @@
 
 #include <vector>
 
-#include "gameobject.h"
-#include "shaderprogram.h"
-#include "camera.h"
-#include "scene.h"
+#include "gameobject.hpp"
+#include "shaderprogram.hpp"
+#include "camera.hpp"
+#include "scene.hpp"
 
 namespace missan {
 
@@ -19,17 +19,19 @@ namespace missan {
         Camera* camera_ptr = nullptr;
         ShaderProgram* shader_ptr = nullptr;
 
+        glm::vec4 clearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+
     public:
         Renderer(ShaderProgram& shader, Camera& camera);
 
         void Prepare();
+        void SetClearColor(glm::vec4 color);
 
         void Render(GameObject& go);
         void Render(std::vector<GameObject>& gos);
         void Render(Scene& scene);
 
         void SetCamera(Camera& camera);
-
         void SetShader(ShaderProgram& shader);
 
     };

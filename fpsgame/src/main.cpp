@@ -1,90 +1,170 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp> 
+#include "window.hpp"
+#include "input.hpp"
+#include "loader.hpp"
+#include "shaderprogram.hpp"
+#include "camera.hpp"
+#include "renderer.hpp"
+#include "gui.hpp"
 
+#include "mesh.hpp"
+#include "texture.hpp"
+#include "gameobject.hpp"
+#include "scene.hpp"
 
-#include <vector>
-#include <iostream>
-#include <cmath>
-
-#include "loader.h"
-#include "mesh.h"
-#include "shaderprogram.h"
-#include "renderer.h"
-#include "transform.h"
-#include "gameobject.h"
-#include "input.h"
-#include "camera.h"
-#include "window.h"
-#include "model.h"
-#include "gui.h"
-#include "scene.h"
-
-
+#include <iostream> // debug
 
 using namespace missan;
 
-int main(void){
 
-    // SETUP
+// Scripts
+bool moveCam = false;
+void FPSCamera(GameObject& go, Input& input) {
+
+    if (!moveCam) return;
+
+    float moveSpeed = 5.0f;
+    float rotationSpeedDeg = 30.0f;
+    float pitchConstraint = 89.0f;
+
+    glm::dvec2 mouseDelta = input.GetMouseDelta();
+    float deltaTime = (float)input.GetDeltaTime();
+
+    float dyRot = -mouseDelta.x * rotationSpeedDeg * deltaTime;
+    float dxRot = -mouseDelta.y * rotationSpeedDeg * deltaTime;
+
+    Transform& transform = go.GetTransform();
+    transform.rotationDeg.y += dyRot;
+    transform.rotationDeg.x = glm::clamp(transform.rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
+    
+
+    int xAxis = 0, zAxis = 0;
+    if (input.IsKeyPressed(GLFW_KEY_D)) xAxis += 1;
+    if (input.IsKeyPressed(GLFW_KEY_A)) xAxis -= 1;
+    if (input.IsKeyPressed(GLFW_KEY_S)) zAxis += 1;
+    if (input.IsKeyPressed(GLFW_KEY_W)) zAxis -= 1;
+
+    float dx = (float)xAxis * moveSpeed * deltaTime;
+    float dz = (float)zAxis * moveSpeed * deltaTime;
+
+    transform.position += dx * transform.GetRightVector();
+    transform.position += dz * transform.GetBackwardVector();
+}
+
+void SinusFloat(GameObject& go, Input& input) {
+
+    float amp = 1.0f;
+    float freq = 5.0f;
+
+    Transform& trans = go.GetTransform();
+    float t = input.GetTime();
+
+    float sine = amp * sinf(freq * t);
+    trans.position.y = sine;
+
+}
+
+
+
+// MAPS
+void StandardMap(Scene& scene, GameObject& wallPrefab, GameObject& floorPrefab) {
+
+    // assumes wall is 10x2, floor is 10x10
+
+    GameObject& ref = scene.Instantiate(floorPrefab);
+    ref.GetTransform().position.y = -1;
+    for (int i = 0; i < 3; i++) {
+        GameObject& ref = scene.Instantiate(wallPrefab);
+        ref.GetTransform().position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
+        ref.GetTransform().rotationDeg = { 0,90 + 90 * i,0 };
+    }
+
+}
+
+
+int main(){
+    
+    // INITIALIZATION
     Window window(960, 720, "Missan 3D");
     Input input(window);
     Loader loader;
-    ShaderProgram shader("vertex.shader", "fragment.shader");
+    ShaderProgram standardShader("standard.vs", "standard.fs");
     Camera camera(window);
-    Renderer renderer(shader, camera);
+    Renderer renderer(standardShader, camera);
     GUI gui(window, camera);
+
+
+
+    // MESHES & TEXTURES
+    Mesh unitCube  = loader.CreateCubeMesh(1.0f);
+    Mesh unitPlane = loader.CreatePlaneMesh(1.0f, 1.0f);
+
+    Texture brickTexture = loader.LoadTexture("brickwall.png");
+    Texture stoneTexture = loader.LoadTexture("stonefloor.png");
+
+
+
+    // GAME OBJECTS
+    // 10x2 wall
+    GameObject wallprefab(unitPlane, brickTexture);
+    wallprefab.GetTransform().scale = { 10,2,1 };
+    
+    // 10x10 floor
+    GameObject floorPrefab(unitPlane, stoneTexture);
+    floorPrefab.GetTransform().scale = { 10,10,1 };
+    floorPrefab.GetTransform().rotationDeg = { 90,0,0 };
+
     Scene scene;
+    StandardMap(scene, wallprefab, floorPrefab);
+
+    // No idea why, but camera MUST be instantiated last..
+    GameObject camGO;
+    GameObject& ref = scene.Instantiate(camGO);
+    ref.SetUpdateFunction(FPSCamera);
+    camera.BindToTransform(ref.GetTransform());
 
 
-    // LOAD ASSETS
-    Mesh planeMesh = loader.CreatePlaneMesh(10, 2);
-    Mesh cubeMesh = loader.CreateCubeMesh();
-
-    Texture catTex = loader.LoadTexture("cat.png");
-    Texture brickTex = loader.LoadTexture("brickwall.png");
-    Texture stoneTex = loader.LoadTexture("stonefloor.png");
-
-    Model brickWall(planeMesh, brickTex);
-    Model stoneFloor(planeMesh, stoneTex);
-
-    
-    // CREATE GAME OBJECTS
-    GameObject
-        wall1(brickWall, { 0,0,5 }),
-        wall2(brickWall, { 5,0,0 }, { 0,90,0 }),
-        wall3(brickWall, { -5,0,0 }, { 0,90,0 }),
-        floor(stoneFloor, { 0,-1,0 }, { 90,0,0 });
-    floor.GetTransform().scale.y = 5;
-    
-    scene.Instantiate(wall1);
-    scene.Instantiate(wall2);
-    scene.Instantiate(wall3);
-    scene.Instantiate(floor);
 
 
+    gui.SetSelectedGO(scene.GetGameObjects()[0]);
+    float keyCoolDown = 0.2f, keyTimer = 0;
+    bool afterCoolDown = true;
     
 
 
     while (!glfwWindowShouldClose(window.GetHandle())) {
         input.Update();
-        
-        
-        camera.HandleInput(input);
 
+        
+        if (!afterCoolDown) {
+            keyTimer += input.GetDeltaTime();
+            if (keyTimer > keyCoolDown) {
+                afterCoolDown = true;
+                keyTimer = 0;
+            }
+        }
+
+        if (afterCoolDown && input.IsKeyPressed(GLFW_KEY_E)) {
+            afterCoolDown = false;
+            moveCam = !moveCam;
+            window.SetCursorVisible(!moveCam);
+        }
+        
         renderer.Prepare();
         renderer.Render(scene);
-        
-        gui.Run();  // do after renderer, or will get overdrawn
 
-        glfwSwapBuffers(window.GetHandle());          
+        for (GameObject& go : scene.GetGameObjects())
+            go.Update(input);
+       
+        gui.Run();
+
+        glfwSwapBuffers(window.GetHandle());
     }
-    
+
+    // CLEANUP
     gui.Exit();
-    
     loader.FreeAssets();
     glfwTerminate();
+
     return 0;
 
 }

@@ -1,4 +1,4 @@
-#include "texture.h"
+#include "texture.hpp"
 
 using namespace missan;
 
@@ -22,6 +22,7 @@ int Texture::GetBPP() {
 	return bpp;
 }
 
-GLuint Texture::GetID() {
-	return textureID;
+void Texture::Bind(int textureSlot) {
+	glActiveTexture(GL_TEXTURE0 + textureSlot);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }

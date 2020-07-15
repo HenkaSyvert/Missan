@@ -12,10 +12,9 @@ namespace missan {
         int vertexCount = 0;
 
     public:
-        Mesh(GLuint id, int vertexCount);
+        Mesh(GLuint id = 0, int vertexCount = 0);
 
         GLuint GetVaoID();
-        
         int GetVertexCount();
 
     };
