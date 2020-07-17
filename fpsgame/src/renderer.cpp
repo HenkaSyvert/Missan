@@ -20,7 +20,34 @@ void Renderer::SetClearColor(glm::vec4 color) {
 	clearColor = color;
 }
 
+void Renderer::RenderCollider(Collider& collider) {
 
+	Mesh& mesh = collider.GetMesh();
+	if (&mesh == nullptr) return;
+
+	glColor3ub(0, 255, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	
+
+	shader_ptr->Use();
+
+	glm::mat4 transMat = collider.GetTransform().GetMatrix();
+	shader_ptr->SetMat4("u_model", transMat);
+	glm::mat4 view = camera_ptr->GetViewMatrix();
+	shader_ptr->SetMat4("u_view", view);
+	glm::mat4 projMat = camera_ptr->GetProjectionMatrix();
+	shader_ptr->SetMat4("u_proj", projMat);
+
+
+	glBindVertexArray(mesh.GetVaoID());
+	glEnableVertexAttribArray(0);
+	glDrawElements(GL_TRIANGLES, mesh.GetVertices().size(), GL_UNSIGNED_INT, 0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisableVertexAttribArray(0);
+	glBindVertexArray(0);
+}
 
 void Renderer::Render(GameObject& go) {
 
@@ -29,6 +56,8 @@ void Renderer::Render(GameObject& go) {
 
 	Texture& texture = go.GetTexture();
 	if (&texture == nullptr) std::cout << "no texture";
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	shader_ptr->Use();
 
@@ -45,7 +74,7 @@ void Renderer::Render(GameObject& go) {
 	glBindVertexArray(mesh.GetVaoID());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glDrawElements(GL_TRIANGLES, mesh.GetVertexCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh.GetVertices().size(), GL_UNSIGNED_INT, 0);
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 

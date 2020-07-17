@@ -3,19 +3,17 @@
 using namespace missan;
 
 // PUBLIC
-GameObject::GameObject() {
-
+GameObject::GameObject(){
+	collider.SetTransform(transform);
 }
 
-GameObject::GameObject(Mesh& mesh, Texture& texture){
+GameObject::GameObject(Mesh& mesh, Texture& texture)
+	: GameObject()
+{
 	SetMesh(mesh);
 	SetTexture(texture);
 }
 
-GameObject::GameObject(Mesh& mesh, Texture& texture, Transform& transform) {
-	GameObject(mesh, texture);
-	this->transform = transform;
-}
 
 
 Transform& GameObject::GetTransform() {
@@ -50,4 +48,10 @@ void GameObject::SetUpdateFunction(void (*func)(GameObject& go, Input& input)) {
 
 void GameObject::Update(Input& input) {
 	if (UpdateFunc != nullptr) UpdateFunc(*this, input);
+}
+
+
+
+Collider& GameObject::GetCollider() {
+	return collider;
 }

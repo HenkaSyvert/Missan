@@ -37,7 +37,7 @@ Mesh Loader::CreateMesh(
     GLuint iboID = CreateIndexBuffer(indices);
 	GLuint vboID = StoreInAttribList(0, 3, vertices);
 	GLuint tex = StoreInAttribList(1, 2, texCoords);
-    return Mesh(vaoID, indices.size());
+    return Mesh(vaoID, vertices, indices);
 }
 
 Mesh Loader::CreateCubeMesh(float size) {

@@ -11,6 +11,9 @@
 #include "camera.hpp"
 #include "scene.hpp"
 
+#include "mesh.hpp"
+#include "collider.hpp"
+
 namespace missan {
 
     class Renderer {
@@ -30,6 +33,7 @@ namespace missan {
         void Render(GameObject& go);
         void Render(std::vector<GameObject>& gos);
         void Render(Scene& scene);
+        void RenderCollider(Collider& collider);
 
         void SetCamera(Camera& camera);
         void SetShader(ShaderProgram& shader);

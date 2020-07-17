@@ -140,6 +140,7 @@
     <ClCompile Include="dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="dependencies\stb\stb_image.cpp" />
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\collider.cpp" />
     <ClCompile Include="src\gameobject.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\input.cpp" />
@@ -592,6 +593,7 @@
     <ClInclude Include="dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="dependencies\stb\stb_image.h" />
     <ClInclude Include="include\camera.h" />
+    <ClInclude Include="include\collider.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />

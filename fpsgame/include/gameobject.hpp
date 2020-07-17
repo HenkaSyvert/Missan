@@ -7,6 +7,7 @@
 #include "texture.hpp"
 #include "camera.hpp"
 #include "input.hpp"
+#include "collider.hpp"
 
 namespace missan {
 
@@ -15,14 +16,14 @@ namespace missan {
 	private:
 		Transform transform;
 		Mesh*    mesh_ptr    = nullptr;
-		Texture* texture_ptr = nullptr;
+		Texture* texture_ptr = nullptr;		
+		Collider collider;
 
 		void (*UpdateFunc)(GameObject& go, Input& input) = nullptr;
 
 	public:
 		GameObject();
 		GameObject(Mesh& mesh, Texture& texture);
-		GameObject(Mesh& mesh, Texture& texture, Transform& transform);
 
 		Transform& GetTransform();
 		
@@ -34,6 +35,8 @@ namespace missan {
 
 		void SetUpdateFunction(void (*func)(GameObject& go, Input& input));
 		void Update(Input& input);
+
+		Collider& GetCollider();
 
 	};
 

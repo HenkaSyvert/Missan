@@ -10,6 +10,7 @@
 #include "texture.hpp"
 #include "gameobject.hpp"
 #include "scene.hpp"
+#include "collider.hpp"
 
 #include <iostream> // debug
 
@@ -81,6 +82,42 @@ void StandardMap(Scene& scene, GameObject& wallPrefab, GameObject& floorPrefab) 
 }
 
 
+
+// MAIN LOOP STUFF
+bool renderColliders = true;
+void RenderScene(Renderer& renderer, Scene& scene) {
+    renderer.Prepare();
+    renderer.Render(scene);
+    if (renderColliders) {
+        for (auto& g : scene.GetGameObjects()) {
+            if (g.GetCollider().IsEnabled())
+                renderer.RenderCollider(g.GetCollider());
+        }
+    }
+}
+
+void RunScripts(Scene& scene, Input& input) {
+    for (GameObject& go : scene.GetGameObjects())
+        go.Update(input);
+}
+
+void CheckCollisions(Scene& scene) {
+    for (auto& a : scene.GetGameObjects()) {
+        Collider& ca = a.GetCollider();
+
+        for (auto& b : scene.GetGameObjects()) {
+            if (&a == &b) continue;
+            Collider& cb = b.GetCollider();
+
+            if (ca.OverlapsWith(cb)) {
+                // collision happened, do something
+                std::cout << "collision detected\n";
+            }
+
+        }
+    }
+}
+
 int main(){
     
     // INITIALIZATION
@@ -107,11 +144,14 @@ int main(){
     // 10x2 wall
     GameObject wallprefab(unitPlane, brickTexture);
     wallprefab.GetTransform().scale = { 10,2,1 };
+    wallprefab.SetUpdateFunction(SinusFloat);
     
     // 10x10 floor
     GameObject floorPrefab(unitPlane, stoneTexture);
     floorPrefab.GetTransform().scale = { 10,10,1 };
     floorPrefab.GetTransform().rotationDeg = { 90,0,0 };
+    floorPrefab.GetCollider().SetMesh(unitCube);
+    floorPrefab.GetCollider().Enable(true);
 
     Scene scene;
     StandardMap(scene, wallprefab, floorPrefab);
@@ -121,7 +161,8 @@ int main(){
     GameObject& ref = scene.Instantiate(camGO);
     ref.SetUpdateFunction(FPSCamera);
     camera.BindToTransform(ref.GetTransform());
-
+    ref.GetCollider().SetMesh(unitCube);
+    ref.GetCollider().Enable(true);
 
 
 
@@ -149,11 +190,11 @@ int main(){
             window.SetCursorVisible(!moveCam);
         }
         
-        renderer.Prepare();
-        renderer.Render(scene);
-
-        for (GameObject& go : scene.GetGameObjects())
-            go.Update(input);
+        
+        RenderScene(renderer, scene);
+        RunScripts(scene, input);
+        CheckCollisions(scene);
+           
        
         gui.Run();
 

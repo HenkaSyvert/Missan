@@ -3,16 +3,24 @@
 using namespace missan;
 
 // PUBLIC
-Mesh::Mesh(GLuint id, int count) { 
+Mesh::Mesh(
+	GLuint id, 
+	const std::vector<float>& verts,
+	const std::vector<unsigned int> inds)
+{ 
 	vaoID = id;
-	vertexCount = count;
+	vertices = verts;
+	indices = inds;
 }
 
 GLuint Mesh::GetVaoID() {
 	return vaoID;
 }
 
-int Mesh::GetVertexCount() {
-	return vertexCount;
+std::vector<float> Mesh::GetVertices() {
+	return vertices;
 }
 
+std::vector<unsigned int> Mesh::GetIndices() {
+	return indices;
+}
