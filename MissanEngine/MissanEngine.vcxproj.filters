@@ -1427,6 +1427,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="dependencies\glew\lib\Release\Win32\glew32s.lib" />
+    <Library Include="dependencies\glew\lib\glew32s.lib" />
   </ItemGroup>
 </Project>
