@@ -15,40 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
+    <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\loader.cpp">
+    <ClCompile Include="source\loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\shaderprogram.cpp">
+    <ClCompile Include="source\shaderprogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer.cpp">
+    <ClCompile Include="source\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\transform.cpp">
+    <ClCompile Include="source\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameobject.cpp">
+    <ClCompile Include="source\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mesh.cpp">
+    <ClCompile Include="source\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\stb\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture.cpp">
+    <ClCompile Include="source\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\input.cpp">
+    <ClCompile Include="source\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\camera.cpp">
+    <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\window.cpp">
+    <ClCompile Include="source\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\glm\detail\glm.cpp">
@@ -72,13 +72,13 @@
     <ClCompile Include="dependencies\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui.cpp">
+    <ClCompile Include="source\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene.cpp">
+    <ClCompile Include="source\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\collider.cpp">
+    <ClCompile Include="source\collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
