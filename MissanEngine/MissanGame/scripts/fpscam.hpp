@@ -23,7 +23,7 @@ public:
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::deltaTime;
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
 
-        Transform& transform = gameObject.GetTransform();
+        Transform& transform = GetGameObject().GetTransform();
         transform.rotationDeg.y += dyRot;
         transform.rotationDeg.x = glm::clamp(transform.rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
 

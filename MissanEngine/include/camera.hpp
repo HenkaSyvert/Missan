@@ -9,7 +9,6 @@ namespace missan {
 
 	class Camera {
 	private:
-		Window*    window_ptr	 = nullptr;
 		Transform* transform_ptr = nullptr;
 	
 		float fieldOfViewDeg = 45.0f;
@@ -22,7 +21,7 @@ namespace missan {
 		void UpdateMatrix();
 
 	public:
-		Camera(Window& window);
+		Camera();
 
 		void BindToTransform(Transform& transform);
 

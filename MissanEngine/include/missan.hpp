@@ -10,9 +10,13 @@
 // temporary, mathematics library
 #include <glm/glm.hpp>
 
+// temporary, gui library
+#include <imgui/imgui.h>
+
 // Missan includes
 #include "camera.hpp"
 #include "collider.hpp"
+#include "engine.hpp"
 #include "components/component.hpp"
 #include "gameobject.hpp"
 #include "gui.hpp"

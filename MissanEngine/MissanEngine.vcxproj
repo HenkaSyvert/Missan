@@ -89,6 +89,7 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
+    <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\input.cpp" />
@@ -542,6 +543,7 @@
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="include\camera.h" />
+    <ClInclude Include="include\engine.hpp" />
     <ClInclude Include="include\interfaces\clonable.hpp" />
     <ClInclude Include="include\collider.hpp" />
     <ClInclude Include="include\components\component.hpp" />
@@ -560,6 +562,7 @@
     <ClInclude Include="include\window.h" />
     <ClInclude Include="MissanGame\scripts\FloatScript.hpp" />
     <ClInclude Include="MissanGame\scripts\fpscam.hpp" />
+    <ClInclude Include="MissanGame\scripts\menu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

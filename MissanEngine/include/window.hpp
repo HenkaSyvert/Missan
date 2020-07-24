@@ -7,24 +7,20 @@
 
 namespace missan {
 
-	class Window {
-	private:
-		int width  = 0;
-		int height = 0;
-		std::string title = "";
-		GLFWwindow* windowHandle;
+	namespace Window {
+	
+		// todo, add resize and fullscreen
+		
+		extern const int& width;
+		extern const int& height;
+		extern const float& aspectRatio;
 
-	public:
-		Window(int w, int h, std::string name = "Window Title");
+		void Initialize(int width, int height, const std::string& title);
+		void SetIsCursorVisible(bool isVisible);
 
+		// should probably be hidden sometime
 		GLFWwindow* GetHandle();
-
-		float GetAspectRatio();
-		int GetWidth();
-		int GetHeight();
-
-		void SetCursorVisible(bool isVisible);
-
+		
 	};
 
 }

@@ -84,6 +84,9 @@
     <ClCompile Include="MissanGame\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -1444,6 +1447,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\interfaces\clonable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MissanGame\scripts\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

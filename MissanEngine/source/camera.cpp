@@ -12,9 +12,8 @@ void Camera::UpdateMatrix() {
 
 
 // PUBLIC
-Camera::Camera(Window& window) {
-    window_ptr = &window;
-    aspectRatio = window_ptr->GetAspectRatio();
+Camera::Camera() {
+    aspectRatio = Window::aspectRatio;
     UpdateMatrix();
 }
 
@@ -27,8 +26,6 @@ void Camera::BindToTransform(Transform& transform) {
 glm::mat4 Camera::GetProjectionMatrix() {
     return projectionMatrix;
 }
-
-#include <iostream>
 
 glm::mat4 Camera::GetViewMatrix() {
     Transform transform;

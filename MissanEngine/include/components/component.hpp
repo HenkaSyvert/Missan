@@ -17,10 +17,8 @@ namespace missan {
 		virtual ~Component() {};	// must have definition - empty body - since derived classes will call it
 		virtual Component* Clone() const = 0;
 
-
-
 		void AttachToGameObject(GameObject& gameObject) { gameObject_ptr = &gameObject; };
-		class GameObject& gameObject = *gameObject_ptr;
+		inline class GameObject& GetGameObject() { return *gameObject_ptr; }
 
 		virtual void Update() = 0;
 

@@ -4,6 +4,7 @@
 
 #include "scripts/fpscam.hpp"
 #include "scripts/FloatScript.hpp"
+#include "scripts/menu.hpp"
 
 #include <iostream> // debug
 
@@ -62,14 +63,11 @@ void CheckCollisions(Scene& scene) {
 
 int main(){
     
-    // INITIALIZATION
-    Window window(960, 720, "Missan 3D");
-    Input::Initialize(window);
-    Resources::Initialize();
+    Engine::Initialize();
+
     ShaderProgram standardShader("standard.vs", "standard.fs");
-    Camera camera(window);
+    Camera camera;
     Renderer renderer(standardShader, camera);
-    GUI gui(window, camera);
 
 
 
@@ -98,6 +96,12 @@ int main(){
     Scene scene;
     StandardMap(scene, wallprefab, floorPrefab);
 
+    GameObject menuManager;
+    GameObject& mm = scene.Instantiate(menuManager);
+    mm.AddComponent<Menu>();
+    mm.GetComponent<Menu>()->camera_ptr = &camera;
+    mm.GetComponent<Menu>()->selectedGO = scene.gameObjects[0];
+
     // No idea why, but camera MUST be instantiated last..
     GameObject camGO;
     GameObject& ref = scene.Instantiate(camGO);
@@ -109,12 +113,11 @@ int main(){
     
 
 
-    gui.SetSelectedGO(*scene.gameObjects[0]);
     float keyCoolDown = 0.2f, keyTimer = 0;
     bool afterCoolDown = true;
     
 
-    while (!glfwWindowShouldClose(window.GetHandle())) {
+    while (!glfwWindowShouldClose(Window::GetHandle())) {
         Time::Update();
         Input::Update();
 
@@ -130,7 +133,7 @@ int main(){
         if (afterCoolDown && Input::IsKeyPressed(GLFW_KEY_E)) {
             afterCoolDown = false;
             moveCam = !moveCam;
-            window.SetCursorVisible(!moveCam);
+            Window::SetIsCursorVisible(!moveCam);
         }
         
         
@@ -142,13 +145,13 @@ int main(){
         CheckCollisions(scene);
            
        
-        gui.Run();
+        GUI::Run();
 
-        glfwSwapBuffers(window.GetHandle());
+        glfwSwapBuffers(Window::GetHandle());
     }
 
     // CLEANUP
-    gui.Exit();
+    GUI::Terminate();
     Resources::Terminate();
     glfwTerminate();
 

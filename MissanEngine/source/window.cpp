@@ -5,17 +5,29 @@
 using namespace missan;
 
 // PRIVATE
+namespace {
 
-void glfwErrorCallback(int error, const char* desc) {
-    std::cout << "GLFW Error " << error << ": " << desc << std::endl;
+    GLFWwindow* windowHandle = nullptr;
+    int   width_       = 0;
+    int   height_      = 0;
+    float aspectRatio_ = 0;
+
+    void glfwErrorCallback(int error, const char* desc) {
+        std::cout << "GLFW Error " << error << ": " << desc << std::endl;
+    }
+
 }
 
 
 // PUBLIC
-Window::Window(int w, int h, std::string name) {
-	width = w;
-	height = h;
-	title = name;
+const int&   Window::width       = width_;
+const int&   Window::height      = height_;
+const float& Window::aspectRatio = aspectRatio_;
+
+void Window::Initialize(int width, int height, const std::string& title) {
+	width_ = width;
+	height_ = height;
+    aspectRatio_ = (float)width_ / height_;
 
     glfwSetErrorCallback(glfwErrorCallback);
     if (!glfwInit()) {
@@ -45,27 +57,14 @@ Window::Window(int w, int h, std::string name) {
     std::cout << glGetString(GL_VERSION) << std::endl;
 }
 
+void Window::SetIsCursorVisible(bool isVisible) {
+    if (isVisible) glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    else glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
 
 
 GLFWwindow* Window::GetHandle() {
     return windowHandle;
 }
 
-float Window::GetAspectRatio() {
-    return (float)width / height;
-}
-
-int Window::GetWidth() {
-    return width;
-}
-
-int Window::GetHeight() {
-    return height;
-}
-
-
-
-void Window::SetCursorVisible(bool isVisible) {
-    if (isVisible) glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    else glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-}

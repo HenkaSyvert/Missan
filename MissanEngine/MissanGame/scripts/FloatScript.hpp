@@ -18,8 +18,7 @@ public:
 
     void Update() override {
 
-        Transform& trans = gameObject.GetTransform();
-        if (&gameObject == nullptr)std::cout << "omg";
+        Transform& trans = GetGameObject().GetTransform();
 
         trans.position.y = amp * sinf(freq * Time::time);
     }

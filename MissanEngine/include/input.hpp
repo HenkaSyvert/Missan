@@ -13,7 +13,7 @@ namespace missan {
 		bool IsKeyPressed(int keycode);
 
 		// not part of public API
-		void Initialize(Window& windowHandle);
+		void Initialize();
 		void Update();
 		
 	}

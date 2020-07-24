@@ -1,38 +1,21 @@
 #pragma once
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
-
-#include "window.hpp"
-#include "camera.hpp"
-#include "components/transform.hpp"
-#include "gameobject.hpp"
+//#include "window.hpp"
+//#include "camera.hpp"
+//#include "components/transform.hpp"
+//#include "gameobject.hpp"
 
 namespace missan {
 
-	enum MENU_STATE { CAMERA, GAME_OBJECT };
-
-	class GUI {
-
-	private:
-		Window* window_ptr;
-		Camera* camera_ptr;
+	namespace GUI {
 		
-		GameObject* selectedGO;
-
-		MENU_STATE menuState;
-		void CameraMenu();
-		void GameObjectMenu();
-
-	public:
-		GUI(Window& window, Camera& camera);
+		void Initialize();
 		void Run();
-		void Exit();
+		void Terminate();
+
+		// submit function to be called in GUI::Run()
+		void Submit(void (*func)());
 		
-		void SetSelectedGO(GameObject& go);
-
-
-	};
+	}
 
 }
