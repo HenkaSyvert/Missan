@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "transform.hpp"
+#include "components/transform.hpp"
 #include "mesh.hpp"
 #include "texture.hpp"
 #include "camera.hpp"
@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <typeinfo>
-#include "component.hpp"
+#include "components/component.hpp"
 
 namespace missan {
 
@@ -25,23 +25,21 @@ namespace missan {
 		Texture* texture_ptr = nullptr;		
 		Collider collider;
 
-		void (*UpdateFunc)(GameObject& go) = nullptr;
-
 
 	public:
 		GameObject();
-		GameObject(Mesh& mesh, Texture& texture);
+		~GameObject();
 		GameObject(GameObject& copy);
+		GameObject(Mesh& mesh, Texture& texture);
+		
 
 		Transform& GetTransform();
 		
-		Mesh& GetMesh();
+		Mesh& GetMesh() const ;
 		void SetMesh(Mesh& mesh);
 
-		Texture& GetTexture();
+		Texture& GetTexture() const;
 		void SetTexture(Texture& texture);
-
-		void SetUpdateFunction(void (*func)(GameObject& go));
 		void Update();
 
 		Collider& GetCollider();
@@ -52,7 +50,7 @@ namespace missan {
 		template <class T> 
 		void AddComponent() {
 			components.push_back(new T());
-			components.back()->gameObject_ptr = this;
+			components.back()->AttachToGameObject(*this);
 		}
 		template <class T>
 		T* GetComponent() {
@@ -61,6 +59,8 @@ namespace missan {
 					return (T*)c;
 			return nullptr;
 		}
+
+		
 
 
 	};

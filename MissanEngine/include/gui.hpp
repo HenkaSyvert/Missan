@@ -6,7 +6,7 @@
 
 #include "window.hpp"
 #include "camera.hpp"
-#include "transform.hpp"
+#include "components/transform.hpp"
 #include "gameobject.hpp"
 
 namespace missan {

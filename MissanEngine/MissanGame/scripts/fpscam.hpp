@@ -9,19 +9,21 @@ class FPSCamera : public Component {
 private:
     float moveSpeed = 5.0f;
     float rotationSpeedDeg = 30.0f;
-    float pitchConstraint = 89.0f;
+    float pitchConstraint = 89.9f;
 
 public:
     bool* moveCam;
 
-    void Update() override {
+    FPSCamera* Clone() const { return new FPSCamera(*this); }   // necessary for deep-cloning
+
+    void Update() {
         if (!*moveCam) return;
 
 
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::deltaTime;
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
 
-        Transform& transform = gameObject_ptr->GetTransform();
+        Transform& transform = gameObject.GetTransform();
         transform.rotationDeg.y += dyRot;
         transform.rotationDeg.x = glm::clamp(transform.rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
 

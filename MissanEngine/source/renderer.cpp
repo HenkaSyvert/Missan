@@ -83,12 +83,12 @@ void Renderer::Render(GameObject& go) {
 	glBindVertexArray(0);	
 }
 
-void Renderer::Render(std::vector<GameObject*>& gos) {
+void Renderer::Render(const std::vector<GameObject*>& gos) {
 	for (GameObject* go : gos) Render(*go);
 }
 
 void Renderer::Render(Scene& scene) {
-	Render(scene.GetGameObjects());
+	Render(scene.gameObjects);
 }
 
 

@@ -31,7 +31,7 @@ namespace missan {
         void SetClearColor(glm::vec4 color);
 
         void Render(GameObject& go);
-        void Render(std::vector<GameObject*>& gos);
+        void Render(const std::vector<GameObject*>& gos);
         void Render(Scene& scene);
         void RenderCollider(Collider& collider);
 

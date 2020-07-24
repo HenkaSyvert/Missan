@@ -14,12 +14,28 @@ GameObject::GameObject(Mesh& mesh, Texture& texture)
 	SetTexture(texture);
 }
 
-// deep copy function to copy components
 GameObject::GameObject(GameObject& copy) {
+	std::vector<class Component*> newComponents;
+	for (Component* c : copy.components) {
+		newComponents.push_back(c->Clone());
+	}
+	components = newComponents;
+	for (Component* c : components) {
+		c->AttachToGameObject(*this);
+	}
+
+	// temporary until component system is done
+	transform = copy.transform;
+	mesh_ptr = copy.mesh_ptr;
+	texture_ptr = copy.texture_ptr;
+	collider = copy.collider;
 
 }
 
-
+GameObject::~GameObject() {
+	for (Component* c : components)
+		delete c;
+}
 
 
 Transform& GameObject::GetTransform() {
@@ -28,7 +44,7 @@ Transform& GameObject::GetTransform() {
 
 
 
-Mesh& GameObject::GetMesh() {
+Mesh& GameObject::GetMesh() const {
 	return *mesh_ptr;
 }
 
@@ -38,7 +54,7 @@ void GameObject::SetMesh(Mesh& mesh) {
 
 
 
-Texture& GameObject::GetTexture() {
+Texture& GameObject::GetTexture()const {
 	return *texture_ptr;
 }
 
@@ -47,13 +63,9 @@ void GameObject::SetTexture(Texture& tex) {
 }
 
 
-
-void GameObject::SetUpdateFunction(void (*func)(GameObject& go)) {
-	UpdateFunc = func;
-}
-
 void GameObject::Update() {
-	if (UpdateFunc != nullptr) UpdateFunc(*this);
+	for (Component* c : components)
+		c->Update();
 }
 
 

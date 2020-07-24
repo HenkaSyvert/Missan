@@ -13,7 +13,7 @@
 // Missan includes
 #include "camera.hpp"
 #include "collider.hpp"
-#include "component.hpp"
+#include "components/component.hpp"
 #include "gameobject.hpp"
 #include "gui.hpp"
 #include "input.hpp"
@@ -24,5 +24,5 @@
 #include "shaderprogram.hpp"
 #include "texture.hpp"
 #include "time.hpp"
-#include "transform.hpp"
+#include "components/transform.hpp"
 #include "window.hpp"

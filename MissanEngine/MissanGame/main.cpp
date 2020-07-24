@@ -3,47 +3,13 @@
 #include "missan.hpp"
 
 #include "scripts/fpscam.hpp"
+#include "scripts/FloatScript.hpp"
 
 #include <iostream> // debug
 
 using namespace missan;
 
 bool moveCam = false;
-
-
-
-class FloatScript : public Component {
-
-private:
-    float amp = 1.0f;
-    float freq = 5.0f;
-
-public:
-    void Update() override {
-
-        Transform& trans = gameObject_ptr->GetTransform();
-
-        trans.position.y = amp * sinf(freq * Time::time);
-    }
-
-};
-
-
-
-// Scripts
-void SinusFloat(GameObject& go) {
-
-    float amp = 1.0f;
-    float freq = 5.0f;
-
-    Transform& trans = go.GetTransform();
-    float t = Time::time;
-
-    float sine = amp * sinf(freq * t);
-    trans.position.y = sine;
-
-}
-
 
 
 // MAPS
@@ -69,23 +35,19 @@ void RenderScene(Renderer& renderer, Scene& scene) {
     renderer.Prepare();
     renderer.Render(scene);
     if (renderColliders) {
-        for (auto* g : scene.GetGameObjects()) {
+        for (auto* g : scene.gameObjects) {
             if (g->GetCollider().IsEnabled())
                 renderer.RenderCollider(g->GetCollider());
         }
     }
 }
 
-void RunScripts(Scene& scene) {
-    for (GameObject* go : scene.GetGameObjects())
-        go->Update();
-}
 
 void CheckCollisions(Scene& scene) {
-    for (auto* a : scene.GetGameObjects()) {
+    for (auto* a : scene.gameObjects) {
         Collider& ca = a->GetCollider();
 
-        for (auto* b : scene.GetGameObjects()) {
+        for (auto* b : scene.gameObjects) {
             if (a == b) continue;
             Collider& cb = b->GetCollider();
 
@@ -124,7 +86,6 @@ int main(){
     // 10x2 wall
     GameObject wallprefab(unitPlane, brickTexture);
     wallprefab.GetTransform().scale = { 10,2,1 };
-    //wallprefab.SetUpdateFunction(SinusFloat);
     wallprefab.AddComponent<FloatScript>();
     
     // 10x10 floor
@@ -140,7 +101,6 @@ int main(){
     // No idea why, but camera MUST be instantiated last..
     GameObject camGO;
     GameObject& ref = scene.Instantiate(camGO);
-    //ref.SetUpdateFunction(FPSCamera);
     ref.AddComponent<FPSCamera>();
     ref.GetComponent<FPSCamera>()->moveCam = &moveCam;
     camera.BindToTransform(ref.GetTransform());
@@ -149,11 +109,10 @@ int main(){
     
 
 
-    gui.SetSelectedGO(*scene.GetGameObjects()[0]);
+    gui.SetSelectedGO(*scene.gameObjects[0]);
     float keyCoolDown = 0.2f, keyTimer = 0;
     bool afterCoolDown = true;
     
-
 
     while (!glfwWindowShouldClose(window.GetHandle())) {
         Time::Update();
@@ -176,13 +135,9 @@ int main(){
         
         
         RenderScene(renderer, scene);
-        RunScripts(scene);
         
-        for (GameObject* g: scene.GetGameObjects()) {
-            for (Component* c : g->components) {
-                c->Update();
-            }
-        }
+        scene.Update();
+        
 
         CheckCollisions(scene);
            

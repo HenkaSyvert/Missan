@@ -81,9 +81,6 @@
     <ClCompile Include="source\time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MissanGame\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1437,10 +1434,16 @@
     <ClInclude Include="include\time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\component.hpp">
+    <ClInclude Include="MissanGame\scripts\fpscam.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MissanGame\scripts\fpscam.hpp">
+    <ClInclude Include="MissanGame\scripts\FloatScript.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\components\component.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\clonable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

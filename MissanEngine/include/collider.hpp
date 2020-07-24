@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "transform.hpp"
+#include "components/transform.hpp"
 #include "mesh.hpp"
 
 #include <vector>
@@ -12,7 +12,7 @@ namespace missan {
 	class Collider {
 
 	private:
-		Transform* transform_ptr = nullptr;
+		class Transform* transform_ptr = nullptr;
 		Mesh* mesh_ptr = nullptr;
 		bool isEnabled = false;
 

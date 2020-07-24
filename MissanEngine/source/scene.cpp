@@ -1,19 +1,21 @@
 #include "scene.hpp"
 
-#include "component.hpp"
+#include "components/component.hpp"
 
 using namespace missan;
 
 // PUBLIC
+Scene::~Scene() {
+    for (GameObject* g : gameObjects_)
+        delete g;
+}
 
 GameObject& Scene::Instantiate(GameObject& prefab) {
-    gameObjects.push_back(new GameObject(prefab));
-    for (Component* c : gameObjects.back()->components)
-        c->gameObject_ptr = gameObjects.back();
+    gameObjects_.push_back(new GameObject(prefab));
     return *gameObjects.back();
 }
 
-std::vector<GameObject*>& Scene::GetGameObjects() {
-    return gameObjects;
+void Scene::Update() {
+    for (GameObject* g : gameObjects_)
+        g->Update();
 }
-
