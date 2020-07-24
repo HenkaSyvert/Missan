@@ -2,13 +2,31 @@
 
 #include <vector>
 #include <iostream>
-
-#include "loader.hpp"
+#include <fstream>
 
 using namespace missan;
 
 // PRIVATE
-void ShaderProgram::PrintGLErrorMsg(GLuint id) {
+std::string LoadShader(const std::string& filename) {
+
+	std::string shaderDirectory = "resources/shaders/";
+
+	std::string filePath = shaderDirectory + filename;
+	std::fstream input(filePath);
+
+	if (!input.is_open()) {
+		std::cout << "error: could not open \"" << filePath << "\"\n";
+		exit(EXIT_FAILURE);
+	}
+
+	std::string str;
+	while (input.peek() != EOF)
+		str += input.get();
+
+	return str;
+}
+
+void PrintGLErrorMsg(GLuint id) {
 	int maxLength;
 	glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
 
@@ -18,9 +36,9 @@ void ShaderProgram::PrintGLErrorMsg(GLuint id) {
 	std::cout << std::string(infoLog.data()) << std::endl;
 }
 
-GLuint ShaderProgram::CompileShader(GLuint shaderType, const std::string& shaderCode) {
+GLuint CompileShader(GLuint shaderType, const std::string& shaderSourceCode) {
 	GLuint shader = glCreateShader(shaderType);
-	const char* source = shaderCode.c_str();
+	const char* source = shaderSourceCode.c_str();
 	glShaderSource(shader, 1, &source, nullptr);
 
 	glCompileShader(shader);
@@ -36,25 +54,25 @@ GLuint ShaderProgram::CompileShader(GLuint shaderType, const std::string& shader
 	return shader;
 }
 
-GLint ShaderProgram::GetUniformLocation(const std::string& name) const{
-	GLint location = glGetUniformLocation(programID, name.c_str());
-	if (location == -1) std::cout << "couldn't find uniform \"" << name << "\"\n";
+GLint ShaderProgram::GetUniformLocation(const std::string& uniformVariableName) const{
+	GLint location = glGetUniformLocation(programID, uniformVariableName.c_str());
+	if (location == -1) std::cout << "shader error: could not find uniform variable \"" << uniformVariableName << "\"\n";
 	return location;
 }
 
 
 
 // PUBLIC
-ShaderProgram::ShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) {
+ShaderProgram::ShaderProgram(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
 	programID = glCreateProgram();
 	GLuint vertexShader, fragmentShader;
 	
-	std::string vertexCode = Loader::LoadShader(vertexPath);
-	vertexShader = CompileShader(GL_VERTEX_SHADER, vertexCode);
+	std::string vertexSourceCode = LoadShader(vertexShaderFilePath);
+	vertexShader = CompileShader(GL_VERTEX_SHADER, vertexSourceCode);
 	glAttachShader(programID, vertexShader);
 
-	std::string fragmentCode = Loader::LoadShader(fragmentPath);
-	fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentCode);
+	std::string fragmentSourceCode = LoadShader(fragmentShaderFilePath);
+	fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentSourceCode);
 	glAttachShader(programID, fragmentShader);
 
 	glLinkProgram(programID);
@@ -76,65 +94,67 @@ ShaderProgram::ShaderProgram(const std::string& vertexPath, const std::string& f
 
 }
 
-void ShaderProgram::Use() {
+void ShaderProgram::Use() const {
 	glUseProgram(programID);
 }
 
 
 
 
-// UNIFORM ACCESS
-void ShaderProgram::SetInt(const std::string& name, int value) const {
-	auto location = GetUniformLocation(name);
+// UNIFORM VARIABLE SETTER FUNCTIONS
+void ShaderProgram::SetInt(const std::string& uniformVariableName, int value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform1i(location, value);
 }
 
-void ShaderProgram::SetFloat(const std::string& name, float value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetFloat(const std::string& uniformVariableName, float value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform1f(location, value);
 }
 
-void ShaderProgram::SetBool(const std::string& name, bool value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetBool(const std::string& uniformVariableName, bool value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform1i(location, (int)value);
 }
 
 
 
-void ShaderProgram::SetVec3(const std::string& name, glm::vec3& value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetVec3(const std::string& uniformVariableName, const glm::vec3& value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform3fv(location, 1, &value[0]);
 }
 
-void ShaderProgram::SetVec3(const std::string& name, float x, float y, float z) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetVec3(const std::string& uniformVariableName, float x, float y, float z) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform3f(location, x, y, z);
 }
 
-void ShaderProgram::SetVec4(const std::string& name, const glm::vec4& value) const {
-	auto location = GetUniformLocation(name);
+
+
+void ShaderProgram::SetVec4(const std::string& uniformVariableName, const glm::vec4& value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform4fv(location, 1, &value[0]);
 }
 
-void ShaderProgram::SetVec4(const std::string& name, float x, float y, float z, float w) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetVec4(const std::string& uniformVariableName, float x, float y, float z, float w) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform4f(location, x, y, z, w);
 }
 
 
 
-void ShaderProgram::SetMat2(const std::string& name, const glm::mat2& value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetMat2(const std::string& uniformVariableName, const glm::mat2& value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniformMatrix2fv(location, 1, GL_FALSE, &value[0][0]);
 }
 
-void ShaderProgram::SetMat3(const std::string& name, const glm::mat3& value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetMat3(const std::string& uniformVariableName, const glm::mat3& value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniformMatrix3fv(location, 1, GL_FALSE, &value[0][0]);
 }
 
-void ShaderProgram::SetMat4(const std::string& name, const glm::mat4& value) const {
-	auto location = GetUniformLocation(name);
+void ShaderProgram::SetMat4(const std::string& uniformVariableName, const glm::mat4& value) const {
+	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }
 

@@ -10,13 +10,15 @@ namespace missan {
 
 	class Scene {
 
+		// TODO, cleanup gameobjects memory
+
 	public:
-        std::vector<GameObject> gameObjects;
+        std::vector<GameObject*> gameObjects;
 
 	public:
         GameObject& Instantiate(GameObject& prefab);
 
-		std::vector<GameObject>& GetGameObjects();
+		std::vector<GameObject*>& GetGameObjects();
 
 	};
 

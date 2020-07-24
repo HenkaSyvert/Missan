@@ -3,29 +3,25 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <string>
 #include <vector>
 
 namespace missan {
 
     class Mesh {
 
-    private:
-        GLuint vaoID = 0;
-        std::vector<float> vertices;
-        std::vector<unsigned int> indices;
+    public:
+        const GLuint vaoID = 0;
+        const std::vector<float> vertices;
+        const std::vector<unsigned int> indices;
+        const std::string fileName;
 
     public:
-        Mesh(
-            GLuint id, 
-            const std::vector<float>& vertices,
-            const std::vector<unsigned int> indices);
+        Mesh(GLuint newVaoID, 
+            const std::string& newFileName,
+            const std::vector<float>& newVertices,
+            const std::vector<unsigned int> newIndices);
 
-        GLuint GetVaoID();
-
-        // currently these just return copies.
-        // runtime modified meshes not supported yet
-        std::vector<float> GetVertices();
-        std::vector<unsigned int> GetIndices();
 
     };
 

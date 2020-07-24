@@ -14,6 +14,12 @@ GameObject::GameObject(Mesh& mesh, Texture& texture)
 	SetTexture(texture);
 }
 
+// deep copy function to copy components
+GameObject::GameObject(GameObject& copy) {
+
+}
+
+
 
 
 Transform& GameObject::GetTransform() {
@@ -42,12 +48,12 @@ void GameObject::SetTexture(Texture& tex) {
 
 
 
-void GameObject::SetUpdateFunction(void (*func)(GameObject& go, Input& input)) {
+void GameObject::SetUpdateFunction(void (*func)(GameObject& go)) {
 	UpdateFunc = func;
 }
 
-void GameObject::Update(Input& input) {
-	if (UpdateFunc != nullptr) UpdateFunc(*this, input);
+void GameObject::Update() {
+	if (UpdateFunc != nullptr) UpdateFunc(*this);
 }
 
 
@@ -55,3 +61,5 @@ void GameObject::Update(Input& input) {
 Collider& GameObject::GetCollider() {
 	return collider;
 }
+
+

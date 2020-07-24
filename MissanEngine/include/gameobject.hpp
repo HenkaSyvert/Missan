@@ -9,9 +9,15 @@
 #include "input.hpp"
 #include "collider.hpp"
 
+#include <vector>
+#include <typeinfo>
+#include "component.hpp"
+
 namespace missan {
 
 	class GameObject {
+
+		// TODO, cleanup component memory allocation
 
 	private:
 		Transform transform;
@@ -19,11 +25,13 @@ namespace missan {
 		Texture* texture_ptr = nullptr;		
 		Collider collider;
 
-		void (*UpdateFunc)(GameObject& go, Input& input) = nullptr;
+		void (*UpdateFunc)(GameObject& go) = nullptr;
+
 
 	public:
 		GameObject();
 		GameObject(Mesh& mesh, Texture& texture);
+		GameObject(GameObject& copy);
 
 		Transform& GetTransform();
 		
@@ -33,10 +41,27 @@ namespace missan {
 		Texture& GetTexture();
 		void SetTexture(Texture& texture);
 
-		void SetUpdateFunction(void (*func)(GameObject& go, Input& input));
-		void Update(Input& input);
+		void SetUpdateFunction(void (*func)(GameObject& go));
+		void Update();
 
 		Collider& GetCollider();
+
+
+		// component stuff
+		std::vector<class Component*> components;
+		template <class T> 
+		void AddComponent() {
+			components.push_back(new T());
+			components.back()->gameObject_ptr = this;
+		}
+		template <class T>
+		T* GetComponent() {
+			for (Component* c : components)
+				if (typeid(T) == typeid(*c))
+					return (T*)c;
+			return nullptr;
+		}
+
 
 	};
 

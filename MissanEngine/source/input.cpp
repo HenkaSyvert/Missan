@@ -1,14 +1,27 @@
 #include "input.hpp"
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 
 using namespace missan;
 
+namespace {
+
+	Window* window_ptr = nullptr;
+	glm::dvec2 mousePosition_;
+	glm::dvec2 mouseDelta_;
+
+}
 
 // PUBLIC
-Input::Input(Window& window) {
-	window_ptr = &window;
-	glfwGetCursorPos(window_ptr->GetHandle(), &mousePos.x, &mousePos.y);
-	Update();
+const glm::dvec2& Input::mousePosition = mousePosition_;
+const glm::dvec2& Input::mouseDelta    = mouseDelta_;
+
+void Input::Initialize(Window& windowHandle) {
+	window_ptr = &windowHandle;
+	glfwGetCursorPos(window_ptr->GetHandle(), &mousePosition_.x, &mousePosition_.y);
+	Input::Update();
 }
 
 bool Input::IsKeyPressed(int keycode) {
@@ -17,31 +30,9 @@ bool Input::IsKeyPressed(int keycode) {
 }
 
 void Input::Update() {
-	deltaTime = glfwGetTime() - time;
-	time = glfwGetTime();
-	glm::dvec2 old = mousePos;
-	glfwGetCursorPos(window_ptr->GetHandle(), &mousePos.x, &mousePos.y);
-	mouseDelta = mousePos - old;
+	glm::dvec2 old = mousePosition_;
+	glfwGetCursorPos(window_ptr->GetHandle(), &mousePosition_.x, &mousePosition_.y);
+	mouseDelta_ = mousePosition_ - old;
 	glfwPollEvents();
-}
-
-
-
-glm::dvec2 Input::GetMousePos() {
-	return mousePos;
-}
-
-glm::dvec2 Input::GetMouseDelta() {
-	return mouseDelta;
-}
-
-
-
-double Input::GetTime() {
-	return time;
-}
-
-double Input::GetDeltaTime() {
-	return deltaTime;
 }
 

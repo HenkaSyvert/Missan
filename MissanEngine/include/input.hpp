@@ -1,36 +1,21 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include "window.hpp"
 
 namespace missan {
 
-	class Input {
-	private:
-		Window* window_ptr = nullptr;
+	namespace Input {
 
-		glm::dvec2 mousePos;
-		glm::dvec2 mouseDelta = glm::dvec2(0, 0);
-
-		double time		 = 0; 
-		double deltaTime = 0;
-
-	public:
-		Input(Window& window);
+		extern const glm::dvec2& mousePosition;
+		extern const glm::dvec2& mouseDelta;
 		bool IsKeyPressed(int keycode);
+
+		// not part of public API
+		void Initialize(Window& windowHandle);
 		void Update();
-
-		glm::dvec2 GetMousePos();
-		glm::dvec2 GetMouseDelta();
-
-		double GetTime();
-		double GetDeltaTime();
-
 		
-
-	};
+	}
 
 }

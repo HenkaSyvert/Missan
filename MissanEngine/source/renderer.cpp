@@ -39,9 +39,9 @@ void Renderer::RenderCollider(Collider& collider) {
 	shader_ptr->SetMat4("u_proj", projMat);
 
 
-	glBindVertexArray(mesh.GetVaoID());
+	glBindVertexArray(mesh.vaoID);
 	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, mesh.GetVertices().size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh.vertices.size(), GL_UNSIGNED_INT, 0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -71,10 +71,10 @@ void Renderer::Render(GameObject& go) {
 	shader_ptr->SetInt("u_texture", 0);
 	texture.Bind();
 
-	glBindVertexArray(mesh.GetVaoID());
+	glBindVertexArray(mesh.vaoID);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glDrawElements(GL_TRIANGLES, mesh.GetVertices().size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh.vertices.size(), GL_UNSIGNED_INT, 0);
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -83,8 +83,8 @@ void Renderer::Render(GameObject& go) {
 	glBindVertexArray(0);	
 }
 
-void Renderer::Render(std::vector<GameObject>& gos) {
-	for (GameObject& go : gos) Render(go);
+void Renderer::Render(std::vector<GameObject*>& gos) {
+	for (GameObject* go : gos) Render(*go);
 }
 
 void Renderer::Render(Scene& scene) {

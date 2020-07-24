@@ -89,16 +89,18 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
+    <ClCompile Include="source\component.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\input.cpp" />
-    <ClCompile Include="source\loader.cpp" />
-    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\resources.cpp" />
+    <ClCompile Include="MissanGame\main.cpp" />
     <ClCompile Include="source\mesh.cpp" />
     <ClCompile Include="source\renderer.cpp" />
     <ClCompile Include="source\scene.cpp" />
     <ClCompile Include="source\shaderprogram.cpp" />
     <ClCompile Include="source\texture.cpp" />
+    <ClCompile Include="source\time.cpp" />
     <ClCompile Include="source\transform.cpp" />
     <ClCompile Include="source\window.cpp" />
   </ItemGroup>
@@ -542,17 +544,21 @@
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\collider.hpp" />
+    <ClInclude Include="include\component.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\loader.h" />
     <ClInclude Include="include\mesh.h" />
+    <ClInclude Include="include\missan.hpp" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\texture.h" />
+    <ClInclude Include="include\time.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\window.h" />
+    <ClInclude Include="MissanGame\scripts\fpscam.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

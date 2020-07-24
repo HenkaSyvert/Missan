@@ -13,7 +13,7 @@ Transform& Collider::GetTransform() {
 std::vector<glm::vec3> Collider::GetTranslatedVertices() {
 
 	std::vector<glm::vec3> translatedVertices;
-	std::vector<float> v = mesh_ptr->GetVertices();
+	std::vector<float> v = mesh_ptr->vertices;
 	Transform& transform = *transform_ptr;
 	glm::mat4 mat = transform.GetMatrix();
 
@@ -44,12 +44,12 @@ bool Collider::OverlapsWith(Collider& other) {
 	std::vector<glm::vec3> normals;
 
 	// get normals for A
-	auto aInds = mesh_ptr->GetIndices();
+	auto aInds = mesh_ptr->indices;
 	std::vector<glm::vec3> newNormals = CalcNormals(va, aInds);
 	normals.insert(normals.end(), newNormals.begin(), newNormals.end());
 	
 	// normals for B
-	auto bInds = other.GetMesh().GetIndices();
+	auto bInds = other.GetMesh().indices;
 	newNormals = CalcNormals(vb, bInds);
 	normals.insert(normals.end(), newNormals.begin(), newNormals.end());
 
