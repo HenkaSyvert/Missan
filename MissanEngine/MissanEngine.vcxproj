@@ -91,6 +91,7 @@
     <ClCompile Include="source\collider.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
+    <ClCompile Include="source\graphics.cpp" />
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\physics.cpp" />

@@ -1,12 +1,13 @@
 #include "renderer.hpp"
 
+#include "graphics.hpp"
+
 #include <iostream>
 
 using namespace missan;
 
 // PUBLIC
-Renderer::Renderer(ShaderProgram& shader, Camera& camera) {
-	shader_ptr = &shader;
+Renderer::Renderer(Camera& camera) {
 	camera_ptr = &camera;
 }
 
@@ -20,34 +21,6 @@ void Renderer::SetClearColor(glm::vec4 color) {
 	clearColor = color;
 }
 
-void Renderer::RenderCollider(Collider& collider) {
-
-	Mesh& mesh = collider.GetMesh();
-	if (&mesh == nullptr) return;
-
-	glColor3ub(0, 255, 0);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
-
-	shader_ptr->Use();
-
-	glm::mat4 transMat = collider.GetTransform().GetMatrix();
-	shader_ptr->SetMat4("u_model", transMat);
-	glm::mat4 view = camera_ptr->GetViewMatrix();
-	shader_ptr->SetMat4("u_view", view);
-	glm::mat4 projMat = camera_ptr->GetProjectionMatrix();
-	shader_ptr->SetMat4("u_proj", projMat);
-
-
-	glBindVertexArray(mesh.vaoID);
-	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, mesh.vertices.size(), GL_UNSIGNED_INT, 0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisableVertexAttribArray(0);
-	glBindVertexArray(0);
-}
 
 void Renderer::Render(GameObject& go) {
 
@@ -59,16 +32,20 @@ void Renderer::Render(GameObject& go) {
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	shader_ptr->Use();
+	ShaderProgram& shader = Graphics::GetStandardShader();
+
+	shader.Use();
+
+	
 
 	glm::mat4 transMat = go.GetTransform().GetMatrix();
-	shader_ptr->SetMat4("u_model", transMat);
+	shader.SetMat4("u_model", transMat);
 	glm::mat4 view = camera_ptr->GetViewMatrix();
-	shader_ptr->SetMat4("u_view", view);
+	shader.SetMat4("u_view", view);
 	glm::mat4 projMat = camera_ptr->GetProjectionMatrix();
-	shader_ptr->SetMat4("u_proj", projMat);
+	shader.SetMat4("u_proj", projMat);
 
-	shader_ptr->SetInt("u_texture", 0);
+	shader.SetInt("u_texture", 0);
 	texture.Bind();
 
 	glBindVertexArray(mesh.vaoID);
@@ -93,9 +70,6 @@ void Renderer::Render(Scene& scene) {
 
 
 
-void Renderer::SetShader(ShaderProgram& shader) {
-	shader_ptr = &shader;
-}
 
 void Renderer::SetCamera(Camera& camera) {
 	camera_ptr = &camera;

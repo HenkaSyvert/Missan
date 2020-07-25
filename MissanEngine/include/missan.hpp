@@ -27,6 +27,8 @@
 #include "mesh.hpp"
 #include "renderer.hpp"
 #include "resources.hpp"
+#include "graphics.hpp"
+#include "physics.hpp"
 #include "scene.hpp"
 #include "shaderprogram.hpp"
 #include "texture.hpp"

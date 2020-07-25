@@ -6,8 +6,10 @@
 #include "resources.hpp"
 #include "gui.hpp"
 #include "gameobject.hpp"
+#include "graphics.hpp"
 
 #include <vector>
+#include <iostream>
 
 using namespace missan;
 
@@ -24,7 +26,9 @@ void Engine::Initialize() {
 	Window::Initialize(960, 720, "Missan 3D");
 	Input::Initialize();
 	Resources::Initialize();
+	Graphics::Initialize();
 	GUI::Initialize();
+	
 
 }
 

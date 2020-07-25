@@ -20,12 +20,11 @@ namespace missan {
 
     private:
         Camera* camera_ptr = nullptr;
-        ShaderProgram* shader_ptr = nullptr;
 
         glm::vec4 clearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 
     public:
-        Renderer(ShaderProgram& shader, Camera& camera);
+        Renderer(Camera& camera);
 
         void Prepare();
         void SetClearColor(glm::vec4 color);
@@ -36,7 +35,6 @@ namespace missan {
         void RenderCollider(Collider& collider);
 
         void SetCamera(Camera& camera);
-        void SetShader(ShaderProgram& shader);
 
     };
 

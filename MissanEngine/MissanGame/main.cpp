@@ -65,18 +65,6 @@ Scene* StandardMap(Camera& camera) {
 }
 
 
-// MAIN LOOP STUFF
-bool renderColliders = true;
-void RenderScene(Renderer& renderer, Scene& scene) {
-    renderer.Prepare();
-    renderer.Render(scene);
-    if (renderColliders) {
-        for (auto* g : scene.gameObjects) {
-            if (g->GetCollider().IsEnabled())
-                renderer.RenderCollider(g->GetCollider());
-        }
-    }
-}
 
 /*
 void CheckCollisions(Scene& scene) {
@@ -101,9 +89,11 @@ int main(){
     
     Engine::Initialize();
 
-    ShaderProgram standardShader("standard.vs", "standard.fs");
+    
+
     Camera camera;
-    Renderer renderer(standardShader, camera);
+    
+    Renderer renderer(camera);
 
 
 
@@ -111,11 +101,12 @@ int main(){
     Engine::SetActiveScene(scene);
 
     
-
     while (!glfwWindowShouldClose(Window::GetHandle())) {
         
         
-        RenderScene(renderer, scene);
+        
+        renderer.Prepare();
+        renderer.Render(scene);
         
         Engine::Run();
         
