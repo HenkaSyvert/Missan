@@ -20,7 +20,9 @@ namespace missan {
 		void AttachToGameObject(GameObject& gameObject) { gameObject_ptr = &gameObject; };
 		inline class GameObject& GetGameObject() { return *gameObject_ptr; }
 
-		virtual void Update() = 0;
+		virtual void Update() {}
+		virtual void LateUpdate() {}
+		virtual void OnGUI(){}
 
 	};
 

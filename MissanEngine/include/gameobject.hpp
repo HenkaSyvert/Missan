@@ -40,13 +40,17 @@ namespace missan {
 
 		Texture& GetTexture() const;
 		void SetTexture(Texture& texture);
-		void Update();
 
 		Collider& GetCollider();
 
 
 		// component stuff
+	private:
 		std::vector<class Component*> components;
+	public:
+
+		std::vector<class Component*>& GetComponents();
+
 		template <class T> 
 		void AddComponent() {
 			components.push_back(new T());

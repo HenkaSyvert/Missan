@@ -16,7 +16,7 @@ public:
 
     FloatScript* Clone() const { return new FloatScript(*this); }   // necessary for deep-cloning
 
-    void Update() override {
+    void Update() {
 
         Transform& trans = GetGameObject().GetTransform();
 

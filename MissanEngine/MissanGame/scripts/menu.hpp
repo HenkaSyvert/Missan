@@ -61,15 +61,16 @@ private:
         case GAME_OBJECT:   GameObjectMenu();   break;
         default:                                break;
         }
+        ImGui::End();
     }
 
 
 public:
     Menu* Clone() const { return new Menu(*this); }   // necessary for deep-cloning
 
-	void Update() {
-        GUI::Submit(MainMenu);
-	}
+    void OnGUI() {
+        MainMenu();
+    }
 
 
 

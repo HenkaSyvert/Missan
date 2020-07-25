@@ -63,9 +63,8 @@ void GameObject::SetTexture(Texture& tex) {
 }
 
 
-void GameObject::Update() {
-	for (Component* c : components)
-		c->Update();
+std::vector<Component*>& GameObject::GetComponents() {
+	return components;
 }
 
 

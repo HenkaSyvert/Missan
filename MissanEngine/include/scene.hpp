@@ -12,17 +12,14 @@ namespace missan {
 
 		// TODO, cleanup gameobjects memory
 
-	private:
-		std::vector<GameObject*> gameObjects_;
+	public:
+		std::vector<GameObject*> gameObjects;
 
 	public:
 		~Scene();
 
 		GameObject& Instantiate(GameObject& prefab);
-		const std::vector<GameObject*>& gameObjects = gameObjects_;
 
-
-		void Update();
 
 	};
 

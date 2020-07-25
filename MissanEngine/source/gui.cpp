@@ -13,7 +13,6 @@ using namespace missan;
 // PRIVATE
 namespace {
 
-    std::vector<void (*)()> submittedFunctions;
 
 }
 
@@ -29,21 +28,15 @@ void GUI::Initialize() {
     ImGui_ImplOpenGL3_Init(NULL);
 }
 
-void GUI::Run() {
+void GUI::Begin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-
-    // call the user-made function
-    for (void (*func)() : submittedFunctions)
-        func();
- 
-    ImGui::End();
+}
+    
+void GUI::End(){
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-    // should this be done every frame?..
-    submittedFunctions.clear();
 }
 
 void GUI::Terminate() {
@@ -52,6 +45,4 @@ void GUI::Terminate() {
     ImGui::DestroyContext();
 }
 
-void GUI::Submit(void (*func)()) {
-    submittedFunctions.push_back(func);
-}
+

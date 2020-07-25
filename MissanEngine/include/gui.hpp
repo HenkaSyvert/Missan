@@ -9,12 +9,13 @@ namespace missan {
 
 	namespace GUI {
 		
+
+		// none of this should probably be public
 		void Initialize();
-		void Run();
+		void Begin();		// called by Engine BEFORE all user-made calls
+		void End();			// called by Engine AFTER all user-made calls
 		void Terminate();
 
-		// submit function to be called in GUI::Run()
-		void Submit(void (*func)());
 		
 	}
 

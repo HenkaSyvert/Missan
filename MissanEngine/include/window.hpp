@@ -9,7 +9,7 @@ namespace missan {
 
 	namespace Window {
 	
-		// todo, add resize and fullscreen
+		// todo, add resize and fullscreen, Initialize should not be public
 		
 		extern const int& width;
 		extern const int& height;
