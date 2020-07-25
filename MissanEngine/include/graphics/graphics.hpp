@@ -1,26 +1,30 @@
 #pragma once
 
-#include "mesh.hpp"
-#include "shaderprogram.hpp"
+#include "components/camera.hpp"// maybe temp
+#include "shaderprogram.hpp"	// temp
 #include "gameobject.hpp"		//temp
-#include "components/camera.hpp"
 #include "components/renderer.hpp"
 
 
 namespace missan {
 
-	class Renderer;
-
+	// should this even be public?
 	namespace Graphics {
 
-		void Initialize();
+		// maybe make static member of ShaderProgram?..
 		ShaderProgram& GetStandardShader();
 
-		void Prepare();
+		// should this be public?..
 		void Draw(Renderer* renderer);
 
 		// temp until several cams are supported
 		void SetCamera(Camera& camera);
+
+
+
+		// NOT PART OF PUBLIC API ///////////////////////////
+		void Initialize();
+		void Prepare();
 	}
 
 }

@@ -1,7 +1,6 @@
 #include "core/time.hpp"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "missanpch.hpp"
 
 using namespace missan;
 

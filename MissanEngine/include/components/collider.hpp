@@ -1,11 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
+#include "missanpch.hpp"
 #include "components/transform.hpp"
 #include "graphics/mesh.hpp"
 
-#include <vector>
 
 namespace missan {
 

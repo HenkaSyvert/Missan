@@ -1,25 +1,23 @@
 #pragma once
 
-#include <vector>
-
-#include <glm/glm.hpp>
-
+#include "missanpch.hpp"
 #include "gameobject.hpp"
 
 namespace missan {
 
+	// Holds instaniated GameObjects
 	class Scene {
 
-		// TODO, cleanup gameobjects memory
-
 	public:
+
+		// The GameObjects in the Scene
 		std::vector<GameObject*> gameObjects;
 
-	public:
+		// Deletes all contained GameObjects
 		~Scene();
 
+		// Adds a new GameObject to the Scene, a copy of prefab
 		GameObject& Instantiate(GameObject& prefab);
-
 
 	};
 

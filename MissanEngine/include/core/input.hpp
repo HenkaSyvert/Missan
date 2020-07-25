@@ -1,18 +1,25 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
+#include "missanpch.hpp"
 #include "window.hpp"
 
 namespace missan {
 
+	// Interface to Input system
 	namespace Input {
 
+		// Current X and Y of mouse. Note that {0, 0} is in top-left corner
 		extern const glm::dvec2& mousePosition;
+
+		// Delta X and Y since last frame. Note that {0, 0} is in top-left corner
 		extern const glm::dvec2& mouseDelta;
+
+		// Is the key pressed?
 		bool IsKeyPressed(int keycode);
 
-		// not part of public API
+
+
+		// NOT PART OF PUBLIC API //////////////////////
 		void Initialize();
 		void Update();
 		

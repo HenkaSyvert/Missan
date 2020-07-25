@@ -5,25 +5,35 @@
 
 namespace missan {
 
-	// base class for all components
-	class Component : public IClonable {
+	// just a forward declaration
+	class GameObject;
 
-	private:
-		class GameObject* gameObject_ptr = nullptr;
+	// Components define behavior of GameObjects. To make a custom script, inherit from Component
+	class Component : public IClonable {
 		
 	public:
-		// IClonable interface
-		virtual ~Component() {};	// must have definition - empty body - since derived classes will call it
-		virtual Component* Clone() const = 0;
 
-		void AttachToGameObject(GameObject& gameObject) { gameObject_ptr = &gameObject; };
+		// Attaches this Component to gameObject
+		inline void AttachToGameObject(GameObject& gameObject) { gameObject_ptr = &gameObject; };
+
+		// Returns the GameObject this Component is attached to
 		inline class GameObject& GetGameObject() { return *gameObject_ptr; }
 
+
+
+		// NOT PART OF PUBLIC API //////////////////////////////////
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void LateUpdate() {}
 		virtual void OnGUI(){}
 		virtual void OnRender(){}
+		
+		// must have definition - empty body - since derived classes will call it
+		virtual ~Component() {};	
+		virtual Component* Clone() const = 0;
+
+	private:
+		GameObject* gameObject_ptr = nullptr;
 
 	};
 

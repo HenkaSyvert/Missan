@@ -1,11 +1,6 @@
 #include "core/gui.hpp"
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
-
-#include <vector>
-
+#include "missanpch.hpp"
 #include "core/window.hpp"
 
 using namespace missan;

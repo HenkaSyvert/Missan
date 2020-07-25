@@ -1,13 +1,5 @@
 #include "core/resources.hpp"
 
-#include <GL/glew.h>
-#include <glfw/glfw3.h>
-#include <stb/stb_image.h>
-
-#include <iostream>
-#include <fstream>
-#include <vector>
-
 using namespace missan;
 
 // PRIVATE

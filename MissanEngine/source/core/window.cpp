@@ -1,7 +1,5 @@
 #include "core/window.hpp"
 
-#include <iostream>
-
 using namespace missan;
 
 // PRIVATE

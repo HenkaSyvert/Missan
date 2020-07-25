@@ -1,39 +1,43 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
+#include "missanpch.hpp"
 #include "components/component.hpp"
 #include "core/window.hpp"
 
 namespace missan {
 
+	// Provides view- and projection matrices to transform GameObjects in Scene to screen space
 	class Camera : public Component {
-	public:
 	
+	public:
+		
+		// The field of view in degrees, i.e. how "wide" the Camera sees aroudn the y-axis
 		float fieldOfViewDeg = 45.0f;
+
+		// Objects closer to the Camera than this will be clipped, i.e. not rendered
 		float nearClipPlane	 = 0.1f;
+
+		// Objects farther away from the Camera than this will be clipped, i.e. not rendered
 		float farClipPlane	 = 100.0f;
+
+		// Screen Width divided by Height, also how "squeezed" the view is on the y-axis
 		float aspectRatio = Window::aspectRatio;
 
-		
+	
 
-	private:
-		glm::mat4 projectionMatrix;
-
-		// for Restore()
-		float fovOriginal;
-		float nearzOriginal;
-		float farzOriginal;
-		float aporiginal;
-
-	public:
-		Camera* Clone() const { return new Camera(*this); }   // necessary for deep-cloning
-
+		// Restores Camera default settings
 		void Restore();
 
+		// Returns the projection matrix
+		glm::mat4& GetProjectionMatrix();
+
+
+
+
+		// NOT PART OF PUBLIC API ////////////////////////////////////////////////
+		Camera* Clone() const { return new Camera(*this); }
+
 		void Start() {
-			// save defaults for Restore()
 			fovOriginal = fieldOfViewDeg;
 			nearzOriginal = nearClipPlane;
 			farzOriginal = farClipPlane;
@@ -44,7 +48,15 @@ namespace missan {
 			projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
 		}
 
-		glm::mat4& GetProjectionMatrix();
+
+	private:
+		glm::mat4 projectionMatrix;
+
+		float fovOriginal;
+		float nearzOriginal;
+		float farzOriginal;
+		float aporiginal;
+
 
 
 	};

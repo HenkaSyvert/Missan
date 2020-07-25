@@ -1,7 +1,5 @@
 #include "scene.hpp"
 
-#include "components/component.hpp"
-
 using namespace missan;
 
 // PUBLIC

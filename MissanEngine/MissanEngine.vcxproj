@@ -89,6 +89,7 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="source\components\camera.cpp" />
     <ClCompile Include="source\components\collider.cpp" />
+    <ClCompile Include="source\components\renderer.cpp" />
     <ClCompile Include="source\core\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
@@ -97,7 +98,7 @@
     <ClCompile Include="source\core\resources.cpp" />
     <ClCompile Include="MissanGame\main.cpp" />
     <ClCompile Include="source\graphics\mesh.cpp" />
-    <ClCompile Include="source\components\renderer.cpp" />
+    <ClCompile Include="source\missanpch.cpp" />
     <ClCompile Include="source\scene.cpp" />
     <ClCompile Include="source\graphics\shaderprogram.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
@@ -555,6 +556,7 @@
     <ClInclude Include="include\loader.h" />
     <ClInclude Include="include\mesh.h" />
     <ClInclude Include="include\missan.hpp" />
+    <ClInclude Include="include\missanpch.hpp" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />

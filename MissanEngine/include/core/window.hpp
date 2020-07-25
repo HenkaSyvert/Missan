@@ -1,24 +1,30 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <string>
+#include "missanpch.hpp"
 
 namespace missan {
 
+	// The Window used by the program
 	namespace Window {
 	
 		// todo, add resize and fullscreen, Initialize should not be public
 		
+		// In pixels
 		extern const int& width;
+
+		// In pixels
 		extern const int& height;
+
+		// Width divided by height
 		extern const float& aspectRatio;
 
-		void Initialize(int width, int height, const std::string& title);
+		// Set the cursor visible or not
 		void SetIsCursorVisible(bool isVisible);
 
-		// should probably be hidden sometime
+
+
+		// NOT PART OF PUBLIC API //////////////////////////
+		void Initialize(int width, int height, const std::string& title);
 		GLFWwindow* GetHandle();
 		
 	};

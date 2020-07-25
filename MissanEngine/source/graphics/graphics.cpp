@@ -1,8 +1,7 @@
 #include "graphics/graphics.hpp"
 
-#include <glm/glm.hpp>
-
-#include <iostream>
+#include "missanpch.hpp"
+#include "components/transform.hpp"
 
 using namespace missan;
 

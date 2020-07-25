@@ -22,6 +22,7 @@ public:
 
     void Update() {
         GetGameObject().GetComponent<Transform>()->position.y = yOriginal + amp * sinf(freq * Time::time);
+
     }
 
 };

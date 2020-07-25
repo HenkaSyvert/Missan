@@ -1,21 +1,35 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <string>
+#include "missanpch.hpp"
 
 namespace missan {
 
+	// 2D Texture
 	class Texture {
 	public:
-		const GLuint textureID = 0;
+		
+		// File name
 		const std::string fileName;
-		const int width = 0; 
-		const int height = 0; 
-		const int bitsPerPixel = 0;	// todo: make relevant
 
+		// In pixels
+		const int width = 0; 
+
+		// In pixels
+		const int height = 0; 
+
+		// todo: make relevant
+		const int bitsPerPixel = 0;	
+
+
+
+		// Creates new Texture
 		Texture(GLuint newTextureID, const std::string& newFileNameint, int w, int h, int bpp);
+		
+
+
+		// NOT PART OF PUBLIC API //////////////////////////
+		const GLuint textureID = 0;
+
 		void Bind(int textureSlot = 0);
 
 	};

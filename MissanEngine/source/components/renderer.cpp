@@ -2,13 +2,7 @@
 
 #include "graphics/graphics.hpp"
 
-#include <iostream>
-
 using namespace missan;
 
-// PUBLIC
-
-void Renderer::OnRender() {
-    Graphics::Draw(this);
-}
-
+// dont move this to renderer.hpp, it will creates circular include problems with graphics.hpp
+void Renderer::OnRender() { Graphics::Draw(this); }

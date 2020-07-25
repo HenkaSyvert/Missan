@@ -1,7 +1,5 @@
 #include "components/transform.hpp"
 
-#include <glm/gtc/matrix_transform.hpp> 
-
 using namespace missan;
 
 // PUBLIC

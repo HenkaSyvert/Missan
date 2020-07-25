@@ -1,32 +1,27 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
-#include <vector>
-
-#include "gameobject.hpp"
-#include "graphics/shaderprogram.hpp"
-#include "components/camera.hpp"
-#include "scene.hpp"
+#include "missanpch.hpp"
 #include "components/component.hpp"
 #include "graphics/texture.hpp"
-#include "graphics/graphics.hpp"
-
 #include "graphics/mesh.hpp"
-#include "components/collider.hpp"
 
 namespace missan {
 
+    // Renders GameObject with Mesh and Texture using its Transform
     class Renderer : public Component{
 
     public:
+
+        // Mesh to render
         Mesh* mesh_ptr = nullptr;
+
+        // Texture to render
         Texture* texture_ptr = nullptr;
 
-        Renderer* Clone() const { return new Renderer(*this); }   // necessary for deep-cloning
 
+
+        // NOT PART OF PUBLIC API //////////////////////////////////////////
+        Renderer* Clone() const { return new Renderer(*this); }   
         void OnRender();
 
     };
