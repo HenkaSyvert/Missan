@@ -2,6 +2,7 @@
 
 #include "window.hpp"
 #include "input.hpp"
+#include "time.hpp"
 #include "resources.hpp"
 #include "gui.hpp"
 #include "gameobject.hpp"
@@ -27,10 +28,31 @@ void Engine::Initialize() {
 
 }
 
+bool dummyFirstRun = true;	// temporary
+// startFunc
 void Engine::Run() {
+	Time::Update();
+
+
+	// PHYSICS
+
+
+
+	// INPUT
+	Input::Update();
+
+
+
+	// GAME LOGIC
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
-	
+
 	// temporary, this is horribly inefficient
+	if (dummyFirstRun) {
+		for (auto* g : gos)
+			for (auto* c : g->GetComponents())
+				c->Start();
+		dummyFirstRun = false;
+	}
 	for (auto* g : gos)
 		for (auto* c : g->GetComponents())
 			c->Update();
@@ -38,7 +60,16 @@ void Engine::Run() {
 		for (auto* c : g->GetComponents())
 			c->LateUpdate();
 
-	// OnGUI()
+
+
+	// RENDERING
+	for (auto* g : gos)
+		for (auto* c : g->GetComponents())
+			c->OnRender();
+
+
+
+	// GUI
 	GUI::Begin();
 	for (auto* g : gos)
 		for (auto* c : g->GetComponents())

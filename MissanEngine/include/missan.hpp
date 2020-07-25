@@ -13,6 +13,9 @@
 // temporary, gui library
 #include <imgui/imgui.h>
 
+// temporary, as logging to console
+#include <iostream>
+
 // Missan includes
 #include "camera.hpp"
 #include "collider.hpp"

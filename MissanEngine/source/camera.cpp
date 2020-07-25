@@ -6,7 +6,7 @@ using namespace missan;
 
 // PRIVATE
 void Camera::UpdateMatrix() {
-    projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearZ, farZ);
+    projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
 }
 
 
@@ -36,22 +36,22 @@ glm::mat4 Camera::GetViewMatrix() {
 
 
 float Camera::GetNearZ() {
-    return nearZ;
+    return nearClipPlane;
 }
 
 void Camera::SetNearZ(float z) {
-    nearZ = z;
+    nearClipPlane = z;
     UpdateMatrix();
 }
 
 
 
 float Camera::GetFarZ() {
-    return farZ;
+    return farClipPlane;
 }
 
 void Camera::SetFarZ(float z) {
-    farZ = z;
+    farClipPlane = z;
     UpdateMatrix();
 }
 

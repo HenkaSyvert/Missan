@@ -6,12 +6,8 @@
 #include "scripts/FloatScript.hpp"
 #include "scripts/menu.hpp"
 
-#include <iostream> // debug
-
 using namespace missan;
 
-// temporary, global gui variable
-bool moveCam = false;
 
 Scene* StandardMap(Camera& camera) {
 
@@ -61,13 +57,12 @@ Scene* StandardMap(Camera& camera) {
     GameObject camGO;
     GameObject& ref = scene.Instantiate(camGO);
     ref.AddComponent<FPSCamera>();
-    ref.GetComponent<FPSCamera>()->moveCam = &moveCam;
+    ref.GetComponent<FPSCamera>()->moveCam = &mm.GetComponent<Menu>()->moveCam;
     camera.BindToTransform(ref.GetTransform());
 
     return scene_ptr;
 
 }
-
 
 
 // MAIN LOOP STUFF
@@ -83,7 +78,7 @@ void RenderScene(Renderer& renderer, Scene& scene) {
     }
 }
 
-
+/*
 void CheckCollisions(Scene& scene) {
     for (auto* a : scene.gameObjects) {
         Collider& ca = a->GetCollider();
@@ -100,6 +95,7 @@ void CheckCollisions(Scene& scene) {
         }
     }
 }
+*/
 
 int main(){
     
@@ -114,42 +110,15 @@ int main(){
     Scene& scene = *StandardMap(camera);
     Engine::SetActiveScene(scene);
 
-
-    float keyCoolDown = 0.2f, keyTimer = 0;
-    bool afterCoolDown = true;
-
-    
     
 
     while (!glfwWindowShouldClose(Window::GetHandle())) {
-        Time::Update();
-        Input::Update();
-
-        
-        if (!afterCoolDown) {
-            keyTimer += Time::deltaTime;
-            if (keyTimer > keyCoolDown) {
-                afterCoolDown = true;
-                keyTimer = 0;
-            }
-        }
-
-        if (afterCoolDown && Input::IsKeyPressed(GLFW_KEY_E)) {
-            afterCoolDown = false;
-            moveCam = !moveCam;
-            Window::SetIsCursorVisible(!moveCam);
-        }
         
         
         RenderScene(renderer, scene);
         
         Engine::Run();
         
-
-        CheckCollisions(scene);
-           
-       
-        //GUI::Run();
 
         glfwSwapBuffers(Window::GetHandle());
     }

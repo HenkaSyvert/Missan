@@ -12,9 +12,9 @@ namespace missan {
 		Transform* transform_ptr = nullptr;
 	
 		float fieldOfViewDeg = 45.0f;
-		float nearZ			 = 0.1f;
-		float farZ			 = 100.0f;
-		float aspectRatio;
+		float nearClipPlane	 = 0.1f;
+		float farClipPlane	 = 100.0f;
+		float aspectRatio    = 0;
 
 		glm::mat4 projectionMatrix;
 
