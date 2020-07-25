@@ -7,15 +7,15 @@
 #include <vector>
 
 #include "gameobject.hpp"
-#include "shaderprogram.hpp"
-#include "camera.hpp"
+#include "graphics/shaderprogram.hpp"
+#include "components/camera.hpp"
 #include "scene.hpp"
 #include "components/component.hpp"
-#include "texture.hpp"
-#include "graphics.hpp"
+#include "graphics/texture.hpp"
+#include "graphics/graphics.hpp"
 
-#include "mesh.hpp"
-#include "collider.hpp"
+#include "graphics/mesh.hpp"
+#include "components/collider.hpp"
 
 namespace missan {
 

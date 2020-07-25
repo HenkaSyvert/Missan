@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "components/transform.hpp"
-#include "mesh.hpp"
+#include "graphics/mesh.hpp"
 
 #include <vector>
 

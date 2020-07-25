@@ -1,4 +1,4 @@
-#include "resources.hpp"
+#include "core/resources.hpp"
 
 #include <GL/glew.h>
 #include <glfw/glfw3.h>

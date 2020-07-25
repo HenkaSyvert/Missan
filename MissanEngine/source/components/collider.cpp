@@ -1,4 +1,4 @@
-#include "collider.hpp"
+#include "components/collider.hpp"
 
 
 using namespace missan;

@@ -1,12 +1,12 @@
-#include "engine.hpp"
+#include "core/engine.hpp"
 
-#include "window.hpp"
-#include "input.hpp"
-#include "time.hpp"
-#include "resources.hpp"
-#include "gui.hpp"
+#include "core/window.hpp"
+#include "core/input.hpp"
+#include "core/time.hpp"
+#include "core/resources.hpp"
+#include "core/gui.hpp"
 #include "gameobject.hpp"
-#include "graphics.hpp"
+#include "graphics/graphics.hpp"
 
 #include <vector>
 #include <iostream>

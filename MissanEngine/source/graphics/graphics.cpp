@@ -1,4 +1,4 @@
-#include "graphics.hpp"
+#include "graphics/graphics.hpp"
 
 #include <glm/glm.hpp>
 

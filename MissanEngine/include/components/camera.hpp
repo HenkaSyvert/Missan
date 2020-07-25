@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "components/component.hpp"
-#include "window.hpp"
+#include "core/window.hpp"
 
 namespace missan {
 

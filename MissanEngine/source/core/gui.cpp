@@ -1,4 +1,4 @@
-#include "gui.hpp"
+#include "core/gui.hpp"
 
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#include "window.hpp"
+#include "core/window.hpp"
 
 using namespace missan;
 

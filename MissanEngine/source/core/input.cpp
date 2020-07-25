@@ -1,4 +1,4 @@
-#include "input.hpp"
+#include "core/input.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

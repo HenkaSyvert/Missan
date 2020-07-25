@@ -3,8 +3,8 @@
 #include "mesh.hpp"
 #include "shaderprogram.hpp"
 #include "gameobject.hpp"		//temp
-#include "camera.hpp"
-#include "renderer.hpp"
+#include "components/camera.hpp"
+#include "components/renderer.hpp"
 
 
 namespace missan {
@@ -18,7 +18,9 @@ namespace missan {
 
 		void Prepare();
 		void Draw(Renderer* renderer);
-		void SetCamera(Camera& camera);		// temp
+
+		// temp until several cams are supported
+		void SetCamera(Camera& camera);
 	}
 
 }

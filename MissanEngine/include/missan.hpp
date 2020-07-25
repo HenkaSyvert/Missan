@@ -17,21 +17,26 @@
 #include <iostream>
 
 // Missan includes
-#include "camera.hpp"
-#include "collider.hpp"
-#include "engine.hpp"
+#include "components/camera.hpp"
+#include "components/collider.hpp"
 #include "components/component.hpp"
-#include "gameobject.hpp"
-#include "gui.hpp"
-#include "input.hpp"
-#include "mesh.hpp"
-#include "renderer.hpp"
-#include "resources.hpp"
-#include "graphics.hpp"
-#include "physics.hpp"
-#include "scene.hpp"
-#include "shaderprogram.hpp"
-#include "texture.hpp"
-#include "time.hpp"
+#include "components/renderer.hpp"
 #include "components/transform.hpp"
-#include "window.hpp"
+
+#include "core/engine.hpp"
+#include "core/gui.hpp"
+#include "core/input.hpp"
+#include "core/resources.hpp"
+#include "core/window.hpp"
+#include "core/time.hpp"
+
+#include "graphics/mesh.hpp"
+#include "graphics/graphics.hpp"
+#include "graphics/shaderprogram.hpp"
+#include "graphics/texture.hpp"
+
+#include "gameobject.hpp"
+#include "scene.hpp"
+
+
+

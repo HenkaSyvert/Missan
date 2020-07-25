@@ -1,6 +1,6 @@
-#include "renderer.hpp"
+#include "components/renderer.hpp"
 
-#include "graphics.hpp"
+#include "graphics/graphics.hpp"
 
 #include <iostream>
 

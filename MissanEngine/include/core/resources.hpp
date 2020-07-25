@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "mesh.hpp"
-#include "texture.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/texture.hpp"
 
 namespace missan {
 
