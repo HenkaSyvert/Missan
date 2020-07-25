@@ -10,31 +10,24 @@
 #include "shaderprogram.hpp"
 #include "camera.hpp"
 #include "scene.hpp"
+#include "components/component.hpp"
+#include "texture.hpp"
+#include "graphics.hpp"
 
 #include "mesh.hpp"
 #include "collider.hpp"
 
 namespace missan {
 
-    class Renderer {
-
-    private:
-        Camera* camera_ptr = nullptr;
-
-        glm::vec4 clearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+    class Renderer : public Component{
 
     public:
-        Renderer(Camera& camera);
+        Mesh* mesh_ptr = nullptr;
+        Texture* texture_ptr = nullptr;
 
-        void Prepare();
-        void SetClearColor(glm::vec4 color);
+        Renderer* Clone() const { return new Renderer(*this); }   // necessary for deep-cloning
 
-        void Render(GameObject& go);
-        void Render(const std::vector<GameObject*>& gos);
-        void Render(Scene& scene);
-        void RenderCollider(Collider& collider);
-
-        void SetCamera(Camera& camera);
+        void OnRender();
 
     };
 

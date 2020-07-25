@@ -6,7 +6,6 @@
 namespace missan {
 
 	// base class for all components
-
 	class Component : public IClonable {
 
 	private:

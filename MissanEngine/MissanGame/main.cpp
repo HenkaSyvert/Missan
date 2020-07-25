@@ -9,7 +9,7 @@
 using namespace missan;
 
 
-Scene* StandardMap(Camera& camera) {
+Scene* StandardMap() {
 
     Scene* scene_ptr = new Scene;
     Scene& scene = *scene_ptr;
@@ -27,38 +27,49 @@ Scene* StandardMap(Camera& camera) {
 
     // GAME OBJECTS
     // 10x2 wall
-    GameObject wallPrefab(unitPlane, brickTexture);
-    wallPrefab.GetTransform().scale = { 10,2,1 };
+    GameObject wallPrefab;
+    auto rend = wallPrefab.AddComponent<Renderer>();
+    rend->mesh_ptr = &unitPlane;
+    rend->texture_ptr = &brickTexture;
+    wallPrefab.GetComponent<Transform>()->scale = { 10,2,1 };
     wallPrefab.AddComponent<FloatScript>();
 
     // 10x10 floor
-    GameObject floorPrefab(unitPlane, stoneTexture);
-    floorPrefab.GetTransform().scale = { 10,10,1 };
-    floorPrefab.GetTransform().rotationDeg = { 90,0,0 };
+    GameObject floorPrefab;
+    auto rend2 = floorPrefab.AddComponent<Renderer>();
+    rend2->mesh_ptr = &unitPlane;
+    rend2->texture_ptr = &stoneTexture;
+    floorPrefab.GetComponent<Transform>()->scale = { 10,10,1 };
+    floorPrefab.GetComponent<Transform>()->rotationDeg = { 90,0,0 };
 
 
 
     // INSTANTIATIONS
     GameObject& ref1 = scene.Instantiate(floorPrefab);
-    ref1.GetTransform().position.y = -1;
+    ref1.GetComponent<Transform>()->position.y = -1;
     for (int i = 0; i < 3; i++) {
         GameObject& ref1 = scene.Instantiate(wallPrefab);
-        ref1.GetTransform().position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
-        ref1.GetTransform().rotationDeg = { 0,90 + 90 * i,0 };
+        ref1.GetComponent<Transform>()->position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
+        ref1.GetComponent<Transform>()->rotationDeg = { 0,90 + 90 * i,0 };
     }
 
-    GameObject menuManager;
-    GameObject& mm = scene.Instantiate(menuManager);
-    mm.AddComponent<Menu>();
-    mm.GetComponent<Menu>()->camera_ptr = &camera;
-    mm.GetComponent<Menu>()->selectedGO = scene.gameObjects[0];
+    
 
     // No idea why, but camera MUST be instantiated last..
     GameObject camGO;
     GameObject& ref = scene.Instantiate(camGO);
+    ref.AddComponent<Camera>();
+    Graphics::SetCamera(*ref.GetComponent<Camera>());
     ref.AddComponent<FPSCamera>();
+    
+
+    GameObject menuManager;
+    GameObject& mm = scene.Instantiate(menuManager);
+    mm.AddComponent<Menu>();
+    mm.GetComponent<Menu>()->camera_ptr = ref.GetComponent<Camera>();
+    mm.GetComponent<Menu>()->selectedGO = scene.gameObjects[0];
+
     ref.GetComponent<FPSCamera>()->moveCam = &mm.GetComponent<Menu>()->moveCam;
-    camera.BindToTransform(ref.GetTransform());
 
     return scene_ptr;
 
@@ -89,37 +100,13 @@ int main(){
     
     Engine::Initialize();
 
-    
-
-    Camera camera;
-    
-    Renderer renderer(camera);
-
-
-
-    Scene& scene = *StandardMap(camera);
+    Scene& scene = *StandardMap();
     Engine::SetActiveScene(scene);
 
-    
-    while (!glfwWindowShouldClose(Window::GetHandle())) {
-        
-        
-        
-        renderer.Prepare();
-        renderer.Render(scene);
-        
-        Engine::Run();
-        
-
-        glfwSwapBuffers(Window::GetHandle());
-    }
-
-    // CLEANUP
+    Engine::Run();
     Engine::Terminate();
-    glfwTerminate();
-
+    
     return 0;
-
 }
 
 

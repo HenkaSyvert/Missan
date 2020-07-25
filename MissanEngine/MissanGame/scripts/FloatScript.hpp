@@ -17,12 +17,11 @@ public:
 
 
     void Start() {
-        yOriginal = GetGameObject().GetTransform().position.y;
+        yOriginal = GetGameObject().GetComponent<Transform>()->position.y;
     }
 
     void Update() {
-        Transform& trans = GetGameObject().GetTransform();
-        trans.position.y = yOriginal + amp * sinf(freq * Time::time);
+        GetGameObject().GetComponent<Transform>()->position.y = yOriginal + amp * sinf(freq * Time::time);
     }
 
 };

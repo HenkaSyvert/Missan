@@ -18,37 +18,21 @@ private:
         GAME_OBJECT 
     } menuState;
     
-    float fovOriginal; 
-    float nearzOriginal;
-    float farzOriginal;
-    float aporiginal;
+    
 
     float keyCoolDown = 0.2f, keyTimer = 0;
     bool afterCoolDown = true;
 
     void CameraMenu() {
         Camera& cam = *camera_ptr;
-        float fov = cam.GetFOV();
-        float nearz = cam.GetNearZ();
-        float farz = cam.GetFarZ();
-        float ap = cam.GetAspectRatio();
 
-        ImGui::SliderFloat("FOV", &fov, 0.1f, 179.9f);
-        ImGui::SliderFloat("NearZ", &nearz, 0.01f, farz);
-        ImGui::SliderFloat("FarZ", &farz, nearz, 100.0f);
-        ImGui::SliderFloat("AspectRatio", &ap, 0.01f, 10.0f);
+        ImGui::SliderFloat("FOV", &cam.fieldOfViewDeg, 0.1f, 179.9f);
+        ImGui::SliderFloat("NearZ", &cam.nearClipPlane, 0.01f, cam.farClipPlane);
+        ImGui::SliderFloat("FarZ", &cam.farClipPlane, cam.nearClipPlane, 100.0f);
+        ImGui::SliderFloat("AspectRatio", &cam.aspectRatio, 0.01f, 10.0f);
 
-        if (ImGui::Button("Restore Defaults")) {
-            fov = fovOriginal;
-            nearz = nearzOriginal;
-            farz = farzOriginal;
-            ap = aporiginal;
-        }
-        
-        cam.SetFOV(fov);
-        cam.SetNearZ(nearz);
-        cam.SetFarZ(farz);
-        cam.SetAspectRatio(ap);
+        if (ImGui::Button("Restore Defaults"))
+            cam.Restore();
         
     }
 
@@ -56,7 +40,7 @@ private:
         if (selectedGO == nullptr) return;
 
         GameObject& go = *selectedGO;
-        Transform& tr = go.GetTransform();
+        Transform& tr = *go.GetComponent<Transform>();
 
         ImGui::SliderFloat("xpos", &tr.position.x, -200.0, 200.0);
         ImGui::SliderFloat("ypos", &tr.position.y, -200.0, 200.0);
@@ -81,14 +65,6 @@ private:
 
 public:
     Menu* Clone() const { return new Menu(*this); }   // necessary for deep-cloning
-
-    void Start() {
-        Camera& cam = *camera_ptr;
-        fovOriginal = cam.GetFOV();
-        nearzOriginal = cam.GetNearZ();
-        farzOriginal = cam.GetFarZ();
-        aporiginal = cam.GetAspectRatio();
-    }
 
     void Update() {
         if (!afterCoolDown) {

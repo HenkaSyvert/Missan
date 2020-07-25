@@ -1,44 +1,51 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-#include "components/transform.hpp"
+#include "components/component.hpp"
 #include "window.hpp"
 
 namespace missan {
 
-	class Camera {
-	private:
-		Transform* transform_ptr = nullptr;
+	class Camera : public Component {
+	public:
 	
 		float fieldOfViewDeg = 45.0f;
 		float nearClipPlane	 = 0.1f;
 		float farClipPlane	 = 100.0f;
-		float aspectRatio    = 0;
+		float aspectRatio = Window::aspectRatio;
 
+		
+
+	private:
 		glm::mat4 projectionMatrix;
 
-		void UpdateMatrix();
+		// for Restore()
+		float fovOriginal;
+		float nearzOriginal;
+		float farzOriginal;
+		float aporiginal;
 
 	public:
-		Camera();
+		Camera* Clone() const { return new Camera(*this); }   // necessary for deep-cloning
 
-		void BindToTransform(Transform& transform);
+		void Restore();
 
-		glm::mat4 GetProjectionMatrix();
-		glm::mat4 GetViewMatrix();
+		void Start() {
+			// save defaults for Restore()
+			fovOriginal = fieldOfViewDeg;
+			nearzOriginal = nearClipPlane;
+			farzOriginal = farClipPlane;
+			aporiginal = aspectRatio;
+		}
 
-		float GetNearZ();
-		void SetNearZ(float z);
-		
-		float GetFarZ();
-		void SetFarZ(float z);
-		
-		float GetFOV();
-		void SetFOV(float fov);
+		void Update() {
+			projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
+		}
 
-		float GetAspectRatio();
-		void SetAspectRatio(float ar);
+		glm::mat4& GetProjectionMatrix();
+
 
 	};
 
