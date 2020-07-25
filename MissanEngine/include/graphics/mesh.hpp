@@ -19,6 +19,7 @@ namespace missan {
         const std::vector<unsigned int> indices;
 
 
+
         // Returns vertices as vec3
         std::vector<glm::vec3> GetVerticesVec3();
 

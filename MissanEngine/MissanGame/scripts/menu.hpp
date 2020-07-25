@@ -4,11 +4,20 @@
 
 using namespace missan;
 
+// script that shows a simple menu
 class Menu : public Component {
 
 public:
+
+    // Camera to modify
     Camera* camera_ptr;
+
+    // GameObject to modify
     GameObject* selectedGO;
+
+    // Should the cam move? This is an exampe of a script
+    // communicating with another script (FPSCamera) on another
+    // GameObject
     bool moveCam = false;
 
 private:
@@ -18,11 +27,11 @@ private:
         GAME_OBJECT 
     } menuState;
     
-    
-
+    // to avoid flickering when pressing button
     float keyCoolDown = 0.2f, keyTimer = 0;
     bool afterCoolDown = true;
 
+    // this menu modifies settings on camera
     void CameraMenu() {
         Camera& cam = *camera_ptr;
 
@@ -36,6 +45,7 @@ private:
         
     }
 
+    // this menu allows to change transform of a gameobject
     void GameObjectMenu() {
         if (selectedGO == nullptr) return;
 
@@ -48,6 +58,7 @@ private:
 
     }
 
+    // the base menu
     void MainMenu() {
         ImGui::Begin("Menu");
         ImGui::Text("press E to show/hide cursor");
@@ -64,8 +75,7 @@ private:
 
 
 public:
-    Menu* Clone() const { return new Menu(*this); }   // necessary for deep-cloning
-
+   
     void Update() {
         if (!afterCoolDown) {
             keyTimer += Time::deltaTime;
@@ -87,6 +97,9 @@ public:
     }
 
 
+
+    // currently all Components, and thus all scripts, require and implementation of this method
+    Menu* Clone() const { return new Menu(*this); }   // necessary for deep-cloning
 
 };
 

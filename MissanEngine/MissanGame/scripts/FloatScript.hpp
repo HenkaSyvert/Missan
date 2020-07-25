@@ -8,22 +8,27 @@ using namespace missan;
 class FloatScript : public Component {
 
 private:
+
+    // save the original y value
     float yOriginal;
-    float amp = 1.0f;
-    float freq = 5.0f;
 
 public:
-    FloatScript* Clone() const { return new FloatScript(*this); }   // necessary for deep-cloning
 
+    // Amplitude of the sinus float
+    float amp = 1.0f;
 
-
+    // frequency of the sinus float
+    float freq = 5.0f;
+    
     void Start() {
         yOriginal = GetGameObject().GetComponent<Transform>()->position.y;
     }
 
     void Update() {
         GetGameObject().GetComponent<Transform>()->position.y = yOriginal + amp * sinf(freq * Time::time);
-
     }
+
+    // currently all Components, and thus all scripts, require and implementation of this method
+    FloatScript* Clone() const { return new FloatScript(*this); }
 
 };

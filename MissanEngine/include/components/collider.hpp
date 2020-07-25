@@ -3,6 +3,7 @@
 #include "missanpch.hpp"
 #include "components/component.hpp"
 #include "graphics/mesh.hpp"
+#include "core/resources.hpp"
 
 
 namespace missan {
@@ -27,13 +28,30 @@ namespace missan {
 			std::vector<glm::vec3>& points,
 			glm::vec3& normal);
 
+		void Start() {
+			mesh_ptr = Resources::GetMesh("unitCube");
+		}
+
 		void OnPhysicsUpdate() {
 
-			std::vector<float> translatedVertices = mesh_ptr->vertices;
-			for (int i = 0; i < translatedVertices.size(); i += 3) {
+			/*
+void CheckCollisions(Scene& scene) {
+	for (auto* a : scene.gameObjects) {
+		Collider& ca = a->GetCollider();
 
+		for (auto* b : scene.gameObjects) {
+			if (a == b) continue;
+			Collider& cb = b->GetCollider();
+
+			if (ca.OverlapsWith(cb)) {
+				// collision happened, do something
+				std::cout << "collision detected\n";
 			}
 
+		}
+	}
+}
+*/
 		}
 
 
