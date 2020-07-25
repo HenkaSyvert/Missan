@@ -1,41 +1,45 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/transform.hpp"
+#include "components/component.hpp"
 #include "graphics/mesh.hpp"
 
 
 namespace missan {
 
-	class Collider {
-
-	private:
-		class Transform* transform_ptr = nullptr;
-		Mesh* mesh_ptr = nullptr;
-		bool isEnabled = false;
+	class Collider : public Component {
 
 	public:
 
-		std::vector<glm::vec3> GetTranslatedVertices();
-		void Enable(bool enable = true);
-		void SetMesh(Mesh& mesh);
-		Mesh& GetMesh();
-		bool OverlapsWith(Collider& other);
-		bool IsEnabled();
+		// Mesh to use as collider. simple shapes recommended
+		Mesh* mesh_ptr = nullptr;
 
-		Transform& GetTransform();
-		void SetTransform(Transform& transform);
+
+
+		bool OverlapsWith(Collider& other);
 
 		bool OverlapOnAxis(
 			std::vector<glm::vec3>& va, 
 			std::vector<glm::vec3>& vb, 
 			glm::vec3& axis);
+
 		std::pair<float, float> CalcProjMinMax(
 			std::vector<glm::vec3>& points,
 			glm::vec3& normal);
-		std::vector<glm::vec3> CalcNormals(
-			std::vector<glm::vec3>& vertices,
-			std::vector<unsigned int>& indices);
+
+		void OnPhysicsUpdate() {
+
+			std::vector<float> translatedVertices = mesh_ptr->vertices;
+			for (int i = 0; i < translatedVertices.size(); i += 3) {
+
+			}
+
+		}
+
+
+
+		// NOT PART OF PUBLIC API ////////////////////////
+		Collider* Clone() const { return new Collider(*this); }
 
 	};
 

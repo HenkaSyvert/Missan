@@ -1,35 +1,14 @@
 #include "components/collider.hpp"
 
+#include "components/transform.hpp"
 
 using namespace missan;
 
 // PUBLIC
 
 
-Transform& Collider::GetTransform() {
-	return *transform_ptr;
-}
-
-std::vector<glm::vec3> Collider::GetTranslatedVertices() {
-
-	std::vector<glm::vec3> translatedVertices;
-	std::vector<float> v = mesh_ptr->vertices;
-	Transform& transform = *transform_ptr;
-	glm::mat4 mat = transform.GetMatrix();
-
-	for (int i = 0; i < v.size(); i += 3) {
-		glm::vec4 w(v[0], v[1], v[2], 1.0f);
-		glm::vec4 u = mat * w;
-		translatedVertices.push_back({ u.x, u.y, u.z });
-	}
-
-	return translatedVertices;
-
-}
 
 bool Collider::OverlapsWith(Collider& other) {
-
-	if (!isEnabled || !other.IsEnabled()) return false;
 
 	// using separated axis theorem (SAT)
 	// normals that needs to be tested:
@@ -37,55 +16,23 @@ bool Collider::OverlapsWith(Collider& other) {
 	// + face normals for B
 	// + face normals of all pairs of edges from A and B
 
-	std::vector<glm::vec3> va, vb;
-	va = GetTranslatedVertices();
-	vb = other.GetTranslatedVertices();
-
-	std::vector<glm::vec3> normals;
-
-	// get normals for A
-	auto aInds = mesh_ptr->indices;
-	std::vector<glm::vec3> newNormals = CalcNormals(va, aInds);
-	normals.insert(normals.end(), newNormals.begin(), newNormals.end());
-	
-	// normals for B
-	auto bInds = other.GetMesh().indices;
-	newNormals = CalcNormals(vb, bInds);
-	normals.insert(normals.end(), newNormals.begin(), newNormals.end());
+	auto va = mesh_ptr->GetVerticesVec3();
+	auto vb = other.mesh_ptr->GetVerticesVec3();
 
 	// TODO, add normals from edge pairs...
 
-	for (auto& n : normals) 
+	for (auto& n : mesh_ptr->GetNormals()) 
 		if (!OverlapOnAxis(va, vb, n)) return false;
 	
+	for (auto& n : other.mesh_ptr->GetNormals())
+		if (!OverlapOnAxis(va, vb, n)) return false;
 
 
 
 	return true;
 }
 
-void Collider::SetTransform(Transform& transform) {
-	transform_ptr = &transform;
-}
 
-Mesh& Collider::GetMesh() {
-	return *mesh_ptr;
-}
-
-std::vector<glm::vec3> Collider::CalcNormals(
-	std::vector<glm::vec3>& vertices,
-	std::vector<unsigned int>& indices)
-{
-	// using inefficient method which gets 
-	// normals from each triangle. 
-	std::vector<glm::vec3> normals;
-	for (int i = 0; i < indices.size(); i += 3) {
-		glm::vec3 v = vertices[indices[i]] + vertices[indices[i + 1]];
-		glm::vec3 w = vertices[indices[i]] + vertices[indices[i + 2]];
-		normals.push_back(glm::cross(v, w));
-	}
-	return normals;
-}
 
 bool Collider::OverlapOnAxis(
 	std::vector<glm::vec3>& va,
@@ -114,16 +61,4 @@ std::pair<float, float> Collider::CalcProjMinMax(
 
 	return { min, max };
 
-}
-
-void Collider::Enable(bool enable) {
-	isEnabled = enable;
-}
-
-void Collider::SetMesh(Mesh& mesh) {
-	mesh_ptr = &mesh;
-}
-
-bool Collider::IsEnabled() {
-	return isEnabled;
 }

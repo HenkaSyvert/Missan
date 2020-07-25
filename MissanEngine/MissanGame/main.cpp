@@ -53,22 +53,17 @@ Scene* StandardMap() {
         ref1.GetComponent<Transform>()->rotationDeg = { 0,90 + 90 * i,0 };
     }
 
-    
-
-    // No idea why, but camera MUST be instantiated last..
     GameObject camGO;
     GameObject& ref = scene.Instantiate(camGO);
     ref.AddComponent<Camera>();
     Graphics::SetCamera(*ref.GetComponent<Camera>());
     ref.AddComponent<FPSCamera>();
     
-
     GameObject menuManager;
     GameObject& mm = scene.Instantiate(menuManager);
     mm.AddComponent<Menu>();
     mm.GetComponent<Menu>()->camera_ptr = ref.GetComponent<Camera>();
     mm.GetComponent<Menu>()->selectedGO = scene.gameObjects[0];
-
     ref.GetComponent<FPSCamera>()->moveCam = &mm.GetComponent<Menu>()->moveCam;
 
     return scene_ptr;

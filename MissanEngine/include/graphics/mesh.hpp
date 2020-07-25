@@ -9,16 +9,23 @@ namespace missan {
 
     public:
         
+        // File name
+        const std::string fileName;
+
         // Vertices
         const std::vector<float> vertices;
 
         // Indices for the Vertices
         const std::vector<unsigned int> indices;
 
-        // File name
-        const std::string fileName;
 
+        // Returns vertices as vec3
+        std::vector<glm::vec3> GetVerticesVec3();
 
+        // Returns normals, 1 for each triangle
+        std::vector<glm::vec3>& GetNormals();
+
+        
 
         // Creates new Mesh
         Mesh(GLuint newVaoID, 
@@ -30,6 +37,9 @@ namespace missan {
 
         // NOT PART OF PUBLIC API ///////////////////////////
         const GLuint vaoID = 0;
+
+    private:
+        std::vector<glm::vec3> normals;
 
     };
 

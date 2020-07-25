@@ -29,6 +29,7 @@ void Engine::Initialize() {
 }
 
 void Engine::Run() {
+	// TODO: proper Entity-Component system. current method is very memory-access inefficient
 
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
@@ -42,7 +43,9 @@ void Engine::Run() {
 			
 		
 		// PHYSICS
-
+		for (auto* g : gos)
+			for (auto* c : g->components)
+				c->OnPhysicsUpdate();
 
 		// INPUT
 		Input::Update();

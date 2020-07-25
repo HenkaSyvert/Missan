@@ -22,11 +22,14 @@ namespace missan {
 
 
 		// NOT PART OF PUBLIC API //////////////////////////////////
+		// in order of execution
 		virtual void Start() {}
+		virtual void OnPhysicsUpdate() {}
 		virtual void Update() {}
 		virtual void LateUpdate() {}
-		virtual void OnGUI(){}
-		virtual void OnRender(){}
+		virtual void OnRender() {}
+		virtual void OnGUI() {}
+		
 		
 		// must have definition - empty body - since derived classes will call it
 		virtual ~Component() {};	
