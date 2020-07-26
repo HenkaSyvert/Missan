@@ -42,7 +42,7 @@ Scene* StandardMap() {
     transform = floorPrefab.GetComponent<Transform>();
     transform->scale = { 10,10,1 };
     transform->rotationDeg = { 90,0,0 };
-    transform->position.y = -1;   
+    transform->position.y = -1; 
 
     // a camera is just a gameobject with camera component
     // and a script to make it move like a typical flying fps camera
@@ -65,6 +65,7 @@ Scene* StandardMap() {
     renderer->texture_ptr = Resources::GetTexture("cat.png");
     transform = missanCube.GetComponent<Transform>();
     transform->position = { 0,1,0 };
+    missanCube.AddComponent<Collider>();    
 
 
 
@@ -81,6 +82,8 @@ Scene* StandardMap() {
 
     // our missanCube
     go = &scene.Instantiate(missanCube);
+    go = &scene.Instantiate(missanCube);
+    go->GetComponent<Transform>()->position.x += 0.5;
 
     // and this is somewhat messy, but we need to fix some pointers so they point
     // to gameobjects in the scene rather than the uninstantiated prefabs

@@ -8,7 +8,7 @@ using namespace missan;
 
 
 
-bool Collider::OverlapsWith(Collider& other) {
+bool Collider::OverlapsWith(Collider* other) {
 
 	// using separated axis theorem (SAT)
 	// normals that needs to be tested:
@@ -17,17 +17,19 @@ bool Collider::OverlapsWith(Collider& other) {
 	// + face normals of all pairs of edges from A and B
 
 	auto va = mesh_ptr->GetVerticesVec3();
-	auto vb = other.mesh_ptr->GetVerticesVec3();
+	auto vb = other->mesh_ptr->GetVerticesVec3();
 
 	// TODO, add normals from edge pairs...
 
 	for (auto& n : mesh_ptr->GetNormals()) 
-		if (!OverlapOnAxis(va, vb, n)) return false;
+		if (!OverlapOnAxis(va, vb, n)) 
+			return false;
+		
 	
-	for (auto& n : other.mesh_ptr->GetNormals())
+	for (auto& n : other->mesh_ptr->GetNormals())
 		if (!OverlapOnAxis(va, vb, n)) return false;
 
-
+	std::cout << "there was collision\n";
 
 	return true;
 }

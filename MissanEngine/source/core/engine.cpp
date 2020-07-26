@@ -8,13 +8,32 @@
 #include "core/gui.hpp"
 #include "gameobject.hpp"
 #include "graphics/graphics.hpp"
-
+#include "components/collider.hpp"
 
 using namespace missan;
 
 namespace {
 
 	Scene* activeScene_ptr = nullptr;
+
+	void CheckCollisions(std::vector<GameObject*>& gameObjects) {
+		for (auto* a : gameObjects) {
+			Collider* ca = a->GetComponent<Collider>();
+			if (ca == nullptr) continue;
+
+			for (auto* b : gameObjects) {
+				if (a == b) continue;
+				Collider* cb = b->GetComponent<Collider>();
+				if (cb == nullptr) continue;
+
+				if (ca->OverlapsWith(cb)) {
+					// collision happened, do something
+					std::cout << "collision detected\n";
+				}
+
+			}
+		}
+	}
 
 }
 
@@ -43,9 +62,9 @@ void Engine::Run() {
 			
 		
 		// PHYSICS
-		for (auto* g : gos)
-			for (auto* c : g->components)
-				c->OnPhysicsUpdate();
+		CheckCollisions(gos);
+
+
 
 		// INPUT
 		Input::Update();
