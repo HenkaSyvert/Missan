@@ -10,7 +10,7 @@ namespace missan {
     namespace Resources {
 
         // Returns pointer to Mesh, loads if necessary
-        Mesh*    GetMesh   (const std::string& fileName);
+        Mesh* GetMesh(const std::string& fileName);
 
         // Returns pointer to Texture, loads if necessary
         Texture* GetTexture(const std::string& fileName);

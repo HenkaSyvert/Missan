@@ -28,12 +28,12 @@ Scene* StandardMap() {
     // which we can later instantiate copies of in the scene
     // first we make floor and wall
     GameObject wallPrefab;
-    Renderer* renderer = wallPrefab.AddComponent<Renderer>();
+    Renderer* renderer = wallPrefab.AddComponent<Renderer>(); // renderers are what makes a gameobject visible
     renderer->mesh_ptr = &unitPlane;
     renderer->texture_ptr = &brickTexture;
     Transform* transform = wallPrefab.GetComponent<Transform>();
-    transform->scale = { 10,2,1 };
-    wallPrefab.AddComponent<FloatScript>();
+    transform->scale = { 10,2,1 };                          
+    wallPrefab.AddComponent<FloatScript>();     // this just makes them bounce
 
     GameObject floorPrefab;
     renderer = floorPrefab.AddComponent<Renderer>();
@@ -46,14 +46,25 @@ Scene* StandardMap() {
 
     // a camera is just a gameobject with camera component
     // and a script to make it move like a typical flying fps camera
-    GameObject camera;
-    camera.AddComponent<Camera>();
-    camera.AddComponent<FPSCamera>();
+    GameObject camera;                  // gameobject holding the camera
+    camera.AddComponent<Camera>();      // the actual camera
+    camera.AddComponent<FPSCamera>();   // the script to move it
+    transform = camera.GetComponent<Transform>();
+    transform->rotationDeg = { -15,180,0 };
+    transform->position = { 0,2,-10 };
 
     // a menu is just a gameobject with attached script that overrides
     // the OnGUI() function with ImGui calls. 
     GameObject menuManager;
     menuManager.AddComponent<Menu>();
+
+    // lets add a cube
+    GameObject missanCube;
+    renderer = missanCube.AddComponent<Renderer>();
+    renderer->mesh_ptr = &unitCube;
+    renderer->texture_ptr = Resources::GetTexture("cat.png");
+    transform = missanCube.GetComponent<Transform>();
+    transform->position = { 0,1,0 };
 
 
 
@@ -67,6 +78,9 @@ Scene* StandardMap() {
         transform->position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
         transform->rotationDeg = { 0,90 + 90 * i,0 };
     }
+
+    // our missanCube
+    go = &scene.Instantiate(missanCube);
 
     // and this is somewhat messy, but we need to fix some pointers so they point
     // to gameobjects in the scene rather than the uninstantiated prefabs

@@ -2,7 +2,10 @@
 
 using namespace missan;
 
+
+
 // PUBLIC
+
 void Camera::Restore() {
     fieldOfViewDeg = fovOriginal;
     nearClipPlane = nearzOriginal;

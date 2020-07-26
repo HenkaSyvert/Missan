@@ -24,7 +24,7 @@
 #include "components/transform.hpp"
 
 #include "core/engine.hpp"
-//#include "core/gui.hpp"		// currently uses imgui directly for gui API
+//#include "core/gui.hpp"		// currently uses imgui directly for gui scripting
 #include "core/input.hpp"
 #include "core/resources.hpp"
 #include "core/window.hpp"

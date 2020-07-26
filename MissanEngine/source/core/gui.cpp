@@ -5,13 +5,6 @@
 
 using namespace missan;
 
-// PRIVATE
-namespace {
-
-
-}
-
-
 
 // PUBLIC
 void GUI::Initialize() {
