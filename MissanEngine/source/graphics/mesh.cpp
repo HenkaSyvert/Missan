@@ -15,41 +15,48 @@ Mesh::Mesh
     vertices(newVertices),
     indices(newIndices)
 {
-	
-	// using inefficient method which gets 
-	// normals from each triangle. 
+    // Do vertices as vec3
+    for (int i = 0; i < vertices.size(); i += 3) {
+        verticesVec3_.push_back(glm::vec3(vertices[i], vertices[i + 1], vertices[i + 2]));
+    }
 
-	for (int i = 0; i < indices.size(); i += 3) {
-		float x1 = vertices[indices[i]];
-		float y1 = vertices[indices[i] + 1];
-		float z1 = vertices[indices[i] + 2];
+    // Get edges
+    for (int i = 0; i < indices.size(); i += 3) {
+        glm::vec3 a = verticesVec3_[indices[i]];
+        glm::vec3 b = verticesVec3_[indices[i + 1]];
+        glm::vec3 c = verticesVec3_[indices[i + 2]];
+        edges_.push_back({ a, b });
+        edges_.push_back({ b, c });
+        edges_.push_back({ c, a });
+    }
 
-		float x2 = vertices[indices[i + 1]];
-		float y2 = vertices[indices[i + 1] + 1];
-		float z2 = vertices[indices[i + 1] + 2];
+    // Calculate edge directional vectors
+    for (auto e : edges_) {
+        edgeDirections_.push_back(e.second - e.first);
+    }
 
-		float x3 = vertices[indices[i + 2]];
-		float y3 = vertices[indices[i + 2] + 1];
-		float z3 = vertices[indices[i + 2] + 2];
-
-		glm::vec3 a(x1, y1, z1);
-		glm::vec3 b(x2, y2, z2);
-		glm::vec3 c(x3, y3, z3);
-
-		glm::vec3 ab(a + b);
-		glm::vec3 ac(a + c);
-		normals.push_back(glm::cross(ab, ac));
-	}
+    // Calculate normals
+    for (int i = 0; i < edgeDirections_.size(); i += 3) {
+        glm::vec3 a = edgeDirections_[i];
+        glm::vec3 b = edgeDirections_[i + 1];
+        normals_.push_back(glm::cross(a, b));
+    }
 	
 }
 
 std::vector<glm::vec3> Mesh::GetVerticesVec3() {
-	std::vector<glm::vec3> v;
-	for (int i = 0; i < vertices.size(); i += 3)
-		v.push_back({ vertices[0], vertices[1], vertices[2] });
-	return v;
+    return verticesVec3_;
 }
 
-std::vector<glm::vec3>& Mesh::GetNormals() {
-    return normals;
+std::vector<std::pair<glm::vec3, glm::vec3>> Mesh::GetEdges() {
+    return edges_;
 }
+
+std::vector<glm::vec3> Mesh::GetEdgeDirections() {
+    return edgeDirections_;
+}
+
+std::vector<glm::vec3> Mesh::GetNormals() {
+    return normals_;
+}
+

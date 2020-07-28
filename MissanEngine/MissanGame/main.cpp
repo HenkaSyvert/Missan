@@ -10,11 +10,7 @@
 using namespace missan;
 
 // script to make a simple scene
-Scene* StandardMap() {
-
-    // create a new scene. we will add some gameobjects to it
-    Scene* scene_ptr = new Scene;
-    Scene& scene = *scene_ptr;
+void StandardMap() {
 
     // first we must load the meshes and textures we will use
     Mesh& unitCube = *Resources::GetMesh("unitCube");
@@ -52,6 +48,7 @@ Scene* StandardMap() {
     transform = camera.GetComponent<Transform>();
     transform->rotationDeg = { -15,180,0 };
     transform->position = { 0,2,-10 };
+    camera.AddComponent<Collider>();
 
     // a menu is just a gameobject with attached script that overrides
     // the OnGUI() function with ImGui calls. 
@@ -72,43 +69,47 @@ Scene* StandardMap() {
     // now lets instantiate the objects. Note how we make several walls
     // from 1 original copy, and how we keep the reference to the instantiated
     // object to make changes to it rather than the original
-    GameObject* go = &scene.Instantiate(floorPrefab);
+    GameObject* go = Engine::Instantiate(floorPrefab);
     for (int i = 0; i < 3; i++) {
-        go = &scene.Instantiate(wallPrefab);
+        go = Engine::Instantiate(wallPrefab);
         transform = go->GetComponent<Transform>();
         transform->position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
         transform->rotationDeg = { 0,90 + 90 * i,0 };
     }
 
     // our missanCube
-    go = &scene.Instantiate(missanCube);
-    go = &scene.Instantiate(missanCube);
+    go = Engine::Instantiate(missanCube);
+    //go = Engine::Instantiate(missanCube);
     go->GetComponent<Transform>()->position.x += 0.5;
 
     // and this is somewhat messy, but we need to fix some pointers so they point
     // to gameobjects in the scene rather than the uninstantiated prefabs
     // this will be fixed sometime
-    GameObject* cameraGo = &scene.Instantiate(camera);
+    GameObject* cameraGo = Engine::Instantiate(camera);
     Graphics::SetCamera(*cameraGo->GetComponent<Camera>());
-    go = &scene.Instantiate(menuManager);
+    go = Engine::Instantiate(menuManager);
     cameraGo->GetComponent<FPSCamera>()->moveCam = &go->GetComponent<Menu>()->moveCam;
     go->GetComponent<Menu>()->camera_ptr = cameraGo->GetComponent<Camera>();
-    go->GetComponent<Menu>()->selectedGO = scene.gameObjects[0];
+    go->GetComponent<Menu>()->selectedGO = Engine::GetActiveScene()->gameObjects[0];
     
-    return scene_ptr;
 
 }
 
 
 // the game must provide its own main, and must follow this structure
-int main(){
+int main(int argc, char* argv[]){
     
     Engine::Initialize();
 
-    Scene& scene = *StandardMap();
-    Engine::SetActiveScene(scene);
+    ///////////////////////////////////////////////////////////
+    // Here is where you put your own code to add GameObjects to Scene
+
+    StandardMap();
+
+    ///////////////////////////////////////////////////////////
 
     Engine::Run();
+
     Engine::Terminate();
 
     return 0;

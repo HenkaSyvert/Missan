@@ -24,6 +24,12 @@ namespace missan {
         // Matrix to transform point from local space to world space
         glm::mat4 GetMatrix();
 
+        // Transforms a point from local space to world space
+        glm::vec3 TransformPoint(glm::vec3& point);
+
+        // Transforms several points from local space to world space
+        std::vector<glm::vec3> TransformPoints(std::vector<glm::vec3> points);
+
         // Local right vector
         glm::vec3 GetRightVector();
 

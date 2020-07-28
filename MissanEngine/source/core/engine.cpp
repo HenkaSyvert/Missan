@@ -44,6 +44,8 @@ void Engine::Initialize() {
 	Resources::Initialize();
 	Graphics::Initialize();
 	GUI::Initialize();
+
+	activeScene_ptr = new Scene;
 	
 }
 
@@ -108,9 +110,18 @@ void Engine::Terminate() {
 
 
 
+Scene* Engine::GetActiveScene() {
+	return activeScene_ptr;
+}
+
 void Engine::SetActiveScene(Scene& scene) {
 
 	activeScene_ptr = &scene;
 
+}
+
+GameObject* Engine::Instantiate(GameObject& original) {
+	activeScene_ptr->gameObjects.push_back(new GameObject(original));
+	return activeScene_ptr->gameObjects.back();
 }
 

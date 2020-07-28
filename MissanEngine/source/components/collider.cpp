@@ -2,6 +2,8 @@
 
 #include "components/transform.hpp"
 
+#include <algorithm>	// std::min, std::max
+
 using namespace missan;
 
 // PUBLIC
@@ -10,28 +12,42 @@ using namespace missan;
 
 bool Collider::OverlapsWith(Collider* other) {
 
-	// using separated axis theorem (SAT)
-	// normals that needs to be tested:
-	// face normals for A
-	// + face normals for B
-	// + face normals of all pairs of edges from A and B
-
-	auto va = mesh_ptr->GetVerticesVec3();
-	auto vb = other->mesh_ptr->GetVerticesVec3();
-
-	// TODO, add normals from edge pairs...
-
-	for (auto& n : mesh_ptr->GetNormals()) 
-		if (!OverlapOnAxis(va, vb, n)) 
-			return false;
-		
+	// The Separating axis Theorem: 2 sets of points, forming convex bodies, 
+	// DO NOT overlap IF you can find a separating plane between them. 
+	// which is done by projecting the points from both sets onto the normals
+	// of all possible separating planes and check if their shadows overlap.
 	
-	for (auto& n : other->mesh_ptr->GetNormals())
-		if (!OverlapOnAxis(va, vb, n)) return false;
+	std::vector<glm::vec3> normalsToCheck;
 
-	std::cout << "there was collision\n";
+	auto ourTransform = GetGameObject().GetComponent<Transform>();
+	auto theirTransform = other->GetGameObject().GetComponent<Transform>();
 
+	// first we need our own transformed face-normals
+	for (auto& n : ourTransform->TransformPoints(mesh_ptr->GetNormals()))
+		normalsToCheck.push_back(n);
+
+	// then their normals
+	for (auto& n : theirTransform->TransformPoints(other->mesh_ptr->GetNormals()))
+		normalsToCheck.push_back(n);
+	
+	// TODO edge pair normals
+
+	// our transformed vertices
+	auto ourVertices = ourTransform->TransformPoints(mesh_ptr->GetVerticesVec3());
+
+	// their transformed vertices
+	auto theirVertices = theirTransform->TransformPoints(other->mesh_ptr->GetVerticesVec3());
+
+	// if we find a single plane without intersection, there is no overlap
+	for (auto& n : normalsToCheck) {
+		if (!OverlapOnAxis(ourVertices, theirVertices, n)) {
+			return false;
+		}
+	}
+
+	// otherwise there is overlap
 	return true;
+
 }
 
 
@@ -41,26 +57,18 @@ bool Collider::OverlapOnAxis(
 	std::vector<glm::vec3>& vb,
 	glm::vec3& axis)
 {
-	std::pair<float, float> shadowA = CalcProjMinMax(va, axis);
-	std::pair<float, float> shadowB = CalcProjMinMax(vb, axis);
-
-	return shadowA.first < shadowB.second
-		&& shadowA.second > shadowB.first;
-}
-
-std::pair<float, float> Collider::CalcProjMinMax(
-	std::vector<glm::vec3>& points, 
-	glm::vec3& normal) 
-{
-	float min = INFINITY;
-	float max = -INFINITY;
-
-	for (auto& p : points) {
-		float a = glm::dot(p, normal);
-		if (a < min) min = a;
-		if (a > max) max = a;
+	float aMin = INFINITY, aMax = -INFINITY;
+	for (auto& v : va) {
+		auto dot = glm::dot(v, axis);
+		aMin = std::min(aMin, dot);
+		aMax = std::max(aMax, dot);
 	}
-
-	return { min, max };
+	float bMin = INFINITY, bMax = -INFINITY;
+	for (auto& v : vb) {
+		auto dot = glm::dot(v, axis);
+		bMin = std::min(bMin, dot);
+		bMax = std::max(bMax, dot);
+	}
+	return aMin < bMax && aMax > bMin;
 
 }

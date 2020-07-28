@@ -16,8 +16,6 @@ namespace missan {
 		// Deletes all contained GameObjects
 		~Scene();
 
-		// Adds a new GameObject to the Scene, a copy of prefab
-		GameObject& Instantiate(GameObject& prefab);
 
 	};
 

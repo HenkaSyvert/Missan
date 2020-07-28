@@ -18,6 +18,19 @@ glm::mat4 Transform::GetMatrix() {
 	return matrix;
 }
 
+glm::vec3 Transform::TransformPoint(glm::vec3& point) {
+	glm::vec4 q(point, 1);
+	q = GetMatrix() * q;
+	return glm::vec3(q.x, q.y, q.z);
+}
+
+std::vector<glm::vec3> Transform::TransformPoints(std::vector<glm::vec3> points) {
+	std::vector<glm::vec3> ps;
+	for (auto p : points)
+		ps.push_back(TransformPoint(p));
+	return ps;
+}
+
 glm::vec3 Transform::GetRightVector() {
 	return glm::normalize(GetMatrix()[0]);
 }

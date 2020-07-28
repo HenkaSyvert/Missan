@@ -24,10 +24,6 @@ namespace missan {
 			std::vector<glm::vec3>& vb, 
 			glm::vec3& axis);
 
-		std::pair<float, float> CalcProjMinMax(
-			std::vector<glm::vec3>& points,
-			glm::vec3& normal);
-
 
 
 
