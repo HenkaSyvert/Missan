@@ -10,7 +10,7 @@ using namespace missan;
 
 
 
-bool Collider::OverlapsWith(Collider* other) {
+float Collider::OverlapsWith(Collider* other) {
 
 	// The Separating axis Theorem: 2 sets of points, forming convex bodies, 
 	// DO NOT overlap IF you can find a separating plane between them. 
@@ -18,6 +18,9 @@ bool Collider::OverlapsWith(Collider* other) {
 	// of all possible separating planes and check if their shadows overlap.
 	
 	std::vector<glm::vec3> normalsToCheck;
+
+	// the amount of overlap
+	float overlap = INFINITY;
 
 	auto ourTransform = GetGameObject().GetComponent<Transform>();
 	auto theirTransform = other->GetGameObject().GetComponent<Transform>();
@@ -30,7 +33,23 @@ bool Collider::OverlapsWith(Collider* other) {
 	for (auto& n : theirTransform->TransformPoints(other->mesh_ptr->GetNormals()))
 		normalsToCheck.push_back(n);
 	
-	// TODO edge pair normals
+	// and finally the normals of the planes formed by each pair of edges from each shape
+	auto ourEdges = ourTransform->TransformPoints(mesh_ptr->GetEdgeDirections());
+	auto theirEdges = theirTransform->TransformPoints(other->mesh_ptr->GetEdgeDirections());
+	int ignoredNormals = 0;
+	for (auto& ourEdge : ourEdges) {
+		for (auto& theirEdge : theirEdges) {
+
+			// but we don't care for pairs where the edges are too similar, say less than 10%
+			float threshold = 0.1f;
+			if (glm::dot(glm::normalize(ourEdge), glm::normalize(theirEdge)) > threshold)
+				normalsToCheck.push_back(glm::cross(ourEdge, theirEdge));
+			else ignoredNormals++;
+		}
+	}
+
+	//std::cout << dfg;
+	//std::cin.get();
 
 	// our transformed vertices
 	auto ourVertices = ourTransform->TransformPoints(mesh_ptr->GetVerticesVec3());
@@ -40,35 +59,36 @@ bool Collider::OverlapsWith(Collider* other) {
 
 	// if we find a single plane without intersection, there is no overlap
 	for (auto& n : normalsToCheck) {
-		if (!OverlapOnAxis(ourVertices, theirVertices, n)) {
-			return false;
+		
+		// we find the minimum and maximum extents of our shadow when projecting
+		// all our points onto the normal
+		float ourMin = INFINITY, ourMax = -INFINITY;
+		for (auto& v : ourVertices) {
+			auto dot = glm::dot(v, n);
+			ourMin = std::min(ourMin, dot);
+			ourMax = std::max(ourMax, dot);
+		}
+
+		// and the same for them
+		float theirMin = INFINITY, theirMax = -INFINITY;
+		for (auto& v : theirVertices) {
+			auto dot = glm::dot(v, n);
+			theirMin = std::min(theirMin, dot);
+			theirMax = std::max(theirMax, dot);
+		}
+
+		overlap = std::min(std::min(ourMax, theirMax) - std::max(ourMin, theirMin), overlap);
+
+		// check if the ranges overlap
+		bool overlapOnAxis = ourMin < theirMax&& ourMax > theirMin;
+
+		if (!overlapOnAxis) {
+
+			return 0;
 		}
 	}
 
 	// otherwise there is overlap
-	return true;
-
-}
-
-
-
-bool Collider::OverlapOnAxis(
-	std::vector<glm::vec3>& va,
-	std::vector<glm::vec3>& vb,
-	glm::vec3& axis)
-{
-	float aMin = INFINITY, aMax = -INFINITY;
-	for (auto& v : va) {
-		auto dot = glm::dot(v, axis);
-		aMin = std::min(aMin, dot);
-		aMax = std::max(aMax, dot);
-	}
-	float bMin = INFINITY, bMax = -INFINITY;
-	for (auto& v : vb) {
-		auto dot = glm::dot(v, axis);
-		bMin = std::min(bMin, dot);
-		bMax = std::max(bMax, dot);
-	}
-	return aMin < bMax && aMax > bMin;
+	return overlap;
 
 }

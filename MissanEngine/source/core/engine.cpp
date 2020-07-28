@@ -9,6 +9,7 @@
 #include "gameobject.hpp"
 #include "graphics/graphics.hpp"
 #include "components/collider.hpp"
+#include "components/transform.hpp"
 
 using namespace missan;
 
@@ -26,9 +27,16 @@ namespace {
 				Collider* cb = b->GetComponent<Collider>();
 				if (cb == nullptr) continue;
 
-				if (ca->OverlapsWith(cb)) {
+				float overlap = ca->OverlapsWith(cb);
+				if (overlap != 0) {
 					// collision happened, do something
 					std::cout << "collision detected\n";
+					glm::vec3 aCenter = a->GetComponent<Transform>()->position;
+					glm::vec3 bCenter = b->GetComponent<Transform>()->position;
+					glm::vec3 displacementDirection(b - a);
+					displacementDirection = glm::normalize(displacementDirection);
+					a->GetComponent<Transform>()->position += displacementDirection * (overlap / 2);
+					b->GetComponent<Transform>()->position -= displacementDirection * (overlap / 2);
 				}
 
 			}

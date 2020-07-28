@@ -558,6 +558,7 @@
     <ClInclude Include="include\missan.hpp" />
     <ClInclude Include="include\missanpch.hpp" />
     <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\texture.h" />

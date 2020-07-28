@@ -17,12 +17,7 @@ namespace missan {
 
 
 
-		bool OverlapsWith(Collider* other);
-
-		bool OverlapOnAxis(
-			std::vector<glm::vec3>& va, 
-			std::vector<glm::vec3>& vb, 
-			glm::vec3& axis);
+		float OverlapsWith(Collider* other);
 
 
 
