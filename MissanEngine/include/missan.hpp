@@ -37,6 +37,6 @@
 
 #include "gameobject.hpp"
 #include "scene.hpp"
-
+#include "rigidbody.hpp"
 
 

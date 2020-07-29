@@ -10,6 +10,8 @@
 #include "graphics/graphics.hpp"
 #include "components/collider.hpp"
 #include "components/transform.hpp"
+#include "rigidbody.hpp"
+#include "physics.hpp"
 
 using namespace missan;
 
@@ -17,31 +19,7 @@ namespace {
 
 	Scene* activeScene_ptr = nullptr;
 
-	void CheckCollisions(std::vector<GameObject*>& gameObjects) {
-		for (auto* a : gameObjects) {
-			Collider* ca = a->GetComponent<Collider>();
-			if (ca == nullptr) continue;
-
-			for (auto* b : gameObjects) {
-				if (a == b) continue;
-				Collider* cb = b->GetComponent<Collider>();
-				if (cb == nullptr) continue;
-
-				float overlap = ca->OverlapsWith(cb);
-				if (overlap != 0) {
-					// collision happened, do something
-					std::cout << "collision detected\n";
-					glm::vec3 aCenter = a->GetComponent<Transform>()->position;
-					glm::vec3 bCenter = b->GetComponent<Transform>()->position;
-					glm::vec3 displacementDirection(b - a);
-					displacementDirection = glm::normalize(displacementDirection);
-					a->GetComponent<Transform>()->position += displacementDirection * (overlap / 2);
-					b->GetComponent<Transform>()->position -= displacementDirection * (overlap / 2);
-				}
-
-			}
-		}
-	}
+	
 
 }
 
@@ -60,6 +38,8 @@ void Engine::Initialize() {
 void Engine::Run() {
 	// TODO: proper Entity-Component system. current method is very memory-access inefficient
 
+	activeScene_ptr->Test();
+
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
 	for (auto* g : gos)
@@ -72,7 +52,7 @@ void Engine::Run() {
 			
 		
 		// PHYSICS
-		CheckCollisions(gos);
+		Physics::Update();
 
 
 

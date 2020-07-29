@@ -10,6 +10,18 @@ namespace missan {
 
 	public:
 
+		// TEST ///////////////////
+		// Unique identifier for this instance
+		const int instanceID;
+
+		// The name of this GameObject
+		std::string name;
+ 
+
+
+
+
+
 		// Creates new GameObject with Transform Component already attached
 		GameObject();	
 
@@ -36,6 +48,7 @@ namespace missan {
 			return nullptr;
 		}
 
+		
 
 
 		// NOT PART OF PUBLIC API ///////////////////////////////////

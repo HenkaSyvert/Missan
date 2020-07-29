@@ -93,6 +93,12 @@
     <ClCompile Include="source\components\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\physics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\boundingbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -1468,6 +1474,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\rigidbody.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\boundingbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

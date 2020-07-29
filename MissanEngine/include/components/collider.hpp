@@ -1,27 +1,33 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "components/component.hpp"
+#include "boundingbox.hpp"
 #include "graphics/mesh.hpp"
-#include "core/resources.hpp"
-
 
 namespace missan {
 
+	// Class that detects collisions against other Colliders
 	class Collider : public Component {
 
 	public:
 
-		// Mesh to use as collider. simple shapes recommended
-		Mesh* mesh_ptr = Resources::GetMesh("unitCube");
+		// The amount of overlap between this Collider and other. 0 means no overlap
+		glm::vec3 OverlapsWith(Collider* other);
+
+		// The bounding box used to calculate overlap. Note that it takes the attached Transform into account.
+		// By default the boundingBox will grow to encapsulate the attached Mesh (if any)
+		BoundingBox boundingBox;
 
 
 
-		float OverlapsWith(Collider* other);
 
-
-
-
+		void Start() {
+			Mesh* mesh = GetGameObject().GetComponent<Mesh>();
+			if (mesh != nullptr) {
+				auto ps = mesh->GetVerticesVec3();
+				boundingBox.EncapsulatePoints(ps);
+			}
+		}
 
 		// NOT PART OF PUBLIC API ////////////////////////
 		Collider* Clone() const { return new Collider(*this); }
