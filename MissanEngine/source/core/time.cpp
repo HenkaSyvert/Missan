@@ -6,19 +6,27 @@ using namespace missan;
 
 namespace {
 
-	double time_	  = 0.0f;
-	double deltaTime_ = 0.0f;
+	float time_			= 0.0f;
+	float unscaledTime_ = 0.0f;
+	float deltaTime_    = 0.0f;
+	float unscaledDeltaTime_ = 0.0f;
 
 }
 
 
 // PUBLIC
-const double& Time::time      = time_;
-const double& Time::deltaTime = deltaTime_;
+const float& Time::time = time_;
+const float& Time::unscaledTime = unscaledTime_;
+const float& Time::deltaTime = deltaTime_;
+const float& Time::unscaledDeltaTime = unscaledDeltaTime_;
+float Time::timeScale = 1.0f;
 
 void Time::Update() {
 	double timeStamp = glfwGetTime();
-	deltaTime_ = timeStamp - time_;
-	time_ = timeStamp;
+	unscaledDeltaTime_ = (float)timeStamp - unscaledTime_;
+	unscaledTime_ = (float)timeStamp;
+
+	time_ = unscaledTime_ * timeScale;
+	deltaTime_ = unscaledDeltaTime_ * timeScale;
 }
 

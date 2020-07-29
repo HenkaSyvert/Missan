@@ -19,6 +19,9 @@ namespace missan {
 		// The forces acting on this RigidBody
 		glm::vec3 forces = { 0,0,0 };
 
+		// The velocity of this RigidBody
+		glm::vec3 velocity = { 0,0,0 };
+
 		void Start() {
 			if (GetGameObject().GetComponent<Collider>() == nullptr)
 				std::cout << "RigidBody requires Collider Component!\n";
