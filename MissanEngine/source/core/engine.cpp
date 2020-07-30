@@ -16,8 +16,6 @@ namespace {
 
 	Scene* activeScene_ptr = nullptr;
 
-	
-
 }
 
 // PUBLIC
@@ -33,9 +31,6 @@ void Engine::Initialize() {
 }
 
 void Engine::Run() {
-	// TODO: proper Entity-Component system. current method is very memory-access inefficient
-
-	activeScene_ptr->Test();
 
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;

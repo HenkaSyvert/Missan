@@ -2,18 +2,75 @@
 
 #include "core/engine.hpp"
 #include "core/gameobject.hpp"
+#include "core/time.hpp"
 #include "core/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
 
 using namespace Missan;
 
+
+// PRIVATE
+
+void ApplyForces(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+
+	
+
+	for (auto* rb : rbs) {
+
+		auto* c = rb->GetGameObject().GetComponent<Collider>();
+		auto* t = rb->GetGameObject().GetComponent<Transform>();
+
+		// compute force and torque
+		// an upward force of 100 N
+		//rb->force = Physics::gravity;
+		rb->force += glm::vec3{ 0,1,0 };
+
+		// where we apply f. currently on one of the vertices
+		glm::vec3 r = (c->boundingBox.size);
+
+		rb->torque = glm::cross(r, rb->force);
+
+
+
+		glm::vec3 acceleration = rb->force / rb->mass;
+		rb->velocity += acceleration * Time::deltaTime;
+		t->position += rb->velocity * Time::deltaTime;
+
+		glm::vec3 angularAcceleration(rb->torque / rb->inertiaTensor);
+		rb->angularVelocity += angularAcceleration * Time::deltaTime;
+		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
+
+	}
+
+
+}
+
+void UpdatePositionsAndVelocities(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+
+}
+
+void DetectCollisions(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+
+}
+
+void SolveConstraints(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+
+}
+
+
+
 // PUBLIC
 
-glm::vec3 Physics::gravity = { 0.0f, -0.1f, 0.0f };
+glm::vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
+
+// test
+bool hasSlowed = false;
 
 void Physics::Update() {
 	
+	if (!hasSlowed) Time::timeScale = 0.1;
+
 	auto gos = Engine::GetActiveScene()->gameObjects;
 
 	// get all RigidBodies
@@ -29,7 +86,9 @@ void Physics::Update() {
 		if (g->GetComponent<Collider>() != nullptr)
 			cs.push_back(g->GetComponent<Collider>());
 
+	ApplyForces(cs, rbs);
 
+	/*
 	for (int i = 0; i < rbs.size(); i++) {
 		auto* rba = rbs[i];
 		auto* ca = rba->GetGameObject().GetComponent<Collider>();
@@ -69,9 +128,8 @@ void Physics::Update() {
 		}
 	}
 
-	
+	*/
 
 }
-
 
 

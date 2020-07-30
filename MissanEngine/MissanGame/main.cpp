@@ -41,7 +41,7 @@ void StandardMap() {
     transform->rotationDeg = { -15,180,0 };
     transform->position = { 0,2,-10 };
     camera.AddComponent<Collider>();                // so we know if we collide into things
-    camera.AddComponent<RigidBody>();               // test
+    //camera.AddComponent<RigidBody>();               // test
 
     GameObject menuManager;             // We need a GameObject in order for the menu to be active in the game
     menuManager.AddComponent<Menu>();   // and this script does the menu
@@ -53,7 +53,7 @@ void StandardMap() {
     transform = missanCube.GetComponent<Transform>();
     transform->position = { 0,1,0 };
     missanCube.AddComponent<Collider>();    
-    //missanCube.AddComponent<RigidBody>();       // RigidBodies makes this GameObject be affected by physics
+    missanCube.AddComponent<RigidBody>();       // RigidBodies makes this GameObject be affected by physics
 
 
 
@@ -83,6 +83,10 @@ void StandardMap() {
     
 
 }
+
+
+
+
 
 
 // the game must provide its own main, and must follow this structure
