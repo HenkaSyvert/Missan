@@ -1,6 +1,8 @@
 #include "core/input.hpp"
 
-using namespace missan;
+#include "core/window.hpp"
+
+using namespace Missan;
 
 namespace {
 

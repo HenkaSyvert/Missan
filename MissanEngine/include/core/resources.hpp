@@ -4,7 +4,7 @@
 #include "graphics/mesh.hpp"
 #include "graphics/texture.hpp"
 
-namespace missan {
+namespace Missan {
 
     // Handles assets used by the game, i.e. 3D models, textures
     namespace Resources {

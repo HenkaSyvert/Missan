@@ -87,12 +87,12 @@
     <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
-    <ClCompile Include="source\boundingbox.cpp" />
-    <ClCompile Include="source\components\camera.cpp" />
-    <ClCompile Include="source\components\collider.cpp" />
-    <ClCompile Include="source\components\renderer.cpp" />
+    <ClCompile Include="source\physics\boundingbox.cpp" />
+    <ClCompile Include="source\graphics\camera.cpp" />
+    <ClCompile Include="source\physics\collider.cpp" />
+    <ClCompile Include="source\graphics\renderer.cpp" />
     <ClCompile Include="source\core\engine.cpp" />
-    <ClCompile Include="source\gameobject.cpp" />
+    <ClCompile Include="source\core\gameobject.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
     <ClCompile Include="source\core\gui.cpp" />
     <ClCompile Include="source\core\input.cpp" />
@@ -100,13 +100,14 @@
     <ClCompile Include="MissanGame\main.cpp" />
     <ClCompile Include="source\graphics\mesh.cpp" />
     <ClCompile Include="source\missanpch.cpp" />
-    <ClCompile Include="source\physics.cpp" />
-    <ClCompile Include="source\scene.cpp" />
+    <ClCompile Include="source\physics\physics.cpp" />
+    <ClCompile Include="source\core\scene.cpp" />
     <ClCompile Include="source\graphics\shaderprogram.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
     <ClCompile Include="source\core\time.cpp" />
-    <ClCompile Include="source\components\transform.cpp" />
+    <ClCompile Include="source\core\transform.cpp" />
     <ClCompile Include="source\core\window.cpp" />
+    <ClCompile Include="source\physics\rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="external\glm\detail\func_common.inl" />
@@ -546,13 +547,13 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
-    <ClInclude Include="include\boundingbox.hpp" />
+    <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\core\engine.hpp" />
     <ClInclude Include="include\graphics\graphics.hpp" />
     <ClInclude Include="include\interfaces\clonable.hpp" />
-    <ClInclude Include="include\components\collider.hpp" />
-    <ClInclude Include="include\components\component.hpp" />
+    <ClInclude Include="include\physics\collider.hpp" />
+    <ClInclude Include="include\core\component.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />
@@ -560,9 +561,9 @@
     <ClInclude Include="include\mesh.h" />
     <ClInclude Include="include\missan.hpp" />
     <ClInclude Include="include\missanpch.hpp" />
-    <ClInclude Include="include\physics.hpp" />
+    <ClInclude Include="include\physics\physics.hpp" />
     <ClInclude Include="include\renderer.h" />
-    <ClInclude Include="include\rigidbody.hpp" />
+    <ClInclude Include="include\physics\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\texture.h" />

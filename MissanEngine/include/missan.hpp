@@ -3,6 +3,7 @@
 // MissanEngine public API
 
 
+
 // temporary, for access to GLFW_KEYCODE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -17,26 +18,26 @@
 #include <iostream>
 
 // Missan includes
-#include "components/camera.hpp"
-#include "components/collider.hpp"
-#include "components/component.hpp"
-#include "components/renderer.hpp"
-#include "components/transform.hpp"
-
+#include "core/component.hpp"
 #include "core/engine.hpp"
-//#include "core/gui.hpp"		// currently uses imgui directly for gui scripting
+#include "core/gameobject.hpp"
+//#include "core/gui.hpp"			// will do GUI API sometime
 #include "core/input.hpp"
 #include "core/resources.hpp"
-#include "core/window.hpp"
+#include "core/scene.hpp"
 #include "core/time.hpp"
+#include "core/transform.hpp"
+#include "core/window.hpp"
 
-#include "graphics/mesh.hpp"
+#include "graphics/camera.hpp"
 #include "graphics/graphics.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/renderer.hpp"
 #include "graphics/shaderprogram.hpp"
 #include "graphics/texture.hpp"
 
-#include "gameobject.hpp"
-#include "scene.hpp"
-#include "rigidbody.hpp"
-
+#include "physics/rigidbody.hpp"
+#include "physics/collider.hpp"
+#include "physics/physics.hpp"
+#include "physics/rigidbody.hpp"
 

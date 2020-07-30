@@ -2,7 +2,7 @@
 
 #include "missan.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // Makes GameObject "float" up and down on y-axis
 class FloatScript : public Component {

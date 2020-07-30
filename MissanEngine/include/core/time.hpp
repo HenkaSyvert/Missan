@@ -1,6 +1,6 @@
 #pragma once
 
-namespace missan {
+namespace Missan {
 	
 	// Interface to Time system
 	namespace Time {

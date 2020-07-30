@@ -1,10 +1,10 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/component.hpp"
+#include "core/component.hpp"
 #include "core/window.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// Provides view- and projection matrices to transform GameObjects in Scene to screen space
 	class Camera : public Component {
@@ -38,6 +38,7 @@ namespace missan {
 		Camera* Clone() const { return new Camera(*this); }
 
 		void Start();
+
 		void Update();
 
 

@@ -3,7 +3,7 @@
 #include "missanpch.hpp"
 #include "core/window.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 
 // PUBLIC

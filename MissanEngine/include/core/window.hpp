@@ -2,12 +2,10 @@
 
 #include "missanpch.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// The Window used by the program
 	namespace Window {
-	
-		// todo, add resize and fullscreen, Initialize should not be public
 		
 		// In pixels
 		extern const int& width;

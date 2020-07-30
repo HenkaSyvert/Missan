@@ -7,7 +7,7 @@
 #include "scripts/FloatScript.hpp"
 #include "scripts/menu.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // script to make a simple scene
 void StandardMap() {

@@ -1,21 +1,14 @@
-#include "physics.hpp"
+#include "physics/physics.hpp"
 
 #include "core/engine.hpp"
-#include "components/collider.hpp"
-#include "rigidbody.hpp"
-#include "components/transform.hpp"
-#include "gameobject.hpp"
+#include "core/gameobject.hpp"
+#include "core/transform.hpp"
+#include "physics/collider.hpp"
+#include "physics/rigidbody.hpp"
 
-#include "components/collider.hpp"
-#include "components/transform.hpp"
-#include "rigidbody.hpp"
-
-using namespace missan;
-
-
+using namespace Missan;
 
 // PUBLIC
-
 
 glm::vec3 Physics::gravity = { 0.0f, -0.1f, 0.0f };
 

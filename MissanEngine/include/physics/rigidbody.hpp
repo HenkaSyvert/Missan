@@ -1,17 +1,16 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/component.hpp"
-#include "components/transform.hpp"
-#include "components/collider.hpp"
+#include "core/component.hpp"
+#include "core/transform.hpp"
+#include "physics/collider.hpp"
 #include "core/time.hpp"
 
-namespace missan {
+namespace Missan {
 
 	class RigidBody : public Component {
 
 	public:
-
 
 		// The mass of this rigidbody, in kilograms
 		float mass = 1.0f;
@@ -22,20 +21,12 @@ namespace missan {
 		// The velocity of this RigidBody
 		glm::vec3 velocity = { 0,0,0 };
 
-		void Start() {
-			if (GetGameObject().GetComponent<Collider>() == nullptr)
-				std::cout << "RigidBody requires Collider Component!\n";
-		}
-		
 
-		void Update() {
-
-			
-
-
-		}
 
 		// NOT PART OF PUBLIC API ////////////////////////
+
+		void Start();
+		
 		RigidBody* Clone() const { return new RigidBody(*this); }
 	};
 }

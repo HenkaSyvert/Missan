@@ -2,7 +2,7 @@
 
 #include "missanpch.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 namespace {
 

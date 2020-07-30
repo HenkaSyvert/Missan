@@ -1,11 +1,11 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/component.hpp"
+#include "core/component.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"
 
-namespace missan {
+namespace Missan {
 
     // Renders GameObject with Mesh and Texture using its Transform
     class Renderer : public Component{

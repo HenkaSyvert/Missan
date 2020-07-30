@@ -1,9 +1,9 @@
 #pragma once
 
-#include "gameobject.hpp"
+#include "core/gameobject.hpp"
 #include "interfaces/clonable.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// just a forward declaration
 	class GameObject;
@@ -21,13 +21,13 @@ namespace missan {
 
 
 		
-		// Event Functions, in order of execution
+		// EVENT FUNCTIONS, in order of execution. Override these in your own scripts
 
-		// Called only once
+		// Called only once for each GameObject
 		virtual void Start() {}
 
 		// Called when this Collider has begun touching another Collider
-		virtual void OnCollisionEnter(){}
+		//virtual void OnCollisionEnter(){}		// not implemented yet
 
 		// Called every frame
 		virtual void Update() {}
@@ -35,7 +35,7 @@ namespace missan {
 		// Called every frame, after all regular Update events
 		virtual void LateUpdate() {}
 
-		// Called during rendering
+		// Called during rendering, just used by Renderer Components atm
 		virtual void OnRender() {}
 
 		// Called during GUI rendering

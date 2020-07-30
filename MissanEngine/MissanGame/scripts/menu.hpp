@@ -2,7 +2,7 @@
 
 #include "missan.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // script that shows a simple menu
 class Menu : public Component {

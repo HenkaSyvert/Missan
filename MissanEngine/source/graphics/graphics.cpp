@@ -1,9 +1,9 @@
 #include "graphics/graphics.hpp"
 
 #include "missanpch.hpp"
-#include "components/transform.hpp"
+#include "core/transform.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 namespace {
 

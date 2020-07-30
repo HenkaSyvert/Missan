@@ -1,6 +1,6 @@
-#include "scene.hpp"
+#include "core/scene.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PUBLIC
 Scene::~Scene() {

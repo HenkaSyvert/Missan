@@ -1,12 +1,12 @@
 #pragma once
 
-#include "components/camera.hpp"// maybe temp
-#include "shaderprogram.hpp"	// temp
-#include "gameobject.hpp"		//temp
-#include "components/renderer.hpp"
+#include "graphics/camera.hpp"// maybe temp
+#include "graphics/shaderprogram.hpp"	// temp
+#include "core/gameobject.hpp"		//temp
+#include "graphics/renderer.hpp"
 
 
-namespace missan {
+namespace Missan {
 
 	// should this even be public?
 	namespace Graphics {

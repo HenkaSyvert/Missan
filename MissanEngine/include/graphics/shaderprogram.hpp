@@ -3,7 +3,7 @@
 #include "missanpch.hpp"
 
 
-namespace missan {
+namespace Missan {
 
     // Program that runs on the GPU
     class ShaderProgram {

@@ -1,6 +1,6 @@
 #include "graphics/texture.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PUBLIC
 Texture::Texture(GLuint newTextureID, const std::string& newFileName, int w, int h, int bpp)

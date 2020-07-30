@@ -3,7 +3,7 @@
 #include "scene.hpp"
 #include "gameobject.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// The core module
 	namespace Engine {

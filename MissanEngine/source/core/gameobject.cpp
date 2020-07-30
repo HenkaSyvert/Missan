@@ -1,8 +1,8 @@
-#include "gameobject.hpp"
+#include "core/gameobject.hpp"
 
-#include "components/transform.hpp"
+#include "core/transform.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 namespace {
 

@@ -2,7 +2,7 @@
 
 #include "missan.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // a script implementing a flying fps style camera
 class FPSCamera : public Component {

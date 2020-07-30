@@ -1,6 +1,6 @@
-#include "components/transform.hpp"
+#include "core/transform.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PUBLIC
 glm::mat4 Transform::GetMatrix() {

@@ -1,6 +1,6 @@
 #include "graphics/shaderprogram.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PRIVATE
 std::string LoadShader(const std::string& filename) {

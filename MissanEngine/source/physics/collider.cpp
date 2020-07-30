@@ -1,9 +1,9 @@
-#include "components/collider.hpp"
+#include "physics/collider.hpp"
 
 #include "missanpch.hpp"
-#include "components/transform.hpp"
+#include "core/transform.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PUBLIC
 
@@ -96,3 +96,16 @@ glm::vec3 Collider::OverlapsWith(Collider* other) {
 	return glm::normalize(displacementDirection) * displacementMagnitude;
 
 }
+
+
+
+// PRIVATE
+
+void Collider::Start() {
+	Mesh* mesh = GetGameObject().GetComponent<Mesh>();
+	if (mesh != nullptr) {
+		auto ps = mesh->GetVerticesVec3();
+		boundingBox.EncapsulatePoints(ps);
+	}
+}
+

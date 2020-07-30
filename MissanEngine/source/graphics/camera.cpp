@@ -1,6 +1,6 @@
-#include "components/camera.hpp"
+#include "graphics/camera.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 
 

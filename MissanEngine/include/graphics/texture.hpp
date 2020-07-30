@@ -2,7 +2,7 @@
 
 #include "missanpch.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// 2D Texture
 	class Texture {

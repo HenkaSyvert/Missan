@@ -5,23 +5,31 @@
 
 // test
 #include <array>
-#include "components/component.hpp"
+#include "core/component.hpp"
 #include <map>
-#include "components/transform.hpp"
-#include "components/camera.hpp"
+#include "core/transform.hpp"
+#include "graphics/camera.hpp"
 #include <string>
 
 
 
 
-namespace missan {
+namespace Missan {
 
 	// Holds instaniated GameObjects
 	class Scene {
 
 	public:
 
-		// work in progress
+		// The GameObjects in the Scene
+		std::vector<GameObject*> gameObjects;
+
+		// Deletes all contained GameObjects
+		~Scene();
+		
+		
+
+		// TEST //////////////
 #pragma region ENTITY_COMPONENT_SYSTEM
 
 		// Maximum number of GameObjects allowed in a Scene
@@ -61,21 +69,6 @@ namespace missan {
 		}
 
 #pragma endregion
-
-
-		GameObject* Instantiate(GameObject& original) {
-
-		}
-
-
-		// The GameObjects in the Scene
-		std::vector<GameObject*> gameObjects;
-
-		// Deletes all contained GameObjects
-		~Scene();
-		
-		
-
 
 	};
 

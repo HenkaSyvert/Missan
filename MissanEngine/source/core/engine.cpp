@@ -1,19 +1,16 @@
 #include "core/engine.hpp"
 
 #include "missanpch.hpp"
-#include "core/window.hpp"
-#include "core/input.hpp"
-#include "core/time.hpp"
-#include "core/resources.hpp"
+#include "core/gameobject.hpp"
 #include "core/gui.hpp"
-#include "gameobject.hpp"
+#include "core/input.hpp"
+#include "core/resources.hpp"
+#include "core/time.hpp"
+#include "core/window.hpp"
 #include "graphics/graphics.hpp"
-#include "components/collider.hpp"
-#include "components/transform.hpp"
-#include "rigidbody.hpp"
-#include "physics.hpp"
+#include "physics/physics.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 namespace {
 

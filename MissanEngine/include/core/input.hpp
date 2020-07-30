@@ -1,9 +1,8 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "window.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// Interface to Input system
 	namespace Input {

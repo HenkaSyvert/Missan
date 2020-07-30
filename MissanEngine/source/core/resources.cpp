@@ -1,6 +1,6 @@
 #include "core/resources.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // TODO: 
 // 1. clean up voas, vbos, texs

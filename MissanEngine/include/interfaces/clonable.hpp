@@ -1,6 +1,6 @@
 #pragma once
 
-namespace missan {
+namespace Missan {
 
 	// for polymorphic dynamic memory management
 	class IClonable {

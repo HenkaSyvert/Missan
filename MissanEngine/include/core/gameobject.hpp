@@ -1,26 +1,14 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/component.hpp"
+#include "core/component.hpp"
 
-namespace missan {
+namespace Missan {
 
 	// Base class for all entities in Missan Scenes
 	class GameObject {
 
 	public:
-
-		// TEST ///////////////////
-		// Unique identifier for this instance
-		const int instanceID;
-
-		// The name of this GameObject
-		std::string name;
- 
-
-
-
-
 
 		// Creates new GameObject with Transform Component already attached
 		GameObject();	
@@ -30,8 +18,6 @@ namespace missan {
 
 		// Creates new instances of copy's Components and attaches them to the new GameObject
 		GameObject(GameObject& copy);	
-		
-
 
 		// Adds Component of type T, attaches it, and returns pointer
 		template <class T> T* AddComponent() {
@@ -40,7 +26,7 @@ namespace missan {
 			return (T*)components.back();
 		}	
 
-		// Returns pointer to Component of type T
+		// Returns pointer to Component of type T if found, else nullptr
 		template <class T> T* GetComponent() {
 			for (Component* c : components)
 				if (typeid(T) == typeid(*c))
@@ -49,6 +35,16 @@ namespace missan {
 		}
 
 		
+
+
+		// TEST ///////////////////
+		// Unique identifier for this instance
+		const int instanceID;
+
+		// The name of this GameObject
+		std::string name;
+
+
 
 
 		// NOT PART OF PUBLIC API ///////////////////////////////////

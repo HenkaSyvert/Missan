@@ -2,7 +2,7 @@
 
 #include "missanpch.hpp"
 
-namespace missan {
+namespace Missan {
 
     // Stores data about 3D model
     class Mesh {
@@ -18,16 +18,12 @@ namespace missan {
         // Indices for the Vertices
         const std::vector<unsigned int> indices;
 
+
+
         
 
         // Get vertices as vec3s
         std::vector<glm::vec3> GetVerticesVec3();
-
-        // Gets edges, as pairs of vec3s
-        std::vector<std::pair<glm::vec3, glm::vec3>> GetEdges();
-
-        // Gets direction vectors for each edge: (edge.first - edge.second)
-        std::vector<glm::vec3> GetEdgeDirections();
 
         // Returns normals for each triangle in Mesh
         std::vector<glm::vec3> GetNormals();
@@ -47,8 +43,6 @@ namespace missan {
 
     private:
         std::vector<glm::vec3> verticesVec3_;
-        std::vector<std::pair<glm::vec3, glm::vec3>> edges_;
-        std::vector<glm::vec3> edgeDirections_;
         std::vector<glm::vec3> normals_;
 
 

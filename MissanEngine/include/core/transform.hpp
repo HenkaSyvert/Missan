@@ -1,9 +1,9 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "components/component.hpp"
+#include "core/component.hpp"
 
-namespace missan {
+namespace Missan {
 
     // Stores position, rotation, and scale of a GameObject
     class Transform : public Component{

@@ -1,6 +1,6 @@
 #include "core/window.hpp"
 
-using namespace missan;
+using namespace Missan;
 
 // PRIVATE
 namespace {
