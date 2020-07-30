@@ -38,10 +38,12 @@ void Engine::Run() {
 		for (auto* c : g->components)
 			c->Start();
 
+	// must be last thing before loop, so deltaTime is proper
+	Time::Update();
+	
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(Window::GetHandle())) {
 		Time::Update();
-			
 		
 		// PHYSICS
 		Physics::Update();

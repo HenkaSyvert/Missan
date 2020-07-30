@@ -23,13 +23,13 @@ namespace Missan {
 
 		
 		// The angular force (rad/s) required to rotate this RigidBody
-		glm::vec3 inertiaTensor;
+		glm::vec3 inertiaTensor = { 0,0,0 };
 
 		// The angular forces acting on this RigidBody
-		glm::vec3 torque;
+		glm::vec3 torque = { 0,0,0 };
 
 		// The angular velocity of this RigidBody
-		glm::vec3 angularVelocity;
+		glm::vec3 angularVelocity = { 0,0,0 };
 
 
 		// 

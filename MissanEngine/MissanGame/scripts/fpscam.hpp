@@ -28,8 +28,8 @@ public:
         if (!*moveCam) return;
 
         // change rotation based on mouse input
-        float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::deltaTime;
-        float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
+        float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;
+        float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::unscaledDeltaTime;
         Transform& transform = *GetGameObject().GetComponent<Transform>();
         
         transform.rotationDeg.y += dyRot;
@@ -44,8 +44,8 @@ public:
         if (Input::IsKeyPressed(GLFW_KEY_W)) zAxis -= 1;
 
         // remember to use deltatime for smooth movement
-        float dx = (float)xAxis * moveSpeed * Time::deltaTime;
-        float dz = (float)zAxis * moveSpeed * Time::deltaTime;
+        float dx = (float)xAxis * moveSpeed * Time::unscaledDeltaTime;
+        float dz = (float)zAxis * moveSpeed * Time::unscaledDeltaTime;
 
         // move camera relative to its rotation
         transform.position += dx * transform.GetRightVector();

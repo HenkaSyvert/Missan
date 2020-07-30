@@ -78,7 +78,7 @@ public:
    
     void Update() {
         if (!afterCoolDown) {
-            keyTimer += Time::deltaTime;
+            keyTimer += Time::unscaledDeltaTime;
             if (keyTimer > keyCoolDown) {
                 afterCoolDown = true;
                 keyTimer = 0;

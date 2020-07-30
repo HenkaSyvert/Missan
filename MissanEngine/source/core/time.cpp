@@ -21,6 +21,7 @@ const float& Time::deltaTime = deltaTime_;
 const float& Time::unscaledDeltaTime = unscaledDeltaTime_;
 float Time::timeScale = 1.0f;
 
+
 void Time::Update() {
 	double timeStamp = glfwGetTime();
 	unscaledDeltaTime_ = (float)timeStamp - unscaledTime_;

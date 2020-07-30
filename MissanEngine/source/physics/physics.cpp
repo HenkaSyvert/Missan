@@ -12,29 +12,34 @@ using namespace Missan;
 
 // PRIVATE
 
+// Applies linear and angular forces to all RigidBodies
 void ApplyForces(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
-
-	
 
 	for (auto* rb : rbs) {
 
 		auto* c = rb->GetGameObject().GetComponent<Collider>();
 		auto* t = rb->GetGameObject().GetComponent<Transform>();
 
-		// compute force and torque
-		// an upward force of 100 N
-		//rb->force = Physics::gravity;
-		rb->force += glm::vec3{ 0,1,0 };
+		// gravitational force
+		rb->force = rb->mass * Physics::gravity;
 
-		// where we apply f. currently on one of the vertices
-		glm::vec3 r = (c->boundingBox.size);
+		// additional forces
+		glm::vec3 f(0, .1, 0);
 
-		rb->torque = glm::cross(r, rb->force);
+		// where we apply f, measured as offset from center of mass.
+		// this can even be outside the shape of the RigidBody, as
+		// if we're applying some kind of extended arm moment
+		glm::vec3 pointOfApplication(10, 0, 0);
+
+		// note that gravity's point of application is always the 
+		// center of mass, which yields no angular momentum
+
+		// the resulting torque from f applied at pointOfApplication
+		rb->torque = glm::cross(pointOfApplication, rb->force);
 
 
-
-		glm::vec3 acceleration = rb->force / rb->mass;
-		rb->velocity += acceleration * Time::deltaTime;
+		glm::vec3 linearAcceleration = rb->force / rb->mass;
+		rb->velocity += linearAcceleration * Time::deltaTime;
 		t->position += rb->velocity * Time::deltaTime;
 
 		glm::vec3 angularAcceleration(rb->torque / rb->inertiaTensor);
@@ -69,7 +74,7 @@ bool hasSlowed = false;
 
 void Physics::Update() {
 	
-	if (!hasSlowed) Time::timeScale = 0.1;
+	if (!hasSlowed) Time::timeScale = 0.25;
 
 	auto gos = Engine::GetActiveScene()->gameObjects;
 
