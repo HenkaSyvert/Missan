@@ -31,20 +31,18 @@ void Engine::Initialize() {
 }
 
 void Engine::Run() {
-
+	Time::Update();
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
 	for (auto* g : gos)
 		for (auto* c : g->components)
 			c->Start();
 
-	// must be last thing before loop, so deltaTime is proper
-	Time::Update();
-	
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(Window::GetHandle())) {
 		Time::Update();
-		
+
+
 		// PHYSICS
 		Physics::Update();
 
@@ -79,6 +77,7 @@ void Engine::Run() {
 		GUI::End();
 
 
+		
 		glfwSwapBuffers(Window::GetHandle());
 	}	
 }

@@ -12,8 +12,31 @@ using namespace Missan;
 
 // PRIVATE
 
+// difference of all points in a and b
+std::vector<glm::vec3> CalcMinkowskiDifference(std::vector<glm::vec3>& a, std::vector<glm::vec3>& b) {
+	std::vector<glm::vec3> diff;
+	for (auto& pa : a) {
+		for (auto& pb : b) {
+			diff.push_back(pa - pb);
+		}
+	}
+	return diff;
+}
+
+glm::vec3 CalcMinToOrigin(std::vector<glm::vec3>& ps) {
+	float minDist = INFINITY;
+	glm::vec3 v;
+	for (auto& p : ps) {
+		if (glm::length(p) < minDist) {
+			minDist = glm::length(p);
+			v = p;
+		}
+	}
+	return v;
+}
+
 // Applies linear and angular forces to all RigidBodies
-void ApplyForces(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+void ApplyForces(std::vector<RigidBody*>& rbs) {
 
 	for (auto* rb : rbs) {
 
@@ -21,41 +44,33 @@ void ApplyForces(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
 		auto* t = rb->GetGameObject().GetComponent<Transform>();
 
 		// gravitational force
-		rb->force = rb->mass * Physics::gravity;
+		if (rb->isAffectedByGravity)
+			//rb->AddForce(Physics::gravity * rb->mass);
 
-		// additional forces
-		glm::vec3 f(0, .1, 0);
+		
+		rb->AddForce({ 0,10,0 }, { 1,0,0 });
 
-		// where we apply f, measured as offset from center of mass.
-		// this can even be outside the shape of the RigidBody, as
-		// if we're applying some kind of extended arm moment
-		glm::vec3 pointOfApplication(10, 0, 0);
-
-		// note that gravity's point of application is always the 
-		// center of mass, which yields no angular momentum
-
-		// the resulting torque from f applied at pointOfApplication
-		rb->torque = glm::cross(pointOfApplication, rb->force);
-
-
-		glm::vec3 linearAcceleration = rb->force / rb->mass;
-		rb->velocity += linearAcceleration * Time::deltaTime;
+		// actually these are impulses
+		glm::vec3 linearAcceleration = rb->newForces / Time::deltaTime / rb->mass;
+		rb->velocity += linearAcceleration * Time::deltaTime /(1.0f + rb->drag);
 		t->position += rb->velocity * Time::deltaTime;
 
-		glm::vec3 angularAcceleration(rb->torque / rb->inertiaTensor);
-		rb->angularVelocity += angularAcceleration * Time::deltaTime;
+		glm::vec3 angularAcceleration = rb->newTorque / Time::deltaTime / rb->inertiaTensor;
+		rb->angularVelocity += angularAcceleration * Time::deltaTime / (1.0f + rb->angularDrag);
 		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
+
+		rb->newForces = { 0,0,0 };
+		rb->newTorque = { 0,0,0 };
 
 	}
 
 
 }
 
-void UpdatePositionsAndVelocities(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
 
-}
+void DetectCollisions(std::vector<Collider*>& cs) {
 
-void DetectCollisions(std::vector<Collider*>& cs, std::vector<RigidBody*>& rbs) {
+
 
 }
 
@@ -91,49 +106,9 @@ void Physics::Update() {
 		if (g->GetComponent<Collider>() != nullptr)
 			cs.push_back(g->GetComponent<Collider>());
 
-	ApplyForces(cs, rbs);
+	ApplyForces(rbs);
+	DetectCollisions(cs);
 
-	/*
-	for (int i = 0; i < rbs.size(); i++) {
-		auto* rba = rbs[i];
-		auto* ca = rba->GetGameObject().GetComponent<Collider>();
-		auto* ta = ca->GetGameObject().GetComponent<Transform>();
-
-		
-
-		// attempt to do normal force thingy
-		auto gravitationalForce = Physics::gravity * rba->mass;
-		auto deltaVelocity = gravitationalForce * Time::deltaTime;
-
-
-
-		for (auto* cb : cs) {
-			if (ca == cb) continue;		// ignore our own Collider
-
-			auto displacement = ca->OverlapsWith(cb);
-			if (displacement != glm::vec3(0,0,0)) {
-				
-
-				auto* rbb = cb->GetGameObject().GetComponent<RigidBody>();
-				if (rbb != nullptr) {
-					// 2 RigidBodies colliding, displace both
-
-				}
-				else {
-					// RigidBody colliding with Collider, only displace RigidBody
-					ta->position -= displacement;
-					
-					
-
-					std::cout << "collision\n";
-
-				}
-
-			}
-		}
-	}
-
-	*/
 
 }
 
