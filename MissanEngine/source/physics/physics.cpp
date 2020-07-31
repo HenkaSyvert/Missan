@@ -35,6 +35,9 @@ glm::vec3 CalcMinToOrigin(std::vector<glm::vec3>& ps) {
 	return v;
 }
 
+// temp
+int counter = 0;
+
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces(std::vector<RigidBody*>& rbs) {
 
@@ -47,9 +50,10 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 		if (rb->isAffectedByGravity)
 			//rb->AddForce(Physics::gravity * rb->mass);
 
-		
-		rb->AddForce({ 0,10,0 }, { 1,0,0 });
-
+			if (counter < 4) {
+				rb->AddForce({ 0,10,0 }, { 1,0,0 });
+				counter++;
+			}
 		// actually these are impulses
 		glm::vec3 linearAcceleration = rb->newForces / Time::deltaTime / rb->mass;
 		rb->velocity += linearAcceleration * Time::deltaTime /(1.0f + rb->drag);
@@ -89,7 +93,7 @@ bool hasSlowed = false;
 
 void Physics::Update() {
 	
-	if (!hasSlowed) Time::timeScale = 0.25;
+	if (!hasSlowed) Time::timeScale = 0.1f;
 
 	auto gos = Engine::GetActiveScene()->gameObjects;
 
@@ -107,7 +111,43 @@ void Physics::Update() {
 			cs.push_back(g->GetComponent<Collider>());
 
 	ApplyForces(rbs);
-	DetectCollisions(cs);
+	//DetectCollisions(cs);
+
+	
+	for (int i = 0; i < rbs.size(); i++) {
+		auto* rba = rbs[i];
+		auto* ca = rba->GetGameObject().GetComponent<Collider>();
+		auto* ta = ca->GetGameObject().GetComponent<Transform>();
+
+		for (auto* cb : cs) {
+			if (ca == cb) continue;		// ignore our own Collider
+			auto displacement = ca->OverlapsWith(cb);
+			if (displacement != glm::vec3(0,0,0)) {
+
+				auto* rbb = cb->GetGameObject().GetComponent<RigidBody>();
+				if (rbb != nullptr) {
+					// 2 RigidBodies colliding, displace both
+				}
+				else {
+					// RigidBody colliding with Collider, only displace RigidBody
+					ta->position -= displacement;
+
+					// temporary check to stop gravity: disable gravity if it it's something 
+					// that's excerting a normal force mostly [-5%, +5%] vertical
+					if (rba->isAffectedByGravity) {
+						if (glm::dot(glm::normalize(displacement), glm::normalize(Physics::gravity * rba->mass)) < 0.05) {
+							std::cout << "gravity disabled\n";
+							rba->isAffectedByGravity = false;
+							rba->velocity.y = 0;
+						}
+					}
+
+					std::cout << "collision\n";
+				}
+			}
+		}
+	}
+	
 
 
 }
