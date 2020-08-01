@@ -6,6 +6,7 @@
 #include "core/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
+#include "physics/boundingbox.hpp"
 
 using namespace Missan;
 
@@ -38,33 +39,62 @@ glm::vec3 CalcMinToOrigin(std::vector<glm::vec3>& ps) {
 // temp
 int counter = 0;
 
+
+glm::vec3 CalculateDrag(RigidBody* rb) {
+	BoundingBox bb = rb->GetGameObject().GetComponent<Collider>()->boundingBox;
+	
+	
+	float airDensity = 1.293f;
+	float dragCoefficient = 1.05f;	// for a cube
+	float crossSectionArea = bb.size.x * bb.size.y;
+
+	auto v = rb->linearVelocity;
+	if (v == glm::vec3(0,0,0)) return glm::vec3(0, 0, 0);
+
+	//std::cout << v.x << " " << v.y << " " << v.z << "\n";
+
+	glm::vec3 dragForce = 0.5f * airDensity * dragCoefficient * crossSectionArea * v * v * -glm::normalize(v);
+
+	//std::cout << dragForce.x << " " << dragForce.y << " " << dragForce.z << "\n";
+	//std::cin.get();
+
+
+
+	return dragForce;
+}
+
+float CalculateTerminalVelocity(RigidBody* rb) {
+	BoundingBox bb = rb->GetGameObject().GetComponent<Collider>()->boundingBox;
+
+	float airDensity = 1.293f;
+	float dragCoefficient = 1.05f;	// for a cube
+	float crossSectionArea = bb.size.x * bb.size.y;
+
+	return sqrt(2 * rb->mass * glm::length(rb->forces) / airDensity * crossSectionArea * dragCoefficient);
+
+}
+
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces(std::vector<RigidBody*>& rbs) {
 
 	for (auto* rb : rbs) {
 
-		auto* c = rb->GetGameObject().GetComponent<Collider>();
 		auto* t = rb->GetGameObject().GetComponent<Transform>();
 
-		// gravitational force
-		if (rb->isAffectedByGravity)
-			//rb->AddForce(Physics::gravity * rb->mass);
+		glm::vec3 forces = rb->forces + rb->linearImpulse;// +CalculateDrag(rb);
+		glm::vec3 torque = rb->torques + rb->angularImpulse;
 
-			if (counter < 4) {
-				rb->AddForce({ 0,10,0 }, { 1,0,0 });
-				counter++;
-			}
-		// actually these are impulses
-		glm::vec3 linearAcceleration = rb->newForces / Time::deltaTime / rb->mass;
-		rb->velocity += linearAcceleration * Time::deltaTime /(1.0f + rb->drag);
-		t->position += rb->velocity * Time::deltaTime;
 
-		glm::vec3 angularAcceleration = rb->newTorque / Time::deltaTime / rb->inertiaTensor;
-		rb->angularVelocity += angularAcceleration * Time::deltaTime / (1.0f + rb->angularDrag);
+		glm::vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
+		rb->linearVelocity += linearAcceleration * Time::deltaTime;
+		t->position += rb->linearVelocity * Time::deltaTime;
+
+		glm::vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
+		rb->angularVelocity += angularAcceleration * Time::deltaTime;
 		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
 
-		rb->newForces = { 0,0,0 };
-		rb->newTorque = { 0,0,0 };
+		rb->linearImpulse = { 0,0,0 };
+		rb->angularImpulse = { 0,0,0 };
 
 	}
 
@@ -138,7 +168,7 @@ void Physics::Update() {
 						if (glm::dot(glm::normalize(displacement), glm::normalize(Physics::gravity * rba->mass)) < 0.05) {
 							std::cout << "gravity disabled\n";
 							rba->isAffectedByGravity = false;
-							rba->velocity.y = 0;
+							rba->linearVelocity.y = 0;
 						}
 					}
 

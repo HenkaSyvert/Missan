@@ -573,6 +573,7 @@
     <ClInclude Include="MissanGame\scripts\FloatScript.hpp" />
     <ClInclude Include="MissanGame\scripts\fpscam.hpp" />
     <ClInclude Include="MissanGame\scripts\menu.hpp" />
+    <ClInclude Include="MissanGame\scripts\physicstest.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />
