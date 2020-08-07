@@ -42,20 +42,11 @@ void StandardMap() {
     transform->rotationDeg = { -15,180,0 };
     transform->position = { 0,2,-10 };
     camera.AddComponent<Collider>();                // so we know if we collide into things
+    camera.AddComponent<RigidBody>();
 
-    GameObject menuManager;             // We need a GameObject in order for the menu to be active in the game
-    menuManager.AddComponent<Menu>();   // and this script does the menu
+    GameObject menuManager;                         // We need a GameObject in order for the menu to be active in the game
+    menuManager.AddComponent<Menu>();               // and this script does the menu
 
-    GameObject missanCube;
-    renderer = missanCube.AddComponent<Renderer>();
-    renderer->mesh_ptr = Resources::GetMesh("unitCube");
-    renderer->texture_ptr = Resources::GetTexture("cat.png");
-    transform = missanCube.GetComponent<Transform>();
-    transform->position = { 0,1,0 };
-    missanCube.AddComponent<Collider>();    
-    auto* rb = missanCube.AddComponent<RigidBody>();       // RigidBodies makes this GameObject be affected by physics
-    rb->isAffectedByGravity = false;
-    missanCube.AddComponent<PhysicsTest>();
 
 
     // Now we instantiate the objects
@@ -67,8 +58,6 @@ void StandardMap() {
         transform->position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
         transform->rotationDeg = { 0,90 + 90 * i,0 };
     }
-
-    go = Engine::Instantiate(missanCube);
 
 
 
@@ -85,6 +74,22 @@ void StandardMap() {
 
 }
 
+// some cubes with physics
+void PhysTest() {
+
+    GameObject cube;
+    auto* r = cube.AddComponent<Renderer>();
+    r->mesh_ptr = Resources::GetMesh("unitCube");
+    r->texture_ptr = Resources::GetTexture("cat.png");
+    cube.AddComponent<Collider>();
+    cube.AddComponent<RigidBody>();
+    cube.GetComponent<Transform>()->position.y = 3;
+
+    auto* go = Engine::Instantiate(cube);
+
+    Time::timeScale = 0.1f;
+    Physics::gravity = { 0,-0.0,0 };
+}
 
 
 
@@ -97,8 +102,9 @@ int main(int argc, char* argv[]){
 
     ///////////////////////////////////////////////////////////
     // Here is where you put your own code to add GameObjects to Scene
-
     StandardMap();
+    PhysTest();
+
 
     ///////////////////////////////////////////////////////////
 

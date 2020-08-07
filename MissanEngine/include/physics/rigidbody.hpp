@@ -58,28 +58,12 @@ namespace Missan {
 		// Force applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
 		// Force, unlike an impulse, is applied continuously once added, e.g. gravity is only added once
 		// but affects the RigidBody each frame
-		void AddForce(glm::vec3 newForce, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false) {
-			if (useLocalSpace) {
-				auto* t = GetGameObject().GetComponent<Transform>();
-				newForce = t->TransformPoint(newForce);
-				point = t->TransformPoint(point);
-			}		
-			forces += newForce;
-			torques += glm::cross(point, newForce);
-		}
+		void AddForce(glm::vec3 newForce, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
 		// Applies an impulse to the RigidBody at point, using world coordinates unless specified otherwise.
 		// Impulse applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
 		// Impulse, unlike force, is only applied once
-		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false) {
-			if (useLocalSpace) {
-				auto* t = GetGameObject().GetComponent<Transform>();
-				impulse = t->TransformPoint(impulse);
-				point = t->TransformPoint(point);
-			}
-			linearImpulse += impulse;
-			angularImpulse += glm::cross(point, impulse);
-		}
+		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
 
 

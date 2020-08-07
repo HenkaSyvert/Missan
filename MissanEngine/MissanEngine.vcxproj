@@ -87,6 +87,7 @@
     <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
+    <ClCompile Include="MissanGame\main.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -97,7 +98,6 @@
     <ClCompile Include="source\core\gui.cpp" />
     <ClCompile Include="source\core\input.cpp" />
     <ClCompile Include="source\core\resources.cpp" />
-    <ClCompile Include="MissanGame\main.cpp" />
     <ClCompile Include="source\graphics\mesh.cpp" />
     <ClCompile Include="source\missanpch.cpp" />
     <ClCompile Include="source\physics\physics.cpp" />
@@ -547,6 +547,7 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
+    <ClInclude Include="include\core\debug.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\core\engine.hpp" />

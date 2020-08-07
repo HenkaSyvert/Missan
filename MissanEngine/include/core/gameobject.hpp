@@ -10,8 +10,16 @@ namespace Missan {
 
 	public:
 
+		// Unique identifier for this instance
+		const int instanceID;
+
+		// The name of this GameObject
+		std::string name;
+
+
+
 		// Creates new GameObject with Transform Component already attached
-		GameObject();	
+		GameObject(std::string aName = "GameObject");	
 
 		// Deletes GameObject and all attached Components
 		~GameObject();	
@@ -20,30 +28,30 @@ namespace Missan {
 		GameObject(GameObject& copy);	
 
 		// Adds Component of type T, attaches it, and returns pointer
-		template <class T> T* AddComponent() {
+		template <class T> inline T* AddComponent() {
 			components.push_back(new T());
 			components.back()->AttachToGameObject(*this);
 			return (T*)components.back();
 		}	
 
 		// Returns pointer to Component of type T if found, else nullptr
-		template <class T> T* GetComponent() {
+		template <class T> inline T* GetComponent() {
 			for (Component* c : components)
 				if (typeid(T) == typeid(*c))
 					return (T*)c;
 			return nullptr;
 		}
 
-		
-
-
-		// TEST ///////////////////
-		// Unique identifier for this instance
-		const int instanceID;
-
-		// The name of this GameObject
-		std::string name;
-
+		// Removes Component
+		template <class T> inline void RemoveComponent() {
+			for (int i = 0; i < components.size(); i++) {
+				Component* c = components[i];
+				if (typeid(T) == typeid(*c)) {
+					delete c;
+					components.erase(components.begin() + i);
+				}
+			}
+		}
 
 
 

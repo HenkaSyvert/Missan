@@ -12,7 +12,10 @@ namespace {
 }
 
 // PUBLIC
-GameObject::GameObject() : instanceID(idCounter++) {
+GameObject::GameObject(std::string aName) 
+	: instanceID(idCounter++),
+	name(aName) 
+{
 	AddComponent<Transform>();
 }
 

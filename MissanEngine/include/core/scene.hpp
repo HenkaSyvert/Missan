@@ -1,7 +1,7 @@
 #pragma once
 
 #include "missanpch.hpp"
-#include "gameobject.hpp"
+#include "core/gameobject.hpp"
 
 // test
 #include <array>
@@ -24,7 +24,7 @@ namespace Missan {
 		// The GameObjects in the Scene
 		std::vector<GameObject*> gameObjects;
 
-		// Deletes all contained GameObjects
+		// Deletes Scene and all contained GameObjects
 		~Scene();
 		
 		

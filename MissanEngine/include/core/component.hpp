@@ -8,7 +8,8 @@ namespace Missan {
 	// just a forward declaration
 	class GameObject;
 
-	// Components define behavior of GameObjects. To make a custom script, inherit from Component
+	// Components define behavior of GameObjects. To make a custom script, inherit from Component.
+	// Currently, derived classes MUST provide implementation of the Clone() method. 
 	class Component : public IClonable {
 		
 	public:
@@ -23,33 +24,42 @@ namespace Missan {
 		
 		// EVENT FUNCTIONS, in order of execution. Override these in your own scripts
 
-		// Called only once for each GameObject
-		virtual void Start() {}
+		// Called only once for each GameObject, before all other Event functions
+		inline virtual void Start() {}
 
 		// Called when this Collider has begun touching another Collider
 		//virtual void OnCollisionEnter(){}		// not implemented yet
 
 		// Called every frame
-		virtual void Update() {}
+		inline virtual void Update() {}
 
 		// Called every frame, after all regular Update events
-		virtual void LateUpdate() {}
+		inline virtual void LateUpdate() {}
 
 		// Called during rendering, just used by Renderer Components atm
-		virtual void OnRender() {}
+		inline virtual void OnRender() {}
 
 		// Called during GUI rendering
-		virtual void OnGUI() {}
+		inline virtual void OnGUI() {}
 		
 
 
 		// NOT PART OF PUBLIC API //////////////////////////////////
-		// must have definition - empty body - since derived classes will call it
-		virtual ~Component() {};	
-		virtual Component* Clone() const = 0;
+
+		// Must have definition - empty body - since derived classes will call it
+		inline virtual ~Component() {};
+
+		// All derived classes of Component must provide an implementation of this method. 
+		// For class T inhereting from Component, it should look like this:
+		// T* Clone() const { return new T(*this); } 
+		inline virtual Component* Clone() const = 0;	
+
+
 
 	private:
 		GameObject* gameObject_ptr = nullptr;
+
+
 
 	};
 

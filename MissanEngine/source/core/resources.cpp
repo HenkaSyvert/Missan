@@ -2,13 +2,6 @@
 
 using namespace Missan;
 
-// TODO: 
-// 1. clean up voas, vbos, texs
-// 2. LoadMesh()
-// 3. make AddTexture::numberOfChannels relevant
-
-
-
 // PRIVATE
 namespace {
 
@@ -18,13 +11,7 @@ namespace {
 	// All Textures currently loaded into memory
 	std::vector<Texture*> loadedTextures;
 
-	// Put your Textures here. it's also ok to make subfolders in there
-	// but you still must provide the relative full filename then
-	const std::string textureDirectory = "resources/textures/";
-
-	// Put your Meshes here. it's also ok to make subfolders in there
-	// but you still must provide the relative full filename then
-	const std::string meshDirectory = "resources/meshes/";
+	
 
 	// temporary
 	std::vector<GLuint> vaos, vbos, texs;
@@ -209,7 +196,7 @@ namespace {
 
 	// Loads Texture data from file and calls AddTexture
 	void LoadTexture(const std::string& fileName) {
-		std::string filePath = textureDirectory + fileName;
+		std::string filePath = Resources::textureDirectory + fileName;
 		stbi_set_flip_vertically_on_load(1);
 		int w = 0, h = 0, bpp = 0;
 		unsigned char* localBuffer = stbi_load(filePath.c_str(), &w, &h, &bpp, 4);
@@ -266,6 +253,10 @@ namespace {
 
 
 // PUBLIC
+std::string Resources::textureDirectory = "resources/textures/";
+std::string Resources::meshDirectory	= "resources/meshes/";
+
+
 Mesh* Resources::GetMesh(const std::string& fileName) {
 	for (Mesh* m : loadedMeshes) {
 		if (m->fileName.compare(fileName) == 0) {

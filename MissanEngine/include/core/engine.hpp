@@ -1,17 +1,17 @@
 #pragma once
 
-#include "scene.hpp"
-#include "gameobject.hpp"
+#include "core/gameobject.hpp"
+#include "core/scene.hpp"
 
 namespace Missan {
 
 	// The core module
 	namespace Engine {
 
-		// Does all required start up stuff
+		// Initializes the engine. Must be called before ALL other Missan functions. 
 		void Initialize();
 
-		// Actually run the game
+		// Runs the engine. Setup up your game world prior to this. 
 		void Run();
 
 		// Cleanup
