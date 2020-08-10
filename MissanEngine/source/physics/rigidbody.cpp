@@ -1,13 +1,19 @@
 #include "physics/rigidbody.hpp"
 
+#include "core/transform.hpp"
+#include "physics/collider.hpp"
+#include "physics/physics.hpp"
+
 using namespace Missan;
 
 // PRIVATE
 
 void RigidBody::Start() {
 	auto* c = GetGameObject().GetComponent<Collider>();
-	if (c == nullptr)
+	if (c == nullptr) {
 		std::cout << "RigidBody requires Collider Component!\n";
+		exit(EXIT_FAILURE);
+	}
 
 	if (isAffectedByGravity) {
 		AddForce(Physics::gravity * mass);
@@ -40,3 +46,4 @@ void RigidBody::AddImpulse(glm::vec3 impulse, glm::vec3 point, bool useLocalSpac
 	linearImpulse += impulse;
 	angularImpulse += glm::cross(point, impulse);
 }
+

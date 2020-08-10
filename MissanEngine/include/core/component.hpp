@@ -2,6 +2,7 @@
 
 #include "core/gameobject.hpp"
 #include "interfaces/clonable.hpp"
+//#include "physics/collision.hpp"
 
 namespace Missan {
 
@@ -28,7 +29,7 @@ namespace Missan {
 		inline virtual void Start() {}
 
 		// Called when this Collider has begun touching another Collider
-		//virtual void OnCollisionEnter(){}		// not implemented yet
+		virtual void OnCollisionEnter(GameObject* other){}		
 
 		// Called every frame
 		inline virtual void Update() {}

@@ -2,10 +2,6 @@
 
 #include "missanpch.hpp"
 #include "core/component.hpp"
-#include "core/transform.hpp"
-#include "core/time.hpp"
-#include "physics/collider.hpp"
-#include "physics/physics.hpp"
 
 namespace Missan {
 
@@ -19,9 +15,6 @@ namespace Missan {
 		// The linear velocity (m/s) of this RigidBody
 		glm::vec3 linearVelocity = { 0,0,0 };
 
-		// How fast the rigidbody slows down (m/s)
-		float linearDrag = 0.0f;
-
 
 
 		// The angular force required to rotate this RigidBody
@@ -29,9 +22,6 @@ namespace Missan {
 
 		// The angular velocity (rad/s) of this RigidBody
 		glm::vec3 angularVelocity = { 0,0,0 };
-
-		// How fast angular velocity slows down (rad/s)
-		float angularDrag = 10.0f;
 
 
 
@@ -70,6 +60,7 @@ namespace Missan {
 		// NOT PART OF PUBLIC API ////////////////////////
 
 		void Start();
+
 		
 		RigidBody* Clone() const { return new RigidBody(*this); }
 	};

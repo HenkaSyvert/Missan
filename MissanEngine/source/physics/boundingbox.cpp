@@ -7,10 +7,10 @@ using namespace Missan;
 std::vector<glm::vec3> BoundingBox::GetVertices() {
 	std::vector<glm::vec3> v;
 	auto x = size.x / 2, y = size.y / 2, z = size.z / 2;
-	v.push_back({ x, -y, -z });
-	v.push_back({ x, -y,  z });
-	v.push_back({ x,  y, -z });
-	v.push_back({ x,  y,  z });
+	v.push_back({  x, -y, -z });
+	v.push_back({  x, -y,  z });
+	v.push_back({  x,  y, -z });
+	v.push_back({  x,  y,  z });
 	v.push_back({ -x, -y, -z });
 	v.push_back({ -x, -y,  z });
 	v.push_back({ -x,  y, -z });

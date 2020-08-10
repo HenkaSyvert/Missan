@@ -3,7 +3,6 @@
 // MissanEngine public API
 
 
-
 // temporary, for access to GLFW_KEYCODE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -21,7 +20,7 @@
 #include "core/component.hpp"
 #include "core/engine.hpp"
 #include "core/gameobject.hpp"
-//#include "core/gui.hpp"			// will do GUI API sometime
+#include "core/gui.hpp"
 #include "core/input.hpp"
 #include "core/resources.hpp"
 #include "core/scene.hpp"
@@ -36,7 +35,6 @@
 #include "graphics/shaderprogram.hpp"
 #include "graphics/texture.hpp"
 
-#include "physics/rigidbody.hpp"
 #include "physics/collider.hpp"
 #include "physics/physics.hpp"
 #include "physics/rigidbody.hpp"

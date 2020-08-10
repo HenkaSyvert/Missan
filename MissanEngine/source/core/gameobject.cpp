@@ -4,17 +4,9 @@
 
 using namespace Missan;
 
-namespace {
-
-	// for generating unique IDs
-	int idCounter = 1;
-
-}
 
 // PUBLIC
-GameObject::GameObject(std::string aName) 
-	: instanceID(idCounter++),
-	name(aName) 
+GameObject::GameObject() 
 {
 	AddComponent<Transform>();
 }
@@ -24,7 +16,7 @@ GameObject::~GameObject() {
 		delete c;
 }
 
-GameObject::GameObject(GameObject& copy) : instanceID(idCounter++) {
+GameObject::GameObject(GameObject& copy) {
 	for (Component* c : copy.components) {
 		components.push_back(c->Clone());
 		components.back()->AttachToGameObject(*this);

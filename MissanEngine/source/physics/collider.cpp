@@ -95,13 +95,6 @@ glm::vec3 Collider::OverlapsWith(Collider* other) {
 				displacement = glm::normalize(n) * currentOverlap;
 			}
 			
-
-			// keep track of the minimum displacement required to cancel the overlap
-			//float currentOverlap = std::min(ourMax, theirMax) - std::max(ourMin, theirMin);
-			//if (abs(currentOverlap) < abs(minimumOverlap)) {
-			//	minimumOverlap = currentOverlap;
-			//	displacement = glm::normalize(n) * currentOverlap;
-			//}
 		}
 		
 	}

@@ -10,19 +10,11 @@ namespace Missan {
 
 	public:
 
-		// Unique identifier for this instance
-		const int instanceID;
-
-		// The name of this GameObject
-		std::string name;
-
-
-
 		// Creates new GameObject with Transform Component already attached
-		GameObject(std::string aName = "GameObject");	
+		GameObject();
 
 		// Deletes GameObject and all attached Components
-		~GameObject();	
+		~GameObject();
 
 		// Creates new instances of copy's Components and attaches them to the new GameObject
 		GameObject(GameObject& copy);	
