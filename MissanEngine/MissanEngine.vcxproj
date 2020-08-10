@@ -87,7 +87,7 @@
     <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
-    <ClCompile Include="MissanGame\main.cpp" />
+    <ClCompile Include="games\testgame\main.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -547,6 +547,9 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
+    <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
+    <ClInclude Include="games\testgame\scripts\projectile.hpp" />
+    <ClInclude Include="games\testgame\scripts\weapon.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\core\engine.hpp" />
@@ -570,10 +573,10 @@
     <ClInclude Include="include\core\time.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\window.h" />
-    <ClInclude Include="MissanGame\scripts\FloatScript.hpp" />
-    <ClInclude Include="MissanGame\scripts\fpscam.hpp" />
-    <ClInclude Include="MissanGame\scripts\menu.hpp" />
-    <ClInclude Include="MissanGame\scripts\physicstest.hpp" />
+    <ClInclude Include="games\testgame\scripts\FloatScript.hpp" />
+    <ClInclude Include="games\testgame\scripts\fpscam.hpp" />
+    <ClInclude Include="games\testgame\scripts\menu.hpp" />
+    <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

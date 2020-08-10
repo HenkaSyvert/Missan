@@ -26,6 +26,8 @@ namespace Missan {
 		// Instantiates original in active Scene, and returns copy
 		GameObject* Instantiate(GameObject& original);
 
+		void Destroy(GameObject* gameObject);
+
 		
 	}
 

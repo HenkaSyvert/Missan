@@ -6,7 +6,6 @@
 #include "scripts/fpscam.hpp"
 #include "scripts/FloatScript.hpp"
 #include "scripts/menu.hpp"
-#include "scripts/physicstest.hpp"
 
 using namespace Missan;
 
@@ -47,18 +46,17 @@ void StandardMap() {
     GameObject menuManager;                         // We need a GameObject in order for the menu to be active in the game
     menuManager.AddComponent<Menu>();               // and this script does the menu
 
-
+    
 
     // Now we instantiate the objects
-    GameObject* go = Engine::Instantiate(floorPrefab);      // Instantiations are made to the currently active Scene
-
+    GameObject* floor = Engine::Instantiate(floorPrefab);      // Instantiations are made to the currently active Scene
+    GameObject* go;
     for (int i = 0; i < 3; i++) {                           // We can make several copies of the same prefab
         go = Engine::Instantiate(wallPrefab);               // and keep make the changes to the copy instead of the original
         transform = go->GetComponent<Transform>();
         transform->position = { 5 * cos(i*3.1415 * 0.5),0,5 * sin(i*3.1415 * 0.5) };
         transform->rotationDeg = { 0,90 + 90 * i,0 };
     }
-
 
 
     // and this is somewhat messy, and will be simplified sometime in the future
@@ -69,9 +67,8 @@ void StandardMap() {
     go = Engine::Instantiate(menuManager);
     cameraGo->GetComponent<FPSCamera>()->moveCam = &go->GetComponent<Menu>()->moveCam;
     go->GetComponent<Menu>()->camera_ptr = cameraGo->GetComponent<Camera>();
-    go->GetComponent<Menu>()->selectedGO = Engine::GetActiveScene()->gameObjects[0];
-    
-
+    go->GetComponent<Menu>()->selectedGO = floor;
+ 
 }
 
 // some cubes with physics

@@ -43,6 +43,8 @@ namespace Missan {
 		// Called during GUI rendering
 		inline virtual void OnGUI() {}
 		
+		// Called prior to being destroyed
+		inline virtual void OnDestroy() {}
 
 
 		// NOT PART OF PUBLIC API //////////////////////////////////

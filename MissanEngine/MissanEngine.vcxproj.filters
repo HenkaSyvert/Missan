@@ -99,7 +99,7 @@
     <ClCompile Include="source\physics\rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MissanGame\main.cpp">
+    <ClCompile Include="games\testgame\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1446,16 +1446,7 @@
     <ClInclude Include="include\missan.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MissanGame\scripts\fpscam.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MissanGame\scripts\FloatScript.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\interfaces\clonable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MissanGame\scripts\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\core\engine.hpp">
@@ -1485,7 +1476,25 @@
     <ClInclude Include="include\core\component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MissanGame\scripts\physicstest.hpp">
+    <ClInclude Include="games\testgame\scripts\FloatScript.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\testgame\scripts\fpscam.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\testgame\scripts\menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\fpsdemo\scripts\weapon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\testgame\scripts\weapon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\testgame\scripts\projectile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

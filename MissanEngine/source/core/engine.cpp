@@ -16,6 +16,9 @@ namespace {
 
 	Scene* activeScene_ptr = nullptr;
 
+	std::vector<GameObject*> gameObjectsToBeInstantiated;
+	std::vector<GameObject*> gameObjectsToBeDestroyed;
+
 }
 
 // PUBLIC
@@ -34,9 +37,18 @@ void Engine::Run() {
 	Time::Update();
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
+	
+	std::cout << "hello\n";
+	for (auto* g : gameObjectsToBeInstantiated) {
+		gos.push_back(g);
+	}
+	gameObjectsToBeInstantiated.clear();
+
 	for (auto* g : gos)
 		for (auto* c : g->components)
 			c->Start();
+
+	
 
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(Window::GetHandle())) {
@@ -77,6 +89,13 @@ void Engine::Run() {
 		GUI::End();
 
 
+		for (auto* g : gameObjectsToBeInstantiated) {
+			gos.push_back(g);
+			for (auto* c : g->components)
+				c->Start();
+		}
+		gameObjectsToBeInstantiated.clear();
+
 		
 		glfwSwapBuffers(Window::GetHandle());
 	}	
@@ -102,7 +121,10 @@ void Engine::SetActiveScene(Scene& scene) {
 }
 
 GameObject* Engine::Instantiate(GameObject& original) {
-	activeScene_ptr->gameObjects.push_back(new GameObject(original));
-	return activeScene_ptr->gameObjects.back();
+	gameObjectsToBeInstantiated.push_back(new GameObject(original));
+	return gameObjectsToBeInstantiated.back();
 }
 
+void Engine::Destroy(GameObject* gameObject) {
+
+}
