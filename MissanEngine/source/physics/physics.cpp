@@ -28,13 +28,11 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 
 		glm::vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
 		rb->linearVelocity += linearAcceleration * Time::deltaTime;
-		rb->linearVelocity = { 0,0,0 };
 		t->position += rb->linearVelocity * Time::deltaTime;
 
 
 		glm::vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
-		rb->angularVelocity = { 0,0,0 };
 		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
 
 
@@ -103,10 +101,12 @@ void Physics::Update() {
 		if (g->GetComponent<Collider>() != nullptr)
 			cs.push_back(g->GetComponent<Collider>());
 
-	ApplyForces(rbs);
-	std::vector<std::pair<GameObject*, GameObject*>> collisions = DetectCollisions(cs);
 
-	for (std::pair<GameObject*, GameObject*>& collision : collisions) {
+
+	ApplyForces(rbs);
+
+	// Send OnCollisionEnter messages..
+	for (std::pair<GameObject*, GameObject*>& collision : DetectCollisions(cs)) {
 		for (Component* c : collision.first->components) {
 			c->OnCollisionEnter(collision.second);
 		}

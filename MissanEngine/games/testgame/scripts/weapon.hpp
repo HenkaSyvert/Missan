@@ -15,6 +15,7 @@ public:
 	// the force, in newtons, with which projectiles will be launched
 	float force = 100.f;
 
+
 	// Key which fires weapon
 	int fireKey = GLFW_KEY_F;
 
@@ -39,7 +40,8 @@ private:
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();
 		glm::vec3 forward = -ourTrans->GetBackwardVector();
-
+		//prb->mass = 0.1f;
+		prb->isAffectedByGravity = false;
 
 		pTrans->position = ourTrans->position + forward * muzzleDistance;
 		pTrans->rotationDeg = ourTrans->rotationDeg;

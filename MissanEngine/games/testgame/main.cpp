@@ -87,8 +87,8 @@ void PhysTest() {
 
     auto* go = Engine::Instantiate(cube);
 
-    Time::timeScale = 0.1f;
-    Physics::gravity = { 0,-0.0,0 };
+    //Time::timeScale = 0.1f;
+    //Physics::gravity = { 0,-0.0,0 };
 }
 
 

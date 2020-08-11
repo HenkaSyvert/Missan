@@ -109,6 +109,7 @@ void Engine::Run() {
 			for (int i = 0; !found && i < gos.size(); i++) {
 				if (g == gos[i]) {
 					gos.erase(gos.begin() + i);
+					delete g;
 					found = true;
 				}
 
