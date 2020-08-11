@@ -25,10 +25,6 @@ public:
 		}
 	}
 
-	void OnCollisionEnter(GameObject* other) {
-		Engine::Destroy(&GetGameObject());
-	}
-
 private:
 	float startTime;
 

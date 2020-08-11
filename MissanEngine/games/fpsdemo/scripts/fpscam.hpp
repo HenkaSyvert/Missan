@@ -19,8 +19,8 @@ public:
     float pitchConstraint = 89.9f;
 
     // Controls wheter this script is active. 
-    // this is handled by another script (Menu)
     bool* moveCam;
+
 
 
 

@@ -99,7 +99,7 @@
     <ClCompile Include="source\physics\rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="games\testgame\main.cpp">
+    <ClCompile Include="games\fpsdemo\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1485,16 +1485,22 @@
     <ClInclude Include="games\testgame\scripts\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\weapon.hpp">
+    <ClInclude Include="games\testgame\scripts\weapon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\testgame\scripts\projectile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\testgame\scripts\weapon.hpp">
+    <ClInclude Include="games\fpsdemo\scripts\projectile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\testgame\scripts\projectile.hpp">
+    <ClInclude Include="games\fpsdemo\scripts\weapon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\fpsdemo\scripts\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
