@@ -6,8 +6,11 @@
 #include "scripts/fpscam.hpp"
 #include "scripts/FloatScript.hpp"
 #include "scripts/menu.hpp"
+#include "scripts/weapon.hpp"
 
 using namespace Missan;
+
+bool moveCam = true;
 
 // script to make a simple scene
 void StandardMap() {
@@ -41,10 +44,10 @@ void StandardMap() {
     transform->rotationDeg = { -15,180,0 };
     transform->position = { 0,2,-10 };
     camera.AddComponent<Collider>();                // so we know if we collide into things
-    camera.AddComponent<RigidBody>();
+    camera.AddComponent<Weapon>();
 
-    GameObject menuManager;                         // We need a GameObject in order for the menu to be active in the game
-    menuManager.AddComponent<Menu>();               // and this script does the menu
+    //GameObject menuManager;                         // We need a GameObject in order for the menu to be active in the game
+    //menuManager.AddComponent<Menu>();               // and this script does the menu
 
     
 
@@ -64,10 +67,10 @@ void StandardMap() {
     // rather than to the uninstantiated prefab
     GameObject* cameraGo = Engine::Instantiate(camera);
     Graphics::SetCamera(*cameraGo->GetComponent<Camera>());     // This is temporary, should be global
-    go = Engine::Instantiate(menuManager);
-    cameraGo->GetComponent<FPSCamera>()->moveCam = &go->GetComponent<Menu>()->moveCam;
-    go->GetComponent<Menu>()->camera_ptr = cameraGo->GetComponent<Camera>();
-    go->GetComponent<Menu>()->selectedGO = floor;
+    //go = Engine::Instantiate(menuManager);
+    cameraGo->GetComponent<FPSCamera>()->moveCam = &moveCam;
+    //go->GetComponent<Menu>()->camera_ptr = cameraGo->GetComponent<Camera>();
+    //go->GetComponent<Menu>()->selectedGO = floor;
  
 }
 

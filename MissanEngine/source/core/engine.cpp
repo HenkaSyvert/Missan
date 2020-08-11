@@ -38,7 +38,6 @@ void Engine::Run() {
 	// STARTUP
 	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
 	
-	std::cout << "hello\n";
 	for (auto* g : gameObjectsToBeInstantiated) {
 		gos.push_back(g);
 	}
@@ -89,12 +88,33 @@ void Engine::Run() {
 		GUI::End();
 
 
+
+		// Instantiations
 		for (auto* g : gameObjectsToBeInstantiated) {
 			gos.push_back(g);
 			for (auto* c : g->components)
 				c->Start();
 		}
 		gameObjectsToBeInstantiated.clear();
+
+
+
+		// Destructions
+		for (auto* g : gameObjectsToBeDestroyed) {
+			bool found = false;
+			
+			for (Component* c : g->components)
+				c->OnDestroy();
+
+			for (int i = 0; !found && i < gos.size(); i++) {
+				if (g == gos[i]) {
+					gos.erase(gos.begin() + i);
+					found = true;
+				}
+
+			}
+		}
+		gameObjectsToBeDestroyed.clear();
 
 		
 		glfwSwapBuffers(Window::GetHandle());
@@ -126,5 +146,5 @@ GameObject* Engine::Instantiate(GameObject& original) {
 }
 
 void Engine::Destroy(GameObject* gameObject) {
-
+	gameObjectsToBeDestroyed.push_back(gameObject);
 }
