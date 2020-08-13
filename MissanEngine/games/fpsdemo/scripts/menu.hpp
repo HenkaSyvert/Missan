@@ -10,16 +10,13 @@ class Menu : public Component {
 
 public:
 
-	// for fpscam script
-	bool canMoveCam = true;
 	bool isPaused = false;
 
-
 	// key to pause game, specifically fpscam script
-	int pauseKey = GLFW_KEY_ESCAPE;
+	int pauseKey = GLFW_KEY_E;
 
 	// to avoid multiple keypresses
-	float delay = 0.4f;
+	float delay = 0.5f;
 
 	// timer for key press
 	float timeStamp;
@@ -34,25 +31,28 @@ public:
 
 	void Start() {
 		timeStamp = Time::unscaledTime;
+		Window::SetIsCursorVisible(false);
 	}
 
 	void Update() {
 
 		if (!canPressKey) {
 			if (Time::unscaledTime - timeStamp > delay) {
-				canPressKey = true;
-				timeStamp = Time::unscaledTime;
+				canPressKey = true;			
 			}
 		}
-		else if (Input::IsKeyPressed(pauseKey)) {
+		
+		if (canPressKey && Input::IsKeyPressed(pauseKey)) {
 			isPaused = !isPaused;
-			canMoveCam = !isPaused;
+			Window::SetIsCursorVisible(isPaused);
+			canPressKey = false;
+			timeStamp = Time::unscaledTime;
 		}
 
 	}
 
 	void OnGUI() {
-		ImGui::Text("press ESCAPE to pause game");
+		ImGui::Text("press E to pause game");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 

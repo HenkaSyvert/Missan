@@ -2,6 +2,8 @@
 
 #include "missan.hpp"
 
+#include "menu.hpp"
+
 using namespace Missan;
 
 // script for moving camera with mouse on y axis, and x axis (constrained to 89.9 degrees)
@@ -15,22 +17,26 @@ public:
     // limits maximum pitch (in degrees), i.e. rotation on the x-axis. Recommended not higher than 89.9
     float pitchConstraint = 89.9f;
 
-    // Controls wheter this script is active. 
-    bool* moveCam;
 
+    bool* isPaused;
+    Transform* transform;
+
+    void Start() {
+        isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
+        transform = GetGameObject().GetComponent<Transform>();
+    }
 
 
 
     void Update() {
-        if (!*moveCam) return;
+        if (*isPaused) return;
 
         // change rotation based on mouse input
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::unscaledDeltaTime;
-        Transform& transform = *GetGameObject().GetComponent<Transform>();
-        
-        transform.rotationDeg.y += dyRot;
-        transform.rotationDeg.x = glm::clamp(transform.rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
+  
+        transform->rotationDeg.y += dyRot;
+        transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
 
         
     }

@@ -2,6 +2,8 @@
 
 #include "missan.hpp"
 
+#include "menu.hpp"
+
 using namespace Missan;
 
 // script for making player move like in a generic FPS game,
@@ -13,9 +15,18 @@ public:
     // How fast the player moves
     float moveSpeed = 5.0f;
 
-	void Start() {
-        auto& transform = *GetGameObject().GetComponent<Transform>();
+    bool* isPaused;
 
+    Transform* transform;
+
+    void Start() {
+        isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
+        transform = GetGameObject().GetComponent<Transform>();
+    }
+
+	void Update() {
+
+        if (*isPaused) return;
 
         // using axes like this is more predictable, since holding down
         // e.g. W and S at the same time will not move camera
@@ -30,8 +41,8 @@ public:
         float dz = (float)zAxis * moveSpeed * Time::unscaledDeltaTime;
 
         // move camera relative to its rotation
-        transform.position += dx * transform.GetRightVector();
-        transform.position += dz * glm::normalize(-transform.GetBackwardVector() - glm::vec3(0, 1, 0));
+        transform->position += dx * transform->GetRightVector();
+        transform->position += dz * glm::normalize(-transform->GetBackwardVector() - glm::proj(-transform->GetBackwardVector(), glm::vec3(0, 1, 0)));
 
 	}
 
