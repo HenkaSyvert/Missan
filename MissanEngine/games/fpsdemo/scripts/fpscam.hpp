@@ -4,13 +4,10 @@
 
 using namespace Missan;
 
-// a script implementing a flying fps style camera
+// script for moving camera with mouse on y axis, and x axis (constrained to 89.9 degrees)
 class FPSCamera : public Component {
 
 public:
-
-    // How fast the camera moves
-    float moveSpeed = 5.0f;
 
     // How fast the camera rotates, or mouse sensitivity if you will
     float rotationSpeedDeg = 30.0f;
@@ -35,21 +32,7 @@ public:
         transform.rotationDeg.y += dyRot;
         transform.rotationDeg.x = glm::clamp(transform.rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
 
-        // using axes like this is more predictable, since holding down
-        // e.g. W and S at the same time will not move camera
-        int xAxis = 0, zAxis = 0;
-        if (Input::IsKeyPressed(GLFW_KEY_D)) xAxis += 1;
-        if (Input::IsKeyPressed(GLFW_KEY_A)) xAxis -= 1;
-        if (Input::IsKeyPressed(GLFW_KEY_S)) zAxis += 1;
-        if (Input::IsKeyPressed(GLFW_KEY_W)) zAxis -= 1;
-
-        // remember to use deltatime for smooth movement
-        float dx = (float)xAxis * moveSpeed * Time::unscaledDeltaTime;
-        float dz = (float)zAxis * moveSpeed * Time::unscaledDeltaTime;
-
-        // move camera relative to its rotation
-        transform.position += dx * transform.GetRightVector();
-        transform.position += dz * transform.GetBackwardVector();
+        
     }
 
 

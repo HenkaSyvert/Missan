@@ -1,22 +1,28 @@
 #pragma once
 
-// MissanEngine public API
+/// 
+/// MissanEngine public API
 
 
-// temporary, for access to GLFW_KEYCODE
+/// 
+/// temporary, for access to GLFW_KEYCODE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// temporary, mathematics library
+/// 
+/// temporary, mathematics library
 #include <glm/glm.hpp>
 
-// temporary, gui library
+/// 
+/// temporary, gui library
 #include <imgui/imgui.h>
 
-// temporary, as logging to console
+/// 
+/// temporary, as logging to console
 #include <iostream>
 
-// Missan includes
+/// 
+/// Missan includes
 #include "core/component.hpp"
 #include "core/engine.hpp"
 #include "core/gameobject.hpp"

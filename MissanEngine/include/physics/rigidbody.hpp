@@ -9,55 +9,72 @@ namespace Missan {
 
 	public:
 
-		// The mass (kg) of this RigidBody
+		/// 
+/// The mass (kg) of this RigidBody
 		float mass = 1.0f;
 
-		// The linear velocity (m/s) of this RigidBody
+		/// 
+/// The linear velocity (m/s) of this RigidBody
 		glm::vec3 linearVelocity = { 0,0,0 };
 
 
 
-		// The angular force required to rotate this RigidBody
+		/// 
+/// The angular force required to rotate this RigidBody
 		glm::vec3 inertiaTensor = { 0,0,0 };
 
-		// The angular velocity (rad/s) of this RigidBody
+		/// 
+/// The angular velocity (rad/s) of this RigidBody
 		glm::vec3 angularVelocity = { 0,0,0 };
 
 
 
-		// Sum of all linear forces currently acting on this RigidBody
+		/// 
+/// Sum of all linear forces currently acting on this RigidBody
 		glm::vec3 forces = { 0,0,0 };
 
-		// Sum of all torques currently acting on this RigidBody
+		/// 
+/// Sum of all torques currently acting on this RigidBody
 		glm::vec3 torques = { 0,0,0 };
 
-		// is this RigidBody affected by gravity?
+		/// 
+/// is this RigidBody affected by gravity?
 		bool isAffectedByGravity = true;
 
 
 
-		// Linear impulse that will be applied this frame
+		/// 
+/// Linear impulse that will be applied this frame
 		glm::vec3 linearImpulse = { 0,0,0 };
 
-		// angular impulse that will be applied this frame
+		/// 
+/// angular impulse that will be applied this frame
 		glm::vec3 angularImpulse = { 0,0,0 };
 
 
 
-		// Applies force to the RigidBody at point, using world coordinates unless specified otherwise.
-		// Force applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
-		// Force, unlike an impulse, is applied continuously once added, e.g. gravity is only added once
-		// but affects the RigidBody each frame
+		/// 
+/// Applies force to the RigidBody at point, using world coordinates unless specified otherwise.
+		/// 
+/// Force applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
+		/// 
+/// Force, unlike an impulse, is applied continuously once added, e.g. gravity is only added once
+		/// 
+/// but affects the RigidBody each frame
 		void AddForce(glm::vec3 newForce, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
-		// Applies an impulse to the RigidBody at point, using world coordinates unless specified otherwise.
-		// Impulse applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
-		// Impulse, unlike force, is only applied once
+		/// 
+/// Applies an impulse to the RigidBody at point, using world coordinates unless specified otherwise.
+		/// 
+/// Impulse applied anywhere but center of mass (i.e. {0,0,0} ) will generate torque.
+		/// 
+/// Impulse, unlike force, is only applied once
 		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
 
 
-		// NOT PART OF PUBLIC API ////////////////////////
+		/// 
+/// NOT PART OF PUBLIC API ////////////////////////
 
 		void Start();
 

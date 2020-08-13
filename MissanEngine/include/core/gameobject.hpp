@@ -5,28 +5,34 @@
 
 namespace Missan {
 
-	// Base class for all entities in Missan Scenes
+	/// 
+/// Base class for all entities in Missan Scenes
 	class GameObject {
 
 	public:
 
-		// Creates new GameObject with Transform Component already attached
+		/// 
+/// Creates new GameObject with Transform Component already attached
 		GameObject();
 
-		// Deletes GameObject and all attached Components
+		/// 
+/// Deletes GameObject and all attached Components
 		~GameObject();
 
-		// Creates new instances of copy's Components and attaches them to the new GameObject
+		/// 
+/// Creates new instances of copy's Components and attaches them to the new GameObject
 		GameObject(GameObject& copy);	
 
-		// Adds Component of type T, attaches it, and returns pointer
+		/// 
+/// Adds Component of type T, attaches it, and returns pointer
 		template <class T> inline T* AddComponent() {
 			components.push_back(new T());
 			components.back()->AttachToGameObject(*this);
 			return (T*)components.back();
 		}	
 
-		// Returns pointer to Component of type T if found, else nullptr
+		/// 
+/// Returns pointer to Component of type T if found, else nullptr
 		template <class T> inline T* GetComponent() {
 			for (Component* c : components)
 				if (typeid(T) == typeid(*c))
@@ -34,7 +40,8 @@ namespace Missan {
 			return nullptr;
 		}
 
-		// Removes Component
+		/// 
+/// Removes Component
 		template <class T> inline void RemoveComponent() {
 			for (int i = 0; i < components.size(); i++) {
 				Component* c = components[i];
@@ -47,7 +54,8 @@ namespace Missan {
 
 
 
-		// NOT PART OF PUBLIC API ///////////////////////////////////
+		/// 
+/// NOT PART OF PUBLIC API ///////////////////////////////////
 		std::vector<class Component*> components;
 
 	};

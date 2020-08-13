@@ -46,8 +46,10 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Collider*>& colliders) {
-	
+
 	std::vector<std::pair<GameObject*, GameObject*>> collisions;
+
+	if (colliders.empty()) return collisions;
 
 	for (int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
@@ -66,7 +68,6 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 				continue;
 			}
 			else {
-
 				collisions.push_back({ &ca->GetGameObject(),  &cb->GetGameObject() });
 				collisions.push_back({ &cb->GetGameObject(),  &ca->GetGameObject() });
 			}

@@ -5,15 +5,18 @@
 
 namespace Missan {
 
-	// Holds instaniated GameObjects
+	/// 
+/// Holds instaniated GameObjects
 	class Scene {
 
 	public:
 
-		// The GameObjects in the Scene
+		/// 
+/// The GameObjects in the Scene
 		std::vector<GameObject*> gameObjects;
 
-		// Deletes Scene and all contained GameObjects
+		/// 
+/// Deletes Scene and all contained GameObjects
 		~Scene();
 		
 	};
