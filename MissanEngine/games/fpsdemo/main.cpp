@@ -106,7 +106,8 @@ std::vector<glm::ivec2> MakeColumns() {
         glm::ivec2 xz = { rand() % mapWidth, rand() % mapBreadth };
         bool found = false;
         for (auto& v : coords) {
-            if (xz == v) {
+            // player always starts at (0,0)
+            if (xz == v || xz == glm::ivec2(0,0)) {
                 found = true;
                 break;
             }
@@ -136,7 +137,8 @@ void MakePlayer(std::vector<glm::ivec2>& columns) {
     Movement* movement = player.AddComponent<Movement>();   
     movement->columns = columns;
     player.AddComponent<Weapon>();
-    player.GetComponent<Transform>()->position.y = 1.2f;
+    player.AddComponent<Collider>();
+    player.AddComponent<RigidBody>();
 
     GameObject* go = Engine::Instantiate(player);
     Graphics::SetCamera(*go->GetComponent<Camera>());

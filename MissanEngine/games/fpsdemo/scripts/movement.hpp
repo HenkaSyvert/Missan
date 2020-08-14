@@ -25,6 +25,18 @@ public:
 
     std::vector<glm::ivec2> columns;
 
+    // does player touch the ground?
+    bool isGrounded = true;
+
+    RigidBody* rb;
+
+    float jumpForce = 120.0f;
+    float headHeight = 1.2f;
+    
+    float timeStamp;
+    float jumpDelay = 0.5f;
+    bool canJump = true;
+
     // makes player stay within map size
     void KeepWithinMap() {
         transform->position.x = glm::clamp(transform->position.x, -cellWidth / 2 + radius, (mapWidth - 0.5f) * cellWidth - radius);
@@ -64,9 +76,45 @@ public:
 
     }
 
+
+    void CheckJump() {
+
+        if (!isGrounded) {
+            if (transform->position.y < headHeight) {
+                isGrounded = true;
+                transform->position.y = headHeight;
+                rb->forces = { 0,0,0 };
+                rb->linearVelocity.y = 0;
+            }
+        }
+
+        if (!canJump) {
+            if (Time::time - timeStamp > jumpDelay) {
+                canJump = true;
+            }
+        }
+
+        if (canJump && isGrounded && Input::IsKeyPressed(GLFW_KEY_SPACE)) {
+            rb->AddImpulse({ 0, jumpForce / rb->mass, 0 });
+            rb->AddForce(Physics::gravity / rb->mass);
+            isGrounded = false;
+            canJump = false;
+            timeStamp = Time::time;
+        }
+
+    }
+
+
     void Start() {
         isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
         transform = GetGameObject().GetComponent<Transform>();
+        
+        rb = GetGameObject().GetComponent<RigidBody>();
+        transform->position.y = headHeight;
+        rb->isAffectedByGravity = false;
+        rb->mass = 5.0f;
+        timeStamp = Time::time;
+
     }
 
 	void Update() {
@@ -88,6 +136,10 @@ public:
         // move camera relative to its rotation
         transform->position += dx * transform->GetRightVector();
         transform->position += dz * glm::normalize(-transform->GetBackwardVector() - glm::proj(-transform->GetBackwardVector(), glm::vec3(0, 1, 0)));
+
+        
+        CheckJump();
+        
 
         KeepWithinMap();
         AvoidColumns();
