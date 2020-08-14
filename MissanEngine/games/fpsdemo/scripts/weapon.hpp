@@ -16,9 +16,6 @@ public:
 	float force = 100.f;
 
 
-	// Key which fires weapon
-	int fireKey = GLFW_KEY_F;
-
 	// distance from player from which projectiles spawn
 	float muzzleDistance = 0.2f;
 
@@ -71,7 +68,7 @@ public:
 			}
 			else return;
 		}
-		else if (Input::IsKeyPressed(fireKey)) {
+		else if (Input::IsMouseLeftPressed()) {
 			SpawnProjectile();
 			canFire = false;
 			timeStamp = Time::time;

@@ -21,6 +21,9 @@ namespace Missan {
 /// Is the key pressed?
 		bool IsKeyPressed(int keycode);
 
+		bool IsMouseLeftPressed();
+		bool IsMouseRightPressed();
+
 
 
 		/// 

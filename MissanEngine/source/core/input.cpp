@@ -32,3 +32,12 @@ void Input::Update() {
 	glfwPollEvents();
 }
 
+bool Input::IsMouseLeftPressed() {
+	int state = glfwGetMouseButton(Window::GetHandle(), GLFW_MOUSE_BUTTON_LEFT);
+	return state == GLFW_PRESS;
+}
+
+bool Input::IsMouseRightPressed() {
+	int state = glfwGetMouseButton(Window::GetHandle(), GLFW_MOUSE_BUTTON_RIGHT);
+	return state == GLFW_PRESS;
+}
