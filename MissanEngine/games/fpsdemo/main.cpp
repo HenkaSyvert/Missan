@@ -7,21 +7,13 @@
 #include "scripts/menu.hpp"
 #include "scripts/weapon.hpp"
 #include "scripts/movement.hpp"
+#include "scripts/globals.hpp"
 
 using namespace Missan;
 
 
-// some data for generating a simple map
-constexpr int mapWidth   = 1;
-constexpr int mapBreadth = 2;
 
-constexpr float cellWidth   = 5.0f;
-constexpr float cellHeight  = 2.0f;
-constexpr float cellBreadth = 5.0f;
-
-
-
-void MakeMap() {
+void MakeRoom() {
 
     Texture* stone1 = Resources::GetTexture("stonefloor.png");
     Texture* stone2 = Resources::GetTexture("stone2.png");
@@ -79,13 +71,70 @@ void MakeMap() {
 
 }
 
-void MakePlayer() {
+// makes a single graphical column at xz
+void MakeColumn(int x, int z) {
+
+    GameObject wall;
+    Renderer* rend = wall.AddComponent<Renderer>();
+    rend->mesh_ptr = Resources::GetMesh("unitPlane");
+    rend->texture_ptr = Resources::GetTexture("stone3.jpg");
+    Transform* trans = wall.GetComponent<Transform>();
+    trans->scale = { cellWidth, cellHeight, 1 };
+
+    for (int i = 0; i < 4; i++) {
+        GameObject* go = Engine::Instantiate(wall);
+        trans = go->GetComponent<Transform>();
+        glm::vec2 pos = { x * cellWidth, z * cellBreadth };
+        trans->position = { pos.x + cellWidth/2* cosf(3.1415 / 2 * i), cellHeight / 2, pos.y + cellBreadth/2* sinf(3.1415 / 2 * i) };
+        trans->rotationDeg.y = 90 * (i+1);
+    }
+
+
+}
+
+// add some "columns" to make the room interesting
+std::vector<glm::ivec2> MakeColumns() {
+
+    // how many % of room we want to be columns
+    float percentage = 0.1f;
+
+    int count = mapWidth* mapBreadth* percentage;
+    std::vector<glm::ivec2> coords;
+
+
+    for (int i = 0; i < count; ) {
+        glm::ivec2 xz = { rand() % mapWidth, rand() % mapBreadth };
+        bool found = false;
+        for (auto& v : coords) {
+            if (xz == v) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            coords.push_back(xz);
+            i++;
+        }
+    }
+
+    for (auto& v : coords)
+        MakeColumn(v.x, v.y);
+
+
+    return coords;
+
+}
+
+
+
+void MakePlayer(std::vector<glm::ivec2>& columns) {
 
     GameObject player;
     player.AddComponent<Camera>();
     player.AddComponent<Menu>();
     player.AddComponent<FPSCamera>();
-    player.AddComponent<Movement>();   
+    Movement* movement = player.AddComponent<Movement>();   
+    movement->columns = columns;
     player.AddComponent<Weapon>();
     player.GetComponent<Transform>()->position.y = 1.2f;
 
@@ -105,8 +154,9 @@ int main(int argc, char* argv[]){
 
     ///////////////////////////////////////////////////////////
     // Here is where you put your own code to add GameObjects to Scene
-    MakeMap();
-    MakePlayer();
+    MakeRoom();
+    auto columns = MakeColumns();
+    MakePlayer(columns);
 
 
     ///////////////////////////////////////////////////////////

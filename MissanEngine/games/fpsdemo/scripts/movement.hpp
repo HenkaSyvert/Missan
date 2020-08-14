@@ -3,6 +3,7 @@
 #include "missan.hpp"
 
 #include "menu.hpp"
+#include "globals.hpp"
 
 using namespace Missan;
 
@@ -18,6 +19,50 @@ public:
     bool* isPaused;
 
     Transform* transform;
+
+    // to simulate collision avoidance in script, we make player into a sphere
+    float radius = 1.0f;
+
+    std::vector<glm::ivec2> columns;
+
+    // makes player stay within map size
+    void KeepWithinMap() {
+        transform->position.x = glm::clamp(transform->position.x, -cellWidth / 2 + radius, (mapWidth - 0.5f) * cellWidth - radius);
+        transform->position.z = glm::clamp(transform->position.z, -cellBreadth / 2 + radius, (mapBreadth - 0.5f) * cellBreadth - radius);
+    }
+
+    void AvoidColumns() {
+
+        for (auto& c : columns) {
+            bool collision = false;
+            
+            float px = transform->position.x;
+            float pz = transform->position.z;
+
+            float cx = c.x * cellWidth;
+            float cz = c.y * cellBreadth;
+
+            
+            bool xOverlap = (px - radius < cx + cellWidth   / 2) && (px + radius > cx - cellWidth   / 2);
+            bool zOverlap = (pz - radius < cz + cellBreadth / 2) && (pz + radius > cz - cellBreadth / 2);
+            collision = xOverlap && zOverlap;
+
+            float xDisplacement = (px > cx) ? (cx + cellWidth / 2) - (px - radius) : (cx - cellWidth / 2) - (px + radius);
+            float zDisplacement = (pz > cz) ? (cz + cellBreadth / 2) - (pz - radius) : (cz - cellBreadth / 2) - (pz + radius);
+
+
+            if (collision) {
+                if (abs(xDisplacement) < abs(zDisplacement)) {
+                    transform->position.x += xDisplacement;
+                }
+                else {
+                    transform->position.z += zDisplacement;
+                }
+            }
+
+        }
+
+    }
 
     void Start() {
         isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
@@ -43,6 +88,9 @@ public:
         // move camera relative to its rotation
         transform->position += dx * transform->GetRightVector();
         transform->position += dz * glm::normalize(-transform->GetBackwardVector() - glm::proj(-transform->GetBackwardVector(), glm::vec3(0, 1, 0)));
+
+        KeepWithinMap();
+        AvoidColumns();
 
 	}
 

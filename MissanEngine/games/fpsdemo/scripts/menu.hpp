@@ -12,7 +12,7 @@ public:
 
 	bool isPaused = false;
 
-	// key to pause game, specifically fpscam script
+	// key to pause game
 	int pauseKey = GLFW_KEY_E;
 
 	// to avoid multiple keypresses
@@ -29,16 +29,20 @@ public:
 
 
 
+	
+
+
 	void Start() {
 		timeStamp = Time::unscaledTime;
 		Window::SetIsCursorVisible(false);
+
 	}
 
 	void Update() {
 
 		if (!canPressKey) {
 			if (Time::unscaledTime - timeStamp > delay) {
-				canPressKey = true;			
+				canPressKey = true;		
 			}
 		}
 		
