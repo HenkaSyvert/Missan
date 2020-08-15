@@ -16,7 +16,7 @@ void RigidBody::Start() {
 	}
 
 	if (isAffectedByGravity) {
-		AddForce(Physics::gravity * mass);
+		AddForce(Physics::gravity / mass);
 	}
 
 	// currently rigidbodies only work with box colliders

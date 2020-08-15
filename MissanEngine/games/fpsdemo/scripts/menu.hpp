@@ -35,6 +35,7 @@ public:
 	void Start() {
 		timeStamp = Time::unscaledTime;
 		Window::SetIsCursorVisible(false);
+		weapon = GetGameObject().GetComponent<Weapon>();
 
 	}
 
@@ -58,6 +59,11 @@ public:
 	void OnGUI() {
 		ImGui::Text("press E to pause game");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::SliderFloat("power", &weapon->force, 12.0f, 179.9f);
+		char buf[60];
+		auto pos = GetGameObject().GetComponent<Transform>()->position;
+		sprintf_s(buf, "player xyz: (%2.1f, %2.1f, %2.1f)", pos.x, pos.y, pos.z);
+		ImGui::Text(buf);
 	}
 
 

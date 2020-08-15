@@ -11,8 +11,6 @@ public:
 	// how long, in seconds, this projectile will live
 	float lifespan = 3.0f;
 
-	// how much damage this projectile inflicts
-	float damage = 1.5f;
 
 
 	void Start() {
@@ -23,6 +21,11 @@ public:
 		if (Time::time - startTime > lifespan) {
 			Engine::Destroy(&GetGameObject());
 		}
+	}
+
+	void OnCollisionEnter(GameObject* other) {
+		if (other->GetComponent<Collider>() != nullptr)
+			Engine::Destroy(&GetGameObject());
 	}
 
 private:

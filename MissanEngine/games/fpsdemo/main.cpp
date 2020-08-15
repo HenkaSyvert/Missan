@@ -8,6 +8,7 @@
 #include "scripts/weapon.hpp"
 #include "scripts/movement.hpp"
 #include "scripts/globals.hpp"
+#include "scripts/destructible.hpp"
 
 using namespace Missan;
 
@@ -137,12 +138,52 @@ void MakePlayer(std::vector<glm::ivec2>& columns) {
     Movement* movement = player.AddComponent<Movement>();   
     movement->columns = columns;
     player.AddComponent<Weapon>();
+    
     player.AddComponent<Collider>();
     player.AddComponent<RigidBody>();
+    player.GetComponent<Collider>()->boundingBox.size = { 0.1,1,0.1 };  // to avoid collision with projectile
 
     GameObject* go = Engine::Instantiate(player);
     Graphics::SetCamera(*go->GetComponent<Camera>());
+    go->GetComponent<Weapon>()->isPaused = &go->GetComponent<Menu>()->isPaused;
+
     
+}
+
+void PlaceDestructibles(std::vector<glm::ivec2>& cols) {
+
+    GameObject g;
+    auto* rend = g.AddComponent<Renderer>();
+    rend->mesh_ptr = Resources::GetMesh("unitCube");
+    rend->texture_ptr = Resources::GetTexture("missan_logo.png");
+    g.AddComponent<Collider>();
+    g.AddComponent<Destructible>();
+
+    float percentage = 0.3f;
+    int count = 3;// mapWidth* mapBreadth* percentage;
+
+    for (int i = 0; i < count; ) {
+        int x = rand() % mapWidth;
+        int z = rand() % mapBreadth;
+
+
+        bool insideCol = false;
+        // we don't want to place destructible inside a column
+        for (auto& c : cols) {
+            if (c.x == x && c.y == z) {
+                insideCol = true;
+                break;
+            }
+        }
+
+        if (!insideCol) {
+            GameObject* go = Engine::Instantiate(g);
+            g.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };
+            i++;
+        }
+
+    }
+
 }
 
 
@@ -159,7 +200,7 @@ int main(int argc, char* argv[]){
     MakeRoom();
     auto columns = MakeColumns();
     MakePlayer(columns);
-
+    PlaceDestructibles(columns);
 
     ///////////////////////////////////////////////////////////
 

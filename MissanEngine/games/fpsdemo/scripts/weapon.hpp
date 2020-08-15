@@ -13,14 +13,16 @@ public:
 	GameObject* projectile = nullptr;
 
 	// the force, in newtons, with which projectiles will be launched
-	float force = 100.f;
+	float force = 50.f;
 
 
 	// distance from player from which projectiles spawn
-	float muzzleDistance = 0.2f;
+	float muzzleDistance = 1.1f;
 
 	// minimum delay between each projectile
 	float delay = 0.2f;
+
+	bool* isPaused;
 
 
 private:
@@ -37,13 +39,13 @@ private:
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();
 		glm::vec3 forward = -ourTrans->GetBackwardVector();
-		//prb->mass = 0.1f;
-		prb->isAffectedByGravity = false;
+		prb->mass = 10.0f;
+		//prb->isAffectedByGravity = false;
 
 		pTrans->position = ourTrans->position + forward * muzzleDistance;
 		pTrans->rotationDeg = ourTrans->rotationDeg;
 
-		prb->AddImpulse(forward * force);
+		prb->AddImpulse(forward * force, { 0,.5,0 }, false);
 	}
 
 public:
@@ -61,6 +63,8 @@ public:
 	}
 
 	void Update() {
+
+		if (*isPaused) return;
 
 		if (!canFire) {
 			if (Time::time - timeStamp > delay) {

@@ -1509,6 +1509,9 @@
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="games\fpsdemo\scripts\destructible.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

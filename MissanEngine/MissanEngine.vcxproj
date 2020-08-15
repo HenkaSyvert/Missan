@@ -547,6 +547,7 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
+    <ClInclude Include="games\fpsdemo\scripts\destructible.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />

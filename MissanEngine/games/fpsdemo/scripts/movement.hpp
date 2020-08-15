@@ -21,7 +21,7 @@ public:
     Transform* transform;
 
     // to simulate collision avoidance in script, we make player into a sphere
-    float radius = 1.0f;
+    float radius = 0.7f;
 
     std::vector<glm::ivec2> columns;
 
