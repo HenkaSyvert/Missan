@@ -11,7 +11,7 @@ class FPSCamera : public Component {
 
 public:
 
-    // How fast the camera rotates, or mouse sensitivity if you will
+    // How fast the camera rotates, or mouse sensitivity
     float rotationSpeedDeg = 30.0f;
 
     // limits maximum pitch (in degrees), i.e. rotation on the x-axis. Recommended not higher than 89.9
@@ -25,8 +25,6 @@ public:
         isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
         transform = GetGameObject().GetComponent<Transform>();
     }
-
-
 
     void Update() {
         if (*isPaused) return;

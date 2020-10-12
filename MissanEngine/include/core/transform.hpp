@@ -6,53 +6,53 @@
 namespace Missan {
 
     /// 
-/// Stores position, rotation, and scale of a GameObject
+    /// Stores position, rotation, and scale of a GameObject
     class Transform : public Component{
 
     public:
         
         /// 
-/// In world space
+        /// In world space
         glm::vec3 position    = {0, 0, 0};
 
         /// 
-/// In world space
+        /// In world space
         glm::vec3 rotationDeg = {0, 0, 0};
 
         /// 
-/// Global scale
+        /// Global scale
         glm::vec3 scale       = {1, 1, 1};
        
 
 
         /// 
-/// Matrix to transform point from local space to world space
+        /// Matrix to transform point from local space to world space
         glm::mat4 GetMatrix();
 
         /// 
-/// Transforms a point from local space to world space
+        /// Transforms a point from local space to world space
         glm::vec3 TransformPoint(glm::vec3& point);
 
         /// 
-/// Transforms several points from local space to world space
+        /// Transforms several points from local space to world space
         std::vector<glm::vec3> TransformPoints(std::vector<glm::vec3> points);
 
         /// 
-/// Local right vector
+        /// Local right vector
         glm::vec3 GetRightVector();
 
         /// 
-/// Local up vector
+        /// Local up vector
         glm::vec3 GetUpVector();
 
         /// 
-/// Local backward vector
+        /// Local backward vector
         glm::vec3 GetBackwardVector();
 
 
 
         /// 
-/// NOT PART OF PUBLIC API ////////////////////////////////
+        /// NOT PART OF PUBLIC API ////////////////////////////////
         Transform* Clone() const { return new Transform(*this); }
         
     };

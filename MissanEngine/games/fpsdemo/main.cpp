@@ -26,6 +26,7 @@ void MakeRoom() {
 
     // make floor
     GameObject floor;
+    floor.AddComponent<Transform>();
     Renderer* rend = floor.AddComponent<Renderer>();
     rend->mesh_ptr = plane;
     rend->texture_ptr = stone1;
@@ -45,6 +46,7 @@ void MakeRoom() {
 
     // make walls along the edges of map
     GameObject wall;
+    wall.AddComponent<Transform>();
     rend = wall.AddComponent<Renderer>();
     rend->mesh_ptr = plane;
     rend->texture_ptr = bricks;
@@ -76,6 +78,7 @@ void MakeRoom() {
 void MakeColumn(int x, int z) {
 
     GameObject wall;
+    wall.AddComponent<Transform>();
     Renderer* rend = wall.AddComponent<Renderer>();
     rend->mesh_ptr = Resources::GetMesh("unitPlane");
     rend->texture_ptr = Resources::GetTexture("stone3.jpg");
@@ -132,6 +135,7 @@ std::vector<glm::ivec2> MakeColumns() {
 void MakePlayer(std::vector<glm::ivec2>& columns) {
 
     GameObject player;
+    player.AddComponent<Transform>();
     player.AddComponent<Camera>();
     player.AddComponent<Menu>();
     player.AddComponent<FPSCamera>();
@@ -153,6 +157,7 @@ void MakePlayer(std::vector<glm::ivec2>& columns) {
 void PlaceDestructibles(std::vector<glm::ivec2>& cols) {
 
     GameObject g;
+    g.AddComponent<Transform>();
     auto* rend = g.AddComponent<Renderer>();
     rend->mesh_ptr = Resources::GetMesh("unitCube");
     rend->texture_ptr = Resources::GetTexture("missan_logo.png");

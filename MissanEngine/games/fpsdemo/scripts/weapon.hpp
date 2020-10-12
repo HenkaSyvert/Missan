@@ -51,6 +51,7 @@ private:
 public:
 	void Start() {
 		projectile = new GameObject();
+		projectile->AddComponent<Transform>();
 		auto* rend = projectile->AddComponent<Renderer>();
 		rend->mesh_ptr = Resources::GetMesh("unitCube");
 		rend->texture_ptr = Resources::GetTexture("cat.png");

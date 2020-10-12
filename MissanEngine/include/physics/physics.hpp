@@ -5,17 +5,16 @@
 namespace Missan {
 
 	/// 
-/// Interface to the physics system
+	/// Interface to the physics system
 	namespace Physics {
 
 		/// 
-/// The acceleration due to gravity
+		/// The acceleration due to gravity
 		extern glm::vec3 gravity;
 
 
 
-		/// 
-/// NOT PART OF PUBLIC API //////////////
+		// NOT PART OF PUBLIC API //////////////
 		void Update();
 
 	}

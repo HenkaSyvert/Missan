@@ -1,7 +1,6 @@
 #pragma once
 
-/// 
-/// Missan pre-compiled header, for external and std headers
+// Missan pre-compiled header, for external and std headers
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

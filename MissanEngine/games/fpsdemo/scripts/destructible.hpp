@@ -5,16 +5,17 @@
 
 using namespace Missan;
 
+// Script for destructible object
 class Destructible : public Component {
 
 public:
 
-
 	int hp = 3;
+
+
 
 	void TakeHit() {
 		hp--;
-
 		if (hp == 0) Engine::Destroy(&GetGameObject());
 	}
 
@@ -23,12 +24,12 @@ public:
 	}
 
 	void OnCollisionEnter(GameObject* other) {
-		if (other->GetComponent<Projectile>() != nullptr) {
-			TakeHit();
-		}
+		if (other->GetComponent<Projectile>() != nullptr) TakeHit();	
 	}
 
 
 
-	Destructible* Clone() const { return new Destructible(*this); }
+	Destructible* Clone() const { 
+		return new Destructible(*this); 
+	}
 };
