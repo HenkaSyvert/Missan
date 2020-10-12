@@ -2,8 +2,7 @@
 
 namespace Missan {
 
-	/// 
-	/// Interface to GUI system
+
 	namespace GUI {
 		
 		

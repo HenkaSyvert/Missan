@@ -26,8 +26,7 @@ namespace Missan {
 
 
 
-		/// 
-		/// NOT PART OF PUBLIC API //////////////////////////
+		// NOT PART OF PUBLIC API //////////////////////////
 		void Initialize(int width, int height, const std::string& title);
 		GLFWwindow* GetHandle();
 		

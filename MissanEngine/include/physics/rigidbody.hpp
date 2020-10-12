@@ -6,7 +6,7 @@
 namespace Missan {
 
 	///
-	/// Class that for GameObjects that are affected by physics
+	/// Class for GameObjects that are affected by physics
 	class RigidBody : public Component {
 
 	public:
@@ -70,8 +70,7 @@ namespace Missan {
 
 
 
-		/// NOT PART OF PUBLIC API ////////////////////////
-
+		// NOT PART OF PUBLIC API ////////////////////////
 		void Start();
 
 		

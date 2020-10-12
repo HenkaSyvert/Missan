@@ -45,7 +45,7 @@ namespace Missan {
 
 
 
-/// NOT PART OF PUBLIC API ///////////////////////////
+        // NOT PART OF PUBLIC API ///////////////////////////
         const GLuint vaoID = 0;
 
     private:

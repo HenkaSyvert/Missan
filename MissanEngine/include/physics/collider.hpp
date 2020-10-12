@@ -22,7 +22,7 @@ namespace Missan {
 		BoundingBox boundingBox;
 
 
-		/// NOT PART OF PUBLIC API ////////////////////////
+		// NOT PART OF PUBLIC API ////////////////////////
 		void Start();
 
 		Collider* Clone() const { return new Collider(*this); }

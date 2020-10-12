@@ -40,7 +40,7 @@ namespace Missan {
 
 
 
-		/// NOT PART OF PUBLIC API ////////////////////////////////////////////////
+		// NOT PART OF PUBLIC API ////////////////////////////////////////////////
 		Camera* Clone() const { return new Camera(*this); }
 		void Start();
 		void Update();

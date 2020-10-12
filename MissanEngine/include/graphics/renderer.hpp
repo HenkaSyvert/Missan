@@ -23,7 +23,7 @@ namespace Missan {
 
 
 
-        /// NOT PART OF PUBLIC API //////////////////////////////////////////
+        // NOT PART OF PUBLIC API //////////////////////////////////////////
         Renderer* Clone() const { return new Renderer(*this); }   
         void OnRender();
 
