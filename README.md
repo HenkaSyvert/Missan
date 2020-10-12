@@ -4,7 +4,11 @@ version 2020.1
 
 See documentation for Missan API here: https://henkasyvert.github.io/Missan/index.html
 
-about Missan:
+see /games/fpsdemo for an example of how to make a game using Missan
+
+
+about:
+
 Missan Engine was written by Henrik Syvertsson as part of a project at Karlstad University. 
 Currently Missan Engine supports:
 * graphics: loading textures (various formats), defining your own meshes (in code, good luck)
@@ -19,8 +23,3 @@ things that are noticably absent, but will be added later:
 * support for internet
 * sound
 * importing meshes
-
-
-
-how to use:
-see /games/fpsdemo for an example of how to make a game using Missan
