@@ -15,6 +15,7 @@ Currently Missan Engine supports:
 * physics: collision detection, unconstrained rigidbody physics. (no collision avoidance in physics engine atm, though this can be simulated in script)
 * Component based architecture: GameObjects are defined by the components they consist of. Some premade components exist, which implement the core functionality one would expect from a game engine: Camera, transform, renderer, rigidbody
 * Support for custom components, i.e. scripting. 
+* GUI (ImGUI)
 
 
 
