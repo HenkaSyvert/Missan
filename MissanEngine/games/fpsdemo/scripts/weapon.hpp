@@ -22,12 +22,12 @@ public:
 	// minimum delay between each projectile
 	float delay = 0.2f;
 
-	bool* isPaused;
+	bool* isPaused = nullptr;
 
 
 private:
 	// time when last projectile was fired
-	float timeStamp;
+	float timeStamp = 0;
 
 	// can weapon fire?
 	bool canFire = true;
@@ -73,7 +73,7 @@ public:
 			}
 			else return;
 		}
-		else if (Input::IsMouseLeftPressed()) {
+		else if (Input::GetMouseButtonDown(MouseButton::Left)) {
 			SpawnProjectile();
 			canFire = false;
 			timeStamp = Time::time;

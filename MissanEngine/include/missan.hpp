@@ -13,8 +13,9 @@
 // temporary, gui library
 #include <imgui/imgui.h>
 
-// temporary, as logging to console
+// std library
 #include <iostream>
+#include <string>
 
 // Missan includes
 #include "core/component.hpp"
@@ -22,10 +23,13 @@
 #include "core/gameobject.hpp"
 #include "core/gui.hpp"
 #include "core/input.hpp"
+#include "core/keycode.hpp"
+#include "core/math.hpp"
 #include "core/resources.hpp"
 #include "core/scene.hpp"
 #include "core/time.hpp"
 #include "core/transform.hpp"
+#include "core/vector3.hpp"
 #include "core/window.hpp"
 
 #include "graphics/camera.hpp"

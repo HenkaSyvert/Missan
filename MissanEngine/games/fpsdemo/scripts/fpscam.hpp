@@ -18,8 +18,8 @@ public:
     float pitchConstraint = 89.9f;
 
 
-    bool* isPaused;
-    Transform* transform;
+    bool* isPaused = nullptr;
+    Transform* transform = nullptr;
 
     void Start() {
         isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;

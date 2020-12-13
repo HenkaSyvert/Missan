@@ -13,19 +13,19 @@ public:
 	bool isPaused = false;
 
 	// key to pause game
-	int pauseKey = GLFW_KEY_E;
+	Keycode pauseKey = Keycode::E;
 
 	// to avoid multiple keypresses
 	float delay = 0.5f;
 
 	// timer for key press
-	float timeStamp;
+	float timeStamp = 0;
 
 	bool canPressKey = true;
 
 
 	// for dispaying info about weapon
-	Weapon* weapon;
+	Weapon* weapon = nullptr;
 
 
 
@@ -47,7 +47,7 @@ public:
 			}
 		}
 		
-		if (canPressKey && Input::IsKeyPressed(pauseKey)) {
+		if (canPressKey && Input::GetKeyDown(pauseKey)) {
 			isPaused = !isPaused;
 			Window::SetIsCursorVisible(isPaused);
 			canPressKey = false;

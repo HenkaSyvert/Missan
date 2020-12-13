@@ -45,12 +45,6 @@
     <ClCompile Include="source\core\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\core\time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\core\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,6 +91,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\physics\rigidbody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="games\fpsdemo\main.cpp">
@@ -1510,6 +1510,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\destructible.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\keycode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\mousebutton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,12 +16,12 @@ Mesh::Mesh
     indices(newIndices)
 {
     // Do vertices as vec3
-    for (int i = 0; i < vertices.size(); i += 3) {
+    for (unsigned int i = 0; i < vertices.size(); i += 3) {
         verticesVec3_.push_back(glm::vec3(vertices[i], vertices[i + 1], vertices[i + 2]));
     }
 
     // Calculate normals
-    for (int i = 0; i < indices.size(); i += 3){
+    for (unsigned int i = 0; i < indices.size(); i += 3){
         normals_.push_back(glm::cross(verticesVec3_[indices[i]], verticesVec3_[indices[i + 1]]));
     }
 	

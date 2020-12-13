@@ -29,7 +29,7 @@ public:
 	}
 
 private:
-	float startTime;
+	float startTime = 0;
 
 
 

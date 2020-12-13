@@ -16,9 +16,9 @@ public:
     // How fast the player moves
     float moveSpeed = 5.0f;
 
-    bool* isPaused;
+    bool* isPaused = nullptr;
 
-    Transform* transform;
+    Transform* transform = nullptr;
 
     // to simulate collision avoidance in script, we make player into a sphere
     float radius = 0.7f;
@@ -28,12 +28,12 @@ public:
     // does player touch the ground?
     bool isGrounded = true;
 
-    RigidBody* rb;
+    RigidBody* rb = nullptr;
 
     float jumpForce = 120.0f;
     float headHeight = 1.2f;
     
-    float timeStamp;
+    float timeStamp = 0;
     float jumpDelay = 0.5f;
     bool canJump = true;
 
@@ -94,7 +94,7 @@ public:
             }
         }
 
-        if (canJump && isGrounded && Input::IsKeyPressed(GLFW_KEY_SPACE)) {
+        if (canJump && isGrounded && Input::GetKeyDown(Keycode::Space)) {
             rb->AddImpulse({ 0, jumpForce / rb->mass, 0 });
             rb->AddForce(Physics::gravity / rb->mass);
             isGrounded = false;
@@ -124,10 +124,10 @@ public:
         // using axes like this is more predictable, since holding down
         // e.g. W and S at the same time will not move camera
         int xAxis = 0, zAxis = 0;
-        if (Input::IsKeyPressed(GLFW_KEY_D)) xAxis += 1;
-        if (Input::IsKeyPressed(GLFW_KEY_A)) xAxis -= 1;
-        if (Input::IsKeyPressed(GLFW_KEY_S)) zAxis -= 1;
-        if (Input::IsKeyPressed(GLFW_KEY_W)) zAxis += 1;
+        if (Input::GetKey(Keycode::D)) xAxis += 1;
+        if (Input::GetKey(Keycode::A)) xAxis -= 1;
+        if (Input::GetKey(Keycode::S)) zAxis -= 1;
+        if (Input::GetKey(Keycode::W)) zAxis += 1;
 
         // remember to use deltatime for smooth movement
         float dx = (float)xAxis * moveSpeed * Time::unscaledDeltaTime;

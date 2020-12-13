@@ -15,10 +15,13 @@
 
 #include <stb/stb_image.h>
 
+#include <cmath>
+
 #include <vector>
 #include <typeinfo>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <unordered_map>
 

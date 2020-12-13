@@ -51,12 +51,12 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 
 	if (colliders.empty()) return collisions;
 
-	for (int i = 0; i < colliders.size() - 1; i++) {
+	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
 		Transform* ta = ca->GetGameObject().GetComponent<Transform>();
 		RigidBody* rba = ca->GetGameObject().GetComponent<RigidBody>();
 
-		for (int j = i + 1; j < colliders.size(); j++) {
+		for (unsigned int j = i + 1; j < colliders.size(); j++) {
 			Collider* cb = colliders[j];
 			Transform* tb = cb->GetGameObject().GetComponent<Transform>();
 			RigidBody* rbb = cb->GetGameObject().GetComponent<RigidBody>();

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "missanpch.hpp"
+#include "core/keycode.hpp"
+#include "core/mousebutton.hpp"
+#include "core/vector3.hpp"
 
 namespace Missan {
 
@@ -10,30 +12,39 @@ namespace Missan {
 
 		/// 
 		/// Current X and Y of mouse. Note that {0, 0} is in top-left corner
-		extern const glm::dvec2& mousePosition;
+		extern const Vector3& mousePosition;
 
 		/// 
 		/// Delta X and Y since last frame. Note that {0, 0} is in top-left corner
-		extern const glm::dvec2& mouseDelta;
+		extern const Vector3& mouseDelta;
+
+
+
+		///
+		/// Returns true the frame the user pressed the key
+		bool GetKeyDown(Keycode keycode);
 
 		/// 
-		/// Is the key pressed?
-		bool IsKeyPressed(int keycode);
+		/// Returns true while the users holds down the key
+		bool GetKey(Keycode keycode);
 
 		///
-		/// Is left mouse button pressed?
-		bool IsMouseLeftPressed();
+		/// Returns true the frame the user releases the key
+		bool GetKeyUp(Keycode keycode);
+
+
 
 		///
-		/// Is right mouse button pressed?
-		bool IsMouseRightPressed();
+		/// returns true the frame given button is first pressed.
+		bool GetMouseButtonDown(MouseButton button);
 
+		///
+		/// returns true while the users holds the button
+		bool GetMouseButton(MouseButton button);
 
-
-		
-		// NOT PART OF PUBLIC API //////////////////////
-		void Initialize();
-		void Update();
+		///
+		/// returns true the frame the user releases the key
+		bool GetMouseButtonUp(MouseButton button);
 		
 	}
 

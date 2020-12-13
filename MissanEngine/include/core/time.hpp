@@ -26,13 +26,6 @@ namespace Missan {
 		/// The scale at which time passes
 		extern float timeScale;
 
-
-
-
-		// NOT PART OF PUBLIC API ///////////////////
-		void Update();
-
-
 	}
 
 }

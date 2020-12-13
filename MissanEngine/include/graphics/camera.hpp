@@ -49,12 +49,12 @@ namespace Missan {
 
 	private:
 
-		glm::mat4 projectionMatrix_;
+		glm::mat4 projectionMatrix_ = glm::mat4(0);
 
-		float fovOriginal_;
-		float nearzOriginal_;
-		float farzOriginal_;
-		float apOriginal_;
+		float fovOriginal_ = 0;
+		float nearzOriginal_ = 0;
+		float farzOriginal_ = 0;
+		float apOriginal_ = 0;
 
 		void UpdateMatrix();
 

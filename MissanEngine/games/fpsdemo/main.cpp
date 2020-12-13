@@ -89,8 +89,8 @@ void MakeColumn(int x, int z) {
         GameObject* go = Engine::Instantiate(wall);
         trans = go->GetComponent<Transform>();
         glm::vec2 pos = { x * cellWidth, z * cellBreadth };
-        trans->position = { pos.x + cellWidth/2* cosf(3.1415 / 2 * i), cellHeight / 2, pos.y + cellBreadth/2* sinf(3.1415 / 2 * i) };
-        trans->rotationDeg.y = 90 * (i+1);
+        trans->position = { pos.x + cellWidth/2* Math::Cos(Math::pi/2*1), cellHeight / 2, pos.y + cellBreadth/2* Math::Sin(Math::pi/2*i) };
+        trans->rotationDeg.y = (float)90 * (i+1);
     }
 
 
@@ -102,7 +102,7 @@ std::vector<glm::ivec2> MakeColumns() {
     // how many % of room we want to be columns
     float percentage = 0.1f;
 
-    int count = mapWidth* mapBreadth* percentage;
+    int count = mapWidth* mapBreadth* (int)percentage;
     std::vector<glm::ivec2> coords;
 
 
