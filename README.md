@@ -1,27 +1,26 @@
 # Missan
 
-/////// How to run in visual studio /////////////////////////
+version 2020.1
 
-1. Create Folder named "Missan"
-2. open visual studio, click "clone repository"
-    * link = https://github.com/HenkaSyvert/Missan
-    * local path = the Missan folder
-5. build solution
-6. run in debug (press F5)
+See documentation for Missan API here: https://henkasyvert.github.io/Missan/index.html
+
+see /games/fpsdemo for an example of how to make a game using Missan
 
 
-//// How to make a game using MissanEngine /////////////
+about:
 
-1. since MissanEngine is not a library yet, make a folder
-  in MissanEngine, same level as MissanGame, and place your
-  game there and pretend MissanEngine is a library.
-2. YOU make the main() function
-3. include missan.hpp to reach MissanEngine API
-4. structure the game in this order:
-  * Engine::Initialize();
-  * Scene scene;
-  * // add gameobjects to scene, including writing scripts for gameobjects
-  * // see MissanGame for examples
-  * Engine::SetActiveScene(scene);
-  * Engine::Run();
-  * Engine::Terminate();
+Missan Engine was written by Henrik Syvertsson as part of a project at Karlstad University. 
+Currently Missan Engine supports:
+* graphics: loading textures (various formats), defining your own meshes (in code, good luck)
+* physics: collision detection, unconstrained rigidbody physics. (no collision avoidance in physics engine atm, though this can be simulated in script)
+* Component based architecture: GameObjects are defined by the components they consist of. Some premade components exist, which implement the core functionality one would expect from a game engine: Camera, transform, renderer, rigidbody
+* Support for custom components, i.e. scripting. 
+* GUI (ImGUI)
+
+
+
+things that are noticably absent, but will be added later:
+* there is no graphical editor
+* support for internet
+* sound
+* importing meshes
