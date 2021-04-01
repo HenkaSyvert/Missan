@@ -1476,21 +1476,6 @@
     <ClInclude Include="include\core\component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\testgame\scripts\FloatScript.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\testgame\scripts\fpscam.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\testgame\scripts\menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\testgame\scripts\weapon.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\testgame\scripts\projectile.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1530,5 +1515,8 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
   </ItemGroup>
 </Project>

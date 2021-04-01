@@ -5,13 +5,13 @@
 
 using namespace Missan;
 
-// Script for destructible object
+// Script for destructible object. Object rotates with given deltaRotation
 class Destructible : public Component {
 
 public:
 
 	int hp = 3;
-
+	glm::vec3 deltaRotation = { 1, 1, 0 };
 
 
 	void TakeHit() {
@@ -20,7 +20,7 @@ public:
 	}
 
 	void Update() {
-		GetGameObject().GetComponent<Transform>()->rotationDeg += glm::vec3(1, 1, 0);
+		GetGameObject().GetComponent<Transform>()->rotationDeg += deltaRotation;
 	}
 
 	void OnCollisionEnter(GameObject* other) {

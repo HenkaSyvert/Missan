@@ -2,6 +2,7 @@
 
 #include "missan.hpp"
 #include "projectile.hpp"
+#include "globals.hpp"
 
 using namespace Missan;
 
@@ -22,7 +23,6 @@ public:
 	// minimum delay between each projectile
 	float delay = 0.2f;
 
-	bool* isPaused = nullptr;
 
 
 private:
@@ -40,7 +40,6 @@ private:
 		RigidBody* prb = p->GetComponent<RigidBody>();
 		glm::vec3 forward = -ourTrans->GetBackwardVector();
 		prb->mass = 10.0f;
-		//prb->isAffectedByGravity = false;
 
 		pTrans->position = ourTrans->position + forward * muzzleDistance;
 		pTrans->rotationDeg = ourTrans->rotationDeg;
@@ -50,6 +49,8 @@ private:
 
 public:
 	void Start() {
+
+		// make prefab for projectile...
 		projectile = new GameObject();
 		projectile->AddComponent<Transform>();
 		auto* rend = projectile->AddComponent<Renderer>();
@@ -65,7 +66,7 @@ public:
 
 	void Update() {
 
-		if (*isPaused) return;
+		if (isPaused) return;
 
 		if (!canFire) {
 			if (Time::time - timeStamp > delay) {

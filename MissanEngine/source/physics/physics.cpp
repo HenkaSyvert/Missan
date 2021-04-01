@@ -22,6 +22,9 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 
 		Transform* t = rb->GetGameObject().GetComponent<Transform>();
 
+		if (rb->isAffectedByGravity)
+			rb->AddImpulse(Physics::gravity / rb->mass);
+
 		glm::vec3 forces = rb->forces + rb->linearImpulse;
 		glm::vec3 torque = rb->torques + rb->angularImpulse;
 

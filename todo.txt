@@ -1,0 +1,87 @@
+
+
+
+
+# project cleanup
+- separate editor, engine, game
+- make engine into dll
+	- possibly separate dlls for submodules?
+
+
+
+
+
+# vector and matrix classes
+- use typedef alias of glm structs for vectors and matrices
+
+
+
+# math header
+- use function pointer typedefs for math funcs
+- publicly inline functions where needed
+
+
+
+# main loop
+- fixedDeltaTime for physics, variable rendering
+http://gameprogrammingpatterns.com/game-loop.html
+- implement coroutines, ie let user define frequency for updates
+- look into multithreading
+
+
+
+# all the eventFunctions
+- fixedUpdate();
+- OnCollisionStay()
+- OnCollisionExit();
+
+
+
+# architecture
+- change to 64 bit
+- fix entrypoint
+- make into dll?
+- fix proper entity component system
+- event system?
+- file directory system
+
+
+
+# pedantics
+- use consisted naming conventions in all src files
+	-- replace suffix _ with prefix _ for private fields
+- consists convention for references vs pointers,
+	-- preferably use pointers, it's more tydligare
+
+
+
+
+
+
+# GUI
+- GUI wrapper component?
+
+
+# internet module?
+
+
+# sound module?
+
+
+# Physics module
+- fix collision contraints, make solids
+
+
+
+# graphics
+- lighting
+- import obj 3d models
+- 
+
+
+
+
+# CORE MODULE CLASSES 
+- Application
+- 
+

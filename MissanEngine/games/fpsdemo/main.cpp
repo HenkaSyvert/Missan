@@ -1,8 +1,24 @@
-// since setting up a library was messy, pretend main.cpp is a separate project using Missan API
+/*
+ * This example shows how to make a simple game using the Missan API. 
+ * The scripts demonstrate how to write custom components with user-defined behaviour, 
+ * by overriding event-functions, and communicating between various components, 
+ * and using functions and variables from missan API. 
+ * 
+ * The code contained in the "games" folder is separate from the engine code. 
+ * This code represents the "user defined" code which merely uses the missan API to build a game. 
+ *
+ * Missan Engine does not have a graphical editor for piecing together games (though one might be
+ * added in the future). In the meantime, games are assembled in code. The code in "main.cpp" is
+ * analogous to the click-and-drag actions a user would do in a normal graphical UI in a game engine. 
+ *
+ *
+ */
 
+
+// include missan to gain access to the entire scripting API
 #include "missan.hpp"
 
-// load some scripts for demonstration
+// these are our scripts
 #include "scripts/fpscam.hpp"
 #include "scripts/menu.hpp"
 #include "scripts/weapon.hpp"
@@ -13,18 +29,18 @@
 using namespace Missan;
 
 
-
+//this function creates a small room with walls and floor. 
 void MakeRoom() {
 
+    // load the textures and meshes we'll need
     Texture* stone1 = Resources::GetTexture("stonefloor.png");
     Texture* stone2 = Resources::GetTexture("stone2.png");
     Texture* stone3 = Resources::GetTexture("stone3.jpg");
     Texture* bricks = Resources::GetTexture("brickwall.png");
-
     Mesh* plane = Resources::GetMesh("unitPlane");
 
 
-    // make floor
+    // make floor prefab
     GameObject floor;
     floor.AddComponent<Transform>();
     Renderer* rend = floor.AddComponent<Renderer>();
@@ -33,18 +49,18 @@ void MakeRoom() {
     Transform* trans = floor.GetComponent<Transform>();
     trans->scale = { cellWidth, cellBreadth, 1};
     trans->rotationDeg = { 90, 0, 0 };
-   
+    
+
+    // instantiate floor tiles
     for (int x = 0; x < mapWidth; x++) {
         for (int z = 0; z < mapBreadth; z++) {
-
             GameObject* go = Engine::Instantiate(floor);
             go->GetComponent<Transform>()->position = { x * cellWidth, 0, z * cellBreadth };
-
         }
     }
     
 
-    // make walls along the edges of map
+    // make wall prefab
     GameObject wall;
     wall.AddComponent<Transform>();
     rend = wall.AddComponent<Renderer>();
@@ -53,13 +69,14 @@ void MakeRoom() {
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
 
+
+    // instantiate and rotate walls
     for (int x = 0; x < mapWidth; x++) {
         GameObject* go = Engine::Instantiate(wall);
         go->GetComponent<Transform>()->position = { x * cellWidth, cellHeight / 2, -cellBreadth / 2 };
         go = Engine::Instantiate(wall);
         go->GetComponent<Transform>()->position = { x * cellWidth, cellHeight / 2, (mapBreadth - 0.5f ) * cellBreadth };
     }
-
     for (int z = 0; z < mapBreadth; z++) {
         GameObject* go = Engine::Instantiate(wall);
         Transform* trans = go->GetComponent<Transform>();
@@ -71,122 +88,57 @@ void MakeRoom() {
         trans->rotationDeg.y = 90;
     }
 
-
 }
 
-// makes a single graphical column at xz
-void MakeColumn(int x, int z) {
+// this function creates a player prefab with components attached and instantiates it in the game world. 
+void MakePlayer() {
 
-    GameObject wall;
-    wall.AddComponent<Transform>();
-    Renderer* rend = wall.AddComponent<Renderer>();
-    rend->mesh_ptr = Resources::GetMesh("unitPlane");
-    rend->texture_ptr = Resources::GetTexture("stone3.jpg");
-    Transform* trans = wall.GetComponent<Transform>();
-    trans->scale = { cellWidth, cellHeight, 1 };
+    // make player prefab
+    GameObject player;      // base game object upon which the components will attach. 
 
-    for (int i = 0; i < 4; i++) {
-        GameObject* go = Engine::Instantiate(wall);
-        trans = go->GetComponent<Transform>();
-        glm::vec2 pos = { x * cellWidth, z * cellBreadth };
-        trans->position = { pos.x + cellWidth/2* Math::Cos(Math::pi/2*1), cellHeight / 2, pos.y + cellBreadth/2* Math::Sin(Math::pi/2*i) };
-        trans->rotationDeg.y = (float)90 * (i+1);
-    }
+    // attach some built-in components
+    player.AddComponent<Transform>();           // represents location, rotation, scale, in the game world. 
+    player.AddComponent<Camera>();              // through which the game world will be projected unto the screen. 
+    player.AddComponent<Collider>();            // for detecting collisions against other colliders. 
+    player.AddComponent<RigidBody>();           // for being simulated by the physics engine.
 
-
-}
-
-// add some "columns" to make the room interesting
-std::vector<glm::ivec2> MakeColumns() {
-
-    // how many % of room we want to be columns
-    float percentage = 0.1f;
-
-    int count = mapWidth* mapBreadth* (int)percentage;
-    std::vector<glm::ivec2> coords;
+    // attach some of our own scripts
+    player.AddComponent<Menu>();                // for displaying some information in menu
+    player.AddComponent<Movement>();            // script for first person movement
+    player.AddComponent<FPSCamera>();           // simple script for usual first person shooter camera
+    player.AddComponent<Weapon>();              // for shooting small projectiles
 
 
-    for (int i = 0; i < count; ) {
-        glm::ivec2 xz = { rand() % mapWidth, rand() % mapBreadth };
-        bool found = false;
-        for (auto& v : coords) {
-            // player always starts at (0,0)
-            if (xz == v || xz == glm::ivec2(0,0)) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            coords.push_back(xz);
-            i++;
-        }
-    }
+    // give the player a thin collider to avoid collision with projectiles
+    player.GetComponent<Collider>()->boundingBox.size = { 0.1,1,0.1 }; 
 
-    for (auto& v : coords)
-        MakeColumn(v.x, v.y);
+    // set the startin position
+    //player.GetComponent<Transform>()->position.y = 100;
 
-
-    return coords;
-
-}
-
-
-
-void MakePlayer(std::vector<glm::ivec2>& columns) {
-
-    GameObject player;
-    player.AddComponent<Transform>();
-    player.AddComponent<Camera>();
-    player.AddComponent<Menu>();
-    player.AddComponent<FPSCamera>();
-    Movement* movement = player.AddComponent<Movement>();   
-    movement->columns = columns;
-    player.AddComponent<Weapon>();
-    
-    player.AddComponent<Collider>();
-    player.AddComponent<RigidBody>();
-    player.GetComponent<Collider>()->boundingBox.size = { 0.1,1,0.1 };  // to avoid collision with projectile
-
-    GameObject* go = Engine::Instantiate(player);
-    Graphics::SetCamera(*go->GetComponent<Camera>());
-    go->GetComponent<Weapon>()->isPaused = &go->GetComponent<Menu>()->isPaused;
-
+    GameObject* go = Engine::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
+    Graphics::SetCamera(*go->GetComponent<Camera>());   
     
 }
 
-void PlaceDestructibles(std::vector<glm::ivec2>& cols) {
+// this functions creates some rotating cubes which can be destroyed by the player. 
+void PlaceDestructibles() {
 
-    GameObject g;
-    g.AddComponent<Transform>();
-    auto* rend = g.AddComponent<Renderer>();
+    // make prefab of destructible cube
+    GameObject cube;
+    cube.AddComponent<Transform>();
+    auto* rend = cube.AddComponent<Renderer>();
     rend->mesh_ptr = Resources::GetMesh("unitCube");
     rend->texture_ptr = Resources::GetTexture("missan_logo.png");
-    g.AddComponent<Collider>();
-    g.AddComponent<Destructible>();
+    cube.AddComponent<Collider>();
+    cube.AddComponent<Destructible>();
 
-    float percentage = 0.3f;
-    int count = 3;// mapWidth* mapBreadth* percentage;
-
-    for (int i = 0; i < count; ) {
+    // instantiate some cubes
+    for (int i = 0; i < 5; i++) {
         int x = rand() % mapWidth;
         int z = rand() % mapBreadth;
-
-
-        bool insideCol = false;
-        // we don't want to place destructible inside a column
-        for (auto& c : cols) {
-            if (c.x == x && c.y == z) {
-                insideCol = true;
-                break;
-            }
-        }
-
-        if (!insideCol) {
-            GameObject* go = Engine::Instantiate(g);
-            g.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };
-            i++;
-        }
-
+       
+        GameObject* go = Engine::Instantiate(cube);
+        cube.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };  
     }
 
 }
@@ -194,24 +146,21 @@ void PlaceDestructibles(std::vector<glm::ivec2>& cols) {
 
 
 
-
-// the game must provide its own main, and must follow this structure
+// currently the game must provide its own main function, and must follow this structure
 int main(int argc, char* argv[]){
     
-    Engine::Initialize();
+    Engine::Initialize();       // allocates memory, registers callback functions etc...
 
     ///////////////////////////////////////////////////////////
-    // Here is where you put your own code to add GameObjects to Scene
+    // Here is where you put your own code. Create a game world by adding game objects to a scene. 
     MakeRoom();
-    auto columns = MakeColumns();
-    MakePlayer(columns);
-    PlaceDestructibles(columns);
+    MakePlayer();
+    PlaceDestructibles();
 
     ///////////////////////////////////////////////////////////
 
-    Engine::Run();
-
-    Engine::Terminate();
+    Engine::Run();          // start the game simulation
+    Engine::Terminate();    // cleanup, free resources... 
 
     return 0;
 }

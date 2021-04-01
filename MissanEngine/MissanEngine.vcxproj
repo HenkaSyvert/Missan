@@ -52,6 +52,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,6 +70,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -554,8 +556,6 @@
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
-    <ClInclude Include="games\testgame\scripts\projectile.hpp" />
-    <ClInclude Include="games\testgame\scripts\weapon.hpp" />
     <ClInclude Include="include\core\input.hpp" />
     <ClInclude Include="include\core\keycode.hpp" />
     <ClInclude Include="include\core\math.hpp" />
@@ -584,12 +584,12 @@
     <ClInclude Include="include\core\time.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\window.h" />
-    <ClInclude Include="games\testgame\scripts\FloatScript.hpp" />
-    <ClInclude Include="games\testgame\scripts\fpscam.hpp" />
-    <ClInclude Include="games\testgame\scripts\menu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

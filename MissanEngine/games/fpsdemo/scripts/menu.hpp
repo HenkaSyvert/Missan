@@ -10,8 +10,6 @@ class Menu : public Component {
 
 public:
 
-	bool isPaused = false;
-
 	// key to pause game
 	Keycode pauseKey = Keycode::E;
 
@@ -33,6 +31,7 @@ public:
 
 
 	void Start() {
+		isPaused = false;
 		timeStamp = Time::unscaledTime;
 		Window::SetIsCursorVisible(false);
 		weapon = GetGameObject().GetComponent<Weapon>();

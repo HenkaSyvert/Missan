@@ -3,6 +3,7 @@
 #include "missan.hpp"
 
 #include "menu.hpp"
+#include "globals.hpp"
 
 using namespace Missan;
 
@@ -18,16 +19,15 @@ public:
     float pitchConstraint = 89.9f;
 
 
-    bool* isPaused = nullptr;
     Transform* transform = nullptr;
 
     void Start() {
-        isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
+        // fetching this pointer once here is cheaper than doing it in every frame in Update(). 
         transform = GetGameObject().GetComponent<Transform>();
     }
 
     void Update() {
-        if (*isPaused) return;
+        if (isPaused) return;
 
         // change rotation based on mouse input
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;

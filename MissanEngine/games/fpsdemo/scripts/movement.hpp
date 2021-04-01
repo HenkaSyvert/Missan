@@ -13,29 +13,22 @@ class Movement : public Component {
 
 public:
 
-    // How fast the player moves
-    float moveSpeed = 5.0f;
-
-    bool* isPaused = nullptr;
-
-    Transform* transform = nullptr;
-
-    // to simulate collision avoidance in script, we make player into a sphere
-    float radius = 0.7f;
-
-    std::vector<glm::ivec2> columns;
-
-    // does player touch the ground?
-    bool isGrounded = true;
-
-    RigidBody* rb = nullptr;
-
-    float jumpForce = 120.0f;
-    float headHeight = 1.2f;
     
+    float moveSpeed = 5.0f;         // How fast the player moves
+    float headHeight = 1.2f;        // distance above floor we want the player's eyes to be.     
+    float radius = 0.7f;            // to simulate collision avoidance in script, we make player into a sphere
+    
+
+    float jumpForce = 120.0f;   
     float timeStamp = 0;
     float jumpDelay = 0.5f;
+    bool isGrounded = true;         // does player touch the ground?
     bool canJump = true;
+
+
+    Transform* transform = nullptr;
+    RigidBody* rb = nullptr;
+
 
     // makes player stay within map size
     void KeepWithinMap() {
@@ -43,57 +36,30 @@ public:
         transform->position.z = glm::clamp(transform->position.z, -cellBreadth / 2 + radius, (mapBreadth - 0.5f) * cellBreadth - radius);
     }
 
-    void AvoidColumns() {
-
-        for (auto& c : columns) {
-            bool collision = false;
-            
-            float px = transform->position.x;
-            float pz = transform->position.z;
-
-            float cx = c.x * cellWidth;
-            float cz = c.y * cellBreadth;
-
-            
-            bool xOverlap = (px - radius < cx + cellWidth   / 2) && (px + radius > cx - cellWidth   / 2);
-            bool zOverlap = (pz - radius < cz + cellBreadth / 2) && (pz + radius > cz - cellBreadth / 2);
-            collision = xOverlap && zOverlap;
-
-            float xDisplacement = (px > cx) ? (cx + cellWidth / 2) - (px - radius) : (cx - cellWidth / 2) - (px + radius);
-            float zDisplacement = (pz > cz) ? (cz + cellBreadth / 2) - (pz - radius) : (cz - cellBreadth / 2) - (pz + radius);
-
-
-            if (collision) {
-                if (abs(xDisplacement) < abs(zDisplacement)) {
-                    transform->position.x += xDisplacement;
-                }
-                else {
-                    transform->position.z += zDisplacement;
-                }
-            }
-
-        }
-
-    }
-
-
     void CheckJump() {
 
-        if (!isGrounded) {
-            if (transform->position.y < headHeight) {
+        // if player is falling through the air, check to see if he hits floor. 
+        // if he hits floor, make him stop falling. 
+        if (!isGrounded) {         
+            if (transform->position.y < headHeight) {       
+                std::cout << "hej";
                 isGrounded = true;
                 transform->position.y = headHeight;
                 rb->forces = { 0,0,0 };
                 rb->linearVelocity.y = 0;
+                rb->isAffectedByGravity = false;
             }
         }
 
+        // just check if enough time has passed between jumps. 
         if (!canJump) {
             if (Time::time - timeStamp > jumpDelay) {
                 canJump = true;
             }
         }
 
+        
+        // check if player made a jump, then send him flying straight upwards with an impulse. 
         if (canJump && isGrounded && Input::GetKeyDown(Keycode::Space)) {
             rb->AddImpulse({ 0, jumpForce / rb->mass, 0 });
             rb->AddForce(Physics::gravity / rb->mass);
@@ -101,48 +67,46 @@ public:
             canJump = false;
             timeStamp = Time::time;
         }
+        
 
     }
 
 
     void Start() {
-        isPaused = &GetGameObject().GetComponent<Menu>()->isPaused;
-        transform = GetGameObject().GetComponent<Transform>();
         
+        transform = GetGameObject().GetComponent<Transform>();      
         rb = GetGameObject().GetComponent<RigidBody>();
+
         transform->position.y = headHeight;
         rb->isAffectedByGravity = false;
         rb->mass = 5.0f;
         timeStamp = Time::time;
+        
 
     }
 
 	void Update() {
-
-        if (*isPaused) return;
+        if (isPaused) return;
 
         // using axes like this is more predictable, since holding down
-        // e.g. W and S at the same time will not move camera
+        // e.g. W and S at the same time will make player stand still
         int xAxis = 0, zAxis = 0;
         if (Input::GetKey(Keycode::D)) xAxis += 1;
         if (Input::GetKey(Keycode::A)) xAxis -= 1;
         if (Input::GetKey(Keycode::S)) zAxis -= 1;
         if (Input::GetKey(Keycode::W)) zAxis += 1;
 
-        // remember to use deltatime for smooth movement
+        // use deltatime for smooth, framerate independent movement
         float dx = (float)xAxis * moveSpeed * Time::unscaledDeltaTime;
         float dz = (float)zAxis * moveSpeed * Time::unscaledDeltaTime;
 
         // move camera relative to its rotation
         transform->position += dx * transform->GetRightVector();
         transform->position += dz * glm::normalize(-transform->GetBackwardVector() - glm::proj(-transform->GetBackwardVector(), glm::vec3(0, 1, 0)));
-
-        
-        CheckJump();
-        
-
+      
+        CheckJump();      
         KeepWithinMap();
-        AvoidColumns();
+        
 
 	}
 

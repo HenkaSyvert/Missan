@@ -15,9 +15,7 @@ void RigidBody::Start() {
 		exit(EXIT_FAILURE);
 	}
 
-	if (isAffectedByGravity) {
-		AddForce(Physics::gravity / mass);
-	}
+	
 
 	// currently rigidbodies only work with box colliders
 	auto s = c->boundingBox.size;

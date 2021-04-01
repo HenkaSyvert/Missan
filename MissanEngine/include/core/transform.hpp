@@ -22,7 +22,7 @@ namespace Missan {
         /// 
         /// Global scale
         glm::vec3 scale       = {1, 1, 1};
-       
+        
 
 
         /// 

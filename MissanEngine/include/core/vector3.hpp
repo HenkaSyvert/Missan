@@ -40,16 +40,39 @@ namespace Missan {
 		float& operator[](unsigned int index);		
 		friend std::ostream& operator<<(std::ostream& out, Vector3 v);
 		
+		///
+		/// Normalizes v, i.e. returns a vector of length 1 with the same direction. 
 		static Vector3 Normalize(Vector3 v);
+
+		///
+		/// The magnitude (or length) of v
 		static float Magnitude(Vector3 v);
+
+		///
+		/// The distance between a and b. 
 		static float Distance(Vector3 a, Vector3 b);
 
+		///
+		/// Projects v unto n. 
 		static Vector3 Project(Vector3 v, Vector3 n);
+
+		///
+		/// Reflects vector v on the normal n. 
 		static Vector3 Reflect(Vector3 v, Vector3 n);
+
+		///
+		/// Scales a elementwise by b. Same as hadamard product. 
 		static Vector3 Scale(Vector3 a, Vector3 b);
 
+		///
+		/// The angle (radians) between from and to. 
 		static float Angle(Vector3 from, Vector3 to);
+
+		///
+		/// The cross product between a and b. The resultant i perpendicular to both a and b. 
 		static Vector3 Cross(Vector3 a, Vector3 b);
+
+		// The dot product (also known as the scalar product) between a and b. 
 		static float Dot(Vector3 a, Vector3 b);
 
 		// Vector3 Lerp(Vector3 a, Vector3 b, float t = [0,1]);
