@@ -13,11 +13,12 @@ This project is a work in progress, but some notable features it currently suppo
 - Importing textures. 
 - Fundamental Built-in Components like Transform, Renderer, Camera, Collider, RigidBody. 
 
+## Video Presentation
+[![Missan Engine Presentation](https://img.youtube.com/vi/aGF7JEpwYEE/0.jpg)](https://www.youtube.com/watch?v=aGF7JEpwYEE)
+
 ## Scripting
 [Link to Missan Scripting API Documentation](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
-
 This example shows how to write a simple first person camera script using Missan API:
-
 ```c++
 // User defined scripts must inherit from Component, which provides event functions that can be overrided. 
 // a simple script for moving camera with mouse on y axis, and x axis (constrained to 89.9 degrees)
@@ -46,27 +47,6 @@ public:
     }
 }
 ```
-
-
-## Video Presentation
-This video (in Swedish) offers an overview of the project (as of 2020). 
-[![Missan Engine Presentation](https://img.youtube.com/vi/aGF7JEpwYEE/0.jpg)](https://www.youtube.com/watch?v=aGF7JEpwYEE)
-
-Timestamps for particular topics:
-- 00:00 Introduction
-- 03:43	Overview of External Libraries
-- 05:55	Demonstration of Missan Engine
-- 09:10	Component-based Architecture
-- 10:30	Overview of Built-in Components (Transform, Renderer, Camera, Collider, RigidBody)
-- 12:30	Script Execution Order
-- 14:05	Examples of User-made Components (Scripts)
-- 16:18	Setting up a Simulation
-- 17:48	The API Documentation
-- 18:50	Conclusion
-
-
-
 ## The Report
 The report (in Swedish), as part of the project course:
-
 [Link to report](https://drive.google.com/file/d/1UEbyQDgeKQjmjQmAAX_eAy41uurMqaDQ/view?usp=sharing)
