@@ -5,25 +5,63 @@
 
 namespace Missan {
 
-	// Represents 3D vectors and points. 
+	///
+	/// Represents 3D vectors and points. 
 	class Vector3 {
 
 	public:
+		///
+		/// The x component of this vector. 
 		float x = 0;
+
+		///
+		/// The y component of this vector. 
 		float y = 0;
+
+		///
+		/// The z component of this vector. 
 		float z = 0;
 
 		Vector3(float x = 0, float y = 0, float z = 0);
 
+		///
+		/// Shorthand for {1, 0, 0}
 		static const Vector3 right;
+
+		///
+		/// Shorthand for {-1, 0, 0}
 		static const Vector3 left;
+
+		///
+		/// Shorthand for {0, 1, 0}
 		static const Vector3 up;
+
+		///
+		/// Shorthand for {0, -1, 0}
 		static const Vector3 down;
+
+		///
+		/// Shorthand for {0, 0, 1}
 		static const Vector3 backward;
+
+		///
+		/// Shorthand for {0, 0, -1}
 		static const Vector3 forward;
+
+		///
+		/// Shorthand for {0, 0, 0}
 		static const Vector3 zero;
+
+		///
+		/// Shorthand for {1, 1, 1}
 		static const Vector3 one;
+
+		///
+		/// Shorthand for {-inf, -inf, -inf}
 		static const Vector3 negativeInfinity;
+
+		///
+		/// Shorthand for {inf, inf, inf}
 		static const Vector3 positiveInfinity;
 
 		Vector3 operator+(Vector3 v);
@@ -72,7 +110,8 @@ namespace Missan {
 		/// The cross product between a and b. The resultant i perpendicular to both a and b. 
 		static Vector3 Cross(Vector3 a, Vector3 b);
 
-		// The dot product (also known as the scalar product) between a and b. 
+		///
+		/// The dot product (also known as the scalar product) between a and b. 
 		static float Dot(Vector3 a, Vector3 b);
 
 		// Vector3 Lerp(Vector3 a, Vector3 b, float t = [0,1]);

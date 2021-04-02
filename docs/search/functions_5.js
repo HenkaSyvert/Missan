@@ -1,8 +1,25 @@
 var searchData=
 [
-  ['initialize_150',['Initialize',['../namespace_missan_1_1_engine.html#aab4b9e9b2033e1c8d184aa2f9de9b6ce',1,'Missan::Engine']]],
-  ['instantiate_151',['Instantiate',['../namespace_missan_1_1_engine.html#aa44ca1885a97ae52c239b62acda54a21',1,'Missan::Engine']]],
-  ['iskeypressed_152',['IsKeyPressed',['../namespace_missan_1_1_input.html#a549b14d0637d8dd819962a0602174a00',1,'Missan::Input']]],
-  ['ismouseleftpressed_153',['IsMouseLeftPressed',['../namespace_missan_1_1_input.html#a80299238a38423ce77b6b7cefe7f1420',1,'Missan::Input']]],
-  ['ismouserightpressed_154',['IsMouseRightPressed',['../namespace_missan_1_1_input.html#aec80efd1a97d7a3cfabf6638538b79ff',1,'Missan::Input']]]
+  ['gameobject_212',['GameObject',['../class_missan_1_1_game_object.html#ab7280140ba78f930546e8d047189e035',1,'Missan::GameObject::GameObject()'],['../class_missan_1_1_game_object.html#a3426d07d01cfa2e92ba6e6dbc9066bdc',1,'Missan::GameObject::GameObject(GameObject &amp;copy)']]],
+  ['getactivescene_213',['GetActiveScene',['../namespace_missan_1_1_engine.html#aa87805eb73a19bf949e843f205434995',1,'Missan::Engine']]],
+  ['getbackwardvector_214',['GetBackwardVector',['../class_missan_1_1_transform.html#a47994e57391665a5d74319cd98aea7af',1,'Missan::Transform']]],
+  ['getcomponent_215',['GetComponent',['../class_missan_1_1_game_object.html#aa41f18396f89c2f34adc4ef69ed9a816',1,'Missan::GameObject']]],
+  ['getedgevectors_216',['GetEdgeVectors',['../class_missan_1_1_bounding_box.html#a6f95a63ae3c95a4e1285290b5a841522',1,'Missan::BoundingBox']]],
+  ['getgameobject_217',['GetGameObject',['../class_missan_1_1_component.html#ab433b0240c9eaaa8c6bf9ad640b7fcf1',1,'Missan::Component']]],
+  ['getkey_218',['GetKey',['../namespace_missan_1_1_input.html#addbffa773f09f2f4f9f286f638c8e24d',1,'Missan::Input']]],
+  ['getkeydown_219',['GetKeyDown',['../namespace_missan_1_1_input.html#aa4ccfc3a34f7d03ddc9a0c99a69a8a96',1,'Missan::Input']]],
+  ['getkeyup_220',['GetKeyUp',['../namespace_missan_1_1_input.html#a81910acd05f40188c5e247578e3a0815',1,'Missan::Input']]],
+  ['getmatrix_221',['GetMatrix',['../class_missan_1_1_transform.html#a10b733bd71931c9a35ef93f4b638cb2d',1,'Missan::Transform']]],
+  ['getmesh_222',['GetMesh',['../namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6',1,'Missan::Resources']]],
+  ['getmousebutton_223',['GetMouseButton',['../namespace_missan_1_1_input.html#a093d4926d2b07739521ce4e1d941b81d',1,'Missan::Input']]],
+  ['getmousebuttondown_224',['GetMouseButtonDown',['../namespace_missan_1_1_input.html#a579fe8cf3c27eff646f24e826e350b7a',1,'Missan::Input']]],
+  ['getmousebuttonup_225',['GetMouseButtonUp',['../namespace_missan_1_1_input.html#a8f59c893135cfd9aa67f83fbf2bc0742',1,'Missan::Input']]],
+  ['getnormals_226',['GetNormals',['../class_missan_1_1_mesh.html#ad4f76ba9174554ba84a583269cf35d5d',1,'Missan::Mesh::GetNormals()'],['../class_missan_1_1_bounding_box.html#abc72c46fdadc540e5bc39fcecf6d988c',1,'Missan::BoundingBox::GetNormals()']]],
+  ['getprojectionmatrix_227',['GetProjectionMatrix',['../class_missan_1_1_camera.html#ae7d84038419c1e04c1fd1bea761ae75b',1,'Missan::Camera']]],
+  ['getrightvector_228',['GetRightVector',['../class_missan_1_1_transform.html#a7f204487938eaf2c09906481aac35857',1,'Missan::Transform']]],
+  ['getstandardshader_229',['GetStandardShader',['../namespace_missan_1_1_graphics.html#a574710f349988e3ae85c7cac19223b64',1,'Missan::Graphics']]],
+  ['gettexture_230',['GetTexture',['../namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d',1,'Missan::Resources']]],
+  ['getupvector_231',['GetUpVector',['../class_missan_1_1_transform.html#ada01cae841cd2cb7cb86752b59fdaced',1,'Missan::Transform']]],
+  ['getvertices_232',['GetVertices',['../class_missan_1_1_bounding_box.html#ab7f604eff0c2d7be36ca27a7b9e520e3',1,'Missan::BoundingBox']]],
+  ['getverticesvec3_233',['GetVerticesVec3',['../class_missan_1_1_mesh.html#a41bb07eb7fe2ddd1354a061d1e3b4629',1,'Missan::Mesh']]]
 ];

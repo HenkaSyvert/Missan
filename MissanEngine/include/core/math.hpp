@@ -2,9 +2,12 @@
 
 namespace Missan {
 
-	// Some useful math functions and constants. 
+	///
+	/// Some useful math functions and constants. 
 	namespace Math {
 
+		///
+		/// The famous pi. 
 		extern const float pi;
 
 		///
@@ -23,7 +26,12 @@ namespace Missan {
 		/// Constant for converting radians to degrees. 
 		extern const float rad2Deg;
 
+		///
+		/// Largest positive number that can be represented. 
 		extern const float positiveInfinity;
+
+		///
+		/// Largest negative number that can be represented. 
 		extern const float negativeInfinity;
 
 		///

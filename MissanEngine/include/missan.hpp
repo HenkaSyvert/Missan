@@ -3,10 +3,6 @@
 // MissanEngine public API
 
 
-// temporary, for access to GLFW_KEYCODE
-//#include <GL/glew.h>
-//#include <GLFW/glfw3.h>
-
 // temporary, mathematics library
 #include <glm/glm.hpp>
 
@@ -29,7 +25,7 @@
 #include "core/scene.hpp"
 #include "core/time.hpp"
 #include "core/transform.hpp"
-//#include "core/vector3.hpp"
+#include "core/vector3.hpp"
 #include "core/window.hpp"
 
 #include "graphics/camera.hpp"

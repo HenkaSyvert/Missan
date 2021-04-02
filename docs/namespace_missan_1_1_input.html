@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="missan_logo64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Missan Engine
-   &#160;<span id="projectnumber">2020.1</span>
+   &#160;<span id="projectnumber">2020.2</span>
    </div>
    <div id="projectbrief">3D Game Engine</div>
   </td>
@@ -81,29 +81,41 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a549b14d0637d8dd819962a0602174a00"><td class="memItemLeft" align="right" valign="top"><a id="a549b14d0637d8dd819962a0602174a00"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a549b14d0637d8dd819962a0602174a00">IsKeyPressed</a> (int keycode)</td></tr>
-<tr class="memdesc:a549b14d0637d8dd819962a0602174a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the key pressed? <br /></td></tr>
-<tr class="separator:a549b14d0637d8dd819962a0602174a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80299238a38423ce77b6b7cefe7f1420"><td class="memItemLeft" align="right" valign="top"><a id="a80299238a38423ce77b6b7cefe7f1420"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a80299238a38423ce77b6b7cefe7f1420">IsMouseLeftPressed</a> ()</td></tr>
-<tr class="memdesc:a80299238a38423ce77b6b7cefe7f1420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is left mouse button pressed? <br /></td></tr>
-<tr class="separator:a80299238a38423ce77b6b7cefe7f1420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec80efd1a97d7a3cfabf6638538b79ff"><td class="memItemLeft" align="right" valign="top"><a id="aec80efd1a97d7a3cfabf6638538b79ff"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#aec80efd1a97d7a3cfabf6638538b79ff">IsMouseRightPressed</a> ()</td></tr>
-<tr class="memdesc:aec80efd1a97d7a3cfabf6638538b79ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is right mouse button pressed? <br /></td></tr>
-<tr class="separator:aec80efd1a97d7a3cfabf6638538b79ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4ccfc3a34f7d03ddc9a0c99a69a8a96"><td class="memItemLeft" align="right" valign="top"><a id="aa4ccfc3a34f7d03ddc9a0c99a69a8a96"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#aa4ccfc3a34f7d03ddc9a0c99a69a8a96">GetKeyDown</a> (Keycode keycode)</td></tr>
+<tr class="memdesc:aa4ccfc3a34f7d03ddc9a0c99a69a8a96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true the frame the user pressed the key. <br /></td></tr>
+<tr class="separator:aa4ccfc3a34f7d03ddc9a0c99a69a8a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addbffa773f09f2f4f9f286f638c8e24d"><td class="memItemLeft" align="right" valign="top"><a id="addbffa773f09f2f4f9f286f638c8e24d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#addbffa773f09f2f4f9f286f638c8e24d">GetKey</a> (Keycode keycode)</td></tr>
+<tr class="memdesc:addbffa773f09f2f4f9f286f638c8e24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true while the users holds down the key. <br /></td></tr>
+<tr class="separator:addbffa773f09f2f4f9f286f638c8e24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81910acd05f40188c5e247578e3a0815"><td class="memItemLeft" align="right" valign="top"><a id="a81910acd05f40188c5e247578e3a0815"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a81910acd05f40188c5e247578e3a0815">GetKeyUp</a> (Keycode keycode)</td></tr>
+<tr class="memdesc:a81910acd05f40188c5e247578e3a0815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true the frame the user releases the key. <br /></td></tr>
+<tr class="separator:a81910acd05f40188c5e247578e3a0815"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579fe8cf3c27eff646f24e826e350b7a"><td class="memItemLeft" align="right" valign="top"><a id="a579fe8cf3c27eff646f24e826e350b7a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a579fe8cf3c27eff646f24e826e350b7a">GetMouseButtonDown</a> (MouseButton button)</td></tr>
+<tr class="memdesc:a579fe8cf3c27eff646f24e826e350b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true the frame given button is first pressed. <br /></td></tr>
+<tr class="separator:a579fe8cf3c27eff646f24e826e350b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093d4926d2b07739521ce4e1d941b81d"><td class="memItemLeft" align="right" valign="top"><a id="a093d4926d2b07739521ce4e1d941b81d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a093d4926d2b07739521ce4e1d941b81d">GetMouseButton</a> (MouseButton button)</td></tr>
+<tr class="memdesc:a093d4926d2b07739521ce4e1d941b81d"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true while the users holds the button <br /></td></tr>
+<tr class="separator:a093d4926d2b07739521ce4e1d941b81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f59c893135cfd9aa67f83fbf2bc0742"><td class="memItemLeft" align="right" valign="top"><a id="a8f59c893135cfd9aa67f83fbf2bc0742"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a8f59c893135cfd9aa67f83fbf2bc0742">GetMouseButtonUp</a> (MouseButton button)</td></tr>
+<tr class="memdesc:a8f59c893135cfd9aa67f83fbf2bc0742"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true the frame the user releases the key <br /></td></tr>
+<tr class="separator:a8f59c893135cfd9aa67f83fbf2bc0742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7374f018641611b4b88e5536b3f35f74"><td class="memItemLeft" align="right" valign="top"><a id="a7374f018641611b4b88e5536b3f35f74"></a>
-const glm::dvec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#a7374f018641611b4b88e5536b3f35f74">mousePosition</a></td></tr>
-<tr class="memdesc:a7374f018641611b4b88e5536b3f35f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current X and Y of mouse. Note that {0, 0} is in top-left corner. <br /></td></tr>
-<tr class="separator:a7374f018641611b4b88e5536b3f35f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad216b181d590c3b83af6a1af65a1209a"><td class="memItemLeft" align="right" valign="top"><a id="ad216b181d590c3b83af6a1af65a1209a"></a>
-const glm::dvec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#ad216b181d590c3b83af6a1af65a1209a">mouseDelta</a></td></tr>
-<tr class="memdesc:ad216b181d590c3b83af6a1af65a1209a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delta X and Y since last frame. Note that {0, 0} is in top-left corner. <br /></td></tr>
-<tr class="separator:ad216b181d590c3b83af6a1af65a1209a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1edb0a243925eb1371e07b4b9cc6acd"><td class="memItemLeft" align="right" valign="top"><a id="af1edb0a243925eb1371e07b4b9cc6acd"></a>
+const <a class="el" href="class_missan_1_1_vector3.html">Vector3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#af1edb0a243925eb1371e07b4b9cc6acd">mousePosition</a></td></tr>
+<tr class="memdesc:af1edb0a243925eb1371e07b4b9cc6acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current X and Y of mouse. Note that {0, 0} is in top-left corner. <br /></td></tr>
+<tr class="separator:af1edb0a243925eb1371e07b4b9cc6acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd93ed9515a707741ab03332f990c93a"><td class="memItemLeft" align="right" valign="top"><a id="afd93ed9515a707741ab03332f990c93a"></a>
+const <a class="el" href="class_missan_1_1_vector3.html">Vector3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_missan_1_1_input.html#afd93ed9515a707741ab03332f990c93a">mouseDelta</a></td></tr>
+<tr class="memdesc:afd93ed9515a707741ab03332f990c93a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delta X and Y since last frame. Note that {0, 0} is in top-left corner. <br /></td></tr>
+<tr class="separator:afd93ed9515a707741ab03332f990c93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

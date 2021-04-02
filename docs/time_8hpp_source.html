@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Missan Engine: C:/Workspace/Missan/MissanEngine/include/core/time.hpp Source File</title>
+<title>Missan Engine: time.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="missan_logo64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Missan Engine
-   &#160;<span id="projectnumber">2020.1</span>
+   &#160;<span id="projectnumber">2020.2</span>
    </div>
    <div id="projectbrief">3D Game Engine</div>
   </td>
@@ -75,29 +75,34 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span>Missan {</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_time.html">    7</a></span>&#160;    <span class="keyword">namespace </span>Time {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#ab8818e9b93b4f54a7e5ccc4a28eb8147">time</a>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#a6962a940e7f2c829f9370fbba81c1990">unscaledTime</a>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#aa5628163d3fef789c9ae28de893f1cb7">deltaTime</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#afe3bf7dddfd6cc6c6016761e2b893b13">unscaledDeltaTime</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">extern</span> <span class="keywordtype">float</span> <a class="code" href="namespace_missan_1_1_time.html#a426a78ee215a9443861a2de3ade51e14">timeScale</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <span class="comment"></span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">    /// </span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">    /// Interface to Time system</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_time.html">    7</a></span>&#160;<span class="comment"></span>    <span class="keyword">namespace </span>Time {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">        /// Time (in seconds) at the beginning of this frame, measured from start of game, modified by timeScale</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#ab8818e9b93b4f54a7e5ccc4a28eb8147">time</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">        /// Time (in seconds) at the beginning of this frame, measured from start of game, not modified by timeScale</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#a6962a940e7f2c829f9370fbba81c1990">unscaledTime</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="comment"></span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">        /// Time (in seconds) since last frame, modified by timeScale</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#aa5628163d3fef789c9ae28de893f1cb7">deltaTime</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">        /// Time (in seconds) since last frame, not modified by timeScale</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="namespace_missan_1_1_time.html#afe3bf7dddfd6cc6c6016761e2b893b13">unscaledDeltaTime</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">        /// The scale at which time passes</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keywordtype">float</span> <a class="code" href="namespace_missan_1_1_time.html#a426a78ee215a9443861a2de3ade51e14">timeScale</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="comment">// NOT PART OF PUBLIC API ///////////////////</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> Update();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespace_missan_1_1_time_html_a426a78ee215a9443861a2de3ade51e14"><div class="ttname"><a href="namespace_missan_1_1_time.html#a426a78ee215a9443861a2de3ade51e14">Missan::Time::timeScale</a></div><div class="ttdeci">float timeScale</div><div class="ttdoc">The scale at which time passes.</div></div>
 <div class="ttc" id="anamespace_missan_1_1_time_html_ab8818e9b93b4f54a7e5ccc4a28eb8147"><div class="ttname"><a href="namespace_missan_1_1_time.html#ab8818e9b93b4f54a7e5ccc4a28eb8147">Missan::Time::time</a></div><div class="ttdeci">const float &amp; time</div><div class="ttdoc">Time (in seconds) at the beginning of this frame, measured from start of game, modified by timeScale.</div></div>

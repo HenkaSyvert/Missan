@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['unscaleddeltatime_219',['unscaledDeltaTime',['../namespace_missan_1_1_time.html#afe3bf7dddfd6cc6c6016761e2b893b13',1,'Missan::Time']]],
-  ['unscaledtime_220',['unscaledTime',['../namespace_missan_1_1_time.html#a6962a940e7f2c829f9370fbba81c1990',1,'Missan::Time']]]
+  ['scale_324',['scale',['../class_missan_1_1_transform.html#a318be0d64fb2bd404f072cb4c6d3d04f',1,'Missan::Transform']]],
+  ['size_325',['size',['../class_missan_1_1_bounding_box.html#a5429c2efee09dd4bffb4436ff23d8bca',1,'Missan::BoundingBox']]]
 ];

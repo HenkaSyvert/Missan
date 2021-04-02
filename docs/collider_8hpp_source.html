@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Missan Engine: C:/Workspace/Missan/MissanEngine/include/physics/collider.hpp Source File</title>
+<title>Missan Engine: collider.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="missan_logo64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Missan Engine
-   &#160;<span id="projectnumber">2020.1</span>
+   &#160;<span id="projectnumber">2020.2</span>
    </div>
    <div id="projectbrief">3D Game Engine</div>
   </td>
@@ -79,14 +79,21 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;graphics/mesh.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Missan {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html">   11</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_missan_1_1_collider.html">Collider</a> : <span class="keyword">public</span> <a class="code" href="class_missan_1_1_component.html">Component</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    /// </span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    /// Class that detects collisions against other Colliders</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html">   11</a></span>&#160;<span class="comment"></span>    <span class="keyword">class </span><a class="code" href="class_missan_1_1_collider.html">Collider</a> : <span class="keyword">public</span> <a class="code" href="class_missan_1_1_component.html">Component</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html#a2cc60058301277578bc7f903f7259202">   17</a></span>&#160;        glm::vec3 <a class="code" href="class_missan_1_1_collider.html#a2cc60058301277578bc7f903f7259202">OverlapsWith</a>(<a class="code" href="class_missan_1_1_collider.html">Collider</a>* other);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">   22</a></span>&#160;        <a class="code" href="class_missan_1_1_bounding_box.html">BoundingBox</a> <a class="code" href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">boundingBox</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">        /// The amount of overlap between this Collider and other. 0 means no overlap</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html#a2cc60058301277578bc7f903f7259202">   17</a></span>&#160;<span class="comment"></span>        glm::vec3 <a class="code" href="class_missan_1_1_collider.html#a2cc60058301277578bc7f903f7259202">OverlapsWith</a>(<a class="code" href="class_missan_1_1_collider.html">Collider</a>* other);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">        /// The bounding box used to calculate overlap. Note that it takes the attached Transform into account.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">        /// By default the boundingBox will grow to encapsulate the attached Mesh (if any)</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">   22</a></span>&#160;<span class="comment"></span>        <a class="code" href="class_missan_1_1_bounding_box.html">BoundingBox</a> <a class="code" href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">boundingBox</a>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="comment">// NOT PART OF PUBLIC API ////////////////////////</span></div>
@@ -99,10 +106,10 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_missan_1_1_collider_html_a2cc60058301277578bc7f903f7259202"><div class="ttname"><a href="class_missan_1_1_collider.html#a2cc60058301277578bc7f903f7259202">Missan::Collider::OverlapsWith</a></div><div class="ttdeci">glm::vec3 OverlapsWith(Collider *other)</div><div class="ttdoc">The amount of overlap between this Collider and other. 0 means no overlap.</div></div>
-<div class="ttc" id="aclass_missan_1_1_collider_html"><div class="ttname"><a href="class_missan_1_1_collider.html">Missan::Collider</a></div><div class="ttdoc">Class that detects collisions against other Colliders.</div><div class="ttdef"><b>Definition:</b> collider.hpp:11</div></div>
-<div class="ttc" id="aclass_missan_1_1_bounding_box_html"><div class="ttname"><a href="class_missan_1_1_bounding_box.html">Missan::BoundingBox</a></div><div class="ttdoc">Class that represents a 3D bounding box.</div><div class="ttdef"><b>Definition:</b> boundingbox.hpp:9</div></div>
-<div class="ttc" id="aclass_missan_1_1_collider_html_adaffb2fdeae2acef7c88fd86ac8debb4"><div class="ttname"><a href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">Missan::Collider::boundingBox</a></div><div class="ttdeci">BoundingBox boundingBox</div><div class="ttdoc">The bounding box used to calculate overlap. Note that it takes the attached Transform into account....</div><div class="ttdef"><b>Definition:</b> collider.hpp:22</div></div>
-<div class="ttc" id="aclass_missan_1_1_component_html"><div class="ttname"><a href="class_missan_1_1_component.html">Missan::Component</a></div><div class="ttdoc">Components define behavior of GameObjects. To make a custom script, inherit from Component....</div><div class="ttdef"><b>Definition:</b> component.hpp:13</div></div>
+<div class="ttc" id="aclass_missan_1_1_collider_html"><div class="ttname"><a href="class_missan_1_1_collider.html">Missan::Collider</a></div><div class="ttdoc">Class that detects collisions against other Colliders.</div><div class="ttdef"><b>Definition:</b> <a href="collider_8hpp_source.html#l00011">collider.hpp:11</a></div></div>
+<div class="ttc" id="aclass_missan_1_1_bounding_box_html"><div class="ttname"><a href="class_missan_1_1_bounding_box.html">Missan::BoundingBox</a></div><div class="ttdoc">Class that represents a 3D bounding box.</div><div class="ttdef"><b>Definition:</b> <a href="boundingbox_8hpp_source.html#l00009">boundingbox.hpp:9</a></div></div>
+<div class="ttc" id="aclass_missan_1_1_collider_html_adaffb2fdeae2acef7c88fd86ac8debb4"><div class="ttname"><a href="class_missan_1_1_collider.html#adaffb2fdeae2acef7c88fd86ac8debb4">Missan::Collider::boundingBox</a></div><div class="ttdeci">BoundingBox boundingBox</div><div class="ttdoc">The bounding box used to calculate overlap. Note that it takes the attached Transform into account....</div><div class="ttdef"><b>Definition:</b> <a href="collider_8hpp_source.html#l00022">collider.hpp:22</a></div></div>
+<div class="ttc" id="aclass_missan_1_1_component_html"><div class="ttname"><a href="class_missan_1_1_component.html">Missan::Component</a></div><div class="ttdoc">Components define behavior of GameObjects. To make a custom script, inherit from Component....</div><div class="ttdef"><b>Definition:</b> <a href="component_8hpp_source.html#l00013">component.hpp:13</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

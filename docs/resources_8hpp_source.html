@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Missan Engine: C:/Workspace/Missan/MissanEngine/include/core/resources.hpp Source File</title>
+<title>Missan Engine: resources.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="missan_logo64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Missan Engine
-   &#160;<span id="projectnumber">2020.1</span>
+   &#160;<span id="projectnumber">2020.2</span>
    </div>
    <div id="projectbrief">3D Game Engine</div>
   </td>
@@ -79,18 +79,30 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;graphics/texture.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Missan {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html">   11</a></span>&#160;    <span class="keyword">namespace </span>Resources {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">extern</span> std::string <a class="code" href="namespace_missan_1_1_resources.html#a469e643804e703274e6a4e4e8edf70c1">textureDirectory</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">extern</span> std::string <a class="code" href="namespace_missan_1_1_resources.html#a8382090bc6dc5b665042f32b356e69ca">meshDirectory</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    //// </span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    /// Functions for accessing assets used by the game</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html">   11</a></span>&#160;<span class="comment"></span>    <span class="keyword">namespace </span>Resources {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">        /// Put your Textures here. it&#39;s also ok to make subfolders in there</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">        /// but you still must provide the relative full filename then</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> std::string <a class="code" href="namespace_missan_1_1_resources.html#a469e643804e703274e6a4e4e8edf70c1">textureDirectory</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">        /// Put your Meshes here. it&#39;s also ok to make subfolders in there</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">        /// but you still must provide the relative full filename then</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> std::string <a class="code" href="namespace_missan_1_1_resources.html#a8382090bc6dc5b665042f32b356e69ca">meshDirectory</a>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6">   27</a></span>&#160;        <a class="code" href="class_missan_1_1_mesh.html">Mesh</a>* <a class="code" href="namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6">GetMesh</a>(<span class="keyword">const</span> std::string&amp; fileName);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d">   31</a></span>&#160;        <a class="code" href="class_missan_1_1_texture.html">Texture</a>* <a class="code" href="namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d">GetTexture</a>(<span class="keyword">const</span> std::string&amp; fileName);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">        //// </span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">        /// Returns pointer to Mesh, loads if necessary, from the Mesh directory</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6">   27</a></span>&#160;<span class="comment"></span>        <a class="code" href="class_missan_1_1_mesh.html">Mesh</a>* <a class="code" href="namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6">GetMesh</a>(<span class="keyword">const</span> std::string&amp; fileName);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">        //// </span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">        /// Returns pointer to Texture, loads if necessary, from the Texture directory</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d">   31</a></span>&#160;<span class="comment"></span>        <a class="code" href="class_missan_1_1_texture.html">Texture</a>* <a class="code" href="namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d">GetTexture</a>(<span class="keyword">const</span> std::string&amp; fileName);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">// NOT PART OF PUBLIC API /////////////////////////////</span></div>
@@ -101,10 +113,10 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_missan_1_1_texture_html"><div class="ttname"><a href="class_missan_1_1_texture.html">Missan::Texture</a></div><div class="ttdoc">2D Texture</div><div class="ttdef"><b>Definition:</b> texture.hpp:9</div></div>
+<div class="ttc" id="aclass_missan_1_1_texture_html"><div class="ttname"><a href="class_missan_1_1_texture.html">Missan::Texture</a></div><div class="ttdoc">2D Texture</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00009">texture.hpp:9</a></div></div>
 <div class="ttc" id="anamespace_missan_1_1_resources_html_af53c496d9913ee7a06acbc50e31702b6"><div class="ttname"><a href="namespace_missan_1_1_resources.html#af53c496d9913ee7a06acbc50e31702b6">Missan::Resources::GetMesh</a></div><div class="ttdeci">Mesh * GetMesh(const std::string &amp;fileName)</div><div class="ttdoc">Returns pointer to Mesh, loads if necessary, from the Mesh directory.</div></div>
 <div class="ttc" id="anamespace_missan_1_1_resources_html_a8382090bc6dc5b665042f32b356e69ca"><div class="ttname"><a href="namespace_missan_1_1_resources.html#a8382090bc6dc5b665042f32b356e69ca">Missan::Resources::meshDirectory</a></div><div class="ttdeci">std::string meshDirectory</div><div class="ttdoc">Put your Meshes here. it's also ok to make subfolders in there but you still must provide the relativ...</div></div>
-<div class="ttc" id="aclass_missan_1_1_mesh_html"><div class="ttname"><a href="class_missan_1_1_mesh.html">Missan::Mesh</a></div><div class="ttdoc">Stores data about 3D model.</div><div class="ttdef"><b>Definition:</b> mesh.hpp:9</div></div>
+<div class="ttc" id="aclass_missan_1_1_mesh_html"><div class="ttname"><a href="class_missan_1_1_mesh.html">Missan::Mesh</a></div><div class="ttdoc">Stores data about 3D model.</div><div class="ttdef"><b>Definition:</b> <a href="mesh_8hpp_source.html#l00009">mesh.hpp:9</a></div></div>
 <div class="ttc" id="anamespace_missan_1_1_resources_html_aa86c96f2f10354a984ab1f2f847d4f1d"><div class="ttname"><a href="namespace_missan_1_1_resources.html#aa86c96f2f10354a984ab1f2f847d4f1d">Missan::Resources::GetTexture</a></div><div class="ttdeci">Texture * GetTexture(const std::string &amp;fileName)</div><div class="ttdoc">Returns pointer to Texture, loads if necessary, from the Texture directory.</div></div>
 <div class="ttc" id="anamespace_missan_1_1_resources_html_a469e643804e703274e6a4e4e8edf70c1"><div class="ttname"><a href="namespace_missan_1_1_resources.html#a469e643804e703274e6a4e4e8edf70c1">Missan::Resources::textureDirectory</a></div><div class="ttdeci">std::string textureDirectory</div><div class="ttdoc">Put your Textures here. it's also ok to make subfolders in there but you still must provide the relat...</div></div>
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Missan Engine: C:/Workspace/Missan/MissanEngine/include/core/input.hpp Source File</title>
+<title>Missan Engine: input.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="missan_logo64.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Missan Engine
-   &#160;<span id="projectnumber">2020.1</span>
+   &#160;<span id="projectnumber">2020.2</span>
    </div>
    <div id="projectbrief">3D Game Engine</div>
   </td>
@@ -74,38 +74,65 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;missanpch.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Missan {</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;core/keycode.hpp&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;core/mousebutton.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;core/vector3.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html">    9</a></span>&#160;    <span class="keyword">namespace </span>Input {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> glm::dvec2&amp; <a class="code" href="namespace_missan_1_1_input.html#a7374f018641611b4b88e5536b3f35f74">mousePosition</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">extern</span> <span class="keyword">const</span> glm::dvec2&amp; <a class="code" href="namespace_missan_1_1_input.html#ad216b181d590c3b83af6a1af65a1209a">mouseDelta</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a549b14d0637d8dd819962a0602174a00">   21</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a549b14d0637d8dd819962a0602174a00">IsKeyPressed</a>(<span class="keywordtype">int</span> keycode);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a80299238a38423ce77b6b7cefe7f1420">   25</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a80299238a38423ce77b6b7cefe7f1420">IsMouseLeftPressed</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#aec80efd1a97d7a3cfabf6638538b79ff">   29</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#aec80efd1a97d7a3cfabf6638538b79ff">IsMouseRightPressed</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">// NOT PART OF PUBLIC API //////////////////////</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">void</span> Initialize();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> Update();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Missan {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    /// </span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    /// Interface to Input system</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html">   11</a></span>&#160;<span class="comment"></span>    <span class="keyword">namespace </span>Input {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">        /// Current X and Y of mouse. Note that {0, 0} is in top-left corner</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <a class="code" href="class_missan_1_1_vector3.html">Vector3</a>&amp; <a class="code" href="namespace_missan_1_1_input.html#af1edb0a243925eb1371e07b4b9cc6acd">mousePosition</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">        /// Delta X and Y since last frame. Note that {0, 0} is in top-left corner</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span>        <span class="keyword">extern</span> <span class="keyword">const</span> <a class="code" href="class_missan_1_1_vector3.html">Vector3</a>&amp; <a class="code" href="namespace_missan_1_1_input.html#afd93ed9515a707741ab03332f990c93a">mouseDelta</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">        ///</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">        /// Returns true the frame the user pressed the key</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#aa4ccfc3a34f7d03ddc9a0c99a69a8a96">   25</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#aa4ccfc3a34f7d03ddc9a0c99a69a8a96">GetKeyDown</a>(Keycode keycode);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">        /// </span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">        /// Returns true while the users holds down the key</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#addbffa773f09f2f4f9f286f638c8e24d">   29</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#addbffa773f09f2f4f9f286f638c8e24d">GetKey</a>(Keycode keycode);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">        ///</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">        /// Returns true the frame the user releases the key</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a81910acd05f40188c5e247578e3a0815">   33</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a81910acd05f40188c5e247578e3a0815">GetKeyUp</a>(Keycode keycode);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">        ///</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">        /// returns true the frame given button is first pressed.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a579fe8cf3c27eff646f24e826e350b7a">   39</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a579fe8cf3c27eff646f24e826e350b7a">GetMouseButtonDown</a>(MouseButton button);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">        ///</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">        /// returns true while the users holds the button</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a093d4926d2b07739521ce4e1d941b81d">   43</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a093d4926d2b07739521ce4e1d941b81d">GetMouseButton</a>(MouseButton button);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">        ///</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">        /// returns true the frame the user releases the key</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespace_missan_1_1_input.html#a8f59c893135cfd9aa67f83fbf2bc0742">   47</a></span>&#160;<span class="comment"></span>        <span class="keywordtype">bool</span> <a class="code" href="namespace_missan_1_1_input.html#a8f59c893135cfd9aa67f83fbf2bc0742">GetMouseButtonUp</a>(MouseButton button);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="anamespace_missan_1_1_input_html_aec80efd1a97d7a3cfabf6638538b79ff"><div class="ttname"><a href="namespace_missan_1_1_input.html#aec80efd1a97d7a3cfabf6638538b79ff">Missan::Input::IsMouseRightPressed</a></div><div class="ttdeci">bool IsMouseRightPressed()</div><div class="ttdoc">Is right mouse button pressed?</div></div>
-<div class="ttc" id="anamespace_missan_1_1_input_html_a549b14d0637d8dd819962a0602174a00"><div class="ttname"><a href="namespace_missan_1_1_input.html#a549b14d0637d8dd819962a0602174a00">Missan::Input::IsKeyPressed</a></div><div class="ttdeci">bool IsKeyPressed(int keycode)</div><div class="ttdoc">Is the key pressed?</div></div>
-<div class="ttc" id="anamespace_missan_1_1_input_html_a80299238a38423ce77b6b7cefe7f1420"><div class="ttname"><a href="namespace_missan_1_1_input.html#a80299238a38423ce77b6b7cefe7f1420">Missan::Input::IsMouseLeftPressed</a></div><div class="ttdeci">bool IsMouseLeftPressed()</div><div class="ttdoc">Is left mouse button pressed?</div></div>
-<div class="ttc" id="anamespace_missan_1_1_input_html_ad216b181d590c3b83af6a1af65a1209a"><div class="ttname"><a href="namespace_missan_1_1_input.html#ad216b181d590c3b83af6a1af65a1209a">Missan::Input::mouseDelta</a></div><div class="ttdeci">const glm::dvec2 &amp; mouseDelta</div><div class="ttdoc">Delta X and Y since last frame. Note that {0, 0} is in top-left corner.</div></div>
-<div class="ttc" id="anamespace_missan_1_1_input_html_a7374f018641611b4b88e5536b3f35f74"><div class="ttname"><a href="namespace_missan_1_1_input.html#a7374f018641611b4b88e5536b3f35f74">Missan::Input::mousePosition</a></div><div class="ttdeci">const glm::dvec2 &amp; mousePosition</div><div class="ttdoc">Current X and Y of mouse. Note that {0, 0} is in top-left corner.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_a579fe8cf3c27eff646f24e826e350b7a"><div class="ttname"><a href="namespace_missan_1_1_input.html#a579fe8cf3c27eff646f24e826e350b7a">Missan::Input::GetMouseButtonDown</a></div><div class="ttdeci">bool GetMouseButtonDown(MouseButton button)</div><div class="ttdoc">returns true the frame given button is first pressed.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_afd93ed9515a707741ab03332f990c93a"><div class="ttname"><a href="namespace_missan_1_1_input.html#afd93ed9515a707741ab03332f990c93a">Missan::Input::mouseDelta</a></div><div class="ttdeci">const Vector3 &amp; mouseDelta</div><div class="ttdoc">Delta X and Y since last frame. Note that {0, 0} is in top-left corner.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_addbffa773f09f2f4f9f286f638c8e24d"><div class="ttname"><a href="namespace_missan_1_1_input.html#addbffa773f09f2f4f9f286f638c8e24d">Missan::Input::GetKey</a></div><div class="ttdeci">bool GetKey(Keycode keycode)</div><div class="ttdoc">Returns true while the users holds down the key.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_af1edb0a243925eb1371e07b4b9cc6acd"><div class="ttname"><a href="namespace_missan_1_1_input.html#af1edb0a243925eb1371e07b4b9cc6acd">Missan::Input::mousePosition</a></div><div class="ttdeci">const Vector3 &amp; mousePosition</div><div class="ttdoc">Current X and Y of mouse. Note that {0, 0} is in top-left corner.</div></div>
+<div class="ttc" id="aclass_missan_1_1_vector3_html"><div class="ttname"><a href="class_missan_1_1_vector3.html">Missan::Vector3</a></div><div class="ttdoc">Represents 3D vectors and points.</div><div class="ttdef"><b>Definition:</b> <a href="vector3_8hpp_source.html#l00010">vector3.hpp:10</a></div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_aa4ccfc3a34f7d03ddc9a0c99a69a8a96"><div class="ttname"><a href="namespace_missan_1_1_input.html#aa4ccfc3a34f7d03ddc9a0c99a69a8a96">Missan::Input::GetKeyDown</a></div><div class="ttdeci">bool GetKeyDown(Keycode keycode)</div><div class="ttdoc">Returns true the frame the user pressed the key.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_a81910acd05f40188c5e247578e3a0815"><div class="ttname"><a href="namespace_missan_1_1_input.html#a81910acd05f40188c5e247578e3a0815">Missan::Input::GetKeyUp</a></div><div class="ttdeci">bool GetKeyUp(Keycode keycode)</div><div class="ttdoc">Returns true the frame the user releases the key.</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_a8f59c893135cfd9aa67f83fbf2bc0742"><div class="ttname"><a href="namespace_missan_1_1_input.html#a8f59c893135cfd9aa67f83fbf2bc0742">Missan::Input::GetMouseButtonUp</a></div><div class="ttdeci">bool GetMouseButtonUp(MouseButton button)</div><div class="ttdoc">returns true the frame the user releases the key</div></div>
+<div class="ttc" id="anamespace_missan_1_1_input_html_a093d4926d2b07739521ce4e1d941b81d"><div class="ttname"><a href="namespace_missan_1_1_input.html#a093d4926d2b07739521ce4e1d941b81d">Missan::Input::GetMouseButton</a></div><div class="ttdeci">bool GetMouseButton(MouseButton button)</div><div class="ttdoc">returns true while the users holds the button</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
