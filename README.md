@@ -10,38 +10,38 @@ This project is a work in progress, but some notable features it currently suppo
 - **Scripting Engine** which allows user-defined scripts to be injected at various stages of the game loop. 
 - **Physics Engine**, implemented from scratch. Collision avoidance currently only partly implemented. 
 - **Graphical User Interface**, via 3rd party library ImGui. 
-- Importing textures. 
-- Fundamental Built-in Components like Transform, Renderer, Camera, Collider, RigidBody. 
+- Importing **Assets**, like textures. 
+- Fundamental Built-in **Components** like Transform, Renderer, Camera, Collider, RigidBody. 
 
 ## Video Presentation
-[![Missan Engine Presentation](https://img.youtube.com/vi/aGF7JEpwYEE/0.jpg)](https://www.youtube.com/watch?v=aGF7JEpwYEE)
+[![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
 
 ## Scripting
 [Link to Missan Scripting API Documentation](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
 This example shows how to write a simple first person camera script using Missan API:
 ```c++
+// Simple script for rotating camera with mouse
 // User defined scripts must inherit from Component, which provides event functions that can be overrided. 
-// a simple script for moving camera with mouse on y axis, and x axis (constrained to 89.9 degrees)
 class FPSCamera : public Component {
 
 public:   
     float rotationSpeedDeg = 30.0f;	  // How fast the camera rotates, or mouse sensitivity. 
-    float pitchConstraint = 89.9f; 	  // limits maximum pitch (in degrees), i.e. rotation on the x-axis. Recommended not higher than 89.9
+    float pitchConstraint = 89.9f; 	  // limits maximum pitch (in degrees), i.e. rotation on the x-axis. 
     Transform* transform = nullptr;	  // pointer to transform component attached to this game object. 
     
-    // called once when game starts. Initialization of references should happen here. 
+    // Start is called once when game starts. Initialization should happen here. 
     void Start() {        
         // fetching this pointer once here is cheaper than doing it in every frame in Update(). 
-        transform = GetGameObject().GetComponent<Transform>();	
+        transform = GetGameObject().GetComponent<Transform>(); 
     }
   
-    // this is called every frame. Bulk of game logic should go here. 
+    // Update is called every frame. Bulk of game logic should happen here. 
     void Update() {
-        // change rotation based on mouse input
+        // calculate delta rotation by mouse input. Use delta time for smooth, frame-rate independent movement. 
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::unscaledDeltaTime;
         
-        // apply delta rotations
+        // apply delta rotations and clamp x-axis
         transform->rotationDeg.y += dyRot;
         transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);      
     }
