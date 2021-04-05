@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rotationdeg_211',['rotationDeg',['../class_missan_1_1_transform.html#ac6112221370bc9d65925fb0d916f91e6',1,'Missan::Transform']]]
+  ['nearclipplane_453',['nearClipPlane',['../class_missan_1_1_camera_a9894791602bd942da6dd11a1820f59a0.html#a9894791602bd942da6dd11a1820f59a0',1,'Missan::Camera']]],
+  ['negativeinfinity_454',['negativeInfinity',['../class_missan_1_1_vector3_a4c6d26359988b9b8055120a49384e048.html#a4c6d26359988b9b8055120a49384e048',1,'Missan::Vector3::negativeInfinity()'],['../namespace_missan_1_1_math_aab8a79bd22edbf166bb36429ffdb8540.html#aab8a79bd22edbf166bb36429ffdb8540',1,'Missan::Math::negativeInfinity()']]]
 ];

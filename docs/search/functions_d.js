@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['_7ecomponent_182',['~Component',['../class_missan_1_1_component.html#a1375f83c2154b49dfa32209a7ee24ee6',1,'Missan::Component']]],
-  ['_7egameobject_183',['~GameObject',['../class_missan_1_1_game_object.html#aeb698f6ef8a27c90eaac961ba86bfb7b',1,'Missan::GameObject']]],
-  ['_7eiclonable_184',['~IClonable',['../class_missan_1_1_i_clonable.html#aa38737377ba528ea6b7014737828c5af',1,'Missan::IClonable']]],
-  ['_7escene_185',['~Scene',['../class_missan_1_1_scene.html#a38f2e493c4e885e2c575d7feadf6d8b5',1,'Missan::Scene']]]
+  ['reflect_386',['Reflect',['../class_missan_1_1_vector3_a0adaa0209d6d8fadc3791ea7f5e94b8b.html#a0adaa0209d6d8fadc3791ea7f5e94b8b',1,'Missan::Vector3']]],
+  ['removecomponent_387',['RemoveComponent',['../class_missan_1_1_game_object_a91ddf749c3d7bee383c7afb54ea84a11.html#a91ddf749c3d7bee383c7afb54ea84a11',1,'Missan::GameObject']]],
+  ['restore_388',['Restore',['../class_missan_1_1_camera_acf368264732d0994dd30701f57fdabdc.html#acf368264732d0994dd30701f57fdabdc',1,'Missan::Camera']]],
+  ['round_389',['Round',['../namespace_missan_1_1_math_a5d51474325c19b1211d7ff270c8f3ba1.html#a5d51474325c19b1211d7ff270c8f3ba1',1,'Missan::Math']]],
+  ['run_390',['Run',['../namespace_missan_1_1_engine_a6a46c9cc7a999bc57a4fd5189728ec1c.html#a6a46c9cc7a999bc57a4fd5189728ec1c',1,'Missan::Engine']]]
 ];

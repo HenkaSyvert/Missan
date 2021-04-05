@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['clone_132',['Clone',['../class_missan_1_1_component.html#a27339a8caffe2aa753448a0d22da1c3c',1,'Missan::Component::Clone()'],['../class_missan_1_1_i_clonable.html#ad5a6e169b652c787a8114027c1f96512',1,'Missan::IClonable::Clone()']]]
+  ['begin_320',['Begin',['../namespace_missan_1_1_g_u_i_a540df170b2f6aba6723ec54b40a79167.html#a540df170b2f6aba6723ec54b40a79167',1,'Missan::GUI']]],
+  ['bind_321',['Bind',['../class_missan_1_1_texture_abb0ba6884c7e8e99b9298fb7d11e4719.html#abb0ba6884c7e8e99b9298fb7d11e4719',1,'Missan::Texture']]]
 ];
