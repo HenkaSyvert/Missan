@@ -30,13 +30,6 @@ Vector3 const Vector3::negativeInfinity = { Math::negativeInfinity, Math::negati
 Vector3 const Vector3::positiveInfinity = { Math::positiveInfinity, Math::positiveInfinity, Math::positiveInfinity};
 
 
-float& Vector3::operator[](unsigned int index) {
-	return index == 0 ? x : index == 1 ? y : z;
-}
-std::ostream& Missan::operator<<(std::ostream& out, Vector3 v) {
-	out << "[" << v.x << ", " << v.y << ", " << v.z << "]";
-	return out;
-}
 
 Vector3 Vector3::operator+(Vector3 v) { return { x + v.x, y + v.y, z + v.z }; }
 Vector3 Vector3::operator- () { return Vector3(*this) * -1; }
@@ -65,4 +58,11 @@ float Vector3::Dot(Vector3 a, Vector3 b) { return glm::dot(toglm(a), toglm(b)); 
 
 
 
+// not implemented yet
+Vector3 Vector3::Lerp(Vector3 a, Vector3 b, float t) { return { 0,0,0 }; }
+Vector3 Vector3::Slerp(Vector3 a, Vector3 b, float t) { return { 0,0,0 }; }
+//Vector3 MoveTowards(Vector3 current, Vector3 target, float maxDistanceDelta);
+//Vector3 RotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta);
+Vector3 Vector3::ProjectOnPlane(Vector3 v, Vector3 n) { return { 0,0,0 }; }
+float Vector3::SignedAngle(Vector3 from, Vector3 to, Vector3 axis) { return 0; }
 

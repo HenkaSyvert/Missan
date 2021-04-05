@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['e_294',['e',['../namespace_missan_1_1_math.html#a849a25b59ba6c84585c913b769e63630',1,'Missan::Math']]],
-  ['epsilon_295',['epsilon',['../namespace_missan_1_1_math.html#af1dac3f07193ee9e49e6da2d5bb2d8ea',1,'Missan::Math']]]
+  ['deg2rad_429',['deg2Rad',['../namespace_missan_1_1_math_a362a4b2629fde6f15aa194e3469276fe.html#a362a4b2629fde6f15aa194e3469276fe',1,'Missan::Math']]],
+  ['deltatime_430',['deltaTime',['../namespace_missan_1_1_time_aa5628163d3fef789c9ae28de893f1cb7.html#aa5628163d3fef789c9ae28de893f1cb7',1,'Missan::Time']]],
+  ['down_431',['down',['../class_missan_1_1_vector3_a97bacaadfe27be03c663681f1fd2d2ec.html#a97bacaadfe27be03c663681f1fd2d2ec',1,'Missan::Vector3']]]
 ];

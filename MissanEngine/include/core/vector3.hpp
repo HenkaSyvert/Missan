@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <ostream>
 
 namespace Missan {
 
@@ -67,6 +66,7 @@ namespace Missan {
 		Vector3 operator+(Vector3 v);
 		Vector3 operator-(Vector3 v);
 		Vector3 operator-();
+		//float& operator[](int index);
 		
 		bool operator==(Vector3 v);
 		bool operator!=(Vector3 v);
@@ -75,8 +75,6 @@ namespace Missan {
 		friend Vector3 operator*(float scalar, Vector3 v);
 		Vector3 operator/(float s);
 
-		float& operator[](unsigned int index);		
-		friend std::ostream& operator<<(std::ostream& out, Vector3 v);
 		
 		///
 		/// Normalizes v, i.e. returns a vector of length 1 with the same direction. 
@@ -114,18 +112,27 @@ namespace Missan {
 		/// The dot product (also known as the scalar product) between a and b. 
 		static float Dot(Vector3 a, Vector3 b);
 
-		// Vector3 Lerp(Vector3 a, Vector3 b, float t = [0,1]);
-		// Vector3 Slerp(Vector3 a, Vector3 b, float t = [0,1]);
-		
-		// Vector3 MoveTowards(Vector3 current, Vector3 target, float maxDistanceDelta);
-		// Vector3 RotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta);
+		///
+		/// Linearly interpolates by t between a and b. 
+		Vector3 Lerp(Vector3 a, Vector3 b, float t);
 
-		// Vector3 ProjectOnPlane(Vector3 v, Vector3 n);
-		// float SignedAngle(Vector3 from, Vector3 to, Vector3 axis);
+		///
+		/// Spherically interpolates by t between a and b. 
+		Vector3 Slerp(Vector3 a, Vector3 b, float t);
+		
+
+		//Vector3 MoveTowards(Vector3 current, Vector3 target, float maxDistanceDelta);
+		//Vector3 RotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta);
+
+		/// 
+		/// Projects vector v unto the plane described by the normal n
+		Vector3 ProjectOnPlane(Vector3 v, Vector3 n);
+
+		///
+		/// Returns the signed angle between from and to along axis.
+		float SignedAngle(Vector3 from, Vector3 to, Vector3 axis);
 		
 
 	};
 
-	std::ostream& operator<<(std::ostream& out, Vector3 v);
-	Vector3 operator*(float scalar, Vector3 v);
 }
