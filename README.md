@@ -5,7 +5,6 @@ Missan provides an API and environment in which
 users can create interactive simulations. 
 
 It is written (as much as possible) from scratch, in C++ with OpenGL/GLFW as a base. 
-Currently the project is about 1700 significant lines of code (sloc). 
 This project is a work in progress, but some notable features it currently supports are:
 - **Scripting Engine** which allows user-defined scripts to be injected at various stages of the game loop. 
 - **Physics Engine**, implemented from scratch. Collision avoidance currently only partly implemented. 
