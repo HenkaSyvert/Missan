@@ -32,7 +32,7 @@ public:
 
 	void Start() {
 		isPaused = false;
-		timeStamp = Time::unscaledTime;
+		timeStamp = Time::time;
 		Window::SetIsCursorVisible(false);
 		weapon = GetGameObject().GetComponent<Weapon>();
 
@@ -41,7 +41,7 @@ public:
 	void Update() {
 
 		if (!canPressKey) {
-			if (Time::unscaledTime - timeStamp > delay) {
+			if (Time::time - timeStamp > delay) {
 				canPressKey = true;		
 			}
 		}
@@ -50,7 +50,7 @@ public:
 			isPaused = !isPaused;
 			Window::SetIsCursorVisible(isPaused);
 			canPressKey = false;
-			timeStamp = Time::unscaledTime;
+			timeStamp = Time::time;
 		}
 
 	}

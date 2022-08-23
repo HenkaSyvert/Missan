@@ -30,8 +30,8 @@ public:
         if (isPaused) return;
 
         // change rotation based on mouse input
-        float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;
-        float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::unscaledDeltaTime;
+        float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::deltaTime;
+        float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
   
         transform->rotationDeg.y += dyRot;
         transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);

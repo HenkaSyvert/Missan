@@ -97,8 +97,8 @@ public:
         if (Input::GetKey(Keycode::W)) zAxis += 1;
 
         // use deltatime for smooth, framerate independent movement
-        float dx = (float)xAxis * moveSpeed * Time::unscaledDeltaTime;
-        float dz = (float)zAxis * moveSpeed * Time::unscaledDeltaTime;
+        float dx = (float)xAxis * moveSpeed * Time::deltaTime;
+        float dz = (float)zAxis * moveSpeed * Time::deltaTime;
 
         // move camera relative to its rotation
         transform->position += dx * transform->GetRightVector();

@@ -1,8 +1,9 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "graphics/mesh.hpp"
 #include "graphics/texture.hpp"
+#include <string>
+
 
 namespace Missan {
 

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "missanpch.hpp"
+#include "core/gameobject.hpp"
+#include <vector>
 
 namespace Missan {
 
@@ -15,7 +17,7 @@ namespace Missan {
 
 
 		// NOT PART OF PUBLIC API //////////////
-		void Update();
+		void Update(std::vector<GameObject*> gos);
 
 	}
 }

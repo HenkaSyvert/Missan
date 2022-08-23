@@ -1,11 +1,17 @@
 #include "graphics/mesh.hpp"
 
+#include <glm/vec3.hpp>
+#include <glm/gtx/projection.hpp>
+
+#include <vector>
+#include <string>
+
 using namespace Missan;
 
 // PUBLIC
 Mesh::Mesh
 (
-    GLuint newVaoID,
+    unsigned int newVaoID,
     const std::string& newFileName,
     const std::vector<float>& newVertices,
     const std::vector<unsigned int> newIndices

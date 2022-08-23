@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -58,6 +58,7 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)MissanEngine\external\glew\lib;$(SolutionDir)MissanEngine\external\glfw\lib-vc2019</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,6 +79,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)MissanEngine\external\glew\lib;$(SolutionDir)MissanEngine\external\glfw\lib-vc2019</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -90,8 +92,7 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="games\fpsdemo\main.cpp" />
-    <ClCompile Include="source\core\math.cpp" />
-    <ClCompile Include="source\core\vector3.cpp" />
+    <ClCompile Include="source\missanpch.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -102,9 +103,7 @@
     <ClCompile Include="source\core\gui.cpp" />
     <ClCompile Include="source\core\resources.cpp" />
     <ClCompile Include="source\graphics\mesh.cpp" />
-    <ClCompile Include="source\missanpch.cpp" />
     <ClCompile Include="source\physics\physics.cpp" />
-    <ClCompile Include="source\core\scene.cpp" />
     <ClCompile Include="source\graphics\shaderprogram.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
     <ClCompile Include="source\core\transform.cpp" />
@@ -557,10 +556,7 @@
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
     <ClInclude Include="include\core\input.hpp" />
-    <ClInclude Include="include\core\keycode.hpp" />
-    <ClInclude Include="include\core\math.hpp" />
-    <ClInclude Include="include\core\mousebutton.hpp" />
-    <ClInclude Include="include\core\vector3.hpp" />
+    <ClInclude Include="include\missanpch.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\core\engine.hpp" />
@@ -574,7 +570,6 @@
     <ClInclude Include="include\loader.h" />
     <ClInclude Include="include\mesh.h" />
     <ClInclude Include="include\missan.hpp" />
-    <ClInclude Include="include\missanpch.hpp" />
     <ClInclude Include="include\physics\physics.hpp" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\physics\rigidbody.hpp" />
@@ -587,9 +582,6 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

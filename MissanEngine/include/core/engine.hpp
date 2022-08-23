@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/gameobject.hpp"
-#include "core/scene.hpp"
 
 namespace Missan {
 
@@ -20,14 +19,6 @@ namespace Missan {
 		/// 
 		/// Does cleanup, frees memory etc.
 		void Terminate();
-
-		/// 
-		/// Returns pointer to active Scene
-		Scene* GetActiveScene();
-
-		/// 
-		/// Sets active Scene
-		void SetActiveScene(Scene& scene);
 		
 		/// 
 		/// Instantiates a copy of original in the active Scene, and returns pointer to the copy
@@ -36,8 +27,7 @@ namespace Missan {
 		///
 		/// Destroys gameObject
 		void Destroy(GameObject* gameObject);
-
-		
+	
 	}
 
 }

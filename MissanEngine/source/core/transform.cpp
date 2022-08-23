@@ -1,5 +1,8 @@
 #include "core/transform.hpp"
 
+#include <glm/trigonometric.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 using namespace Missan;
 
 // PUBLIC

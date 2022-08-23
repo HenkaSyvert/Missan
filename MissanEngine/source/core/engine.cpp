@@ -14,35 +14,25 @@ using namespace Missan;
 
 namespace {
 
-	Scene* activeScene_ptr = nullptr;
 
 	std::vector<GameObject*> gameObjectsToBeInstantiated;
 	std::vector<GameObject*> gameObjectsToBeDestroyed;
+	std::vector<GameObject*> gameObjects;
 
-#pragma region TIME
-
-	float time_ = 0.0f;
-	float unscaledTime_ = 0.0f;
-	float deltaTime_ = 0.0f;
-	float unscaledDeltaTime_ = 0.0f;
+	float _time = 0.0f;
+	float _deltaTime = 0.0f;
 	
 	void update_time() {
 		double timeStamp = glfwGetTime();
-		unscaledDeltaTime_ = (float)timeStamp - unscaledTime_;
-		unscaledTime_ = (float)timeStamp;
+		_deltaTime = (float)timeStamp - _time;
+		_time = (float)timeStamp;
 
-		time_ = unscaledTime_ * Time::timeScale;
-		deltaTime_ = unscaledDeltaTime_ * Time::timeScale;
 	}
 
-#pragma endregion TIME
 
 
-
-#pragma region INPUT
-	
-	Vector3 mousePosition_;
-	Vector3 mouseDelta_;
+	glm::vec3 mousePosition_;
+	glm::vec3 mouseDelta_;
 	const Keycode keycodes[] = {
 		Keycode::Space		  ,
 		Keycode::Apostrophe     ,
@@ -170,7 +160,7 @@ namespace {
 	}
 
 	void input_update() {
-		Vector3 old = mousePosition_;
+		glm::vec3 old = mousePosition_;
 		double x, y;
 		glfwGetCursorPos(Window::GetHandle(), &x, &y);
 		mousePosition_.x = (float)x;
@@ -198,8 +188,6 @@ namespace {
 
 	
 
-#pragma endregion INPUT
-
 
 
 
@@ -207,22 +195,13 @@ namespace {
 
 
 
-#pragma region TIME_PUBLIC
 
-const float& Time::time = time_;
-const float& Time::unscaledTime = unscaledTime_;
-const float& Time::deltaTime = deltaTime_;
-const float& Time::unscaledDeltaTime = unscaledDeltaTime_;
-float Time::timeScale = 1.0f;
-
-#pragma endregion TIME_PUBLIC
+const float& Time::time = _time;
+const float& Time::deltaTime = _deltaTime;
 
 
-
-#pragma region INPUT_PUBLIC
-
-const Vector3& Input::mousePosition = mousePosition_;
-const Vector3& Input::mouseDelta = mouseDelta_;
+const glm::vec3& Input::mousePosition = mousePosition_;
+const glm::vec3& Input::mouseDelta = mouseDelta_;
 
 bool Input::GetKeyDown(Keycode keycode) {
 	if (keycode == Keycode::Any) {
@@ -260,7 +239,6 @@ bool Input::GetMouseButtonUp(MouseButton button) {
 	return isButtonUp[(int)button];
 }
 
-#pragma endregion INPUT_PUBLIC
 
 
 
@@ -273,21 +251,19 @@ void Engine::Initialize() {
 	Graphics::Initialize();
 	GUI::Initialize();
 
-	activeScene_ptr = new Scene;
 	
 }
 
 void Engine::Run() {
 	update_time();
 	// STARTUP
-	std::vector<GameObject*>& gos = activeScene_ptr->gameObjects;
 	
 	for (auto* g : gameObjectsToBeInstantiated) {
-		gos.push_back(g);
+		gameObjects.push_back(g);
 	}
 	gameObjectsToBeInstantiated.clear();
 
-	for (auto* g : gos)
+	for (auto* g : gameObjects)
 		for (auto* c : g->components)
 			c->Start();
 
@@ -299,7 +275,7 @@ void Engine::Run() {
 
 
 		// PHYSICS
-		Physics::Update();
+		Physics::Update(gameObjects);
 
 
 
@@ -308,17 +284,17 @@ void Engine::Run() {
 
 
 		// GAME LOGIC	
-		for (auto* g : gos)
+		for (auto* g : gameObjects)
 			for (auto* c : g->components)
 				c->Update();
-		for (auto* g : gos)
+		for (auto* g : gameObjects)
 			for (auto* c : g->components)
 				c->LateUpdate();
 
 
 		// RENDERING
 		Graphics::Prepare();
-		for (auto* g : gos) 
+		for (auto* g : gameObjects)
 			for (auto* c : g->components)
 				c->OnRender();
 		
@@ -326,7 +302,7 @@ void Engine::Run() {
 
 		// GUI
 		GUI::Begin();
-		for (auto* g : gos)
+		for (auto* g : gameObjects)
 			for (auto* c : g->components)
 				c->OnGUI();
 		GUI::End();
@@ -335,7 +311,7 @@ void Engine::Run() {
 
 		// Instantiations
 		for (auto* g : gameObjectsToBeInstantiated) {
-			gos.push_back(g);
+			gameObjects.push_back(g);
 			for (auto* c : g->components)
 				c->Start();
 		}
@@ -350,9 +326,9 @@ void Engine::Run() {
 			for (Component* c : g->components)
 				c->OnDestroy();
 
-			for (unsigned int i = 0; !found && i < gos.size(); i++) {
-				if (g == gos[i]) {
-					gos.erase(gos.begin() + i);
+			for (unsigned int i = 0; !found && i < gameObjects.size(); i++) {
+				if (g == gameObjects[i]) {
+					gameObjects.erase(gameObjects.begin() + i);
 					delete g;
 					found = true;
 				}
@@ -370,18 +346,6 @@ void Engine::Terminate() {
 	GUI::Terminate();
 	Resources::Terminate();
 	glfwTerminate();
-
-}
-
-
-
-Scene* Engine::GetActiveScene() {
-	return activeScene_ptr;
-}
-
-void Engine::SetActiveScene(Scene& scene) {
-
-	activeScene_ptr = &scene;
 
 }
 

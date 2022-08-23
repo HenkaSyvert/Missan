@@ -89,9 +89,8 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 glm::vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 
-void Physics::Update() {
+void Physics::Update(std::vector<GameObject*> gos) {
 	
-	auto gos = Engine::GetActiveScene()->gameObjects;
 
 	// get all RigidBodies
 	std::vector<RigidBody*> rbs;

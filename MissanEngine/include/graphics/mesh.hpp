@@ -1,6 +1,9 @@
 #pragma once
 
-#include "missanpch.hpp"
+#include <vector>
+#include <string>
+#include <glm/vec3.hpp>
+
 
 namespace Missan {
 
@@ -38,7 +41,7 @@ namespace Missan {
 
         /// 
         /// Creates new Mesh
-        Mesh(GLuint newVaoID, 
+        Mesh(unsigned int newVaoID, 
             const std::string& newFileName,
             const std::vector<float>& newVertices,
             const std::vector<unsigned int> newIndices);
@@ -46,7 +49,7 @@ namespace Missan {
 
 
         // NOT PART OF PUBLIC API ///////////////////////////
-        const GLuint vaoID = 0;
+        const unsigned int vaoID = 0;
 
     private:
         std::vector<glm::vec3> verticesVec3_;
