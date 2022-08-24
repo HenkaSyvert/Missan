@@ -1,6 +1,10 @@
 #pragma once
 
-#include "missanpch.hpp"
+#include <vector>
+
+#include <glm/vec3.hpp>
+
+
 
 namespace Missan {
 

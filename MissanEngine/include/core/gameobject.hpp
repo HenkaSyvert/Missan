@@ -1,7 +1,9 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "core/component.hpp"
+
+#include <vector>
+#include <typeinfo>
 
 namespace Missan {
 

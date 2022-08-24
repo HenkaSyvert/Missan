@@ -1,6 +1,9 @@
 #pragma once
 
-#include "missanpch.hpp"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <string>
 
 namespace Missan {
 

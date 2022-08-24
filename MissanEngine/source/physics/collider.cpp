@@ -1,7 +1,10 @@
 #include "physics/collider.hpp"
 
-#include "missanpch.hpp"
 #include "core/transform.hpp"
+
+#include <vector>
+
+#include <glm/vec3.hpp>
 
 using namespace Missan;
 

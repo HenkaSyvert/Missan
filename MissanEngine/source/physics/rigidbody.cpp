@@ -4,6 +4,8 @@
 #include "physics/collider.hpp"
 #include "physics/physics.hpp"
 
+#include <iostream>
+
 using namespace Missan;
 
 // PRIVATE

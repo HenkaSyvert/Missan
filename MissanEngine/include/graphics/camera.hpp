@@ -1,8 +1,9 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "core/component.hpp"
 #include "core/window.hpp"
+
+#include <glm/mat4x4.hpp>
 
 namespace Missan {
 

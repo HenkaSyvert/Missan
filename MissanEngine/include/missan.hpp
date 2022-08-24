@@ -2,18 +2,14 @@
 
 // MissanEngine public API
 
-
-// temporary, mathematics library
 #include <glm/glm.hpp>
+#include <glm/gtx/projection.hpp>
 
-// temporary, gui library
 #include <imgui/imgui.h>
 
-// std library
 #include <iostream>
 #include <string>
 
-// Missan includes
 #include "core/component.hpp"
 #include "core/engine.hpp"
 #include "core/gameobject.hpp"

@@ -44,7 +44,7 @@ private:
 		pTrans->position = ourTrans->position + forward * muzzleDistance;
 		pTrans->rotationDeg = ourTrans->rotationDeg;
 
-		prb->AddImpulse(forward * force, { 0,.5,0 }, false);
+		prb->AddImpulse(forward * force, { 0, .5, 0 }, false);
 	}
 
 public:

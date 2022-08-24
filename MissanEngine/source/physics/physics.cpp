@@ -8,6 +8,8 @@
 #include "physics/rigidbody.hpp"
 #include "physics/boundingbox.hpp"
 
+#include <glm/trigonometric.hpp>
+
 using namespace Missan;
 
 

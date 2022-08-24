@@ -1,5 +1,9 @@
 #include "graphics/shaderprogram.hpp"
 
+#include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace Missan;
 
 // PRIVATE

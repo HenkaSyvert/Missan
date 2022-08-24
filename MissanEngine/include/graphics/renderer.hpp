@@ -1,6 +1,5 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "core/component.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"

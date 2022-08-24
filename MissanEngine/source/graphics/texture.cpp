@@ -1,5 +1,8 @@
 #include "graphics/texture.hpp"
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 using namespace Missan;
 
 // PUBLIC

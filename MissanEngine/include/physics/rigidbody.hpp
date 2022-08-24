@@ -1,7 +1,8 @@
 #pragma once
 
-#include "missanpch.hpp"
 #include "core/component.hpp"
+
+#include <glm/vec3.hpp>
 
 namespace Missan {
 
