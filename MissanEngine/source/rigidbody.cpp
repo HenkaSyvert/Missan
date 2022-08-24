@@ -32,7 +32,7 @@ void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 		point = t->TransformPoint(point);
 	}
 	forces += newForce;
-	torques += glm::cross(point, newForce);
+	torques += cross(point, newForce);
 }
 
 void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
@@ -42,6 +42,6 @@ void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
 		point = t->TransformPoint(point);
 	}
 	linearImpulse += impulse;
-	angularImpulse += glm::cross(point, impulse);
+	angularImpulse += cross(point, impulse);
 }
 

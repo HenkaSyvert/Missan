@@ -63,11 +63,8 @@ namespace Missan {
 		inline virtual Component* Clone() const = 0;	
 
 
-
 	private:
 		GameObject* gameObject_ptr = nullptr;
-
-
 
 	};
 

@@ -12,7 +12,7 @@ using namespace ImGui;
 void GUI::Initialize() {
     IMGUI_CHECKVERSION();
     CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = GetIO();
     StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(Window::GetHandle(), true);
     ImGui_ImplOpenGL3_Init(NULL);
@@ -26,7 +26,7 @@ void GUI::Begin() {
     
 void GUI::End(){
     Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
 }
 
 void GUI::Terminate() {

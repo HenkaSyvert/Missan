@@ -16,7 +16,7 @@ string LoadShader(const string& filename) {
 	fstream input(filePath);
 
 	if (!input.is_open()) {
-		std::cout << "error: could not open \"" << filePath << "\"\n";
+		cout << "error: could not open \"" << filePath << "\"\n";
 		exit(EXIT_FAILURE);
 	}
 

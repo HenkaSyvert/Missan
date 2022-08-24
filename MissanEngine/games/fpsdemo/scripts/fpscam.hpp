@@ -6,6 +6,7 @@
 #include "globals.hpp"
 
 using namespace Missan;
+using namespace glm;
 
 // script for moving camera with mouse on y axis, and x axis (constrained to 89.9 degrees)
 class FPSCamera : public Component {
@@ -34,7 +35,7 @@ public:
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
   
         transform->rotationDeg.y += dyRot;
-        transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
+        transform->rotationDeg.x = clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
 
         
     }

@@ -35,7 +35,7 @@ void ApplyForces(vector<RigidBody*>& rbs) {
 
 		vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
-		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
+		t->rotationDeg += degrees(rb->angularVelocity) * Time::deltaTime;
 
 
 		rb->linearImpulse = { 0,0,0 };
@@ -111,7 +111,6 @@ void Physics::Update(vector<GameObject*> gos) {
 			c->OnCollisionEnter(collision.second);
 		}
 	}
-
 
 }
 

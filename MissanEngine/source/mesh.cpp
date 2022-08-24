@@ -10,7 +10,6 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-// PUBLIC
 Mesh::Mesh
 (
     unsigned int newVaoID,

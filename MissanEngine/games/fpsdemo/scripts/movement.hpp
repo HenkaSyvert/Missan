@@ -7,6 +7,8 @@
 
 
 using namespace Missan;
+using namespace std;
+using namespace glm;
 
 // script for making player move like in a generic FPS game,
 // and also simulate some physics and collision avoidance
@@ -33,8 +35,8 @@ public:
 
     // makes player stay within map size
     void KeepWithinMap() {
-        transform->position.x = glm::clamp(transform->position.x, -cellWidth / 2 + radius, (mapWidth - 0.5f) * cellWidth - radius);
-        transform->position.z = glm::clamp(transform->position.z, -cellBreadth / 2 + radius, (mapBreadth - 0.5f) * cellBreadth - radius);
+        transform->position.x = clamp(transform->position.x, -cellWidth / 2 + radius, (mapWidth - 0.5f) * cellWidth - radius);
+        transform->position.z = clamp(transform->position.z, -cellBreadth / 2 + radius, (mapBreadth - 0.5f) * cellBreadth - radius);
     }
 
     void CheckJump() {
@@ -43,7 +45,7 @@ public:
         // if he hits floor, make him stop falling. 
         if (!isGrounded) {         
             if (transform->position.y < headHeight) {       
-                std::cout << "hej";
+                cout << "hej";
                 isGrounded = true;
                 transform->position.y = headHeight;
                 rb->forces = { 0,0,0 };
@@ -103,7 +105,7 @@ public:
 
         // move camera relative to its rotation
         transform->position += dx * transform->GetRightVector();
-        transform->position += dz * glm::normalize(-transform->GetBackwardVector() - glm::proj(-transform->GetBackwardVector(), glm::vec3(0, 1, 0)));
+        transform->position += dz * normalize(-transform->GetBackwardVector() - proj(-transform->GetBackwardVector(), vec3(0, 1, 0)));
       
         CheckJump();      
         KeepWithinMap();

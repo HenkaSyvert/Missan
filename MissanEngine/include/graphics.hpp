@@ -1,8 +1,8 @@
 #pragma once
 
-#include "camera.hpp"			// maybe temp
-#include "shaderprogram.hpp"	// temp
-#include "gameobject.hpp"			//temp
+#include "camera.hpp"
+#include "shaderprogram.hpp"
+#include "gameobject.hpp"
 #include "renderer.hpp"
 
 

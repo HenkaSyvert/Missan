@@ -4,6 +4,7 @@
 #include "projectile.hpp"
 
 using namespace Missan;
+using namespace glm;
 
 // Script for destructible object. Object rotates with given deltaRotation
 class Destructible : public Component {
@@ -11,7 +12,7 @@ class Destructible : public Component {
 public:
 
 	int hp = 3;
-	glm::vec3 deltaRotation = { 1, 1, 0 };
+	vec3 deltaRotation = { 1, 1, 0 };
 
 
 	void TakeHit() {

@@ -18,7 +18,6 @@ namespace Missan {
 
 
 
-
 		void Update(std::vector<GameObject*> gos);
 
 	}

@@ -5,6 +5,7 @@
 #include "globals.hpp"
 
 using namespace Missan;
+using namespace glm;
 
 class Weapon : public Component {
 
@@ -38,7 +39,7 @@ private:
 		Transform* ourTrans = GetGameObject().GetComponent<Transform>();
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();
-		glm::vec3 forward = -ourTrans->GetBackwardVector();
+		vec3 forward = -ourTrans->GetBackwardVector();
 		prb->mass = 10.0f;
 
 		pTrans->position = ourTrans->position + forward * muzzleDistance;

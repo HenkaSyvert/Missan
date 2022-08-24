@@ -1,7 +1,5 @@
 #pragma once
 
-// MissanEngine public API
-
 #include <glm/glm.hpp>
 #include <glm/gtx/projection.hpp>
 
@@ -19,14 +17,12 @@
 #include "time.hpp"
 #include "transform.hpp"
 #include "window.hpp"
-
 #include "camera.hpp"
 #include "graphics.hpp"
 #include "mesh.hpp"
 #include "renderer.hpp"
 #include "shaderprogram.hpp"
 #include "texture.hpp"
-
 #include "collider.hpp"
 #include "physics.hpp"
 #include "rigidbody.hpp"

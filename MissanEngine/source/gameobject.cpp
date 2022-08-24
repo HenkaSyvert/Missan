@@ -5,7 +5,6 @@
 using namespace Missan;
 
 
-
 GameObject::GameObject() {}
 
 GameObject::~GameObject() {

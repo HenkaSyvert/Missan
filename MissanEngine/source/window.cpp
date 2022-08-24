@@ -20,8 +20,6 @@ void glfwErrorCallback(int error, const char* desc) {
 }
 
 
-
-
 const int&   Window::width       = w;
 const int&   Window::height      = h;
 const float& Window::aspectRatio = ar;
@@ -63,8 +61,6 @@ void Window::SetIsCursorVisible(bool isVisible) {
     if (isVisible) glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     else glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
-
-
 
 GLFWwindow* Window::GetHandle() {
     return windowHandle;

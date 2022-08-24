@@ -122,9 +122,9 @@ static void CreateCubeMesh(float size) {
 
 	vector<unsigned int> indices = {
 		// counter clockwise
-			0,  1,  3,		 1,  2,  3,	// front
-			4,  5,  7,		 5,  6,  7,	// back
-			8,  9, 11,		 9, 10, 11,	// right
+		0,  1,  3,		 1,  2,  3,	// front
+		4,  5,  7,		 5,  6,  7,	// back
+		8,  9, 11,		 9, 10, 11,	// right
 		12, 13, 15,		13, 14, 15,	// left
 		16, 17, 19,		17, 18, 19,	// top
 		20, 21, 23,		21, 22, 23	// bottom
@@ -147,8 +147,8 @@ static void CreatePlaneMesh(float w, float h) {
 	w /= 2, h /= 2;
 	vector<float> vertices = {
 		-w, -h, 0,
-			w, -h, 0,
-			w,  h, 0,
+		w, -h, 0,
+		w,  h, 0,
 		-w,  h, 0
 	};
 
@@ -232,7 +232,7 @@ static Texture LoadCubeMapTexture(const vector<string>& faces) {
 		}
 		else
 		{
-			std::cout << "Cubemap tex failed to load at path: " << faces[i] << std::endl;
+			cout << "Cubemap tex failed to load at path: " << faces[i] << endl;
 			stbi_image_free(data);
 		}
 	}
@@ -244,10 +244,6 @@ static Texture LoadCubeMapTexture(const vector<string>& faces) {
 
 	return Texture(textureID, "cubemap wip", width, height, nrChannels);
 }
-
-
-
-
 
 
 
@@ -293,15 +289,5 @@ void Resources::Terminate() {
 	glDeleteTextures(texs.size(), texs.data());
 
 }
-
-
-
-
-
-
-
-
-
-
 
 

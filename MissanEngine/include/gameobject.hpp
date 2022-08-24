@@ -55,8 +55,6 @@ namespace Missan {
 		}
 
 
-
-		// NOT PART OF PUBLIC API ///////////////////////////////////
 		std::vector<class Component*> components;
 
 	};

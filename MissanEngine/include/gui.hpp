@@ -6,7 +6,6 @@ namespace Missan {
 	/// Graphical User Interface functions. 
 	namespace GUI {
 		
-		
 		void Initialize();
 
 		void Begin();
