@@ -5,7 +5,6 @@
 
 using namespace Missan;
 
-// PUBLIC
 glm::mat4 Transform::GetMatrix() {
 
 	// order matters, must be translation-rotation-scale

@@ -8,8 +8,6 @@
 
 using namespace Missan;
 
-// PUBLIC
-
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
 glm::vec3 Collider::OverlapsWith(Collider* other) {
@@ -109,7 +107,6 @@ glm::vec3 Collider::OverlapsWith(Collider* other) {
 
 
 
-// PRIVATE
 
 void Collider::Start() {
 	Mesh* mesh = GetGameObject().GetComponent<Mesh>();

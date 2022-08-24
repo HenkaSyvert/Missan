@@ -5,7 +5,6 @@
 
 using namespace Missan;
 
-// PUBLIC
 Texture::Texture(GLuint newTextureID, const std::string& newFileName, int w, int h, int bpp)
 	: textureID(newTextureID),
 	fileName(newFileName),

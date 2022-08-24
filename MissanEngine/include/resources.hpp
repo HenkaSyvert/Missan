@@ -32,7 +32,7 @@ namespace Missan {
         Texture* GetTexture(const std::string& fileName);
 
 
-        // NOT PART OF PUBLIC API /////////////////////////////
+
         void Initialize();
         void Terminate();
 

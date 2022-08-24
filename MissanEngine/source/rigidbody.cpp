@@ -8,7 +8,6 @@
 
 using namespace Missan;
 
-// PRIVATE
 
 void RigidBody::Start() {
 	auto* c = GetGameObject().GetComponent<Collider>();
@@ -16,8 +15,6 @@ void RigidBody::Start() {
 		std::cout << "RigidBody requires Collider Component!\n";
 		exit(EXIT_FAILURE);
 	}
-
-	
 
 	// currently rigidbodies only work with box colliders
 	auto s = c->boundingBox.size;

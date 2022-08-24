@@ -41,7 +41,7 @@ namespace Missan {
 
 
 
-		// NOT PART OF PUBLIC API ////////////////////////////////////////////////
+
 		Camera* Clone() const { return new Camera(*this); }
 		void Start();
 		void Update();
@@ -50,12 +50,12 @@ namespace Missan {
 
 	private:
 
-		glm::mat4 projectionMatrix_ = glm::mat4(0);
+		glm::mat4 projectionMatrix = glm::mat4(0);
 
-		float fovOriginal_ = 0;
-		float nearzOriginal_ = 0;
-		float farzOriginal_ = 0;
-		float apOriginal_ = 0;
+		float fovOriginal = 0;
+		float nearzOriginal = 0;
+		float farzOriginal = 0;
+		float apOriginal = 0;
 
 		void UpdateMatrix();
 

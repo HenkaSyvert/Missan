@@ -5,11 +5,12 @@
 using namespace Missan;
 
 
-// PUBLIC
+
 GameObject::GameObject() {}
 
 GameObject::~GameObject() {
-	for (Component* c : components) delete c;
+	for (Component* c : components) 
+		delete c;
 }
 
 GameObject::GameObject(GameObject& copy) {

@@ -18,7 +18,7 @@ namespace Missan {
 
 
 
-		// NOT PART OF PUBLIC API //////////////
+
 		void Update(std::vector<GameObject*> gos);
 
 	}

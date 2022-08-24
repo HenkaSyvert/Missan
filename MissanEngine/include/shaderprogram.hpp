@@ -62,7 +62,6 @@ namespace Missan {
         
 
 
-        // NOT PART OF PUBLIC API ////////////////////////////////////////
         void Use() const;
 
     private:

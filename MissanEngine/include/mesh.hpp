@@ -48,12 +48,11 @@ namespace Missan {
 
 
 
-        // NOT PART OF PUBLIC API ///////////////////////////
         const unsigned int vaoID = 0;
 
     private:
-        std::vector<glm::vec3> verticesVec3_;
-        std::vector<glm::vec3> normals_;
+        std::vector<glm::vec3> verticesVec3;
+        std::vector<glm::vec3> normals;
 
 
     };

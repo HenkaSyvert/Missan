@@ -71,7 +71,7 @@ namespace Missan {
 
 
 
-		// NOT PART OF PUBLIC API ////////////////////////
+
 		void Start();
 
 		

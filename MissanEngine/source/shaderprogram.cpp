@@ -6,7 +6,6 @@
 
 using namespace Missan;
 
-// PRIVATE
 std::string LoadShader(const std::string& filename) {
 
 	std::string shaderDirectory = "resources/shaders/";
@@ -62,7 +61,6 @@ GLint ShaderProgram::GetUniformLocation(const std::string& uniformVariableName) 
 
 
 
-// PUBLIC
 ShaderProgram::ShaderProgram(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
 	programID = glCreateProgram();
 	GLuint vertexShader, fragmentShader;

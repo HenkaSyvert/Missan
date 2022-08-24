@@ -6,29 +6,24 @@
 using namespace Missan;
 
 
-
-// PUBLIC
-
 void Camera::Restore() {
-    fieldOfViewDeg = fovOriginal_;
-    nearClipPlane = nearzOriginal_;
-    farClipPlane = farzOriginal_;
-    aspectRatio = apOriginal_;
+    fieldOfViewDeg = fovOriginal;
+    nearClipPlane = nearzOriginal;
+    farClipPlane = farzOriginal;
+    aspectRatio = apOriginal;
 }
 
 glm::mat4& Camera::GetProjectionMatrix() {
-    return projectionMatrix_;
+    return projectionMatrix;
 }
 
 
 
-// PRIVATE
-
 void Camera::Start() {
-	fovOriginal_ = fieldOfViewDeg;
-	nearzOriginal_ = nearClipPlane;
-	farzOriginal_ = farClipPlane;
-	apOriginal_ = aspectRatio;
+	fovOriginal = fieldOfViewDeg;
+	nearzOriginal = nearClipPlane;
+	farzOriginal = farClipPlane;
+	apOriginal = aspectRatio;
 	UpdateMatrix();
 }
 
@@ -37,5 +32,5 @@ void Camera::Update() {
 }
 
 void Camera::UpdateMatrix() {
-	projectionMatrix_ = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
+	projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
 }

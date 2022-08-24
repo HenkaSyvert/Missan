@@ -11,19 +11,14 @@
 
 using namespace Missan;
 
-namespace {
 
-	ShaderProgram* standardShader_ = nullptr;
-	Camera* camera_ptr = nullptr;
-}
+static ShaderProgram* standardShader = nullptr;
+static Camera* camera_ptr = nullptr;
 
 
-// PUBLIC
+
 void Graphics::Initialize() {
-
-	standardShader_ = new ShaderProgram("standard.vs", "standard.fs");
-	
-
+	standardShader = new ShaderProgram("standard.vs", "standard.fs");
 }
 
 void Graphics::Prepare() {
@@ -79,6 +74,6 @@ void Graphics::Draw(Renderer* renderer) {
 }
 
 ShaderProgram& Graphics::GetStandardShader() {
-	return *standardShader_;
+	return *standardShader;
 }
 

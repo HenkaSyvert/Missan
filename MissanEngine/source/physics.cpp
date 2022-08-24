@@ -13,10 +13,6 @@
 using namespace Missan;
 
 
-// PRIVATE
-
-
-
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces(std::vector<RigidBody*>& rbs) {
 
@@ -85,8 +81,6 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 
 
 
-
-// PUBLIC
 
 glm::vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 

@@ -9,30 +9,27 @@
 
 using namespace Missan;
 
-// PRIVATE
-namespace {
 
-    GLFWwindow* windowHandle = nullptr;
-    int   width_       = 0;
-    int   height_      = 0;
-    float aspectRatio_ = 0;
+static GLFWwindow* windowHandle = nullptr;
+static int w = 0;
+static int h = 0;
+static float ar = 0;
 
-    void glfwErrorCallback(int error, const char* desc) {
-        std::cout << "GLFW Error " << error << ": " << desc << std::endl;
-    }
-
+void glfwErrorCallback(int error, const char* desc) {
+    std::cout << "GLFW Error " << error << ": " << desc << std::endl;
 }
 
 
-// PUBLIC
-const int&   Window::width       = width_;
-const int&   Window::height      = height_;
-const float& Window::aspectRatio = aspectRatio_;
+
+
+const int&   Window::width       = w;
+const int&   Window::height      = h;
+const float& Window::aspectRatio = ar;
 
 void Window::Initialize(int width, int height, const std::string& title) {
-	width_ = width;
-	height_ = height;
-    aspectRatio_ = (float)width_ / height_;
+	w = width;
+	h = height;
+    ar = (float)w / h;
 
     glfwSetErrorCallback(glfwErrorCallback);
     if (!glfwInit()) {
@@ -43,7 +40,7 @@ void Window::Initialize(int width, int height, const std::string& title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    windowHandle = glfwCreateWindow(width, height, title.c_str(), NULL/*glfwGetPrimaryMonitor() // fullscreen*/, NULL);
+    windowHandle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
     if (!windowHandle) {
         glfwTerminate();
         std::cout << "glfwCreateWindow() failed\n";

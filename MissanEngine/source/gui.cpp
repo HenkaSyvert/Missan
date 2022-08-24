@@ -9,7 +9,6 @@
 using namespace Missan;
 
 
-// PUBLIC
 void GUI::Initialize() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

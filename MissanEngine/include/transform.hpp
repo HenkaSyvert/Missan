@@ -53,7 +53,6 @@ namespace Missan {
 
 
 
-        // NOT PART OF PUBLIC API ////////////////////////////////
         Transform* Clone() const { return new Transform(*this); }
         
     };

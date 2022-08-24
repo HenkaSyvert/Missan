@@ -35,7 +35,7 @@ namespace Missan {
 		Texture(GLuint newTextureID, const std::string& newFileNameint, int w, int h, int bpp);
 		
 
-		// NOT PART OF PUBLIC API //////////////////////////
+
 		const GLuint textureID = 0;
 
 		void Bind(int textureSlot = 0);
