@@ -1,4 +1,4 @@
-#include "graphics/camera.hpp"
+#include "camera.hpp"
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>

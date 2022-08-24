@@ -1,8 +1,8 @@
 #pragma once
 
-#include "core/component.hpp"
-#include "physics/boundingbox.hpp"
-#include "graphics/mesh.hpp"
+#include "component.hpp"
+#include "boundingbox.hpp"
+#include "mesh.hpp"
 
 namespace Missan {
 

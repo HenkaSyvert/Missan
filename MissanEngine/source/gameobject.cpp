@@ -1,6 +1,6 @@
-#include "core/gameobject.hpp"
+#include "gameobject.hpp"
 
-#include "core/transform.hpp"
+#include "transform.hpp"
 
 using namespace Missan;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/component.hpp"
+#include "component.hpp"
 
 #include <glm/vec3.hpp>
 

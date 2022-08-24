@@ -1,6 +1,6 @@
-#include "core/gui.hpp"
+#include "gui.hpp"
 
-#include "core/window.hpp"
+#include "window.hpp"
 
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>

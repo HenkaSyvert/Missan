@@ -39,52 +39,52 @@
     <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\engine.cpp">
+    <ClCompile Include="source\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\gui.cpp">
+    <ClCompile Include="source\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\window.cpp">
+    <ClCompile Include="source\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\resources.cpp">
+    <ClCompile Include="source\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\texture.cpp">
+    <ClCompile Include="source\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\mesh.cpp">
+    <ClCompile Include="source\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\shaderprogram.cpp">
+    <ClCompile Include="source\shaderprogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\graphics.cpp">
+    <ClCompile Include="source\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\camera.cpp">
+    <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\renderer.cpp">
+    <ClCompile Include="source\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\collider.cpp">
+    <ClCompile Include="source\collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\boundingbox.cpp">
+    <ClCompile Include="source\boundingbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\physics.cpp">
+    <ClCompile Include="source\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\transform.cpp">
+    <ClCompile Include="source\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\gameobject.cpp">
+    <ClCompile Include="source\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\rigidbody.cpp">
+    <ClCompile Include="source\rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="games\fpsdemo\main.cpp">
@@ -1434,31 +1434,31 @@
     <ClInclude Include="include\missan.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\interfaces\clonable.hpp">
+    <ClInclude Include="include\clonable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\engine.hpp">
+    <ClInclude Include="include\engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\time.hpp">
+    <ClInclude Include="include\time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics\graphics.hpp">
+    <ClInclude Include="include\graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics\boundingbox.hpp">
+    <ClInclude Include="include\boundingbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics\physics.hpp">
+    <ClInclude Include="include\physics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics\rigidbody.hpp">
+    <ClInclude Include="include\rigidbody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics\collider.hpp">
+    <ClInclude Include="include\collider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\component.hpp">
+    <ClInclude Include="include\component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp">
@@ -1482,7 +1482,7 @@
     <ClInclude Include="games\fpsdemo\scripts\destructible.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\input.hpp">
+    <ClInclude Include="include\input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

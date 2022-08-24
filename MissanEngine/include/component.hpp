@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/gameobject.hpp"
-#include "interfaces/clonable.hpp"
+#include "gameobject.hpp"
+#include "clonable.hpp"
 
 namespace Missan {
 

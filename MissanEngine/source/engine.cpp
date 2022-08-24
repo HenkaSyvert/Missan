@@ -1,16 +1,16 @@
-#include "core/engine.hpp"
+#include "engine.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "core/gameobject.hpp"
-#include "core/gui.hpp"
-#include "core/input.hpp"
-#include "core/resources.hpp"
-#include "core/time.hpp"
-#include "core/window.hpp"
-#include "graphics/graphics.hpp"
-#include "physics/physics.hpp"
+#include "gameobject.hpp"
+#include "gui.hpp"
+#include "input.hpp"
+#include "resources.hpp"
+#include "time.hpp"
+#include "window.hpp"
+#include "graphics.hpp"
+#include "physics.hpp"
 
 #include <vector>
 #include <unordered_map>

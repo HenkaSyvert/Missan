@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/component.hpp"
-#include "core/window.hpp"
+#include "component.hpp"
+#include "window.hpp"
 
 #include <glm/mat4x4.hpp>
 

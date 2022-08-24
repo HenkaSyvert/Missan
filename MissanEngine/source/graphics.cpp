@@ -1,6 +1,6 @@
-#include "graphics/graphics.hpp"
+#include "graphics.hpp"
 
-#include "core/transform.hpp"
+#include "transform.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

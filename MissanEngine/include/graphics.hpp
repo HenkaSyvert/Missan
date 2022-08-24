@@ -1,9 +1,9 @@
 #pragma once
 
-#include "graphics/camera.hpp"			// maybe temp
-#include "graphics/shaderprogram.hpp"	// temp
-#include "core/gameobject.hpp"			//temp
-#include "graphics/renderer.hpp"
+#include "camera.hpp"			// maybe temp
+#include "shaderprogram.hpp"	// temp
+#include "gameobject.hpp"			//temp
+#include "renderer.hpp"
 
 
 namespace Missan {

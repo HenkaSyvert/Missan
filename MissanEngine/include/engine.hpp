@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/gameobject.hpp"
+#include "gameobject.hpp"
 
 namespace Missan {
 

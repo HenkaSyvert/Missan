@@ -1,4 +1,4 @@
-#include "graphics/mesh.hpp"
+#include "mesh.hpp"
 
 #include <glm/vec3.hpp>
 #include <glm/gtx/projection.hpp>

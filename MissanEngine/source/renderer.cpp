@@ -1,6 +1,6 @@
-#include "graphics/renderer.hpp"
+#include "renderer.hpp"
 
-#include "graphics/graphics.hpp"
+#include "graphics.hpp"
 
 using namespace Missan;
 

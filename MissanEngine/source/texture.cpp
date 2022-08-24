@@ -1,4 +1,4 @@
-#include "graphics/texture.hpp"
+#include "texture.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
