@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Missan;
-
+using namespace glm;
 
 void Camera::Restore() {
     fieldOfViewDeg = fovOriginal;
@@ -13,11 +13,9 @@ void Camera::Restore() {
     aspectRatio = apOriginal;
 }
 
-glm::mat4& Camera::GetProjectionMatrix() {
+mat4& Camera::GetProjectionMatrix() {
     return projectionMatrix;
 }
-
-
 
 void Camera::Start() {
 	fovOriginal = fieldOfViewDeg;
@@ -32,5 +30,5 @@ void Camera::Update() {
 }
 
 void Camera::UpdateMatrix() {
-	projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
+	projectionMatrix = perspective(radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane);
 }

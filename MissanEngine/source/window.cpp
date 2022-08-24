@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 using namespace Missan;
-
+using namespace std;
 
 static GLFWwindow* windowHandle = nullptr;
 static int w = 0;
@@ -16,7 +16,7 @@ static int h = 0;
 static float ar = 0;
 
 void glfwErrorCallback(int error, const char* desc) {
-    std::cout << "GLFW Error " << error << ": " << desc << std::endl;
+    cout << "GLFW Error " << error << ": " << desc << endl;
 }
 
 
@@ -26,14 +26,14 @@ const int&   Window::width       = w;
 const int&   Window::height      = h;
 const float& Window::aspectRatio = ar;
 
-void Window::Initialize(int width, int height, const std::string& title) {
+void Window::Initialize(int width, int height, const string& title) {
 	w = width;
 	h = height;
     ar = (float)w / h;
 
     glfwSetErrorCallback(glfwErrorCallback);
     if (!glfwInit()) {
-        std::cout << "glfwInit() failed\n";
+        cout << "glfwInit() failed\n";
         exit(EXIT_FAILURE);
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -43,7 +43,7 @@ void Window::Initialize(int width, int height, const std::string& title) {
     windowHandle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
     if (!windowHandle) {
         glfwTerminate();
-        std::cout << "glfwCreateWindow() failed\n";
+        cout << "glfwCreateWindow() failed\n";
         exit(EXIT_FAILURE);
     }
 
@@ -52,11 +52,11 @@ void Window::Initialize(int width, int height, const std::string& title) {
 
     int glewState = glewInit();
     if (glewState != GLEW_OK) {
-        std::cout << "GLEW Error: " << glewGetErrorString(glewState) << std::endl;
+        cout << "GLEW Error: " << glewGetErrorString(glewState) << endl;
         exit(EXIT_FAILURE);
     }
 
-    std::cout << glGetString(GL_VERSION) << std::endl;
+    cout << glGetString(GL_VERSION) << endl;
 }
 
 void Window::SetIsCursorVisible(bool isVisible) {

@@ -7,12 +7,13 @@
 #include <iostream>
 
 using namespace Missan;
-
+using namespace std;
+using namespace glm;
 
 void RigidBody::Start() {
 	auto* c = GetGameObject().GetComponent<Collider>();
 	if (c == nullptr) {
-		std::cout << "RigidBody requires Collider Component!\n";
+		cout << "RigidBody requires Collider Component!\n";
 		exit(EXIT_FAILURE);
 	}
 
@@ -24,7 +25,7 @@ void RigidBody::Start() {
 }
 
 
-void RigidBody::AddForce(glm::vec3 newForce, glm::vec3 point, bool useLocalSpace) {
+void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
 		auto* t = GetGameObject().GetComponent<Transform>();
 		newForce = t->TransformPoint(newForce);
@@ -34,7 +35,7 @@ void RigidBody::AddForce(glm::vec3 newForce, glm::vec3 point, bool useLocalSpace
 	torques += glm::cross(point, newForce);
 }
 
-void RigidBody::AddImpulse(glm::vec3 impulse, glm::vec3 point, bool useLocalSpace) {
+void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
 		auto* t = GetGameObject().GetComponent<Transform>();
 		impulse = t->TransformPoint(impulse);

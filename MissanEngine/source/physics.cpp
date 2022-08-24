@@ -11,10 +11,11 @@
 #include <glm/trigonometric.hpp>
 
 using namespace Missan;
-
+using namespace std;
+using namespace glm;
 
 // Applies linear and angular forces to all RigidBodies
-void ApplyForces(std::vector<RigidBody*>& rbs) {
+void ApplyForces(vector<RigidBody*>& rbs) {
 
 	for (RigidBody* rb : rbs) {
 
@@ -23,16 +24,16 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 		if (rb->isAffectedByGravity)
 			rb->AddImpulse(Physics::gravity / rb->mass);
 
-		glm::vec3 forces = rb->forces + rb->linearImpulse;
-		glm::vec3 torque = rb->torques + rb->angularImpulse;
+		vec3 forces = rb->forces + rb->linearImpulse;
+		vec3 torque = rb->torques + rb->angularImpulse;
 
 
-		glm::vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
+		vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
 		rb->linearVelocity += linearAcceleration * Time::deltaTime;
 		t->position += rb->linearVelocity * Time::deltaTime;
 
 
-		glm::vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
+		vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
 		t->rotationDeg += glm::degrees(rb->angularVelocity) * Time::deltaTime;
 
@@ -46,9 +47,9 @@ void ApplyForces(std::vector<RigidBody*>& rbs) {
 }
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
-std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Collider*>& colliders) {
+vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colliders) {
 
-	std::vector<std::pair<GameObject*, GameObject*>> collisions;
+	vector<pair<GameObject*, GameObject*>> collisions;
 
 	if (colliders.empty()) return collisions;
 
@@ -62,10 +63,10 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 			Transform* tb = cb->GetGameObject().GetComponent<Transform>();
 			RigidBody* rbb = cb->GetGameObject().GetComponent<RigidBody>();
 
-			glm::vec3 overlap = ca->OverlapsWith(cb);
+			vec3 overlap = ca->OverlapsWith(cb);
 
 			float tolerance = 0.0001f;
-			if (glm::length(overlap) < tolerance){
+			if (length(overlap) < tolerance){
 				continue;
 			}
 			else {
@@ -82,20 +83,20 @@ std::vector<std::pair<GameObject*, GameObject*>> DetectCollisions(std::vector<Co
 
 
 
-glm::vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
+vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 
-void Physics::Update(std::vector<GameObject*> gos) {
+void Physics::Update(vector<GameObject*> gos) {
 	
 
 	// get all RigidBodies
-	std::vector<RigidBody*> rbs;
+	vector<RigidBody*> rbs;
 	for (auto* g : gos)
 		if (g->GetComponent<RigidBody>() != nullptr)
 			rbs.push_back(g->GetComponent<RigidBody>());
 
 	// get all Colliders
-	std::vector<Collider*> cs;
+	vector<Collider*> cs;
 	for (auto* g : gos)
 		if (g->GetComponent<Collider>() != nullptr)
 			cs.push_back(g->GetComponent<Collider>());
@@ -105,7 +106,7 @@ void Physics::Update(std::vector<GameObject*> gos) {
 	ApplyForces(rbs);
 
 	// Send OnCollisionEnter messages..
-	for (std::pair<GameObject*, GameObject*>& collision : DetectCollisions(cs)) {
+	for (pair<GameObject*, GameObject*>& collision : DetectCollisions(cs)) {
 		for (Component* c : collision.first->components) {
 			c->OnCollisionEnter(collision.second);
 		}

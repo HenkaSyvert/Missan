@@ -10,7 +10,7 @@
 
 
 using namespace Missan;
-
+using namespace glm;
 
 static ShaderProgram* standardShader = nullptr;
 static Camera* camera_ptr = nullptr;
@@ -18,11 +18,11 @@ static Camera* camera_ptr = nullptr;
 
 
 void Graphics::Initialize() {
-	standardShader = new ShaderProgram("standard.vs", "standard.fs");
+	standardShader = new ShaderProgram("vertex.shader", "fragment.shader");
 }
 
 void Graphics::Prepare() {
-	glm::vec4 clearColor = { .1,.1,.1,.1 };	// temp, should move to camera
+	vec4 clearColor = { .1,.1,.1,.1 };	// temp, should move to camera
 
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -44,11 +44,11 @@ void Graphics::Draw(Renderer* renderer) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(mesh.vaoID);
 		glEnableVertexAttribArray(0);
-		glm::mat4 transMat = renderer->GetGameObject().GetComponent<Transform>()->GetMatrix();
+		mat4 transMat = renderer->GetGameObject().GetComponent<Transform>()->GetMatrix();
 		shader.SetMat4("u_model", transMat);
-		glm::mat4 view = glm::inverse(camera_ptr->GetGameObject().GetComponent<Transform>()->GetMatrix());
+		mat4 view = glm::inverse(camera_ptr->GetGameObject().GetComponent<Transform>()->GetMatrix());
 		shader.SetMat4("u_view", view);
-		glm::mat4 projMat = camera_ptr->GetProjectionMatrix();
+		mat4 projMat = camera_ptr->GetProjectionMatrix();
 		shader.SetMat4("u_proj", projMat);
 	}
 

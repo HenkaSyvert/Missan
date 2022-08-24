@@ -18,11 +18,12 @@
 #include <glm/vec3.hpp>
 
 using namespace Missan;
+using namespace std;
+using namespace glm;
 
-
-static std::vector<GameObject*> gameObjectsToBeInstantiated;
-static std::vector<GameObject*> gameObjectsToBeDestroyed;
-static std::vector<GameObject*> gameObjects;
+static vector<GameObject*> gameObjectsToBeInstantiated;
+static vector<GameObject*> gameObjectsToBeDestroyed;
+static vector<GameObject*> gameObjects;
 
 static float _time = 0.0f;
 static float _deltaTime = 0.0f;
@@ -34,8 +35,8 @@ static void update_time() {
 }
 
 
-static glm::vec3 _mousePosition;
-static glm::vec3 _mouseDelta;
+static vec3 _mousePosition;
+static vec3 _mouseDelta;
 static const Keycode keycodes[] = {
 	Keycode::Space		    ,
 	Keycode::Apostrophe     ,
@@ -142,7 +143,7 @@ static const Keycode keycodes[] = {
 };
 
 
-static std::unordered_map<Keycode, bool> isKeyDown, isKeyUp;
+static unordered_map<Keycode, bool> isKeyDown, isKeyUp;
 static bool isButtonDown[] = { false };
 static bool isButtonUp[] = { false };
 
@@ -170,7 +171,7 @@ static void MouseButtonCallback(GLFWwindow* window, int button, int action, int 
 }
 
 static void input_update() {
-	glm::vec3 old = _mousePosition;
+	vec3 old = _mousePosition;
 	double x, y;
 	glfwGetCursorPos(Window::GetHandle(), &x, &y);
 	_mousePosition.x = (float)x;
@@ -204,8 +205,8 @@ const float& Time::time = _time;
 const float& Time::deltaTime = _deltaTime;
 
 
-const glm::vec3& Input::mousePosition = _mousePosition;
-const glm::vec3& Input::mouseDelta = _mouseDelta;
+const vec3& Input::mousePosition = _mousePosition;
+const vec3& Input::mouseDelta = _mouseDelta;
 
 bool Input::GetKeyDown(Keycode keycode) {
 	if (keycode == Keycode::Any) {
@@ -253,7 +254,6 @@ bool Input::GetMouseButtonUp(MouseButton button) {
 
 
 
-// PUBLIC
 void Engine::Initialize() {
 	Window::Initialize(960, 720, "Missan 3D");
 	input_init();
@@ -266,60 +266,33 @@ void Engine::Initialize() {
 
 void Engine::Run() {
 	update_time();
-	// STARTUP
 	
 	for (auto* g : gameObjectsToBeInstantiated) {
 		gameObjects.push_back(g);
 	}
 	gameObjectsToBeInstantiated.clear();
 
-	for (auto* g : gameObjects)
-		for (auto* c : g->components)
-			c->Start();
+	for (auto* g : gameObjects) for (auto* c : g->components) c->Start();
 
 	
-
-	// MAIN LOOP
 	while (!glfwWindowShouldClose(Window::GetHandle())) {
 		update_time();
 
-
-		// PHYSICS
 		Physics::Update(gameObjects);
 
-
-
-		// INPUT
 		input_update();
 
 
-		// GAME LOGIC	
-		for (auto* g : gameObjects)
-			for (auto* c : g->components)
-				c->Update();
-		for (auto* g : gameObjects)
-			for (auto* c : g->components)
-				c->LateUpdate();
+		for (auto* g : gameObjects) for (auto* c : g->components) c->Update();
+		for (auto* g : gameObjects) for (auto* c : g->components) c->LateUpdate();
 
-
-		// RENDERING
 		Graphics::Prepare();
-		for (auto* g : gameObjects)
-			for (auto* c : g->components)
-				c->OnRender();
+		for (auto* g : gameObjects) for (auto* c : g->components) c->OnRender();
 		
-
-
-		// GUI
 		GUI::Begin();
-		for (auto* g : gameObjects)
-			for (auto* c : g->components)
-				c->OnGUI();
+		for (auto* g : gameObjects) for (auto* c : g->components) c->OnGUI();
 		GUI::End();
 
-
-
-		// Instantiations
 		for (auto* g : gameObjectsToBeInstantiated) {
 			gameObjects.push_back(g);
 			for (auto* c : g->components)
@@ -329,7 +302,6 @@ void Engine::Run() {
 
 
 
-		// Destructions
 		for (auto* g : gameObjectsToBeDestroyed) {
 			bool found = false;
 			

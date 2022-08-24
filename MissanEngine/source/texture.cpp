@@ -4,8 +4,9 @@
 #include <GLFW/glfw3.h>
 
 using namespace Missan;
+using namespace std;
 
-Texture::Texture(GLuint newTextureID, const std::string& newFileName, int w, int h, int bpp)
+Texture::Texture(GLuint newTextureID, const string& newFileName, int w, int h, int bpp)
 	: textureID(newTextureID),
 	fileName(newFileName),
 	width(w),

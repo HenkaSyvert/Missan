@@ -7,13 +7,13 @@
 #include <imgui/imgui_impl_opengl3.h>
 
 using namespace Missan;
-
+using namespace ImGui;
 
 void GUI::Initialize() {
     IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
+    CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    ImGui::StyleColorsDark();
+    StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(Window::GetHandle(), true);
     ImGui_ImplOpenGL3_Init(NULL);
 }
@@ -21,18 +21,18 @@ void GUI::Initialize() {
 void GUI::Begin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
+    NewFrame();
 }
     
 void GUI::End(){
-    ImGui::Render();
+    Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void GUI::Terminate() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    DestroyContext();
 }
 
 
