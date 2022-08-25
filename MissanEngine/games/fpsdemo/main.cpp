@@ -160,7 +160,6 @@ int main(int argc, char* argv[]){
     ///////////////////////////////////////////////////////////
 
     Engine::Run();          // start the game simulation
-    Engine::Terminate();    // cleanup, free resources... 
 
     return 0;
 }

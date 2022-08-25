@@ -59,6 +59,7 @@ void GameObject::Destroy(GameObject* gameObject) {
 	gameObjectsToBeDestroyed.push_back(gameObject);
 }
 
-std::vector<Missan::GameObject*>& EcsGetGameObjects() {
+vector<GameObject*>& EcsGetGameObjects() {
 	return gameObjects;
 }
+

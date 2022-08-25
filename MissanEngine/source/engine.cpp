@@ -12,7 +12,6 @@
 #include "graphics.hpp"
 #include "physics.hpp"
 
-#include <vector>
 
 using namespace Missan;
 using namespace std;
@@ -24,7 +23,7 @@ static float _deltaTime = 0.0f;
 const float& Time::time = _time;
 const float& Time::deltaTime = _deltaTime;
 	
-static void update_time() {
+static void TimeUpdate() {
 	float timeStamp = (float)glfwGetTime();
 	_deltaTime = timeStamp - _time;
 	_time = timeStamp;
@@ -42,32 +41,26 @@ void Engine::Initialize() {
 }
 
 void Engine::Run() {
-	update_time();
-	
+	TimeUpdate();
 	EcsComponentsStart();
 	EcsGameObjectInstantiate();
 	
 	while (!glfwWindowShouldClose(window)) {
-		update_time();
-
+		TimeUpdate();
 		PhysicsUpdate();
-
 		InputUpdate();
-
 		EcsComponentsUpdate();
 		EcsComponentsLateUpdate();
 		GraphicsUpdate();		
 		GuiUpdate();
 		EcsGameObjectInstantiate();
 		EcsGameObjectDestroy();
-
 		glfwSwapBuffers(window);
 	}	
-}
 
-void Engine::Terminate() {
 	GuiTerminate();
 	ResourcesTerminate();
 	glfwTerminate();
 
 }
+
