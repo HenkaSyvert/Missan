@@ -54,6 +54,14 @@ namespace Missan {
 			}
 		}
 
+		/// 
+		/// Instantiates a copy of original in the active Scene, and returns pointer to the copy
+		static GameObject* Instantiate(GameObject& original);
+
+		///
+		/// Destroys gameObject
+		static void Destroy(GameObject* gameObject);
+
 
 		std::vector<class Component*> components;
 

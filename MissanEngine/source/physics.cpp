@@ -87,8 +87,9 @@ vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colli
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 
-void PhysicsUpdate(vector<GameObject*>& gos) {
+void PhysicsUpdate() {
 	
+	auto& gos = EcsGetGameObjects();
 
 	// get all RigidBodies
 	vector<RigidBody*> rbs;

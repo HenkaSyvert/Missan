@@ -16,11 +16,18 @@ GLFWwindow* WindowInitialize();
 void ResourcesInitialize();
 void ResourcesTerminate();
 
-void PhysicsUpdate(std::vector<Missan::GameObject*>& gameObjects);
+void PhysicsUpdate();
 
 void GuiInitialize(GLFWwindow* window);
-void GuiUpdate(std::vector<Missan::GameObject*>& gameObjects);
+void GuiUpdate();
 void GuiTerminate();
 
 void GraphicsInitialize();
-void GraphicsUpdate(std::vector<Missan::GameObject*>& gameObjects);
+void GraphicsUpdate();
+
+void EcsComponentsStart();
+void EcsComponentsUpdate();
+void EcsComponentsLateUpdate();
+void EcsGameObjectInstantiate();
+void EcsGameObjectDestroy();
+std::vector<Missan::GameObject*>& EcsGetGameObjects();

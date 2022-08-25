@@ -24,13 +24,14 @@ void GraphicsInitialize() {
 	standardShader = new ShaderProgram("vertex.shader", "fragment.shader");
 }
 
-void GraphicsUpdate(std::vector<Missan::GameObject*>& gameObjects) {
+void GraphicsUpdate() {
 	vec4 clearColor = { .1,.1,.1,.1 };	// temp, should move to camera
 
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
+	auto& gameObjects = EcsGetGameObjects();
 	for (auto* g : gameObjects) for (auto* c : g->components) c->OnRender();
 }
 

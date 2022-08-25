@@ -35,7 +35,7 @@ private:
 
 
 	void SpawnProjectile() {
-		GameObject* p = Engine::Instantiate(*projectile);
+		GameObject* p = GameObject::Instantiate(*projectile);
 		Transform* ourTrans = GetGameObject().GetComponent<Transform>();
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();

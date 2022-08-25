@@ -19,14 +19,6 @@ namespace Missan {
 		/// 
 		/// Does cleanup, frees memory etc.
 		void Terminate();
-		
-		/// 
-		/// Instantiates a copy of original in the active Scene, and returns pointer to the copy
-		GameObject* Instantiate(GameObject& original);
-
-		///
-		/// Destroys gameObject
-		void Destroy(GameObject* gameObject);
 	
 	}
 

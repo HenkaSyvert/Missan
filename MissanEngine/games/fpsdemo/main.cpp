@@ -54,7 +54,7 @@ void MakeRoom() {
     // instantiate floor tiles
     for (int x = 0; x < mapWidth; x++) {
         for (int z = 0; z < mapBreadth; z++) {
-            GameObject* go = Engine::Instantiate(floor);
+            GameObject* go = GameObject::Instantiate(floor);
             go->GetComponent<Transform>()->position = { x * cellWidth, 0, z * cellBreadth };
         }
     }
@@ -72,17 +72,17 @@ void MakeRoom() {
 
     // instantiate and rotate walls
     for (int x = 0; x < mapWidth; x++) {
-        GameObject* go = Engine::Instantiate(wall);
+        GameObject* go = GameObject::Instantiate(wall);
         go->GetComponent<Transform>()->position = { x * cellWidth, cellHeight / 2, -cellBreadth / 2 };
-        go = Engine::Instantiate(wall);
+        go = GameObject::Instantiate(wall);
         go->GetComponent<Transform>()->position = { x * cellWidth, cellHeight / 2, (mapBreadth - 0.5f ) * cellBreadth };
     }
     for (int z = 0; z < mapBreadth; z++) {
-        GameObject* go = Engine::Instantiate(wall);
+        GameObject* go = GameObject::Instantiate(wall);
         Transform* trans = go->GetComponent<Transform>();
         trans->position = { -cellWidth / 2, cellHeight / 2, z * cellBreadth };
         trans->rotationDeg.y = 90;
-        go = Engine::Instantiate(wall);
+        go = GameObject::Instantiate(wall);
         trans = go->GetComponent<Transform>();
         trans->position = { (mapWidth - 0.5f) * cellWidth, cellHeight / 2, z * cellBreadth };
         trans->rotationDeg.y = 90;
@@ -115,7 +115,7 @@ void MakePlayer() {
     // set the startin position
     //player.GetComponent<Transform>()->position.y = 100;
 
-    GameObject* go = Engine::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
+    GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
     Graphics::SetCamera(*go->GetComponent<Camera>());   
     
 }
@@ -137,7 +137,7 @@ void PlaceDestructibles() {
         int x = rand() % mapWidth;
         int z = rand() % mapBreadth;
        
-        GameObject* go = Engine::Instantiate(cube);
+        GameObject* go = GameObject::Instantiate(cube);
         cube.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };  
     }
 

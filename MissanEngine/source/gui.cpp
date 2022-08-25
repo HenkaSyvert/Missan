@@ -24,11 +24,12 @@ void GuiInitialize(GLFWwindow* window) {
     ImGui_ImplOpenGL3_Init(NULL);
 }
 
-void GuiUpdate(std::vector<Missan::GameObject*>& gameObjects) {
+void GuiUpdate() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
 
+    auto& gameObjects = EcsGetGameObjects();
     for (auto* g : gameObjects) for (auto* c : g->components) c->OnGUI();
 
     Render();

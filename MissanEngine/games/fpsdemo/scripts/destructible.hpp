@@ -17,7 +17,7 @@ public:
 
 	void TakeHit() {
 		hp--;
-		if (hp == 0) Engine::Destroy(&GetGameObject());
+		if (hp == 0) GameObject::Destroy(&GetGameObject());
 	}
 
 	void Update() {

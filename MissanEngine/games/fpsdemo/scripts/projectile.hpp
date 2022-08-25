@@ -19,13 +19,13 @@ public:
 
 	void Update() {
 		if (Time::time - startTime > lifespan) {
-			Engine::Destroy(&GetGameObject());
+			GameObject::Destroy(&GetGameObject());
 		}
 	}
 
 	void OnCollisionEnter(GameObject* other) {
 		if (other->GetComponent<Collider>() != nullptr)
-			Engine::Destroy(&GetGameObject());
+			GameObject::Destroy(&GetGameObject());
 	}
 
 private:
