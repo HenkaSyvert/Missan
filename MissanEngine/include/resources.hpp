@@ -31,11 +31,6 @@ namespace Missan {
         /// Returns pointer to Texture, loads if necessary, from the Texture directory
         Texture* GetTexture(const std::string& fileName);
 
-
-
-        void Initialize();
-        void Terminate();
-
     }
 
 }

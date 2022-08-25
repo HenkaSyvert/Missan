@@ -9,6 +9,8 @@
 
 #include <stb/stb_image.h>
 
+#include "internal.hpp"
+
 using namespace Missan;
 using namespace std;
 
@@ -275,12 +277,12 @@ Texture* Resources::GetTexture(const string& fileName) {
 
 
 
-void Resources::Initialize() {
+void ResourcesInitialize() {
 	CreateCubeMesh(1.0f);
 	CreatePlaneMesh(1.0f, 1.0f);
 }
 
-void Resources::Terminate() {
+void ResourcesTerminate() {
 	for (Mesh* m : loadedMeshes)   delete m;
 	for (Texture* t : loadedTextures) delete t;
 

@@ -26,11 +26,6 @@ namespace Missan {
 		/// 
 		/// Set the cursor visible or not
 		void SetIsCursorVisible(bool isVisible);
-
-
-
-		void Initialize(int width, int height, const std::string& title);
-		GLFWwindow* GetHandle();
 		
 	};
 

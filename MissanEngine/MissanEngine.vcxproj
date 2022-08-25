@@ -95,6 +95,7 @@
     <ClCompile Include="source\boundingbox.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
+    <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\renderer.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />

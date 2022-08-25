@@ -11,7 +11,6 @@
 #include "component.hpp"
 #include "engine.hpp"
 #include "gameobject.hpp"
-#include "gui.hpp"
 #include "input.hpp"
 #include "resources.hpp"
 #include "time.hpp"

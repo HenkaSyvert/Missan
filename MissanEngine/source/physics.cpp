@@ -7,6 +7,7 @@
 #include "collider.hpp"
 #include "rigidbody.hpp"
 #include "boundingbox.hpp"
+#include "internal.hpp"
 
 #include <glm/trigonometric.hpp>
 
@@ -86,7 +87,7 @@ vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colli
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 
-void Physics::Update(vector<GameObject*> gos) {
+void PhysicsUpdate(vector<GameObject*>& gos) {
 	
 
 	// get all RigidBodies

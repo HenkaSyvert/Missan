@@ -7,26 +7,27 @@
 #include <string>
 #include <stdlib.h>
 
+#include "internal.hpp"
+
 using namespace Missan;
 using namespace std;
 
-static GLFWwindow* windowHandle = nullptr;
-static int w = 0;
-static int h = 0;
+static GLFWwindow* window = nullptr;
+static int w = 960;
+static int h = 720;
 static float ar = 0;
+const string title = "Missan 3D";
 
 void glfwErrorCallback(int error, const char* desc) {
     cout << "GLFW Error " << error << ": " << desc << endl;
 }
 
 
-const int&   Window::width       = w;
-const int&   Window::height      = h;
+const int& Window::width = w;
+const int& Window::height = h;
 const float& Window::aspectRatio = ar;
 
-void Window::Initialize(int width, int height, const string& title) {
-	w = width;
-	h = height;
+GLFWwindow* WindowInitialize() {
     ar = (float)w / h;
 
     glfwSetErrorCallback(glfwErrorCallback);
@@ -38,14 +39,14 @@ void Window::Initialize(int width, int height, const string& title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    windowHandle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-    if (!windowHandle) {
+    window = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
+    if (!window) {
         glfwTerminate();
         cout << "glfwCreateWindow() failed\n";
         exit(EXIT_FAILURE);
     }
 
-    glfwMakeContextCurrent(windowHandle);
+    glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
     int glewState = glewInit();
@@ -55,14 +56,13 @@ void Window::Initialize(int width, int height, const string& title) {
     }
 
     cout << glGetString(GL_VERSION) << endl;
+
+    return window;
 }
 
 void Window::SetIsCursorVisible(bool isVisible) {
-    if (isVisible) glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    else glfwSetInputMode(GetHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    if (isVisible) glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
-GLFWwindow* Window::GetHandle() {
-    return windowHandle;
-}
 

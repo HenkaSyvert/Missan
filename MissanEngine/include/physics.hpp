@@ -16,9 +16,5 @@ namespace Missan {
 		/// The acceleration due to gravity
 		extern glm::vec3 gravity;
 
-
-
-		void Update(std::vector<GameObject*> gos);
-
 	}
 }
