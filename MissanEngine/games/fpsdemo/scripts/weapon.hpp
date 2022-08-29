@@ -36,7 +36,7 @@ private:
 
 	void SpawnProjectile() {
 		GameObject* p = GameObject::Instantiate(*projectile);
-		Transform* ourTrans = GetGameObject().GetComponent<Transform>();
+		Transform* ourTrans = gameObject->GetComponent<Transform>();
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();
 		vec3 forward = -ourTrans->GetBackwardVector();

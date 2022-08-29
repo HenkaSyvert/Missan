@@ -11,7 +11,7 @@ using namespace std;
 using namespace glm;
 
 void RigidBody::Start() {
-	auto* c = GetGameObject().GetComponent<Collider>();
+	auto* c = gameObject->GetComponent<Collider>();
 	if (c == nullptr) {
 		cout << "RigidBody requires Collider Component!\n";
 		exit(EXIT_FAILURE);
@@ -27,7 +27,7 @@ void RigidBody::Start() {
 
 void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
-		auto* t = GetGameObject().GetComponent<Transform>();
+		auto* t = gameObject->GetComponent<Transform>();
 		newForce = t->TransformPoint(newForce);
 		point = t->TransformPoint(point);
 	}
@@ -37,7 +37,7 @@ void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 
 void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
-		auto* t = GetGameObject().GetComponent<Transform>();
+		auto* t = gameObject->GetComponent<Transform>();
 		impulse = t->TransformPoint(impulse);
 		point = t->TransformPoint(point);
 	}

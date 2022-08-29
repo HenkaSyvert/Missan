@@ -24,8 +24,8 @@ vec3 Collider::OverlapsWith(Collider* other) {
 	float minimumOverlap = INFINITY;
 	vec3 displacement(0, 0, 0);
 
-	Transform* ourTransform = GetGameObject().GetComponent<Transform>();
-	Transform* theirTransform = other->GetGameObject().GetComponent<Transform>();
+	Transform* ourTransform = gameObject->GetComponent<Transform>();
+	Transform* theirTransform = other->gameObject->GetComponent<Transform>();
 
 
 
@@ -111,7 +111,7 @@ vec3 Collider::OverlapsWith(Collider* other) {
 
 
 void Collider::Start() {
-	Mesh* mesh = GetGameObject().GetComponent<Mesh>();
+	Mesh* mesh = gameObject->GetComponent<Mesh>();
 	if (mesh != nullptr) {
 		auto ps = mesh->GetVerticesVec3();
 		boundingBox.EncapsulatePoints(ps);

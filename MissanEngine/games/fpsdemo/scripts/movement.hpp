@@ -77,8 +77,8 @@ public:
 
     void Start() {
         
-        transform = GetGameObject().GetComponent<Transform>();      
-        rb = GetGameObject().GetComponent<RigidBody>();
+        transform = gameObject->GetComponent<Transform>();
+        rb = gameObject->GetComponent<RigidBody>();
 
         transform->position.y = headHeight;
         rb->isAffectedByGravity = false;

@@ -50,9 +50,9 @@ void Graphics::Draw(Renderer* renderer) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(mesh.vaoID);
 		glEnableVertexAttribArray(0);
-		mat4 transMat = renderer->GetGameObject().GetComponent<Transform>()->GetMatrix();
+		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->GetMatrix();
 		shader.SetMat4("u_model", transMat);
-		mat4 view = inverse(camera_ptr->GetGameObject().GetComponent<Transform>()->GetMatrix());
+		mat4 view = inverse(camera_ptr->gameObject->GetComponent<Transform>()->GetMatrix());
 		shader.SetMat4("u_view", view);
 		mat4 projMat = camera_ptr->GetProjectionMatrix();
 		shader.SetMat4("u_proj", projMat);

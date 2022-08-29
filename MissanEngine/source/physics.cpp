@@ -20,7 +20,7 @@ void ApplyForces(vector<RigidBody*>& rbs) {
 
 	for (RigidBody* rb : rbs) {
 
-		Transform* t = rb->GetGameObject().GetComponent<Transform>();
+		Transform* t = rb->gameObject->GetComponent<Transform>();
 
 		if (rb->isAffectedByGravity)
 			rb->AddImpulse(Physics::gravity / rb->mass);
@@ -56,13 +56,13 @@ vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colli
 
 	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
-		Transform* ta = ca->GetGameObject().GetComponent<Transform>();
-		RigidBody* rba = ca->GetGameObject().GetComponent<RigidBody>();
+		Transform* ta = ca->gameObject->GetComponent<Transform>();
+		RigidBody* rba = ca->gameObject->GetComponent<RigidBody>();
 
 		for (unsigned int j = i + 1; j < colliders.size(); j++) {
 			Collider* cb = colliders[j];
-			Transform* tb = cb->GetGameObject().GetComponent<Transform>();
-			RigidBody* rbb = cb->GetGameObject().GetComponent<RigidBody>();
+			Transform* tb = cb->gameObject->GetComponent<Transform>();
+			RigidBody* rbb = cb->gameObject->GetComponent<RigidBody>();
 
 			vec3 overlap = ca->OverlapsWith(cb);
 
@@ -71,8 +71,8 @@ vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colli
 				continue;
 			}
 			else {
-				collisions.push_back({ &ca->GetGameObject(),  &cb->GetGameObject() });
-				collisions.push_back({ &cb->GetGameObject(),  &ca->GetGameObject() });
+				collisions.push_back({ ca->gameObject,  cb->gameObject });
+				collisions.push_back({ cb->gameObject,  ca->gameObject });
 			}
 
 		}

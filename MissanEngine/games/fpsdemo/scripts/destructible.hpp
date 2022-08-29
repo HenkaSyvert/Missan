@@ -17,11 +17,11 @@ public:
 
 	void TakeHit() {
 		hp--;
-		if (hp == 0) GameObject::Destroy(&GetGameObject());
+		if (hp == 0) GameObject::Destroy(gameObject);
 	}
 
 	void Update() {
-		GetGameObject().GetComponent<Transform>()->rotationDeg += deltaRotation;
+		gameObject->GetComponent<Transform>()->rotationDeg += deltaRotation;
 	}
 
 	void OnCollisionEnter(GameObject* other) {

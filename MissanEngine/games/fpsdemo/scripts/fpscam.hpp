@@ -24,7 +24,7 @@ public:
 
     void Start() {
         // fetching this pointer once here is cheaper than doing it in every frame in Update(). 
-        transform = GetGameObject().GetComponent<Transform>();
+        transform = gameObject->GetComponent<Transform>();
     }
 
     void Update() {

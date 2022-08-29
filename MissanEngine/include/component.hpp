@@ -14,6 +14,10 @@ namespace Missan {
 		
 	public:
 	
+		/// 
+		/// The GameObject this Component is attached to. 
+		GameObject* gameObject = nullptr;
+
 		///
 		/// TODO: remove in future
 		/// Must have definition - empty body - since derived classes will call it.
@@ -21,11 +25,7 @@ namespace Missan {
 
 		///
 		/// Attaches this Component to gameObject
-		inline void AttachToGameObject(GameObject& gameObject) { gameObject_ptr = &gameObject; };
-
-		///
-		/// Returns the GameObject this Component is attached to
-		inline class GameObject& GetGameObject() { return *gameObject_ptr; }
+		inline void AttachToGameObject(GameObject& gameObject) { this->gameObject = &gameObject; };
 
 		///
 		/// Called only once for each GameObject, before all other Event functions
@@ -61,10 +61,6 @@ namespace Missan {
 		/// For class T inhereting from Component, it should look like this:
 		/// T* Clone() const { return new T(*this); } 
 		inline virtual Component* Clone() const = 0;	
-
-
-	private:
-		GameObject* gameObject_ptr = nullptr;
 
 	};
 
