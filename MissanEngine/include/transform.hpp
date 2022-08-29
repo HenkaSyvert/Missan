@@ -29,7 +29,7 @@ namespace Missan {
 
         /// 
         /// Matrix to transform point from local space to world space
-        glm::mat4 GetMatrix();
+        glm::mat4 matrix;
 
         /// 
         /// Transforms a point from local space to world space
@@ -51,6 +51,8 @@ namespace Missan {
         /// Local backward vector
         glm::vec3 GetBackwardVector();
 
+
+        void Update();
 
 
         Transform* Clone() const { return new Transform(*this); }

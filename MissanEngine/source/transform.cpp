@@ -7,10 +7,10 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-mat4 Transform::GetMatrix() {
+void Transform::Update() {
 
 	// order matters, must be translation-rotation-scale
-	mat4 matrix = mat4(1.0f);
+	matrix = mat4(1.0f);
 	matrix = translate(matrix, position);
 	
 	// order matters, must be y-z-x
@@ -19,12 +19,11 @@ mat4 Transform::GetMatrix() {
 	matrix = rotate(matrix, radians(rotationDeg.x), vec3(1, 0, 0));
 	
 	matrix = glm::scale(matrix, scale);
-	return matrix;
 }
 
 vec3 Transform::TransformPoint(vec3& point) {
 	vec4 q(point, 1);
-	q = GetMatrix() * q;
+	q = matrix * q;
 	return vec3(q.x, q.y, q.z);
 }
 
@@ -36,15 +35,15 @@ vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 }
 
 vec3 Transform::GetRightVector() {
-	return normalize(GetMatrix()[0]);
+	return normalize(matrix[0]);
 }
 
 vec3 Transform::GetUpVector() {
-	return normalize(GetMatrix()[1]);
+	return normalize(matrix[1]);
 }
 
 vec3 Transform::GetBackwardVector() {
-	return normalize(GetMatrix()[2]);
+	return normalize(matrix[2]);
 }
 
 
