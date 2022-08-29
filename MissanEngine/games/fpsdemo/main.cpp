@@ -44,8 +44,8 @@ void MakeRoom() {
     GameObject floor;
     floor.AddComponent<Transform>();
     Renderer* rend = floor.AddComponent<Renderer>();
-    rend->mesh_ptr = plane;
-    rend->texture_ptr = stone1;
+    rend->mesh = plane;
+    rend->texture = stone1;
     Transform* trans = floor.GetComponent<Transform>();
     trans->scale = { cellWidth, cellBreadth, 1};
     trans->rotationDeg = { 90, 0, 0 };
@@ -64,8 +64,8 @@ void MakeRoom() {
     GameObject wall;
     wall.AddComponent<Transform>();
     rend = wall.AddComponent<Renderer>();
-    rend->mesh_ptr = plane;
-    rend->texture_ptr = bricks;
+    rend->mesh = plane;
+    rend->texture = bricks;
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
 
@@ -127,8 +127,8 @@ void PlaceDestructibles() {
     GameObject cube;
     cube.AddComponent<Transform>();
     auto* rend = cube.AddComponent<Renderer>();
-    rend->mesh_ptr = Resources::GetMesh("unitCube");
-    rend->texture_ptr = Resources::GetTexture("missan_logo.png");
+    rend->mesh = Resources::GetMesh("unitCube");
+    rend->texture = Resources::GetTexture("missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();
 

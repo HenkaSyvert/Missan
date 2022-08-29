@@ -15,6 +15,6 @@ GameObject::~GameObject() {
 GameObject::GameObject(GameObject& copy) {
 	for (Component* c : copy.components) {
 		components.push_back(c->Clone());
-		components.back()->AttachToGameObject(*this);
+		components.back()->gameObject = this;
 	}
 }

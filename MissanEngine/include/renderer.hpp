@@ -14,11 +14,11 @@ namespace Missan {
 
         /// 
         /// Mesh to render
-        Mesh* mesh_ptr = nullptr;
+        Mesh* mesh = nullptr;
 
         /// 
         /// Texture to render
-        Texture* texture_ptr = nullptr;
+        Texture* texture = nullptr;
 
 
 

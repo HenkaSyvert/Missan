@@ -44,7 +44,7 @@ void Graphics::Draw(Renderer* renderer) {
 	ShaderProgram& shader = *standardShader;
 	shader.Use();
 
-	Mesh& mesh = *renderer->mesh_ptr;
+	Mesh& mesh = *renderer->mesh;
 	if (&mesh == nullptr) return;
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -54,11 +54,10 @@ void Graphics::Draw(Renderer* renderer) {
 		shader.SetMat4("u_model", transMat);
 		mat4 view = inverse(camera_ptr->gameObject->GetComponent<Transform>()->GetMatrix());
 		shader.SetMat4("u_view", view);
-		mat4 projMat = camera_ptr->GetProjectionMatrix();
-		shader.SetMat4("u_proj", projMat);
+		shader.SetMat4("u_proj", camera_ptr->projectionMatrix);
 	}
 
-	Texture& texture = *renderer->texture_ptr;
+	Texture& texture = *renderer->texture;
 	bool hasTexture;
 	if (&texture == nullptr) hasTexture = false;
 	else {

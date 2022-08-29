@@ -24,10 +24,6 @@ namespace Missan {
 		inline virtual ~Component() { };
 
 		///
-		/// Attaches this Component to gameObject
-		inline void AttachToGameObject(GameObject& gameObject) { this->gameObject = &gameObject; };
-
-		///
 		/// Called only once for each GameObject, before all other Event functions
 		inline virtual void Start() {}
 

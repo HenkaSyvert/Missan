@@ -29,36 +29,15 @@ namespace Missan {
 		/// Screen Width divided by Height, also how "squeezed" the view is on the y-axis
 		float aspectRatio = Window::aspectRatio;
 
-	
-
 		/// 
-		/// Restores Camera default settings
-		void Restore();
-
-		/// 
-		/// Returns the projection matrix, which transform points from world space to screen space
-		glm::mat4& GetProjectionMatrix();
-
-
-
-
-		Camera* Clone() const { return new Camera(*this); }
-		void Start();
-		void Update();
-
-
-
-	private:
-
+		/// The projection matrix, which transform points from world space to screen space
 		glm::mat4 projectionMatrix = glm::mat4(0);
 
-		float fovOriginal = 0;
-		float nearzOriginal = 0;
-		float farzOriginal = 0;
-		float apOriginal = 0;
 
-		void UpdateMatrix();
+		void Update();
 
+		Camera* Clone() const { return new Camera(*this); }
+		
 	};
 
 }

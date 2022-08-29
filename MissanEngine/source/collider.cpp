@@ -27,8 +27,6 @@ vec3 Collider::OverlapsWith(Collider* other) {
 	Transform* ourTransform = gameObject->GetComponent<Transform>();
 	Transform* theirTransform = other->gameObject->GetComponent<Transform>();
 
-
-
 	// first we need our own transformed face-normals
 	for (vec3& n : ourTransform->TransformPoints(boundingBox.GetNormals()))
 		normalsToCheck.push_back(n);
@@ -50,14 +48,11 @@ vec3 Collider::OverlapsWith(Collider* other) {
 		}
 	}
 
-
-
 	// our transformed vertices
 	vector<vec3> ourVertices = ourTransform->TransformPoints(boundingBox.GetVertices());
 
 	// their transformed vertices
 	vector<vec3> theirVertices = theirTransform->TransformPoints(other->boundingBox.GetVertices());
-
 
 
 	// if we find a single plane without intersection, there is no overlap
@@ -87,8 +82,6 @@ vec3 Collider::OverlapsWith(Collider* other) {
 			return vec3(0, 0, 0);
 		}
 		else {
-
-
 			float ourMid = ourMax - ourMin;
 			float theirMid = theirMax - theirMin;
 			float currentOverlap = ourMid - theirMid;
@@ -96,23 +89,17 @@ vec3 Collider::OverlapsWith(Collider* other) {
 			if (abs(currentOverlap) < abs(minimumOverlap)) {
 				minimumOverlap = currentOverlap;
 				displacement = normalize(n) * currentOverlap;
-			}
-			
-		}
-		
+			}	
+		}	
 	}
 
 	// otherwise there is overlap
 	return displacement;
-
 }
-
-
-
 
 void Collider::Start() {
 	Mesh* mesh = gameObject->GetComponent<Mesh>();
-	if (mesh != nullptr) {
+	if (mesh) {
 		auto ps = mesh->GetVerticesVec3();
 		boundingBox.EncapsulatePoints(ps);
 	}
