@@ -11,6 +11,7 @@ static vector<GameObject*> gameObjectsToBeInstantiated;
 static vector<GameObject*> gameObjectsToBeDestroyed;
 static vector<GameObject*> gameObjects;
 
+vector<Component*> components;
 
 void EcsComponentsStart() {
 	for (auto* g : gameObjects) for (auto* c : g->components) c->Start();
@@ -63,3 +64,11 @@ vector<GameObject*>& EcsGetGameObjects() {
 	return gameObjects;
 }
 
+void EcsDeleteComponent(Component* component) {
+	for (int i = 0; i < components.size(); i++) {
+		if (components[i] == component) {
+			delete components[i];
+			components.erase(components.begin() + i);
+		}
+	}
+}

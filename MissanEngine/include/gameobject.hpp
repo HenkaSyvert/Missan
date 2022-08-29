@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component.hpp"
+#include "internal.hpp"
 
 #include <vector>
 #include <typeinfo>
@@ -28,8 +29,7 @@ namespace Missan {
 		/// 
 		/// Adds Component of type T, attaches it, and returns pointer
 		template <class T> inline T* AddComponent() {
-			components.push_back(new T());
-			components.back()->AttachToGameObject(*this);
+			components.push_back(EcsAddComponent<T>());
 			return (T*)components.back();
 		}	
 
@@ -48,7 +48,7 @@ namespace Missan {
 			for (int i = 0; i < components.size(); i++) {
 				Component* c = components[i];
 				if (typeid(T) == typeid(*c)) {
-					delete c;
+					EcsDeleteComponent(c);
 					components.erase(components.begin() + i);
 				}
 			}
