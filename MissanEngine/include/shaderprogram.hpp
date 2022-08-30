@@ -20,6 +20,8 @@ namespace Missan {
 
     public:
 
+        GLuint programId;
+
         /// 
         /// Compiles new Shader from source code
         ShaderProgram(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
@@ -60,12 +62,8 @@ namespace Missan {
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetMat4(const std::string& uniformVariableName, const glm::mat4& value) const;
         
-
-
-        void Use() const;
-
     private:
-        GLuint programID;
+        
 
         GLint GetUniformLocation(const std::string& uniformVariableName) const;
 

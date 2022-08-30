@@ -106,7 +106,6 @@
     <ClCompile Include="source\mesh.cpp" />
     <ClCompile Include="source\physics.cpp" />
     <ClCompile Include="source\shaderprogram.cpp" />
-    <ClCompile Include="source\texture.cpp" />
     <ClCompile Include="source\transform.cpp" />
     <ClCompile Include="source\window.cpp" />
     <ClCompile Include="source\rigidbody.cpp" />

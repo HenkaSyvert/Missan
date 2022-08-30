@@ -15,13 +15,13 @@
 using namespace Missan;
 using namespace glm;
 
-static ShaderProgram* standardShader = nullptr;
+static ShaderProgram* shader = nullptr;
 static Camera* camera_ptr = nullptr;
 
 
 
 void GraphicsInitialize() {
-	standardShader = new ShaderProgram("vertex.shader", "fragment.shader");
+	shader = new ShaderProgram("resources/shaders/vertex.shader", "resources/shaders/fragment.shader");
 }
 
 void GraphicsUpdate() {
@@ -41,35 +41,30 @@ void Graphics::SetCamera(Camera& camera) {
 
 void Graphics::Draw(Renderer* renderer) {
 
-	ShaderProgram& shader = *standardShader;
-	shader.Use();
+	glUseProgram(shader->programId);
 
-	Mesh& mesh = *renderer->mesh;
-	if (&mesh == nullptr) return;
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glBindVertexArray(mesh.vaoID);
-		glEnableVertexAttribArray(0);
-		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
-		shader.SetMat4("u_model", transMat);
-		mat4 view = inverse(camera_ptr->gameObject->GetComponent<Transform>()->matrix);
-		shader.SetMat4("u_view", view);
-		shader.SetMat4("u_proj", camera_ptr->projectionMatrix);
-	}
+	if (!renderer->mesh) return;
 
-	Texture& texture = *renderer->texture;
-	bool hasTexture;
-	if (&texture == nullptr) hasTexture = false;
-	else {
-		hasTexture = true;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBindVertexArray(renderer->mesh->vaoId);
+	glEnableVertexAttribArray(0);
+	mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
+	shader->SetMat4("u_model", transMat);
+	mat4 view = inverse(camera_ptr->gameObject->GetComponent<Transform>()->matrix);
+	shader->SetMat4("u_view", view);
+	shader->SetMat4("u_proj", camera_ptr->projectionMatrix);
+	
+	Texture* texture = renderer->texture;
+	if (texture) {
 		glEnableVertexAttribArray(1);
-		shader.SetInt("u_texture", 0);
-		texture.Bind();
+		shader->SetInt("u_texture", 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture->textureId);
 	}
 
-	glDrawElements(GL_TRIANGLES, mesh.vertices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, renderer->mesh->vertices.size() * 3, GL_UNSIGNED_INT, 0);
 
-	if (hasTexture) {
+	if (texture) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisableVertexAttribArray(1);
 	}

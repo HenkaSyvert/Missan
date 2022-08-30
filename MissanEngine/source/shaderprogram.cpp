@@ -8,15 +8,11 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-string LoadShader(const string& filename) {
-
-	string shaderDirectory = "resources/shaders/";
-
-	string filePath = shaderDirectory + filename;
-	fstream input(filePath);
+string LoadShader(const string& fileName) {
+	fstream input(fileName);
 
 	if (!input.is_open()) {
-		cout << "error: could not open \"" << filePath << "\"\n";
+		cout << "error: could not open \"" << fileName << "\"\n";
 		exit(EXIT_FAILURE);
 	}
 
@@ -56,7 +52,7 @@ GLuint CompileShader(GLuint shaderType, const string& shaderSourceCode) {
 }
 
 GLint ShaderProgram::GetUniformLocation(const string& uniformVariableName) const{
-	GLint location = glGetUniformLocation(programID, uniformVariableName.c_str());
+	GLint location = glGetUniformLocation(programId, uniformVariableName.c_str());
 	if (location == -1)
 		cout << "shader error: could not find uniform variable \"" << uniformVariableName << "\"\n";
 	return location;
@@ -65,41 +61,35 @@ GLint ShaderProgram::GetUniformLocation(const string& uniformVariableName) const
 
 
 ShaderProgram::ShaderProgram(const string& vertexShaderFilePath, const string& fragmentShaderFilePath) {
-	programID = glCreateProgram();
+	programId = glCreateProgram();
 	GLuint vertexShader, fragmentShader;
 	
 	string vertexSourceCode = LoadShader(vertexShaderFilePath);
 	vertexShader = CompileShader(GL_VERTEX_SHADER, vertexSourceCode);
-	glAttachShader(programID, vertexShader);
+	glAttachShader(programId, vertexShader);
 
 	string fragmentSourceCode = LoadShader(fragmentShaderFilePath);
 	fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentSourceCode);
-	glAttachShader(programID, fragmentShader);
+	glAttachShader(programId, fragmentShader);
 
-	glLinkProgram(programID);
+	glLinkProgram(programId);
 	int isLinked = 0;
-	glGetProgramiv(programID, GL_LINK_STATUS, (int*)&isLinked);
+	glGetProgramiv(programId, GL_LINK_STATUS, (int*)&isLinked);
 	if (isLinked == GL_FALSE) {
-		PrintGLErrorMsg(programID);
-		glDeleteProgram(programID);
+		PrintGLErrorMsg(programId);
+		glDeleteProgram(programId);
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 		return;
 	}
 
-	glDetachShader(programID, vertexShader);
+	glDetachShader(programId, vertexShader);
 	glDeleteShader(vertexShader);
 
 	glDeleteShader(fragmentShader);
-	glDetachShader(programID, fragmentShader);
+	glDetachShader(programId, fragmentShader);
 
 }
-
-void ShaderProgram::Use() const {
-	glUseProgram(programID);
-}
-
-
 
 
 // UNIFORM VARIABLE SETTER FUNCTIONS

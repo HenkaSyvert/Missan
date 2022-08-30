@@ -51,9 +51,6 @@
     <ClCompile Include="source\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -99,9 +99,6 @@ vec3 Collider::OverlapsWith(Collider* other) {
 
 void Collider::Start() {
 	Mesh* mesh = gameObject->GetComponent<Mesh>();
-	if (mesh) {
-		auto ps = mesh->GetVerticesVec3();
-		boundingBox.EncapsulatePoints(ps);
-	}
+	if (mesh) boundingBox.EncapsulatePoints(mesh->vertices);
 }
 

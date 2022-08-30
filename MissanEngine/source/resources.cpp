@@ -87,11 +87,10 @@ static bool LoadMesh(string fileName) {
 	StoreInAttribList(0, 3, vertices);
 	StoreInAttribList(1, 2, uvs);
 
-	meshes[fileName] = new Mesh(vaoId, fileName, vertices, indices);
+	meshes[fileName] = new Mesh(vaoId, vertices, indices);
 	return true;
 }
 
-// Loads Texture data from file and calls AddTexture
 static bool LoadTexture(const string& fileName) {
 	stbi_set_flip_vertically_on_load(1);
 	int width = 0;
@@ -114,7 +113,7 @@ static bool LoadTexture(const string& fileName) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
-	textures[fileName] = new Texture(textureID, fileName, width, height, channels);
+	textures[fileName] = new Texture(textureID);
 	if (localBuffer) stbi_image_free(localBuffer);
 
 	return true;
