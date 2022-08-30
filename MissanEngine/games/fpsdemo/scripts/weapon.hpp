@@ -56,7 +56,7 @@ public:
 		projectile->AddComponent<Transform>();
 		auto* rend = projectile->AddComponent<Renderer>();
 		rend->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-		rend->texture = Resources::GetTexture("cat.png");
+		rend->texture = Resources::GetTexture("resources/textures/cat.png");
 		projectile->AddComponent<Collider>();
 		projectile->AddComponent<RigidBody>();
 		projectile->AddComponent<Projectile>();

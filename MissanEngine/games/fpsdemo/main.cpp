@@ -33,10 +33,10 @@ using namespace Missan;
 void MakeRoom() {
 
     // load the textures and meshes we'll need
-    Texture* stone1 = Resources::GetTexture("stonefloor.png");
-    Texture* stone2 = Resources::GetTexture("stone2.png");
-    Texture* stone3 = Resources::GetTexture("stone3.jpg");
-    Texture* bricks = Resources::GetTexture("brickwall.png");
+    Texture* stone1 = Resources::GetTexture("resources/textures/stonefloor.png");
+    Texture* stone2 = Resources::GetTexture("resources/textures/stone2.png");
+    Texture* stone3 = Resources::GetTexture("resources/textures/stone3.jpg");
+    Texture* bricks = Resources::GetTexture("resources/textures/brickwall.png");
     Mesh* plane = Resources::GetMesh("resources/meshes/plane.mesh");
 
 
@@ -128,7 +128,7 @@ void PlaceDestructibles() {
     cube.AddComponent<Transform>();
     auto* rend = cube.AddComponent<Renderer>();
     rend->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    rend->texture = Resources::GetTexture("missan_logo.png");
+    rend->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();
 

@@ -57,7 +57,6 @@ void Engine::Run() {
 	}	
 
 	GuiTerminate();
-	ResourcesTerminate();
 	glfwTerminate();
 
 }
