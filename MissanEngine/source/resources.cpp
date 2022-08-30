@@ -6,6 +6,10 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstdlib>
+#include <unordered_map>
 
 #include <stb/stb_image.h>
 
@@ -16,7 +20,8 @@ using namespace std;
 
 
 // All Meshes currently loaded into memory
-static vector<Mesh*> loadedMeshes;
+// TODO: make map?
+static unordered_map<string, Mesh*> loadedMeshes;
 
 // All Textures currently loaded into memory
 static vector<Texture*> loadedTextures;
@@ -62,114 +67,58 @@ static GLuint StoreInAttribList(int attribIndex, int elementSize, const vector<f
 
 
 
+static bool LoadMesh(string fileName) {
 
-// Creates new Mesh and stores it on both GPU and in loadedMeshes
-static void AddMesh(
-	const string& fileName,
-	const vector<float>& vertices,
-	const vector<unsigned int>& indices,
-	const vector<float>& uvs)
-{
+	ifstream file(fileName);
+	if (!file) {
+		cout << "error: unable to open file " << fileName << endl;
+		return false;
+	}
+
+	vector<float> vertices, uvs;
+	vector<unsigned int> indices;
+
+	string token;
+	while (!file.eof()) {
+		file >> token;
+		if (token[0] == '#' || isspace(token[0])) {
+			while (file.get() != '\n');
+		}
+		else {
+			if (token == "v") {
+				for (int i = 0; i < 3; i++) {
+					float v;
+					file >> v;
+					vertices.push_back(v);
+				}
+			}
+			else if (token == "vt") {
+				for (int i = 0; i < 2; i++) {
+					float v;
+					file >> v;
+					uvs.push_back(v);
+				}
+			}
+			else if (token == "f") {
+				for (int i = 0; i < 3; i++) {
+					float v;
+					file >> v;
+					indices.push_back(v);
+				}
+			}
+		}
+	}
+	
+
 	GLuint vaoID = CreateVAO();
 	GLuint iboID = CreateIndexBuffer(indices);
 	GLuint vboID = StoreInAttribList(0, 3, vertices);
 	GLuint tex = StoreInAttribList(1, 2, uvs);
 
-	loadedMeshes.push_back(new Mesh(vaoID, fileName, vertices, indices));
+	loadedMeshes[fileName] = new Mesh(vaoID, fileName, vertices, indices);
+
+	return true;
 }
-
-// Manually creates a cube mesh
-static void CreateCubeMesh(float size) {
-	float s = size / 2;
-
-	vector<float> vertices = {
-		// counter clockwise
-
-		// front
-		-s,	-s, -s,		// 0
-		-s,  s, -s,		// 1
-		s,  s, -s,		// 2
-		s, -s, -s,		// 3
-
-		// back
-		-s,	-s,  s,		// 4
-		-s,  s,  s,		// 5
-		s,  s,  s,		// 6
-		s, -s,  s,		// 7
-
-		// right
-		-s,	-s,  s,		// 8
-		-s,  s,  s,		// 9
-		-s,  s, -s,		// 10
-		-s, -s, -s,		// 11
-
-		// left
-		s,	-s,  s,		// 12
-		s,  s,  s,		// 13
-		s,  s, -s,		// 14
-		s, -s, -s,		// 15
-
-		// top
-		-s,	-s, -s,		// 16
-		-s, -s,  s,		// 17
-		s, -s,  s,		// 18
-		s, -s, -s,		// 19
-
-		// bottom
-		-s,	 s, -s,		// 20
-		-s,  s,  s,		// 21
-		s,  s,  s,		// 22
-		s,  s, -s,		// 23
-	};
-
-	vector<unsigned int> indices = {
-		// counter clockwise
-		0,  1,  3,		 1,  2,  3,	// front
-		4,  5,  7,		 5,  6,  7,	// back
-		8,  9, 11,		 9, 10, 11,	// right
-		12, 13, 15,		13, 14, 15,	// left
-		16, 17, 19,		17, 18, 19,	// top
-		20, 21, 23,		21, 22, 23	// bottom
-	};
-
-	vector<float> uvs = {
-		0,0,	0,1,	1,1,		1,0,	// front
-		0,0,	0,1,	1,1,		1,0,	// back
-		0,0,	0,1,	1,1,		1,0,	// right
-		0,0,	0,1,	1,1,		1,0,	// left
-		0,0,	0,1,	1,1,		1,0,	// top
-		0,0,	0,1,	1,1,		1,0,	// bottom
-	};
-
-	AddMesh("unitCube", vertices, indices, uvs);
-}
-
-// Manually creates a plane mesh
-static void CreatePlaneMesh(float w, float h) {
-	w /= 2, h /= 2;
-	vector<float> vertices = {
-		-w, -h, 0,
-		w, -h, 0,
-		w,  h, 0,
-		-w,  h, 0
-	};
-
-	vector<unsigned int> indices = {
-		// counter clockwise
-		0, 3, 1,	3, 2, 1,
-	};
-
-	vector<float> uvs = {
-		0,0,
-		1,0,
-		1,1,
-		0,1
-	};
-
-	AddMesh("unitPlane", vertices, indices, uvs);
-}
-
-
 
 
 
@@ -249,19 +198,16 @@ static Texture LoadCubeMapTexture(const vector<string>& faces) {
 
 
 
-
+// TODO: delete these
 string Resources::textureDirectory = "resources/textures/";
-string Resources::meshDirectory	= "resources/meshes/";
 
 
 Mesh* Resources::GetMesh(const string& fileName) {
-	for (Mesh* m : loadedMeshes) {
-		if (m->fileName.compare(fileName) == 0) {
-			return m;
-		}
+	auto m = loadedMeshes[fileName];
+	if (!m) {
+		if (!LoadMesh(fileName)) return nullptr;
 	}
-	// TODO: try load mesh file
-	return nullptr;
+	return loadedMeshes[fileName];
 }
 
 Texture* Resources::GetTexture(const string& fileName) {
@@ -276,14 +222,9 @@ Texture* Resources::GetTexture(const string& fileName) {
 
 
 
-
-void ResourcesInitialize() {
-	CreateCubeMesh(1.0f);
-	CreatePlaneMesh(1.0f, 1.0f);
-}
-
+// TODO: is this really necessary?
 void ResourcesTerminate() {
-	for (Mesh* m : loadedMeshes)   delete m;
+	//for (Mesh* m : loadedMeshes)   delete m;
 	for (Texture* t : loadedTextures) delete t;
 
 	glDeleteVertexArrays(vaos.size(), vaos.data());

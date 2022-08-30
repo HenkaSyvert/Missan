@@ -17,7 +17,6 @@ void InputUpdate();
 
 GLFWwindow* WindowInitialize();
 
-void ResourcesInitialize();
 void ResourcesTerminate();
 
 void PhysicsUpdate();

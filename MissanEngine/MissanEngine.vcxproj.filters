@@ -508,6 +508,7 @@
     <None Include="external\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="resources\meshes\plane.mesh" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\stb\stb_image.h">

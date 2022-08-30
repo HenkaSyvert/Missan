@@ -37,7 +37,7 @@ void MakeRoom() {
     Texture* stone2 = Resources::GetTexture("stone2.png");
     Texture* stone3 = Resources::GetTexture("stone3.jpg");
     Texture* bricks = Resources::GetTexture("brickwall.png");
-    Mesh* plane = Resources::GetMesh("unitPlane");
+    Mesh* plane = Resources::GetMesh("resources/meshes/plane.mesh");
 
 
     // make floor prefab
@@ -127,7 +127,7 @@ void PlaceDestructibles() {
     GameObject cube;
     cube.AddComponent<Transform>();
     auto* rend = cube.AddComponent<Renderer>();
-    rend->mesh = Resources::GetMesh("unitCube");
+    rend->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
     rend->texture = Resources::GetTexture("missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();

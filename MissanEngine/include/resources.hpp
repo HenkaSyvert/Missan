@@ -16,19 +16,13 @@ namespace Missan {
         /// but you still must provide the relative full filename then
         extern std::string textureDirectory;
 
-        /// 
-        /// Put your Meshes here. it's also ok to make subfolders in there
-        /// but you still must provide the relative full filename then
-        extern std::string meshDirectory;
-
-
 
         //// 
-        /// Returns pointer to Mesh, loads if necessary, from the Mesh directory
+        /// Returns pointer to Mesh, loads if necessary
         Mesh* GetMesh(const std::string& fileName);
 
         //// 
-        /// Returns pointer to Texture, loads if necessary, from the Texture directory
+        /// Returns pointer to Texture, loads if necessary
         Texture* GetTexture(const std::string& fileName);
 
     }

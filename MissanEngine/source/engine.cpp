@@ -34,10 +34,8 @@ static GLFWwindow* window = nullptr;
 void Engine::Initialize() {
 	window = WindowInitialize();
 	InputInitialize(window);
-	ResourcesInitialize();
 	GraphicsInitialize();
 	GuiInitialize(window);
-
 }
 
 void Engine::Run() {
