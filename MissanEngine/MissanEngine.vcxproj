@@ -93,17 +93,14 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="games\fpsdemo\main.cpp" />
     <ClCompile Include="source\boundingbox.cpp" />
-    <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
     <ClCompile Include="source\entitycomponentsystem.cpp" />
     <ClCompile Include="source\input.cpp" />
-    <ClCompile Include="source\renderer.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
     <ClCompile Include="source\graphics.cpp" />
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\resources.cpp" />
-    <ClCompile Include="source\mesh.cpp" />
     <ClCompile Include="source\physics.cpp" />
     <ClCompile Include="source\shaderprogram.cpp" />
     <ClCompile Include="source\transform.cpp" />
@@ -576,7 +573,6 @@
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\texture.h" />
-    <ClInclude Include="include\time.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>

@@ -11,14 +11,25 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 
+#include <vector>
 
 using namespace Missan;
+using namespace std;
 using namespace glm;
+using namespace Graphics;
 
-static ShaderProgram* shader = nullptr;
-static Camera* camera_ptr = nullptr;
+ShaderProgram* Graphics::shader = nullptr;
+Camera* Graphics::camera = nullptr;
 
 
+
+Mesh::Mesh(int vaoId, const vector<float>& vs, const vector<unsigned int>& indices) {
+
+	this->vaoId = vaoId;
+	for (unsigned int i = 0; i < vs.size(); i += 3) vertices.push_back(vec3(vs[i], vs[i + 1], vs[i + 2]));
+	for (unsigned int i = 0; i < indices.size(); i += 3) normals.push_back(cross(vertices[indices[i]], vertices[indices[i + 1]]));
+
+}
 
 void GraphicsInitialize() {
 	shader = new ShaderProgram("resources/shaders/vertex.shader", "resources/shaders/fragment.shader");
@@ -31,12 +42,10 @@ void GraphicsUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
+	vector<Renderer*> renderers;
 	auto& gameObjects = EcsGetGameObjects();
-	for (auto* g : gameObjects) for (auto* c : g->components) c->OnRender();
-}
-
-void Graphics::SetCamera(Camera& camera) {
-	camera_ptr = &camera;
+	for (auto* g : gameObjects) if (g->GetComponent<Renderer>()) renderers.push_back(g->GetComponent<Renderer>());
+	for (auto r : renderers) Draw(r);
 }
 
 void Graphics::Draw(Renderer* renderer) {
@@ -50,9 +59,9 @@ void Graphics::Draw(Renderer* renderer) {
 	glEnableVertexAttribArray(0);
 	mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
 	shader->SetMat4("u_model", transMat);
-	mat4 view = inverse(camera_ptr->gameObject->GetComponent<Transform>()->matrix);
+	mat4 view = inverse(camera->gameObject->GetComponent<Transform>()->matrix);
 	shader->SetMat4("u_view", view);
-	shader->SetMat4("u_proj", camera_ptr->projectionMatrix);
+	shader->SetMat4("u_proj", camera->projectionMatrix);
 	
 	Texture* texture = renderer->texture;
 	if (texture) {

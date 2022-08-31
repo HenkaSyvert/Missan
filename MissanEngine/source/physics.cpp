@@ -2,7 +2,6 @@
 
 #include "engine.hpp"
 #include "gameobject.hpp"
-#include "time.hpp"
 #include "transform.hpp"
 #include "collider.hpp"
 #include "rigidbody.hpp"
@@ -28,23 +27,17 @@ void ApplyForces(vector<RigidBody*>& rbs) {
 		vec3 forces = rb->forces + rb->linearImpulse;
 		vec3 torque = rb->torques + rb->angularImpulse;
 
-
 		vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
 		rb->linearVelocity += linearAcceleration * Time::deltaTime;
 		t->position += rb->linearVelocity * Time::deltaTime;
-
 
 		vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
 		t->rotationDeg += degrees(rb->angularVelocity) * Time::deltaTime;
 
-
 		rb->linearImpulse = { 0,0,0 };
 		rb->angularImpulse = { 0,0,0 };
-
 	}
-
-
 }
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided

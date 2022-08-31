@@ -116,7 +116,7 @@ void MakePlayer() {
     //player.GetComponent<Transform>()->position.y = 100;
 
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
-    Graphics::SetCamera(*go->GetComponent<Camera>());   
+    Graphics::camera = go->GetComponent<Camera>();   
     
 }
 

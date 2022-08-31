@@ -26,10 +26,6 @@ public:
 	Weapon* weapon = nullptr;
 
 
-
-	
-
-
 	void Start() {
 		isPaused = false;
 		timeStamp = Time::time;

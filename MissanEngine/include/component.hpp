@@ -40,10 +40,6 @@ namespace Missan {
 		inline virtual void LateUpdate() {}
 
 		///
-		/// Called during rendering
-		inline virtual void OnRender() {}
-
-		///
 		/// Called during GUI rendering
 		inline virtual void OnGUI() {}
 		

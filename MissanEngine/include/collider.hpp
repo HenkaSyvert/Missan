@@ -2,7 +2,6 @@
 
 #include "component.hpp"
 #include "boundingbox.hpp"
-#include "mesh.hpp"
 
 namespace Missan {
 

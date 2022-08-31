@@ -51,19 +51,10 @@
     <ClCompile Include="source\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\shaderprogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\collider.cpp">
@@ -1442,9 +1433,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics.hpp">
