@@ -4,9 +4,9 @@
 #include <GLFW/glfw3.h>
 
 #include "internal.hpp"
+#include "entitycomponentsystem.hpp"
 #include "gameobject.hpp"
 #include "input.hpp"
-#include "resources.hpp"
 #include "window.hpp"
 #include "graphics.hpp"
 #include "physics.hpp"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "component.hpp"
-#include "internal.hpp"
+#include "entitycomponentsystem.hpp"
 
 #include <vector>
 #include <typeinfo>

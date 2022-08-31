@@ -1,4 +1,4 @@
-#include "internal.hpp"
+#include "entitycomponentsystem.hpp"
 #include "gameobject.hpp"
 #include "component.hpp"
 

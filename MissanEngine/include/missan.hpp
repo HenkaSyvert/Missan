@@ -12,7 +12,6 @@
 #include "engine.hpp"
 #include "gameobject.hpp"
 #include "input.hpp"
-#include "resources.hpp"
 #include "transform.hpp"
 #include "window.hpp"
 #include "graphics.hpp"

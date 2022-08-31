@@ -553,6 +553,7 @@
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
+    <ClInclude Include="include\entitycomponentsystem.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
