@@ -16,29 +16,19 @@ using namespace glm;
 vec3 Collider::OverlapsWith(Collider* other) {
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
-	// DO NOT overlap IF there exists an axis upon the ranges of their projected points
-	// do not overlap. 
+	// DO NOT overlap IF there exists an axis upon which the ranges of their projected 
+	// points do not overlap. 
 	
-	vector<vec3> normalsToCheck;
-
 	// the amount of overlap, specifically the shortest displacement along some direction required to cancel the overlap
 	float minimumOverlap = INFINITY;
 	vec3 displacement(0, 0, 0);
 
-	Transform* ourTransform = gameObject->GetComponent<Transform>();
-	Transform* theirTransform = other->gameObject->GetComponent<Transform>();
-
-	// first we need our own transformed face-normals
-	for (vec3& n : ourTransform->TransformPoints(boundingBox.GetNormals()))
-		normalsToCheck.push_back(n);
-
-	// then their transformed normals
-	for (vec3& n : theirTransform->TransformPoints(other->boundingBox.GetNormals()))
-		normalsToCheck.push_back(n);
+	vector<vec3> normalsToCheck(transform->TransformPoints(boundingBox.GetNormals()));
+	for (vec3& n : other->transform->TransformPoints(other->boundingBox.GetNormals())) normalsToCheck.push_back(n);
 	
 	// and finally the normals of the planes formed by each pair of edges from each shape
-	vector<vec3> ourEdges = ourTransform->TransformPoints(boundingBox.GetEdgeVectors());
-	vector<vec3> theirEdges = theirTransform->TransformPoints(other->boundingBox.GetEdgeVectors());
+	vector<vec3> ourEdges = transform->TransformPoints(boundingBox.GetEdgeVectors());
+	vector<vec3> theirEdges = other->transform->TransformPoints(other->boundingBox.GetEdgeVectors());
 	for (vec3& ourEdge : ourEdges) {
 		for (vec3& theirEdge : theirEdges) {
 
@@ -49,12 +39,8 @@ vec3 Collider::OverlapsWith(Collider* other) {
 		}
 	}
 
-	// our transformed vertices
-	vector<vec3> ourVertices = ourTransform->TransformPoints(boundingBox.GetVertices());
-
-	// their transformed vertices
-	vector<vec3> theirVertices = theirTransform->TransformPoints(other->boundingBox.GetVertices());
-
+	vector<vec3> ourVertices = transform->TransformPoints(boundingBox.GetVertices());
+	vector<vec3> theirVertices = other->transform->TransformPoints(other->boundingBox.GetVertices());
 
 	// if we find a single plane without intersection, there is no overlap
 	for (vec3& n : normalsToCheck) {
@@ -99,7 +85,13 @@ vec3 Collider::OverlapsWith(Collider* other) {
 }
 
 void Collider::Start() {
+	transform = gameObject->GetComponent<Transform>();
 	Mesh* mesh = gameObject->GetComponent<Mesh>();
 	if (mesh) boundingBox.EncapsulatePoints(mesh->vertices);
 }
 
+void Collider::Update() {
+
+
+
+}

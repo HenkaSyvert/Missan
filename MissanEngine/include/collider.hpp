@@ -2,6 +2,7 @@
 
 #include "component.hpp"
 #include "boundingbox.hpp"
+#include "transform.hpp"
 
 namespace Missan {
 
@@ -10,6 +11,8 @@ namespace Missan {
 	class Collider : public Component {
 
 	public:
+
+		Transform* transform;
 
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap
@@ -22,6 +25,7 @@ namespace Missan {
 
 
 		void Start();
+		void Update();
 
 		Collider* Clone() const { return new Collider(*this); }
 

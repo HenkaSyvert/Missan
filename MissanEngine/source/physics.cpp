@@ -15,7 +15,16 @@ using namespace std;
 using namespace glm;
 
 // Applies linear and angular forces to all RigidBodies
-void ApplyForces(vector<RigidBody*>& rbs) {
+void ApplyForces() {
+
+	auto& gos = EcsGetGameObjects();
+
+	// get all RigidBodies
+	vector<RigidBody*> rbs;
+	for (auto* g : gos)
+		if (g->GetComponent<RigidBody>() != nullptr)
+			rbs.push_back(g->GetComponent<RigidBody>());
+
 
 	for (RigidBody* rb : rbs) {
 
@@ -41,37 +50,32 @@ void ApplyForces(vector<RigidBody*>& rbs) {
 }
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
-vector<pair<GameObject*, GameObject*>> DetectCollisions(vector<Collider*>& colliders) {
+void HandleCollisions() {
+	auto& gos = EcsGetGameObjects();
 
-	vector<pair<GameObject*, GameObject*>> collisions;
-
-	if (colliders.empty()) return collisions;
+	// get all Colliders
+	vector<Collider*> colliders;
+	for (auto* g : gos)
+		if (g->GetComponent<Collider>() != nullptr)
+			colliders.push_back(g->GetComponent<Collider>());
 
 	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
-		Transform* ta = ca->gameObject->GetComponent<Transform>();
-		RigidBody* rba = ca->gameObject->GetComponent<RigidBody>();
 
 		for (unsigned int j = i + 1; j < colliders.size(); j++) {
 			Collider* cb = colliders[j];
-			Transform* tb = cb->gameObject->GetComponent<Transform>();
-			RigidBody* rbb = cb->gameObject->GetComponent<RigidBody>();
 
 			vec3 overlap = ca->OverlapsWith(cb);
 
 			float tolerance = 0.0001f;
-			if (length(overlap) < tolerance){
-				continue;
-			}
+			if (length(overlap) < tolerance) continue;
 			else {
-				collisions.push_back({ ca->gameObject,  cb->gameObject });
-				collisions.push_back({ cb->gameObject,  ca->gameObject });
+				for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
+				for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
 			}
 
 		}
 	}
-	
-	return collisions;
 }
 
 
@@ -81,32 +85,8 @@ vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 
 void PhysicsUpdate() {
-	
-	auto& gos = EcsGetGameObjects();
-
-	// get all RigidBodies
-	vector<RigidBody*> rbs;
-	for (auto* g : gos)
-		if (g->GetComponent<RigidBody>() != nullptr)
-			rbs.push_back(g->GetComponent<RigidBody>());
-
-	// get all Colliders
-	vector<Collider*> cs;
-	for (auto* g : gos)
-		if (g->GetComponent<Collider>() != nullptr)
-			cs.push_back(g->GetComponent<Collider>());
-
-
-
-	ApplyForces(rbs);
-
-	// Send OnCollisionEnter messages..
-	for (pair<GameObject*, GameObject*>& collision : DetectCollisions(cs)) {
-		for (Component* c : collision.first->components) {
-			c->OnCollisionEnter(collision.second);
-		}
-	}
-
+	ApplyForces();
+	HandleCollisions();
 }
 
 
