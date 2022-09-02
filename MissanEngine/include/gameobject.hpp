@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <string>
 
 namespace Missan {
 
@@ -13,6 +14,8 @@ namespace Missan {
 	class GameObject {
 
 	public:
+
+		std::string tag;
 
 		/// 
 		/// Creates new GameObject

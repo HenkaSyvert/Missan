@@ -25,6 +25,7 @@
 #include "scripts/movement.hpp"
 #include "scripts/globals.hpp"
 #include "scripts/destructible.hpp"
+#include "scripts/enemy.hpp"
 
 using namespace Missan;
 
@@ -117,7 +118,7 @@ void MakePlayer() {
 
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
     Graphics::camera = go->GetComponent<Camera>();   
-    
+    go->tag = "player";
 }
 
 // this functions creates some rotating cubes which can be destroyed by the player. 
@@ -143,7 +144,17 @@ void PlaceDestructibles() {
 
 }
 
+void MakeEnemy() {
 
+    GameObject g;
+    g.AddComponent<Transform>();
+    auto r = g.AddComponent<Renderer>();
+    r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+    r->texture = Resources::GetTexture("resources/textures/stone2.png");
+    g.AddComponent<Enemy>();
+    GameObject::Instantiate(g);
+
+}
 
 
 // currently the game must provide its own main function, and must follow this structure
@@ -156,6 +167,7 @@ int main(int argc, char* argv[]){
     MakeRoom();
     MakePlayer();
     PlaceDestructibles();
+    MakeEnemy();
 
     ///////////////////////////////////////////////////////////
 
