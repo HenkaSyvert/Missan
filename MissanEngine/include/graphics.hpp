@@ -6,6 +6,7 @@
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/vec4.hpp>
 
 namespace Missan {
 
@@ -34,6 +35,8 @@ namespace Missan {
 		/// 
 		/// The projection matrix, which transform points from world space to screen space
 		glm::mat4 projectionMatrix = glm::mat4(0);
+
+		glm::vec4 clearColor = { .1,.1,.1,.1 };
 
 
 		void inline Update() { projectionMatrix = glm::perspective(glm::radians(fieldOfViewDeg), aspectRatio, nearClipPlane, farClipPlane); }

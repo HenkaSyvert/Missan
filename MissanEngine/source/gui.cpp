@@ -36,11 +36,9 @@ void GuiUpdate() {
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
 }
     
-
 void GuiTerminate() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     DestroyContext();
 }
-
 

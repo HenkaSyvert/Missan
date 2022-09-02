@@ -36,8 +36,7 @@ void GraphicsInitialize() {
 }
 
 void GraphicsUpdate() {
-	vec4 clearColor = { .1,.1,.1,.1 };	// temp, should move to camera
-
+	vec4 clearColor = camera->clearColor;
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);

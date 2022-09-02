@@ -22,6 +22,11 @@ void glfwErrorCallback(int error, const char* desc) {
     cout << "GLFW Error " << error << ": " << desc << endl;
 }
 
+void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+    w = width;
+    h = height;
+}
 
 const int& Window::width = w;
 const int& Window::height = h;
@@ -56,6 +61,9 @@ GLFWwindow* WindowInitialize() {
     }
 
     cout << glGetString(GL_VERSION) << endl;
+
+    glViewport(0, 0, w, h);
+    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
     return window;
 }

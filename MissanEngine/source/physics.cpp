@@ -25,7 +25,6 @@ void ApplyForces() {
 		if (g->GetComponent<RigidBody>() != nullptr)
 			rbs.push_back(g->GetComponent<RigidBody>());
 
-
 	for (RigidBody* rb : rbs) {
 
 		Transform* t = rb->gameObject->GetComponent<Transform>();
@@ -73,16 +72,11 @@ void HandleCollisions() {
 				for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
 				for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
 			}
-
 		}
 	}
 }
 
-
-
-
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
-
 
 void PhysicsUpdate() {
 	ApplyForces();
