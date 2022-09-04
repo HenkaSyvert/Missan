@@ -41,15 +41,15 @@ namespace Missan {
 
         /// 
         /// Local right vector
-        glm::vec3 GetRightVector();
+        glm::vec3 right;
 
         /// 
         /// Local up vector
-        glm::vec3 GetUpVector();
+        glm::vec3 up;
 
         /// 
-        /// Local backward vector
-        glm::vec3 GetBackwardVector();
+        /// Local forward vector
+        glm::vec3 forward;
 
 
         void Update();

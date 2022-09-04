@@ -27,10 +27,6 @@ namespace Missan {
 		/// 
 		/// Vectors representing the edges (vertex-i - vertex-j)
 		std::vector<glm::vec3> GetEdgeVectors();
-
-		/// 
-		/// Extends this BoundingBox to encapsulate the points
-		void EncapsulatePoints(std::vector<glm::vec3>& points);
 		
 	};
 

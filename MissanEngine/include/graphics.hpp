@@ -52,12 +52,12 @@ namespace Missan {
 	public:
 		int vaoId;
 
-		std::vector<glm::vec3> vertices;
-		std::vector<glm::vec3> normals;
+		// vertices.size() * 3
+		int elementCount;
 
 		/// 
 		/// Creates new Mesh
-		Mesh(int vaoId, const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+		Mesh(int vaoId, int vertexCount);
 
 	};
 
@@ -99,10 +99,6 @@ namespace Missan {
 
 		extern Camera* camera;
 		extern ShaderProgram* shader;
-
-		///
-		/// Renders a renderer using its mesh and texture
-		void Draw(Renderer* renderer);
 
 	}
 

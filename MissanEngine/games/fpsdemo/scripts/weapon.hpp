@@ -36,16 +36,15 @@ private:
 
 	void SpawnProjectile() {
 		GameObject* p = GameObject::Instantiate(*projectile);
-		Transform* ourTrans = gameObject->GetComponent<Transform>();
+		Transform* t = gameObject->GetComponent<Transform>();
 		Transform* pTrans = p->GetComponent<Transform>();
 		RigidBody* prb = p->GetComponent<RigidBody>();
-		vec3 forward = -ourTrans->GetBackwardVector();
 		prb->mass = 10.0f;
 
-		pTrans->position = ourTrans->position + forward * muzzleDistance;
-		pTrans->rotationDeg = ourTrans->rotationDeg;
+		pTrans->position = t->position + t->forward * muzzleDistance;
+		pTrans->rotationDeg = t->rotationDeg;
 
-		prb->AddImpulse(forward * force, { 0, .5, 0 }, false);
+		prb->AddImpulse(t->forward * force, { 0, .5, 0 }, false);
 	}
 
 public:

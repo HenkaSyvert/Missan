@@ -36,18 +36,5 @@ vector<vec3> BoundingBox::GetEdgeVectors() {
 	return GetNormals();
 }
 
-void BoundingBox::EncapsulatePoints(vector<vec3>& points) {
-	float x = 0;
-	float y = 0;
-	float z = 0;
-
-	for (auto& p : points) {
-		x = max(abs(p.x), x);
-		y = max(abs(p.y), y);
-		z = max(abs(p.z), z);
-	}
-
-	size = { 2 * x, 2 * y, 2 * z };
-}
 
 

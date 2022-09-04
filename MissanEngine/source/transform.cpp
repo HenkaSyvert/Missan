@@ -19,6 +19,10 @@ void Transform::Update() {
 	matrix = rotate(matrix, radians(rotationDeg.x), vec3(1, 0, 0));
 	
 	matrix = glm::scale(matrix, scale);
+
+	right = normalize(matrix[0]);
+	up = normalize(matrix[1]);
+	forward = -normalize(matrix[2]);
 }
 
 vec3 Transform::TransformPoint(vec3& point) {
@@ -33,17 +37,3 @@ vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 		ps.push_back(TransformPoint(p));
 	return ps;
 }
-
-vec3 Transform::GetRightVector() {
-	return normalize(matrix[0]);
-}
-
-vec3 Transform::GetUpVector() {
-	return normalize(matrix[1]);
-}
-
-vec3 Transform::GetBackwardVector() {
-	return normalize(matrix[2]);
-}
-
-

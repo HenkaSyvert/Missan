@@ -25,7 +25,6 @@ namespace Missan {
 
 
 		void Start();
-		void Update();
 
 		Collider* Clone() const { return new Collider(*this); }
 

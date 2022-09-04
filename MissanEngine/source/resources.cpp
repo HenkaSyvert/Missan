@@ -87,7 +87,7 @@ static bool LoadMesh(string fileName) {
 	StoreInAttribList(0, 3, vertices);
 	StoreInAttribList(1, 2, uvs);
 
-	meshes[fileName] = new Mesh(vaoId, vertices, indices);
+	meshes[fileName] = new Mesh(vaoId, vertices.size() * 3);
 	return true;
 }
 

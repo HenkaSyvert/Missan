@@ -104,8 +104,8 @@ public:
         float dz = (float)zAxis * moveSpeed * Time::deltaTime;
 
         // move camera relative to its rotation
-        transform->position += dx * transform->GetRightVector();
-        transform->position += dz * normalize(-transform->GetBackwardVector() - proj(-transform->GetBackwardVector(), vec3(0, 1, 0)));
+        transform->position += dx * transform->right;
+        transform->position += dz * normalize(transform->forward - proj(transform->forward, vec3(0, 1, 0)));
       
         CheckJump();      
         KeepWithinMap();

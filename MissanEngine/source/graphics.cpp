@@ -21,14 +21,9 @@ using namespace Graphics;
 ShaderProgram* Graphics::shader = nullptr;
 Camera* Graphics::camera = nullptr;
 
-
-
-Mesh::Mesh(int vaoId, const vector<float>& vs, const vector<unsigned int>& indices) {
-
+Mesh::Mesh(int vaoId, int elementCount) {
 	this->vaoId = vaoId;
-	for (unsigned int i = 0; i < vs.size(); i += 3) vertices.push_back(vec3(vs[i], vs[i + 1], vs[i + 2]));
-	for (unsigned int i = 0; i < indices.size(); i += 3) normals.push_back(cross(vertices[indices[i]], vertices[indices[i + 1]]));
-
+	this->elementCount = elementCount;
 }
 
 void GraphicsInitialize() {
@@ -40,43 +35,41 @@ void GraphicsUpdate() {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+	glUseProgram(shader->programId);
 
 	vector<Renderer*> renderers;
 	auto& gameObjects = EcsGetGameObjects();
 	for (auto* g : gameObjects) if (g->GetComponent<Renderer>()) renderers.push_back(g->GetComponent<Renderer>());
-	for (auto r : renderers) Draw(r);
-}
 
-void Graphics::Draw(Renderer* renderer) {
+	for (auto renderer : renderers) {
 
-	glUseProgram(shader->programId);
+		if (!renderer->mesh) continue;
 
-	if (!renderer->mesh) return;
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glBindVertexArray(renderer->mesh->vaoId);
+		glEnableVertexAttribArray(0);
+		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
+		shader->SetMat4("u_model", transMat);
+		mat4 view = inverse(camera->gameObject->GetComponent<Transform>()->matrix);
+		shader->SetMat4("u_view", view);
+		shader->SetMat4("u_proj", camera->projectionMatrix);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBindVertexArray(renderer->mesh->vaoId);
-	glEnableVertexAttribArray(0);
-	mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
-	shader->SetMat4("u_model", transMat);
-	mat4 view = inverse(camera->gameObject->GetComponent<Transform>()->matrix);
-	shader->SetMat4("u_view", view);
-	shader->SetMat4("u_proj", camera->projectionMatrix);
-	
-	Texture* texture = renderer->texture;
-	if (texture) {
-		glEnableVertexAttribArray(1);
-		shader->SetInt("u_texture", 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture->textureId);
+		Texture* texture = renderer->texture;
+		if (texture) {
+			glEnableVertexAttribArray(1);
+			shader->SetInt("u_texture", 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture->textureId);
+		}
+
+		glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
+
+		if (texture) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDisableVertexAttribArray(1);
+		}
+
+		glDisableVertexAttribArray(0);
+
 	}
-
-	glDrawElements(GL_TRIANGLES, renderer->mesh->vertices.size() * 3, GL_UNSIGNED_INT, 0);
-
-	if (texture) {
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glDisableVertexAttribArray(1);
-	}
-
-	glDisableVertexAttribArray(0);
-	glBindVertexArray(0);
 }
