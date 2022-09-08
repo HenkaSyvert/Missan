@@ -26,6 +26,7 @@
 #include "scripts/globals.hpp"
 #include "scripts/destructible.hpp"
 #include "scripts/enemy.hpp"
+#include "scripts/texturetest.hpp"
 
 using namespace Missan;
 
@@ -69,7 +70,7 @@ void MakeRoom() {
     rend->texture = bricks;
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
-
+    wall.AddComponent<TextureTest>();
 
     // instantiate and rotate walls
     for (int x = 0; x < mapWidth; x++) {
@@ -147,11 +148,13 @@ void PlaceDestructibles() {
 void MakeEnemy() {
 
     GameObject g;
-    g.AddComponent<Transform>();
+    auto t = g.AddComponent<Transform>();
     auto r = g.AddComponent<Renderer>();
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    r->texture = Resources::GetTexture("resources/textures/stone2.png");
+    r->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     g.AddComponent<Enemy>();
+    g.AddComponent<TextureTest>();
+    t->scale = {10,10,4};
     GameObject::Instantiate(g);
 
 }

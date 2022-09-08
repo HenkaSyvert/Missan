@@ -59,7 +59,7 @@ void GraphicsUpdate() {
 			glEnableVertexAttribArray(1);
 			shader->SetInt("u_texture", 0);
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->textureId);
+			glBindTexture(GL_TEXTURE_2D, texture->id);
 		}
 
 		glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);

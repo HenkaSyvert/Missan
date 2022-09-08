@@ -3,6 +3,7 @@
 #include "shaderprogram.hpp"
 #include "gameobject.hpp"
 #include "window.hpp"
+#include "texture.hpp"
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -58,19 +59,6 @@ namespace Missan {
 		/// 
 		/// Creates new Mesh
 		Mesh(int vaoId, int vertexCount);
-
-	};
-
-	/// 
-	/// 2D Texture
-	class Texture {
-	public:
-
-		GLuint textureId = 0;
-
-		/// 
-		/// Creates new Texture
-		Texture(GLuint id) { textureId = id; }
 
 	};
 

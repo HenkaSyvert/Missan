@@ -103,6 +103,7 @@
     <ClCompile Include="source\resources.cpp" />
     <ClCompile Include="source\physics.cpp" />
     <ClCompile Include="source\shaderprogram.cpp" />
+    <ClCompile Include="source\texture.cpp" />
     <ClCompile Include="source\transform.cpp" />
     <ClCompile Include="source\window.cpp" />
     <ClCompile Include="source\rigidbody.cpp" />
@@ -553,8 +554,10 @@
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
+    <ClInclude Include="games\fpsdemo\scripts\texturetest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
     <ClInclude Include="include\entitycomponentsystem.hpp" />
+    <ClInclude Include="include\gameobject.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
@@ -566,6 +569,7 @@
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />
+    <ClInclude Include="include\internal.hpp" />
     <ClInclude Include="include\loader.h" />
     <ClInclude Include="include\mesh.h" />
     <ClInclude Include="include\missan.hpp" />
@@ -574,9 +578,13 @@
     <ClInclude Include="include\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
+    <ClInclude Include="include\shaderprogram.hpp" />
     <ClInclude Include="include\texture.h" />
+    <ClInclude Include="include\texture.hpp" />
     <ClInclude Include="include\transform.h" />
+    <ClInclude Include="include\transform.hpp" />
     <ClInclude Include="include\window.h" />
+    <ClInclude Include="include\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

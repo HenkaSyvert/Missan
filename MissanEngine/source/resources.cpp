@@ -11,9 +11,8 @@
 #include <cstdlib>
 #include <unordered_map>
 
-#include <stb/stb_image.h>
-
 #include "internal.hpp"
+#include "texture.hpp"
 
 using namespace Missan;
 using namespace std;
@@ -91,33 +90,6 @@ static bool LoadMesh(string fileName) {
 	return true;
 }
 
-static bool LoadTexture(const string& fileName) {
-	stbi_set_flip_vertically_on_load(1);
-	int width = 0;
-	int height = 0;
-	int channels = 0;
-	unsigned char* localBuffer = stbi_load(fileName.c_str(), &width, &height, &channels, 4);
-
-	if (!localBuffer) {
-		cout << "Resources error: could not open file \"" << fileName << "\"\n";
-		return false;
-	}
-
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
-	textures[fileName] = new Texture(textureID);
-	if (localBuffer) stbi_image_free(localBuffer);
-
-	return true;
-}
 
 
 Mesh* Resources::GetMesh(const string& fileName) {
@@ -126,8 +98,9 @@ Mesh* Resources::GetMesh(const string& fileName) {
 }
 
 Texture* Resources::GetTexture(const string& fileName) {
-	if (!textures[fileName] && !LoadTexture(fileName)) return nullptr;
-	else return textures[fileName];
+	if (!textures[fileName])
+		textures[fileName] = new Texture(fileName);
+	return textures[fileName];
 }
 
 
