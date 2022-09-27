@@ -8,31 +8,29 @@ using namespace Missan;
 class TextureTest : public Component {
 
 
-	Transform* t;
 	Renderer* r;
-
 	void Start() {
-
-		t = gameObject->GetComponent<Transform>();
+		
 		r = gameObject->GetComponent<Renderer>();
 	}
 	int wrap = 0;
 	int filter = 0;
 	void Update() {
-
+		Texture& t = *r->material->texture;
 		if (Input::GetMouseButtonDown(MouseButton::Left)) {
+			
 			switch (wrap) {
 			case 0:
-				r->texture->wrapMode(Texture::WrapMode::clampToBorder);
+				t.wrapMode(Texture::WrapMode::clampToBorder);
 				break;
 			case 1:
-				r->texture->wrapMode(Texture::WrapMode::clampToEdge);
+				t.wrapMode(Texture::WrapMode::clampToEdge);
 				break;
 			case 2:
-				r->texture->wrapMode(Texture::WrapMode::repeat);
+				t.wrapMode(Texture::WrapMode::repeat);
 				break;
 			case 3:
-				r->texture->wrapMode(Texture::WrapMode::mirroredRepeat);
+				t.wrapMode(Texture::WrapMode::mirroredRepeat);
 				break;
 			}
 			wrap++;
@@ -42,10 +40,10 @@ class TextureTest : public Component {
 		if (Input::GetMouseButtonDown(MouseButton::Right)) {
 			switch (filter) {
 			case 0:
-				r->texture->filterMode(Texture::FilterMode::linear);
+				t.filterMode(Texture::FilterMode::linear);
 					break;
 			case 1:
-				r->texture->filterMode(Texture::FilterMode::nearest);
+				t.filterMode(Texture::FilterMode::nearest);
 					break;
 			}
 			filter++;

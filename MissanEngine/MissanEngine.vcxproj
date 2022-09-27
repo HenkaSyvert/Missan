@@ -103,7 +103,7 @@
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\resources.cpp" />
     <ClCompile Include="source\physics.cpp" />
-    <ClCompile Include="source\shaderprogram.cpp" />
+    <ClCompile Include="source\shader.cpp" />
     <ClCompile Include="source\texture.cpp" />
     <ClCompile Include="source\transform.cpp" />
     <ClCompile Include="source\window.cpp" />
@@ -581,7 +581,7 @@
     <ClInclude Include="include\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
-    <ClInclude Include="include\shaderprogram.hpp" />
+    <ClInclude Include="include\shader.hpp" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\texture.hpp" />
     <ClInclude Include="include\transform.h" />

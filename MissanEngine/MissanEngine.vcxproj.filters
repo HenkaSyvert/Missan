@@ -51,7 +51,7 @@
     <ClCompile Include="source\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\shaderprogram.cpp">
+    <ClCompile Include="source\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\graphics.cpp">
@@ -1495,7 +1495,7 @@
     <ClInclude Include="include\gameobject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\shaderprogram.hpp">
+    <ClInclude Include="include\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\transform.hpp">

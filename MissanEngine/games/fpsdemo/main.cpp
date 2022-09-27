@@ -48,7 +48,8 @@ void MakeRoom() {
     floor.AddComponent<Transform>();
     Renderer* rend = floor.AddComponent<Renderer>();
     rend->mesh = plane;
-    rend->texture = stone1;
+    rend->material = new Material();
+    rend->material->texture = stone1;
     Transform* trans = floor.GetComponent<Transform>();
     trans->scale = { cellWidth, cellBreadth, 1};
     trans->rotation = { 90, 0, 0 };
@@ -68,7 +69,8 @@ void MakeRoom() {
     wall.AddComponent<Transform>();
     rend = wall.AddComponent<Renderer>();
     rend->mesh = plane;
-    rend->texture = bricks;
+    rend->material = new Material();
+    rend->material->texture = bricks;
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
     wall.AddComponent<TextureTest>();
@@ -132,7 +134,8 @@ void PlaceDestructibles() {
     cube.AddComponent<Transform>();
     auto* rend = cube.AddComponent<Renderer>();
     rend->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    rend->texture = Resources::GetTexture("resources/textures/missan_logo.png");
+    rend->material = new Material();
+    rend->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();
 
@@ -153,7 +156,8 @@ void MakeEnemy() {
     auto t = g.AddComponent<Transform>();
     auto r = g.AddComponent<Renderer>();
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    r->texture = Resources::GetTexture("resources/textures/missan_logo.png");
+    r->material = new Material();
+    r->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     g.AddComponent<Enemy>();
     g.AddComponent<TextureTest>();
     t->scale = {10,10,4};

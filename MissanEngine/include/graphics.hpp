@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shaderprogram.hpp"
+#include "shader.hpp"
 #include "gameobject.hpp"
 #include "window.hpp"
 #include "camera.hpp"
@@ -24,6 +24,14 @@ namespace Missan {
 
 	};
 
+	class Material {
+
+	public:
+		glm::vec4 color;
+		Shader* shader = nullptr;
+		Texture* texture = nullptr;
+	};
+
 	/// 
 	/// Renders GameObject with Mesh and Texture using its Transform
 	class Renderer : public Component {
@@ -34,21 +42,14 @@ namespace Missan {
 		/// Mesh to render
 		Mesh* mesh = nullptr;
 
-		/// 
-		/// Texture to render
-		Texture* texture = nullptr;
+		Material* material = nullptr;
 
+		void Start() { if (!material->shader)material->shader = Shader::standard; }
 
 		Renderer* Clone() const { return new Renderer(*this); }
 
 	};
 
-	///
-	/// Graphics functions
-	namespace Graphics {
 
-		extern ShaderProgram* shader;
-
-	}
 
 }

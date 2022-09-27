@@ -16,21 +16,22 @@ namespace Missan {
 
     /// 
     /// Program that runs on the GPU
-    class ShaderProgram {
+    class Shader {
 
     public:
 
         GLuint programId;
 
+        static Shader* standard;
+
         /// 
         /// Compiles new Shader from source code
-        ShaderProgram(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+        Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
      
-
 
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
-        void SetInt  (const std::string& uniformVariableName, int   value) const;
+        void SetInt (const std::string& uniformVariableName, int   value) const;
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetFloat(const std::string& uniformVariableName, float value) const;
@@ -64,7 +65,6 @@ namespace Missan {
         
     private:
         
-
         GLint GetUniformLocation(const std::string& uniformVariableName) const;
 
     };

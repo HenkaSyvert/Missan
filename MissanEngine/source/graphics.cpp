@@ -16,9 +16,7 @@
 using namespace Missan;
 using namespace std;
 using namespace glm;
-using namespace Graphics;
 
-ShaderProgram* Graphics::shader = nullptr;
 
 Mesh::Mesh(int vaoId, int elementCount) {
 	this->vaoId = vaoId;
@@ -26,9 +24,9 @@ Mesh::Mesh(int vaoId, int elementCount) {
 }
 
 void GraphicsInitialize() {
-	shader = new ShaderProgram("resources/shaders/vertex.shader", "resources/shaders/fragment.shader");
 	glEnable(GL_DEPTH_TEST);
-	glUseProgram(shader->programId);
+	Shader::standard = new Shader("resources/shaders/standardVertex.shader",
+		"resources/shaders/standardFragment.shader");
 }
 
 void GraphicsUpdate() {
@@ -48,16 +46,21 @@ void GraphicsUpdate() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(renderer->mesh->vaoId);
 		glEnableVertexAttribArray(0);
-		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
-		shader->SetMat4("u_model", transMat);
-		mat4 view = Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix;
-		shader->SetMat4("u_view", view);
-		shader->SetMat4("u_proj", Camera::main->projectionMatrix);
 
-		Texture* texture = renderer->texture;
+		Shader& shader = *renderer->material->shader;
+		glUseProgram(shader.programId);
+
+		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
+		shader.SetMat4("u_model", transMat);
+
+		mat4 view = Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix;
+		shader.SetMat4("u_view", view);
+		shader.SetMat4("u_proj", Camera::main->projectionMatrix);
+
+		Texture* texture = renderer->material->texture;
 		if (texture) {
 			glEnableVertexAttribArray(1);
-			shader->SetInt("u_texture", 0);
+			shader.SetInt("u_texture", 0);
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->id);
 		}

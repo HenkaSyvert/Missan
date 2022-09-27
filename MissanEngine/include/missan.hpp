@@ -15,7 +15,7 @@
 #include "transform.hpp"
 #include "window.hpp"
 #include "graphics.hpp"
-#include "shaderprogram.hpp"
+#include "shader.hpp"
 #include "collider.hpp"
 #include "physics.hpp"
 #include "rigidbody.hpp"
