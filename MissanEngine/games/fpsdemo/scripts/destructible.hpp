@@ -21,7 +21,7 @@ public:
 	}
 
 	void Update() {
-		gameObject->GetComponent<Transform>()->rotationDeg += deltaRotation;
+		gameObject->GetComponent<Transform>()->rotation += deltaRotation;
 	}
 
 	void OnCollisionEnter(GameObject* other) {

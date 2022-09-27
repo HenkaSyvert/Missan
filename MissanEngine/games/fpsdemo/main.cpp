@@ -50,7 +50,7 @@ void MakeRoom() {
     rend->texture = stone1;
     Transform* trans = floor.GetComponent<Transform>();
     trans->scale = { cellWidth, cellBreadth, 1};
-    trans->rotationDeg = { 90, 0, 0 };
+    trans->rotation = { 90, 0, 0 };
     
 
     // instantiate floor tiles
@@ -83,11 +83,11 @@ void MakeRoom() {
         GameObject* go = GameObject::Instantiate(wall);
         Transform* trans = go->GetComponent<Transform>();
         trans->position = { -cellWidth / 2, cellHeight / 2, z * cellBreadth };
-        trans->rotationDeg.y = 90;
+        trans->rotation.y = 90;
         go = GameObject::Instantiate(wall);
         trans = go->GetComponent<Transform>();
         trans->position = { (mapWidth - 0.5f) * cellWidth, cellHeight / 2, z * cellBreadth };
-        trans->rotationDeg.y = 90;
+        trans->rotation.y = 90;
     }
 
 }
@@ -170,7 +170,7 @@ int main(int argc, char* argv[]){
     MakeRoom();
     MakePlayer();
     PlaceDestructibles();
-    MakeEnemy();
+    //MakeEnemy();
 
     ///////////////////////////////////////////////////////////
 

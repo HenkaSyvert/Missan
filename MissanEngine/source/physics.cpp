@@ -41,7 +41,7 @@ void ApplyForces() {
 
 		vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
-		t->rotationDeg += degrees(rb->angularVelocity) * Time::deltaTime;
+		t->rotation += degrees(rb->angularVelocity) * Time::deltaTime;
 
 		rb->linearImpulse = { 0,0,0 };
 		rb->angularImpulse = { 0,0,0 };

@@ -1,0 +1,12 @@
+
+
+
+entity component system
+
+transform
+	quaternions for rotation
+	children
+	translate, rotate, lookat world/local variants
+
+networking
+

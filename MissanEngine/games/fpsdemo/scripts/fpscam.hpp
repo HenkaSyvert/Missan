@@ -34,8 +34,8 @@ public:
         float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::deltaTime;
         float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::deltaTime;
   
-        transform->rotationDeg.y += dyRot;
-        transform->rotationDeg.x = clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);
+        transform->rotation.y += dyRot;
+        transform->rotation.x = clamp(transform->rotation.x + dxRot, -pitchConstraint, pitchConstraint);
 
         
     }

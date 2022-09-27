@@ -7,27 +7,23 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-void Transform::Update() {
+void Transform::UpdateMatrix() {
 
 	// order matters, must be translation-rotation-scale
-	matrix = mat4(1.0f);
-	matrix = translate(matrix, position);
+	_matrix = mat4(1.0f);
+	_matrix = translate(matrix, _position);
 	
 	// order matters, must be y-z-x
-	matrix = rotate(matrix, radians(rotationDeg.y), vec3(0, 1, 0));
-	matrix = rotate(matrix, radians(rotationDeg.z), vec3(0, 0, 1));
-	matrix = rotate(matrix, radians(rotationDeg.x), vec3(1, 0, 0));
+	_matrix = rotate(matrix, radians(_rotation.y), vec3(0, 1, 0));
+	_matrix = rotate(matrix, radians(_rotation.z), vec3(0, 0, 1));
+	_matrix = rotate(matrix, radians(_rotation.x), vec3(1, 0, 0));
 	
-	matrix = glm::scale(matrix, scale);
-
-	right = normalize(matrix[0]);
-	up = normalize(matrix[1]);
-	forward = -normalize(matrix[2]);
+	_matrix = glm::scale(_matrix, _scale);
 }
 
 vec3 Transform::TransformPoint(vec3& point) {
 	vec4 q(point, 1);
-	q = matrix * q;
+	q = _matrix * q;
 	return vec3(q.x, q.y, q.z);
 }
 

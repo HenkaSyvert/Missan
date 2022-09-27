@@ -42,7 +42,7 @@ private:
 		prb->mass = 10.0f;
 
 		pTrans->position = t->position + t->forward * muzzleDistance;
-		pTrans->rotationDeg = t->rotationDeg;
+		pTrans->rotation = t->rotation;
 
 		prb->AddImpulse(t->forward * force, { 0, .5, 0 }, false);
 	}

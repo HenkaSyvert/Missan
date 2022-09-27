@@ -14,22 +14,27 @@ namespace Missan {
     public:
         
         /// 
-        /// In world space
-        glm::vec3 position    = {0, 0, 0};
+        /// In world space        
+        __declspec(property(get = getPos, put = putPos)) glm::vec3 position;
+        inline glm::vec3& getPos() {return _position; }
+        inline void putPos(glm::vec3 p) { _position = p; UpdateMatrix(); }
 
         /// 
         /// In world space
-        glm::vec3 rotationDeg = {0, 0, 0};
+        __declspec(property(get = getRot, put = putRot)) glm::vec3 rotation;
+        inline glm::vec3& getRot() { return _rotation; }
+        inline void putRot(glm::vec3 r) { _rotation = r; UpdateMatrix(); }
 
         /// 
         /// Global scale
-        glm::vec3 scale       = {1, 1, 1};
-        
-
+        __declspec(property(get = getScale, put = putScale)) glm::vec3 scale;
+        inline glm::vec3& getScale() { return _scale; }
+        inline void putScale(glm::vec3 s) { _scale = s; UpdateMatrix(); }
 
         /// 
         /// Matrix to transform point from local space to world space
-        glm::mat4 matrix;
+        __declspec(property(get = getMatrix)) glm::mat4 matrix;
+        inline glm::mat4 getMatrix() { return _matrix; }
 
         /// 
         /// Transforms a point from local space to world space
@@ -41,22 +46,32 @@ namespace Missan {
 
         /// 
         /// Local right vector
-        glm::vec3 right;
+        __declspec(property(get = getRight)) glm::vec3 right;
+        inline glm::vec3 getRight(){return normalize(matrix[0]);}
 
         /// 
         /// Local up vector
-        glm::vec3 up;
+        __declspec(property(get = getUp)) glm::vec3 up;
+        inline glm::vec3 getUp() { return normalize(matrix[1]); }
 
         /// 
         /// Local forward vector
-        glm::vec3 forward;
+        __declspec(property(get = getForward)) glm::vec3 forward;
+        inline glm::vec3 getForward() { return -normalize(matrix[2]); }
 
-
-        void Update();
+        void Start() { UpdateMatrix(); }
 
 
         Transform* Clone() const { return new Transform(*this); }
         
+    private:
+        glm::vec3 _position = { 0, 0, 0 };
+        glm::vec3 _rotation = { 0, 0, 0 };
+        glm::vec3 _scale = { 1, 1, 1 };
+        glm::mat4 _matrix;
+
+        void UpdateMatrix();
+
     };
 
 
