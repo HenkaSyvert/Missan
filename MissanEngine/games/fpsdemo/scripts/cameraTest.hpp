@@ -22,8 +22,8 @@ public:
 		if (Input::GetKey(Keycode::L)) c->farClipPlane += .1;
 		if (Input::GetKey(Keycode::N)) c->nearClipPlane -= .1;
 		if (Input::GetKey(Keycode::M)) c->nearClipPlane += .1;
-		if (Input::GetKey(Keycode::H)) c->fieldOfView -= .1;
-		if (Input::GetKey(Keycode::J)) c->fieldOfView += .1;
+		if (Input::GetKey(Keycode::H)) c->fieldOfView -= 1;
+		if (Input::GetKey(Keycode::J)) c->fieldOfView += 1;
 		if (Input::GetKey(Keycode::U)) c->orthographicSize -= .1;
 		if (Input::GetKey(Keycode::I)) c->orthographicSize += .1;
 		if (Input::GetKeyDown(Keycode::Enter)) {

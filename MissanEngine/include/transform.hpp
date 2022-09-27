@@ -36,6 +36,9 @@ namespace Missan {
         __declspec(property(get = getMatrix)) glm::mat4 matrix;
         inline glm::mat4 getMatrix() { return _matrix; }
 
+        __declspec(property(get = getInvMatrix)) glm::mat4 inverseMatrix;
+        inline glm::mat4 getInvMatrix() { return _invMat; }
+
         /// 
         /// Transforms a point from local space to world space
         glm::vec3 TransformPoint(glm::vec3& point);
@@ -69,6 +72,7 @@ namespace Missan {
         glm::vec3 _rotation = { 0, 0, 0 };
         glm::vec3 _scale = { 1, 1, 1 };
         glm::mat4 _matrix;
+        glm::mat4 _invMat;
 
         void UpdateMatrix();
 

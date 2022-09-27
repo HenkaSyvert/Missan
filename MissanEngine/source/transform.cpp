@@ -19,6 +19,7 @@ void Transform::UpdateMatrix() {
 	_matrix = rotate(matrix, radians(_rotation.x), vec3(1, 0, 0));
 	
 	_matrix = glm::scale(_matrix, _scale);
+	_invMat = glm::inverse(_matrix);
 }
 
 vec3 Transform::TransformPoint(vec3& point) {

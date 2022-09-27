@@ -27,14 +27,15 @@ Mesh::Mesh(int vaoId, int elementCount) {
 
 void GraphicsInitialize() {
 	shader = new ShaderProgram("resources/shaders/vertex.shader", "resources/shaders/fragment.shader");
+	glEnable(GL_DEPTH_TEST);
+	glUseProgram(shader->programId);
 }
 
 void GraphicsUpdate() {
-	vec4 clearColor = Camera::main->clearColor;
-	glEnable(GL_DEPTH_TEST);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	vec4 clearColor = Camera::main->clearColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-	glUseProgram(shader->programId);
 
 	vector<Renderer*> renderers;
 	auto& gameObjects = EcsGetGameObjects();
@@ -49,7 +50,7 @@ void GraphicsUpdate() {
 		glEnableVertexAttribArray(0);
 		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
 		shader->SetMat4("u_model", transMat);
-		mat4 view = inverse(Camera::main->gameObject->GetComponent<Transform>()->matrix);
+		mat4 view = Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix;
 		shader->SetMat4("u_view", view);
 		shader->SetMat4("u_proj", Camera::main->projectionMatrix);
 

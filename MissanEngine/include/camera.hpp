@@ -55,7 +55,11 @@ namespace Missan {
 
 		/// 
 		/// The projection matrix, which transform points from world space to screen space
-		glm::mat4 projectionMatrix = glm::mat4(0);
+		__declspec(property(get = getProjMat))glm::mat4 projectionMatrix;
+		inline glm::mat4 getProjMat() { return _projMat; }
+
+		__declspec(property(get = getInvProjMat)) glm::mat4 inverseProjectionMatrix;
+		inline glm::mat4 getInvProjMat() { return _invProjMat; }
 
 		glm::vec4 clearColor = { .1,.1,.1,.1 };
 
@@ -70,7 +74,8 @@ namespace Missan {
 		float _ar = Window::aspectRatio;
 		float _orthoSize = 1;
 		Projection _projection = Projection::perspective;
-
+		glm::mat4 _projMat;
+		glm::mat4 _invProjMat;
 
 		void UpdateMatrices();
 	};
