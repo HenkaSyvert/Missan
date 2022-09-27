@@ -27,7 +27,7 @@ namespace Missan {
 	class Material {
 
 	public:
-		glm::vec4 color;
+		glm::vec4 color = { 1, 1, 1, 1 };
 		Shader* shader = nullptr;
 		Texture* texture = nullptr;
 	};

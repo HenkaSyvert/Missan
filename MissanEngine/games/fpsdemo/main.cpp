@@ -28,6 +28,7 @@
 #include "scripts/enemy.hpp"
 #include "scripts/texturetest.hpp"
 #include "scripts/cameraTest.hpp"
+#include "scripts/colortest.hpp"
 
 using namespace Missan;
 
@@ -138,6 +139,7 @@ void PlaceDestructibles() {
     rend->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();
+    cube.AddComponent<ColorTest>();
 
     // instantiate some cubes
     for (int i = 0; i < 5; i++) {
