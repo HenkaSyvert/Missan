@@ -93,6 +93,7 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="games\fpsdemo\main.cpp" />
     <ClCompile Include="source\boundingbox.cpp" />
+    <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
     <ClCompile Include="source\entitycomponentsystem.cpp" />
     <ClCompile Include="source\input.cpp" />
@@ -547,6 +548,7 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
+    <ClInclude Include="games\fpsdemo\scripts\cameraTest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\destructible.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\enemy.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
@@ -556,6 +558,7 @@
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\texturetest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
+    <ClInclude Include="include\camera.hpp" />
     <ClInclude Include="include\entitycomponentsystem.hpp" />
     <ClInclude Include="include\gameobject.hpp" />
     <ClInclude Include="include\input.hpp" />

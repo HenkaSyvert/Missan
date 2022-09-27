@@ -4,3 +4,7 @@ add resize to window
 finish ECS
 rotate colliders and bounding boxes
 
+transform::local vs world space
+transofmr:: children
+
+networking

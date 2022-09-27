@@ -19,7 +19,6 @@ using namespace glm;
 using namespace Graphics;
 
 ShaderProgram* Graphics::shader = nullptr;
-Camera* Graphics::camera = nullptr;
 
 Mesh::Mesh(int vaoId, int elementCount) {
 	this->vaoId = vaoId;
@@ -31,7 +30,7 @@ void GraphicsInitialize() {
 }
 
 void GraphicsUpdate() {
-	vec4 clearColor = camera->clearColor;
+	vec4 clearColor = Camera::main->clearColor;
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
@@ -50,9 +49,9 @@ void GraphicsUpdate() {
 		glEnableVertexAttribArray(0);
 		mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
 		shader->SetMat4("u_model", transMat);
-		mat4 view = inverse(camera->gameObject->GetComponent<Transform>()->matrix);
+		mat4 view = inverse(Camera::main->gameObject->GetComponent<Transform>()->matrix);
 		shader->SetMat4("u_view", view);
-		shader->SetMat4("u_proj", camera->projectionMatrix);
+		shader->SetMat4("u_proj", Camera::main->projectionMatrix);
 
 		Texture* texture = renderer->texture;
 		if (texture) {

@@ -27,6 +27,7 @@
 #include "scripts/destructible.hpp"
 #include "scripts/enemy.hpp"
 #include "scripts/texturetest.hpp"
+#include "scripts/cameraTest.hpp"
 
 using namespace Missan;
 
@@ -118,8 +119,9 @@ void MakePlayer() {
     //player.GetComponent<Transform>()->position.y = 100;
 
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
-    Graphics::camera = go->GetComponent<Camera>();   
+    Camera::main = go->GetComponent<Camera>();   
     go->tag = "player";
+    go->AddComponent<CameraTest>();
 }
 
 // this functions creates some rotating cubes which can be destroyed by the player. 
