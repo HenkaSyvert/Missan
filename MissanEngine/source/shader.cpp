@@ -133,7 +133,9 @@ void Shader::SetVec4(const string& uniformVariableName, float x, float y, float 
 	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform4f(location, x, y, z, w);
 }
-
+void Shader::SetVec4(const string& uniformVariableName, Color c) const {
+	SetVec4(uniformVariableName, c.r, c.g, c.b, c.a);
+}
 
 
 void Shader::SetMat2(const string& uniformVariableName, const mat2& value) const {

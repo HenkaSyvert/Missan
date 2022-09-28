@@ -12,7 +12,7 @@ public:
 
 
 	void OnGUI() {
-		glm::vec4* c = &gameObject->GetComponent<Renderer>()->material->color;
+		Color* c = &gameObject->GetComponent<Renderer>()->material->ambient;
 
 		ImGui::SliderFloat("r", &c->r, 0, 1);
 		ImGui::SliderFloat("g", &c->g, 0, 1);

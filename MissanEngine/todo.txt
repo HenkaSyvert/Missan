@@ -14,11 +14,19 @@ transform
 	translate, rotate, lookat
 	local v world space
 
-texture
-	mip map
+graphics
+	texture mip map
+	std materials from learnopengl
+	look at unity legacy shaders for insp
+
 
 engine
 	make dll
 
 mouse
 	add select obj functionality
+
+general
+	add descriptiv comments
+	links to internet resources
+

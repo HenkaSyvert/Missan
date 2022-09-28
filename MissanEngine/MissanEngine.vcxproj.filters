@@ -90,6 +90,9 @@
     <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -503,6 +506,8 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="resources\meshes\plane.mesh" />
+    <None Include="resources\shaders\diffuseSpecularF.shader" />
+    <None Include="resources\shaders\diffuseSpecularV.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\stb\stb_image.h">
@@ -1519,8 +1524,14 @@
     <ClInclude Include="games\fpsdemo\scripts\colortest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
   </ItemGroup>
 </Project>

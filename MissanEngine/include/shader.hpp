@@ -12,6 +12,8 @@
 #include <glm/mat3x3.hpp>
 #include <glm/mat4x4.hpp>
 
+#include "color.hpp"
+
 namespace Missan {
 
     /// 
@@ -52,6 +54,7 @@ namespace Missan {
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetVec4(const std::string& uniformVariableName, float x, float y, float z, float w) const;
+        void SetVec4(const std::string& uniformVariableName, Color c) const;
         
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value

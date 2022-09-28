@@ -5,6 +5,7 @@
 #include "window.hpp"
 #include "camera.hpp"
 #include "texture.hpp"
+#include "color.hpp"
 
 namespace Missan {
 
@@ -27,9 +28,23 @@ namespace Missan {
 	class Material {
 
 	public:
-		glm::vec4 color = { 1, 1, 1, 1 };
+		Color ambient;
+		Color diffuse;
+		Color specular;
+		float shininess = 1.0f;
+
 		Shader* shader = nullptr;
 		Texture* texture = nullptr;
+	};
+
+	class Light : public Component {
+
+	public:
+		Color color;
+		float ambientIntensity = 0.2f;
+		float diffuseIntensity = 0.5f;
+		float specularIntensity = 1.0f;
+
 	};
 
 	/// 

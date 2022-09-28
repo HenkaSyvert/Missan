@@ -60,7 +60,7 @@ void GraphicsUpdate() {
 		shader.SetMat4("u_proj", Camera::main->projectionMatrix);
 
 		Texture* texture = renderer->material->texture;
-		shader.SetVec4("u_materialColor", renderer->material->color);
+		shader.SetVec4("u_materialColor", renderer->material->ambient);
 		if (texture) {
 			glEnableVertexAttribArray(1);
 			shader.SetInt("u_texture", 0);

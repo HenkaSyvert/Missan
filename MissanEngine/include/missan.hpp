@@ -19,4 +19,5 @@
 #include "collider.hpp"
 #include "physics.hpp"
 #include "rigidbody.hpp"
+#include "color.hpp"
 
