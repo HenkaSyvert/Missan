@@ -40,7 +40,7 @@ static bool LoadMesh(string fileName) {
 		return false;
 	}
 
-	vector<float> vertices, uvs;
+	vector<float> vertices, uvs, normals;
 	vector<unsigned int> indices;
 
 	string token;
@@ -71,6 +71,13 @@ static bool LoadMesh(string fileName) {
 					indices.push_back(v);
 				}
 			}
+			else if (token == "vn") {
+				for (int i = 0; i < 3; i++) {
+					float v;
+					file >> v;
+					normals.push_back(v);
+				}
+			}
 		}
 	}
 
@@ -85,6 +92,7 @@ static bool LoadMesh(string fileName) {
 
 	StoreInAttribList(0, 3, vertices);
 	StoreInAttribList(1, 2, uvs);
+	StoreInAttribList(2, 3, normals);
 
 	meshes[fileName] = new Mesh(vaoId, vertices.size() * 3);
 	return true;

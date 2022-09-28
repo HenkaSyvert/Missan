@@ -5,31 +5,21 @@
 
 namespace Missan {
 
-	class Color {
+	namespace Color {
 
-	public:
-		float r = 1;
-		float g = 1;
-		float b = 1;
-		float a = 1;
+		const glm::vec4 red =		{1.0f, 0.0f, 0.0f, 1.0f};
+		const glm::vec4 green =		{0.0f, 1.0f, 0.0f, 1.0f};
+		const glm::vec4 blue =		{0.0f, 0.0f, 1.0f, 1.0f};
+		const glm::vec4 white =		{1.0f, 1.0f, 1.0f, 1.0f};
+		const glm::vec4 black =		{0.0f, 0.0f, 0.0f, 1.0f};
+		const glm::vec4 clear =		{0.0f, 0.0f, 0.0f, 0.0f};
+		const glm::vec4 cyan =		{0.0f, 1.0f, 1.0f, 1.0f};
+		const glm::vec4 magenta =	{1.0f, 0.0f, 1.0f, 1.0f};
+		const glm::vec4 yellow =	{1.0f, 1.0f, 0.0f, 1.0f};
+		const glm::vec4 grey =		{0.5f, 0.5f, 0.5f, 1.0f};
 
-		static const Color red;
-		static const Color green;
-		static const Color blue;
-		static const Color white;
-		static const Color black;
-		static const Color clear;
-		static const Color cyan;
-		static const Color magenta;
-		static const Color yellow;
-		static const Color grey;
 
-		Color();
-		Color(glm::vec4 v);
-		Color(glm::vec3 v);
-		Color(float r, float g, float b, float a = 1);
-		
 
-	};
+	}
 
 }

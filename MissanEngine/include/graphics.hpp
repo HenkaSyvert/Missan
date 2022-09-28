@@ -28,9 +28,9 @@ namespace Missan {
 	class Material {
 
 	public:
-		Color ambient;
-		Color diffuse;
-		Color specular;
+		glm::vec4 ambient = Color::white;
+		glm::vec4 diffuse = Color::white;
+		glm::vec4 specular = Color::white;
 		float shininess = 1.0f;
 
 		Shader* shader = nullptr;
@@ -40,11 +40,13 @@ namespace Missan {
 	class Light : public Component {
 
 	public:
-		Color color;
-		float ambientIntensity = 0.2f;
-		float diffuseIntensity = 0.5f;
-		float specularIntensity = 1.0f;
 
+		static Light* light;
+
+		glm::vec4 ambient = Color::yellow * .2f;
+		glm::vec4 diffuse = Color::white * .5f;
+		glm::vec4 specular = Color::white;
+		Light* Clone() const { return new Light(*this); }
 	};
 
 	/// 
@@ -59,7 +61,7 @@ namespace Missan {
 
 		Material* material = nullptr;
 
-		void Start() { if (!material->shader)material->shader = Shader::standard; }
+		void Start() { if (!material->shader)material->shader = Shader::unlit; }
 
 		Renderer* Clone() const { return new Renderer(*this); }
 

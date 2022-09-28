@@ -95,7 +95,6 @@
     <ClCompile Include="source\boundingbox.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\collider.cpp" />
-    <ClCompile Include="source\color.cpp" />
     <ClCompile Include="source\entitycomponentsystem.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\engine.cpp" />
@@ -248,8 +247,8 @@
     <None Include="external\glm\gtx\vector_query.inl" />
     <None Include="external\glm\gtx\wrap.inl" />
     <None Include="resources\meshes\plane.mesh" />
-    <None Include="resources\shaders\diffuseSpecularF.shader" />
-    <None Include="resources\shaders\diffuseSpecularV.shader" />
+    <None Include="resources\shaders\diffuseSpecular.fs" />
+    <None Include="resources\shaders\diffuseSpecular.vs" />
     <None Include="shaders\fragment.shader" />
     <None Include="shaders\vertex.shader" />
   </ItemGroup>
@@ -557,6 +556,7 @@
     <ClInclude Include="games\fpsdemo\scripts\enemy.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp" />
+    <ClInclude Include="games\fpsdemo\scripts\lightTest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />

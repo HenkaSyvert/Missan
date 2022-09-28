@@ -5,6 +5,7 @@
 
 using namespace Missan;
 using namespace std;
+using namespace glm;
 
 class ColorTest : public Component {
 public:
@@ -12,7 +13,7 @@ public:
 
 
 	void OnGUI() {
-		Color* c = &gameObject->GetComponent<Renderer>()->material->ambient;
+		vec4* c = &gameObject->GetComponent<Renderer>()->material->ambient;
 
 		ImGui::SliderFloat("r", &c->r, 0, 1);
 		ImGui::SliderFloat("g", &c->g, 0, 1);

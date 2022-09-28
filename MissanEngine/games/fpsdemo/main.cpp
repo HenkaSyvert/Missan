@@ -29,8 +29,12 @@
 #include "scripts/texturetest.hpp"
 #include "scripts/cameraTest.hpp"
 #include "scripts/colortest.hpp"
+#include "scripts/lightTest.hpp"
 
 using namespace Missan;
+
+
+LightTest* lt;
 
 
 //this function creates a small room with walls and floor. 
@@ -121,7 +125,12 @@ void MakePlayer() {
     // set the startin position
     //player.GetComponent<Transform>()->position.y = 100;
 
+    player.AddComponent<LightTest>();
+    player.AddComponent<Light>();
+
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
+    lt = go->GetComponent<LightTest>();
+    lt->l = Light::light = go->GetComponent<Light>();
     Camera::main = go->GetComponent<Camera>();   
     go->tag = "player";
     go->AddComponent<CameraTest>();
@@ -138,7 +147,8 @@ void PlaceDestructibles() {
     rend->material = new Material();
     rend->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     cube.AddComponent<Collider>();
-    cube.AddComponent<Destructible>();
+    //cube.AddComponent<Destructible>();
+    rend->material->shader = Shader::diffuseSpecular;
 
     // instantiate some cubes
     for (int i = 0; i < 5; i++) {
@@ -146,6 +156,7 @@ void PlaceDestructibles() {
         int z = rand() % mapBreadth;
        
         GameObject* go = GameObject::Instantiate(cube);
+        if (i == 4) lt->m = rend->material;
         cube.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };  
     }
 
@@ -163,7 +174,25 @@ void MakeEnemy() {
     g.AddComponent<TextureTest>();
     t->scale = {10,10,4};
     g.AddComponent<ColorTest>();
+    r->material->shader = Shader::diffuseSpecular;
     GameObject::Instantiate(g);
+
+}
+
+void LightingTest() {
+
+    GameObject light;
+    light.AddComponent<Light>();
+
+    auto g = GameObject::Instantiate(light);
+    Light::light = g->GetComponent<Light>();
+
+    GameObject cube;
+    cube.AddComponent<Transform>();
+    auto r = cube.AddComponent<Renderer>();
+    auto m = r->material = new Material();
+    m->shader = Shader::diffuseSpecular;
+    GameObject::Instantiate(cube);
 
 }
 
@@ -178,7 +207,9 @@ int main(int argc, char* argv[]){
     MakeRoom();
     MakePlayer();
     PlaceDestructibles();
-    MakeEnemy();
+    //MakeEnemy();
+    //LightingTest();
+
 
     ///////////////////////////////////////////////////////////
 

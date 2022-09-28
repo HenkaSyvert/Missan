@@ -24,7 +24,13 @@ namespace Missan {
 
         GLuint programId;
 
-        static Shader* standard;
+        /// 
+        /// most basic shader, not affected by lighting
+        static Shader* unlit;
+
+        /// 
+        /// basic lighting shader. combines ambient, diffuse, and specular. 
+        static Shader* diffuseSpecular;
 
         /// 
         /// Compiles new Shader from source code
@@ -47,14 +53,13 @@ namespace Missan {
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetVec3(const std::string& uniformVariableName, float x, float y, float z) const;
-        
+
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetVec4(const std::string& uniformVariableName, const glm::vec4& value) const;
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value
         void SetVec4(const std::string& uniformVariableName, float x, float y, float z, float w) const;
-        void SetVec4(const std::string& uniformVariableName, Color c) const;
         
         /// 
         /// Sets uniform variable of ShaderProgram (i.e. on the GPU) to value

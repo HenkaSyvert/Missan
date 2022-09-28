@@ -8,7 +8,8 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-Shader* Shader::standard = nullptr;
+Shader* Shader::unlit = nullptr;
+Shader* Shader::diffuseSpecular = nullptr;
 
 string LoadShader(const string& fileName) {
 	fstream input(fileName);
@@ -123,7 +124,6 @@ void Shader::SetVec3(const string& uniformVariableName, float x, float y, float 
 }
 
 
-
 void Shader::SetVec4(const string& uniformVariableName, const vec4& value) const {
 	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform4fv(location, 1, &value[0]);
@@ -132,9 +132,6 @@ void Shader::SetVec4(const string& uniformVariableName, const vec4& value) const
 void Shader::SetVec4(const string& uniformVariableName, float x, float y, float z, float w) const {
 	auto location = GetUniformLocation(uniformVariableName);
 	if (location != -1) glUniform4f(location, x, y, z, w);
-}
-void Shader::SetVec4(const string& uniformVariableName, Color c) const {
-	SetVec4(uniformVariableName, c.r, c.g, c.b, c.a);
 }
 
 
