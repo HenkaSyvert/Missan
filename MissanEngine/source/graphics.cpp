@@ -87,8 +87,10 @@ void GraphicsUpdate() {
 			shader.SetMat4("view", Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix);
 			shader.SetMat4("projection", Camera::main->projectionMatrix);
 			shader.SetMat3("normalMatrix", mat3(inverse(transpose(renderer->gameObject->GetComponent<Transform>()->matrix))));
+			shader.SetVec3("cameraPosition", Camera::main->gameObject->GetComponent<Transform>()->position);
 
 			Light* light = Light::light;
+			shader.SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
 			shader.SetVec3("light.ambient", light->ambient);
 			shader.SetVec3("light.diffuse", light->diffuse);
 			shader.SetVec3("light.specular", light->specular);

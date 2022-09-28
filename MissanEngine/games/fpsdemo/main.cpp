@@ -25,10 +25,10 @@
 #include "scripts/movement.hpp"
 #include "scripts/globals.hpp"
 #include "scripts/destructible.hpp"
-#include "scripts/enemy.hpp"
-#include "scripts/texturetest.hpp"
-#include "scripts/cameraTest.hpp"
-#include "scripts/colortest.hpp"
+//#include "scripts/enemy.hpp"
+//#include "scripts/texturetest.hpp"
+//#include "scripts/cameraTest.hpp"
+//#include "scripts/colortest.hpp"
 #include "scripts/lightTest.hpp"
 
 using namespace Missan;
@@ -78,7 +78,7 @@ void MakeRoom() {
     rend->material->texture = bricks;
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
-    wall.AddComponent<TextureTest>();
+    //wall.AddComponent<TextureTest>();
 
     // instantiate and rotate walls
     for (int x = 0; x < mapWidth; x++) {
@@ -130,10 +130,10 @@ void MakePlayer() {
 
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
     lt = go->GetComponent<LightTest>();
-    lt->l = Light::light = go->GetComponent<Light>();
+    Light::light = go->GetComponent<Light>();
     Camera::main = go->GetComponent<Camera>();   
     go->tag = "player";
-    go->AddComponent<CameraTest>();
+    //go->AddComponent<CameraTest>();
 }
 
 // this functions creates some rotating cubes which can be destroyed by the player. 
@@ -149,6 +149,7 @@ void PlaceDestructibles() {
     cube.AddComponent<Collider>();
     //cube.AddComponent<Destructible>();
     rend->material->shader = Shader::diffuseSpecular;
+    lt->m = rend->material;
 
     // instantiate some cubes
     for (int i = 0; i < 5; i++) {
@@ -156,7 +157,6 @@ void PlaceDestructibles() {
         int z = rand() % mapBreadth;
        
         GameObject* go = GameObject::Instantiate(cube);
-        if (i == 4) lt->m = rend->material;
         cube.GetComponent<Transform>()->position = { x * cellWidth, 1, z * cellBreadth };  
     }
 
@@ -171,9 +171,9 @@ void MakeEnemy() {
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     //g.AddComponent<Enemy>();
-    g.AddComponent<TextureTest>();
+    //g.AddComponent<TextureTest>();
     t->scale = {10,10,4};
-    g.AddComponent<ColorTest>();
+   // g.AddComponent<ColorTest>();
     r->material->shader = Shader::diffuseSpecular;
     GameObject::Instantiate(g);
 

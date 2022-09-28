@@ -9,48 +9,21 @@ class LightTest : public Component {
 
 public:
 	Material* m;
-	Light* l;
 
 
 	void OnGUI() {
-		
+		Light* l = Light::light;
 
-		ImGui::Text("material\nambient");
-		ImGui::SliderFloat("r", &m->ambient.r, 0, 1);
-		ImGui::SliderFloat("g", &m->ambient.g, 0, 1);
-		ImGui::SliderFloat("b", &m->ambient.b, 0, 1);
-		ImGui::SliderFloat("a", &m->ambient.a, 0, 1);
 
-		ImGui::Text("diffuse");
-		ImGui::SliderFloat("r", &m->diffuse.r, 0, 1);
-		ImGui::SliderFloat("g", &m->diffuse.g, 0, 1);
-		ImGui::SliderFloat("b", &m->diffuse.b, 0, 1);
-		ImGui::SliderFloat("a", &m->diffuse.a, 0, 1);
+		ImGui::SliderFloat3("material.ambient", (float*)&m->ambient, 0, 1);
+		ImGui::SliderFloat3("material.diffuse", (float*)&m->diffuse, 0, 1);
+		ImGui::SliderFloat3("material.specular", (float*)&m->specular, 0, 1);
+		ImGui::SliderFloat("material.shininess", &m->shininess, 0, 100);
 
-		ImGui::Text("specular");
-		ImGui::SliderFloat("r", &m->specular.r, 0, 1);
-		ImGui::SliderFloat("g", &m->specular.g, 0, 1);
-		ImGui::SliderFloat("b", &m->specular.b, 0, 1);
-		ImGui::SliderFloat("a", &m->specular.a, 0, 1);
-
-		ImGui::Text("light\nambient");
-		ImGui::SliderFloat("r", &l->ambient.r, 0, 1);
-		ImGui::SliderFloat("g", &l->ambient.g, 0, 1);
-		ImGui::SliderFloat("b", &l->ambient.b, 0, 1);
-		ImGui::SliderFloat("a", &l->ambient.a, 0, 1);
-
-		ImGui::Text("diffuse");
-		ImGui::SliderFloat("r", &l->diffuse.r, 0, 1);
-		ImGui::SliderFloat("g", &l->diffuse.g, 0, 1);
-		ImGui::SliderFloat("b", &l->diffuse.b, 0, 1);
-		ImGui::SliderFloat("a", &l->diffuse.a, 0, 1);
-
-		ImGui::Text("specular");
-		ImGui::SliderFloat("r", &l->specular.r, 0, 1);
-		ImGui::SliderFloat("g", &l->specular.g, 0, 1);
-		ImGui::SliderFloat("b", &l->specular.b, 0, 1);
-		ImGui::SliderFloat("a", &l->specular.a, 0, 1);
-
+		ImGui::SliderFloat3("light.ambient", (float*)&m->ambient, 0, 1);
+		ImGui::SliderFloat3("light.diffuse", (float*)&m->diffuse, 0, 1);
+		ImGui::SliderFloat3("light.speculare", (float*)&m->specular, 0, 1);
+	
 	}
 
 
