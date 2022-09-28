@@ -139,7 +139,6 @@ void PlaceDestructibles() {
     rend->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
     cube.AddComponent<Collider>();
     cube.AddComponent<Destructible>();
-    cube.AddComponent<ColorTest>();
 
     // instantiate some cubes
     for (int i = 0; i < 5; i++) {
@@ -160,9 +159,10 @@ void MakeEnemy() {
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
-    g.AddComponent<Enemy>();
+    //g.AddComponent<Enemy>();
     g.AddComponent<TextureTest>();
     t->scale = {10,10,4};
+    g.AddComponent<ColorTest>();
     GameObject::Instantiate(g);
 
 }
@@ -178,7 +178,7 @@ int main(int argc, char* argv[]){
     MakeRoom();
     MakePlayer();
     PlaceDestructibles();
-    //MakeEnemy();
+    MakeEnemy();
 
     ///////////////////////////////////////////////////////////
 

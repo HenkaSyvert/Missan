@@ -1,11 +1,24 @@
 
 
-add resize to window
-finish ECS
-rotate colliders and bounding boxes
+physics
+	rotate colliders and bounding boxes
 
-transform::local vs world space
-transofmr:: children
-transform::lookAt
 
 networking
+
+entity component system
+
+transform
+	quaternions for rotation
+	children
+	translate, rotate, lookat
+	local v world space
+
+texture
+	mip map
+
+engine
+	make dll
+
+mouse
+	add select obj functionality
