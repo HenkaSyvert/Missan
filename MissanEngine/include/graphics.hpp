@@ -29,7 +29,7 @@ namespace Missan {
 
 	public:
 		glm::vec4 ambient = Color::white;
-		glm::vec4 diffuse = Color::yellow;
+		glm::vec4 diffuse = Color::white;
 		glm::vec4 specular = Color::white;
 		float shininess = 32.0f;
 
@@ -43,7 +43,7 @@ namespace Missan {
 
 		static Light* light;
 
-		glm::vec4 ambient = Color::yellow * .2f;
+		glm::vec4 ambient = Color::white * .2f;
 		glm::vec4 diffuse = Color::white * .5f;
 		glm::vec4 specular = Color::white;
 		Light* Clone() const { return new Light(*this); }
