@@ -90,6 +90,15 @@
     <ClCompile Include="source\graphics\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\graphics\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\graphics\material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\graphics\light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -1512,16 +1521,7 @@
     <ClInclude Include="include\graphics\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\cameraTest.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\colortest.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\graphics\color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\lightTest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\light.hpp">
@@ -1540,6 +1540,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\physics\ray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\inspectable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

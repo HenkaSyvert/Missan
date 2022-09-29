@@ -2,7 +2,11 @@
 #include "graphics/window.hpp"
 #include "physics/transform.hpp"
 
+#include <string>
+
 using namespace Missan;
+using namespace ImGui;
+using namespace std;
 
 Camera* Camera::main = nullptr;
 
@@ -41,3 +45,21 @@ glm::vec3 Camera::ScreenToWorldPoint(glm::vec3 screenPoint) {
 	return glm::vec3(pos);
 }
 
+void Camera::DisplayInInspector() {
+
+	Text("Camera");
+	DragFloat("field of view", &_fov);
+	DragFloat("near clip plane", &_near);
+	DragFloat("far clip plane", &_far);
+	DragFloat("aspect ratio", &_ar);
+	DragFloat("orthographic size", &_orthoSize);
+
+	if (BeginMenu("Projection")) {
+		if (MenuItem("Perspective")) _projection = Projection::perspective;
+		if (MenuItem("Orthographic")) _projection = Projection::orthographic;
+		EndMenu();
+	}
+
+	ColorEdit4("clear color", (float*)&clearColor);
+	UpdateMatrices();
+}

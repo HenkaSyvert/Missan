@@ -92,6 +92,9 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="games\fpsdemo\main.cpp" />
+    <ClCompile Include="source\graphics\light.cpp" />
+    <ClCompile Include="source\graphics\material.cpp" />
+    <ClCompile Include="source\graphics\renderer.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -550,14 +553,11 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
-    <ClInclude Include="games\fpsdemo\scripts\cameraTest.hpp" />
-    <ClInclude Include="games\fpsdemo\scripts\colortest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\destructible.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\enemy.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\inspector.hpp" />
-    <ClInclude Include="games\fpsdemo\scripts\lightTest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
@@ -572,6 +572,7 @@
     <ClInclude Include="include\graphics\mesh.hpp" />
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
+    <ClInclude Include="include\inspectable.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />

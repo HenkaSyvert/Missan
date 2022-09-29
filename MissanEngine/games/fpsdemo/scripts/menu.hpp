@@ -50,8 +50,8 @@ public:
 		}
 
 	}
-
-	void OnGUI() {
+	/*
+	void OnGui() {
 		ImGui::Text("press E to pause game");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::SliderFloat("power", &weapon->force, 12.0f, 179.9f);
@@ -60,7 +60,7 @@ public:
 		sprintf_s(buf, "player xyz: (%2.1f, %2.1f, %2.1f)", pos.x, pos.y, pos.z);
 		ImGui::Text(buf);
 	}
-
+	*/
 
 
 	Menu* Clone() const { return new Menu(*this); }

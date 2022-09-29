@@ -3,6 +3,7 @@
 #include "graphics/color.hpp"
 #include "graphics/shader.hpp"
 #include "graphics/texture.hpp"
+#include "inspectable.hpp"
 
 namespace Missan {
 
@@ -16,6 +17,9 @@ namespace Missan {
 
 		Shader* shader = nullptr;
 		Texture* texture = nullptr;
+
+		void DisplayInInspector();
+		
 	};
 
 }

@@ -14,6 +14,9 @@ namespace Missan {
 		glm::vec4 ambient = Color::white * .2f;
 		glm::vec4 diffuse = Color::white * .5f;
 		glm::vec4 specular = Color::white;
+
+		void DisplayInInspector();
+
 		Light* Clone() const { return new Light(*this); }
 	};
 

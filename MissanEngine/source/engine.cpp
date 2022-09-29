@@ -36,6 +36,12 @@ void Engine::Initialize() {
 	GuiInitialize(window);
 }
 
+void Engine::Quit() {
+
+	glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+}
+
 void Engine::Run() {
 	TimeUpdate();
 	EcsComponentsStart();

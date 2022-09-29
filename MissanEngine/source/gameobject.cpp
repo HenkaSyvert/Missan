@@ -2,10 +2,17 @@
 
 #include "physics/transform.hpp"
 
+#include <string>
+
 using namespace Missan;
+using namespace std;
 
+int GameObject::freeId = 0;
 
-GameObject::GameObject() {}
+GameObject::GameObject() {
+	id = freeId++;
+	name = "Game Object (" + to_string(id) + ")";
+}
 
 GameObject::~GameObject() {
 	for (Component* c : components) 

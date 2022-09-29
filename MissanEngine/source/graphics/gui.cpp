@@ -29,7 +29,7 @@ void GuiUpdate() {
     NewFrame();
 
     auto& gameObjects = EcsGetGameObjects();
-    for (auto* g : gameObjects) for (auto* c : g->components) c->OnGUI();
+    for (auto* g : gameObjects) for (auto* c : g->components) c->OnGui();
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

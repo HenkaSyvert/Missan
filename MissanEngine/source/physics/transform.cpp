@@ -2,10 +2,12 @@
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "imgui/imgui.h"
 
 using namespace Missan;
 using namespace std;
 using namespace glm;
+using namespace ImGui;
 
 void Transform::UpdateMatrix() {
 
@@ -33,4 +35,12 @@ vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 	for (auto p : points)
 		ps.push_back(TransformPoint(p));
 	return ps;
+}
+
+void Transform::DisplayInInspector() {
+	Text("Transform");
+	DragFloat3("position", (float*)&_position);
+	DragFloat3("rotation", (float*)&_rotation);
+	DragFloat3("scale", (float*)&_scale);
+	UpdateMatrix();
 }

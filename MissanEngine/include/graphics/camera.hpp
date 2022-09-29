@@ -3,6 +3,7 @@
 #include "component.hpp"
 #include "graphics/window.hpp"
 #include "physics/ray.hpp"
+#include "inspectable.hpp"
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -68,8 +69,10 @@ namespace Missan {
 
 		glm::vec4 clearColor = { .1,.1,.1,.1 };
 
+		void DisplayInInspector();
 
 		inline void Start() { UpdateMatrices(); }
+
 		Camera* Clone() const { return new Camera(*this); }
 
 	private:

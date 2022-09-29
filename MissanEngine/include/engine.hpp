@@ -18,6 +18,8 @@ namespace Missan {
 		/// Runs the engine. Setup up your Scene prior to calling Run().
 		void Run();
 
+		void Quit();
+
 	}
 
 	/// 

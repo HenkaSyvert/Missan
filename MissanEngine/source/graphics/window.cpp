@@ -13,8 +13,8 @@ using namespace Missan;
 using namespace std;
 
 static GLFWwindow* window = nullptr;
-static int w = 960;
-static int h = 720;
+static int w = 1800;
+static int h = 1000;
 static float ar = 0;
 const string title = "Missan 3D";
 

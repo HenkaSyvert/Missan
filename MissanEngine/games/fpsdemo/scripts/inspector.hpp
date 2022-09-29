@@ -3,40 +3,55 @@
 #include "missan.hpp"
 
 using namespace Missan;
+using namespace std;
 using namespace ImGui;
 
 class Inspector : public Component {
 
 public:
 
-	GameObject* selected;
+	int selectedGo = 0;
 
+	vector<GameObject*> gos;
 
-	void InspectTransform(Transform* t) {
-
-		Text("Transform");
-		DragFloat3("position", (float*)&t->position);
-		DragFloat3("rotation", (float*)&t->rotation);
-		DragFloat3("scale", (float*)&t->scale);
-
-	}
-
-	void GizmoLocalVectors(Transform* t) {
-
-
+	void InspectGameObject(GameObject* g) {
+		if (!g) return;
+		Text(g->name.c_str());
+		if (Button("select next Game Object")) SelectNextGameObject();
 
 	}
 
-	void OnClick() {
 
+	void SelectNextGameObject() {
+		selectedGo++;
+		if (selectedGo == gos.size())
+			selectedGo = 0;
+	}
+
+	void Start() {
+		gos = EcsGetGameObjects();
 
 
 	}
 
 	void OnGui() {
 
+		GameObject* g = gos[selectedGo];
+		InspectGameObject(g);
+		
+		for (auto& c : g->components) c->DisplayInInspector();
 		
 
+	}
+
+	void Update() {
+
+		if (Input::GetKeyDown(Keycode::Escape)) Engine::Quit();
+
+	}
+
+	Inspector* Clone() const {
+		return new Inspector(*this);
 	}
 
 };

@@ -26,15 +26,9 @@
 #include "scripts/globals.hpp"
 #include "scripts/destructible.hpp"
 //#include "scripts/enemy.hpp"
-//#include "scripts/texturetest.hpp"
-//#include "scripts/cameraTest.hpp"
-//#include "scripts/colortest.hpp"
-#include "scripts/lightTest.hpp"
+#include "scripts/inspector.hpp"
 
 using namespace Missan;
-
-
-LightTest* lt;
 
 
 //this function creates a small room with walls and floor. 
@@ -117,7 +111,7 @@ void MakePlayer() {
     player.AddComponent<Movement>();            // script for first person movement
     player.AddComponent<FPSCamera>();           // simple script for usual first person shooter camera
     player.AddComponent<Weapon>();              // for shooting small projectiles
-
+    player.AddComponent<Inspector>();
 
     // give the player a thin collider to avoid collision with projectiles
     player.GetComponent<Collider>()->boundingBox.size = { 0.1,1,0.1 }; 
@@ -125,11 +119,9 @@ void MakePlayer() {
     // set the startin position
     //player.GetComponent<Transform>()->position.y = 100;
 
-    player.AddComponent<LightTest>();
     player.AddComponent<Light>();
 
     GameObject* go = GameObject::Instantiate(player);       // creates a copy of the prefab and loads it into the game world. 
-    lt = go->GetComponent<LightTest>();
     Light::light = go->GetComponent<Light>();
     Camera::main = go->GetComponent<Camera>();   
     go->tag = "player";
@@ -149,7 +141,6 @@ void PlaceDestructibles() {
     cube.AddComponent<Collider>();
     //cube.AddComponent<Destructible>();
     rend->material->shader = Shader::diffuseSpecular;
-    lt->m = rend->material;
 
     // instantiate some cubes
     for (int i = 0; i < 5; i++) {

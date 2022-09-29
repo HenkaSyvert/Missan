@@ -4,12 +4,13 @@
 #include <glm/mat4x4.hpp>
 #include <vector>
 #include "component.hpp"
+#include "inspectable.hpp"
 
 namespace Missan {
 
     /// 
     /// Stores position, rotation, and scale of a GameObject
-    class Transform : public Component{
+    class Transform : public Component {
 
     public:
         
@@ -63,7 +64,7 @@ namespace Missan {
         inline glm::vec3 getForward() { return -normalize(matrix[2]); }
 
         void Start() { UpdateMatrix(); }
-
+        void DisplayInInspector();
 
         Transform* Clone() const { return new Transform(*this); }
         

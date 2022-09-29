@@ -1,12 +1,13 @@
 #include "graphics/texture.hpp"
 
 #include <stb/stb_image.h>
+#include "imgui/imgui.h"
 
 #include <iostream>
 
 using namespace Missan;
 using namespace std;
-
+using namespace ImGui;
 
 Texture::Texture(const string& fileName, WrapMode wm, FilterMode fm) {
 
@@ -53,4 +54,24 @@ void Texture::filterMode(FilterMode fm) {
 	_filterMode = fm;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)fm);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (int)fm);
+}
+
+void Texture::DisplayInInspector() {
+	Text("Texture");
+	WrapMode wm = _wrapMode;
+	if (BeginMenu("Wrap Mode")) {
+		if (MenuItem("Repeat")) wm = WrapMode::repeat;
+		if (MenuItem("Mirrored Repeat")) wm = WrapMode::mirroredRepeat;
+		if (MenuItem("Clamp to Edge")) wm = WrapMode::clampToEdge;
+		if (MenuItem("Clamp to Border")) wm = WrapMode::clampToBorder;
+		EndMenu();
+		wrapMode(wm);
+	}
+	FilterMode fm = _filterMode;
+	if (BeginMenu("Filter Mode")) {
+		if (MenuItem("Nearest")) fm = FilterMode::nearest;
+		if (MenuItem("Linear")) fm = FilterMode::linear;
+		EndMenu();
+		filterMode(fm);
+	}
 }

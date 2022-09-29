@@ -12,6 +12,7 @@
 #include "engine.hpp"
 #include "gameobject.hpp"
 #include "input.hpp"
+#include "inspectable.hpp"
 
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"

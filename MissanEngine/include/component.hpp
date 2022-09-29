@@ -2,6 +2,7 @@
 
 #include "gameobject.hpp"
 #include "clonable.hpp"
+#include "inspectable.hpp"
 
 namespace Missan {
 
@@ -10,7 +11,7 @@ namespace Missan {
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
 	/// Currently, derived classes MUST provide implementation of the Clone() method. 
-	class Component : public IClonable {
+	class Component : public IClonable, Inspectable {
 		
 	public:
 	
@@ -41,11 +42,13 @@ namespace Missan {
 
 		///
 		/// Called during GUI rendering
-		inline virtual void OnGUI() {}
+		inline virtual void OnGui() {}
 		
 		///
 		/// Called prior to the GameObject being destroyed
 		inline virtual void OnDestroy() {}
+
+		inline virtual void DisplayInInspector(){}
 
 		///
 		/// TODO: remove in future

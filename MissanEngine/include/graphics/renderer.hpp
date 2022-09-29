@@ -22,6 +22,8 @@ namespace Missan {
 
 		void Start() { if (!material->shader)material->shader = Shader::unlit; }
 
+		void DisplayInInspector();
+
 		Renderer* Clone() const { return new Renderer(*this); }
 
 	};
