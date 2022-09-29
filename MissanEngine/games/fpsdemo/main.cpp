@@ -25,7 +25,6 @@
 #include "scripts/movement.hpp"
 #include "scripts/globals.hpp"
 #include "scripts/destructible.hpp"
-//#include "scripts/enemy.hpp"
 #include "scripts/inspector.hpp"
 
 using namespace Missan;
@@ -72,7 +71,6 @@ void MakeRoom() {
     rend->material->texture = bricks;
     trans = wall.GetComponent<Transform>();
     trans->scale = { cellWidth, cellHeight, 1 };
-    //wall.AddComponent<TextureTest>();
 
     // instantiate and rotate walls
     for (int x = 0; x < mapWidth; x++) {
@@ -116,8 +114,6 @@ void MakePlayer() {
     // give the player a thin collider to avoid collision with projectiles
     player.GetComponent<Collider>()->boundingBox.size = { 0.1,1,0.1 }; 
 
-    // set the startin position
-    //player.GetComponent<Transform>()->position.y = 100;
 
     player.AddComponent<Light>();
 
@@ -125,7 +121,7 @@ void MakePlayer() {
     Light::light = go->GetComponent<Light>();
     Camera::main = go->GetComponent<Camera>();   
     go->tag = "player";
-    //go->AddComponent<CameraTest>();
+    go->name = "player";
 }
 
 // this functions creates some rotating cubes which can be destroyed by the player. 
@@ -153,58 +149,18 @@ void PlaceDestructibles() {
 
 }
 
-void MakeEnemy() {
-
-    GameObject g;
-    auto t = g.AddComponent<Transform>();
-    auto r = g.AddComponent<Renderer>();
-    r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    r->material = new Material();
-    r->material->texture = Resources::GetTexture("resources/textures/missan_logo.png");
-    //g.AddComponent<Enemy>();
-    //g.AddComponent<TextureTest>();
-    t->scale = {10,10,4};
-   // g.AddComponent<ColorTest>();
-    r->material->shader = Shader::diffuseSpecular;
-    GameObject::Instantiate(g);
-
-}
-
-void LightingTest() {
-
-    GameObject light;
-    light.AddComponent<Light>();
-
-    auto g = GameObject::Instantiate(light);
-    Light::light = g->GetComponent<Light>();
-
-    GameObject cube;
-    cube.AddComponent<Transform>();
-    auto r = cube.AddComponent<Renderer>();
-    auto m = r->material = new Material();
-    m->shader = Shader::diffuseSpecular;
-    GameObject::Instantiate(cube);
-
-}
 
 
-// currently the game must provide its own main function, and must follow this structure
 int main(int argc, char* argv[]){
     
-    Engine::Initialize();       // allocates memory, registers callback functions etc...
+    Engine::Initialize();
 
-    ///////////////////////////////////////////////////////////
-    // Here is where you put your own code. Create a game world by adding game objects to a scene. 
-    MakeRoom();
+    //MakeRoom();
     MakePlayer();
     PlaceDestructibles();
-    //MakeEnemy();
-    //LightingTest();
 
 
-    ///////////////////////////////////////////////////////////
-
-    Engine::Run();          // start the game simulation
+    Engine::Run();
 
     return 0;
 }

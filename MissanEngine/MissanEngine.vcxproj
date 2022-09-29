@@ -554,14 +554,12 @@
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="games\fpsdemo\scripts\destructible.hpp" />
-    <ClInclude Include="games\fpsdemo\scripts\enemy.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\inspector.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\projectile.hpp" />
-    <ClInclude Include="games\fpsdemo\scripts\texturetest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\weapon.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />
     <ClInclude Include="include\graphics\color.hpp" />

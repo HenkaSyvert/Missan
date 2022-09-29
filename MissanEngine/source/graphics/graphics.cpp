@@ -106,6 +106,16 @@ void GraphicsUpdate() {
 			shader.SetVec4("material.specular", material->specular);
 			shader.SetFloat("material.shininess", material->shininess);
 
+			Texture* texture = renderer->material->texture;
+			if (texture) {
+				glEnableVertexAttribArray(1);
+				shader.SetInt("textureSlot", 0);
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, texture->id);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glDisableVertexAttribArray(1);
+			}
+
 			glEnableVertexAttribArray(2);
 			glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
 			glDisableVertexAttribArray(0);

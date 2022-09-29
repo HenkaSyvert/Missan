@@ -9,37 +9,25 @@ using namespace ImGui;
 class Inspector : public Component {
 
 public:
-
-	int selectedGo = 0;
-
+	GameObject* selected = nullptr;
 	vector<GameObject*> gos;
-
-	void InspectGameObject(GameObject* g) {
-		if (!g) return;
-		Text(g->name.c_str());
-		if (Button("select next Game Object")) SelectNextGameObject();
-
-	}
-
-
-	void SelectNextGameObject() {
-		selectedGo++;
-		if (selectedGo == gos.size())
-			selectedGo = 0;
-	}
 
 	void Start() {
 		gos = EcsGetGameObjects();
-
-
+		selected = gos[0];
 	}
 
 	void OnGui() {
-
-		GameObject* g = gos[selectedGo];
-		InspectGameObject(g);
+		gos = EcsGetGameObjects();
+		if (BeginMenu("Game Objects")) {
+			for (auto& g : gos) {
+				if (MenuItem(g->name.c_str())) selected = g;
+			}
+			EndMenu();
+		}
 		
-		for (auto& c : g->components) c->DisplayInInspector();
+		
+		for (auto& c : selected->components) c->DisplayInInspector();
 		
 
 	}

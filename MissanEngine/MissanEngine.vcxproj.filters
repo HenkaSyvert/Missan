@@ -1494,9 +1494,6 @@
     <ClInclude Include="include\entitycomponentsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\internal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1513,9 +1510,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\texture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\fpsdemo\scripts\texturetest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\camera.hpp">
@@ -1539,10 +1533,10 @@
     <ClInclude Include="games\fpsdemo\scripts\inspector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics\ray.hpp">
+    <ClInclude Include="include\inspectable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\inspectable.hpp">
+    <ClInclude Include="include\physics\ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
