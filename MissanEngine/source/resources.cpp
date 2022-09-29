@@ -12,7 +12,7 @@
 #include <unordered_map>
 
 #include "internal.hpp"
-#include "texture.hpp"
+#include "graphics/texture.hpp"
 
 using namespace Missan;
 using namespace std;

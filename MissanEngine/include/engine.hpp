@@ -1,7 +1,8 @@
 #pragma once
 
 #include "gameobject.hpp"
-#include "graphics.hpp"
+#include "graphics/texture.hpp"
+#include "graphics/mesh.hpp"
 
 namespace Missan {
 

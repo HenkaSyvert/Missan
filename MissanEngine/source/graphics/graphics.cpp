@@ -1,4 +1,9 @@
-#include "graphics.hpp"
+#include "graphics/light.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/shader.hpp"
+#include "graphics/renderer.hpp"
+#include "graphics/camera.hpp"
+#include "graphics/texture.hpp"
 
 #include "transform.hpp"
 #include "internal.hpp"

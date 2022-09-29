@@ -8,7 +8,6 @@
 #include "gameobject.hpp"
 #include "input.hpp"
 #include "window.hpp"
-#include "graphics.hpp"
 #include "physics.hpp"
 
 

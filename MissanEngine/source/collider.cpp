@@ -1,7 +1,7 @@
 #include "collider.hpp"
 
 #include "transform.hpp"
-#include "graphics.hpp"
+#include "graphics/mesh.hpp"
 
 #include <vector>
 

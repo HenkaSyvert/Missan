@@ -51,10 +51,10 @@
     <ClCompile Include="source\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\shader.cpp">
+    <ClCompile Include="source\graphics\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics.cpp">
+    <ClCompile Include="source\graphics\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\collider.cpp">
@@ -84,10 +84,10 @@
     <ClCompile Include="source\entitycomponentsystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\texture.cpp">
+    <ClCompile Include="source\graphics\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\camera.cpp">
+    <ClCompile Include="source\graphics\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1443,9 +1443,6 @@
     <ClInclude Include="include\engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\boundingbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1497,7 +1494,7 @@
     <ClInclude Include="include\gameobject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\shader.hpp">
+    <ClInclude Include="include\graphics\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\transform.hpp">
@@ -1506,13 +1503,13 @@
     <ClInclude Include="include\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\texture.hpp">
+    <ClInclude Include="include\graphics\texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\texturetest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\camera.hpp">
+    <ClInclude Include="include\graphics\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\cameraTest.hpp">
@@ -1521,10 +1518,22 @@
     <ClInclude Include="games\fpsdemo\scripts\colortest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\color.hpp">
+    <ClInclude Include="include\graphics\color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\fpsdemo\scripts\lightTest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\light.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\material.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
