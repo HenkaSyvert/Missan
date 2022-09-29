@@ -92,22 +92,22 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="games\fpsdemo\main.cpp" />
-    <ClCompile Include="source\boundingbox.cpp" />
+    <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
-    <ClCompile Include="source\collider.cpp" />
+    <ClCompile Include="source\physics\collider.cpp" />
     <ClCompile Include="source\entitycomponentsystem.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
-    <ClCompile Include="source\gui.cpp" />
+    <ClCompile Include="source\graphics\gui.cpp" />
     <ClCompile Include="source\resources.cpp" />
-    <ClCompile Include="source\physics.cpp" />
+    <ClCompile Include="source\physics\physics.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
-    <ClCompile Include="source\transform.cpp" />
-    <ClCompile Include="source\window.cpp" />
-    <ClCompile Include="source\rigidbody.cpp" />
+    <ClCompile Include="source\physics\transform.cpp" />
+    <ClCompile Include="source\graphics\window.cpp" />
+    <ClCompile Include="source\physics\rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="external\glm\detail\func_common.inl" />
@@ -556,6 +556,7 @@
     <ClInclude Include="games\fpsdemo\scripts\enemy.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\fpscam.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\globals.hpp" />
+    <ClInclude Include="games\fpsdemo\scripts\inspector.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\lightTest.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\menu.hpp" />
     <ClInclude Include="games\fpsdemo\scripts\movement.hpp" />
@@ -571,11 +572,11 @@
     <ClInclude Include="include\graphics\mesh.hpp" />
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
-    <ClInclude Include="include\boundingbox.hpp" />
+    <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
     <ClInclude Include="include\clonable.hpp" />
-    <ClInclude Include="include\collider.hpp" />
+    <ClInclude Include="include\physics\collider.hpp" />
     <ClInclude Include="include\component.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
@@ -584,18 +585,19 @@
     <ClInclude Include="include\loader.h" />
     <ClInclude Include="include\mesh.h" />
     <ClInclude Include="include\missan.hpp" />
-    <ClInclude Include="include\physics.hpp" />
+    <ClInclude Include="include\physics\physics.hpp" />
+    <ClInclude Include="include\physics\ray.hpp" />
     <ClInclude Include="include\renderer.h" />
-    <ClInclude Include="include\rigidbody.hpp" />
+    <ClInclude Include="include\physics\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\graphics\shader.hpp" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\graphics\texture.hpp" />
     <ClInclude Include="include\transform.h" />
-    <ClInclude Include="include\transform.hpp" />
+    <ClInclude Include="include\physics\transform.hpp" />
     <ClInclude Include="include\window.h" />
-    <ClInclude Include="include\window.hpp" />
+    <ClInclude Include="include\graphics\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

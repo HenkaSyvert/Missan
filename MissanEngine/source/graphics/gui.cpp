@@ -1,6 +1,6 @@
 #include "internal.hpp"
 
-#include "window.hpp"
+#include "graphics/window.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -18,7 +18,6 @@ using namespace ImGui;
 void GuiInitialize(GLFWwindow* window) {
     IMGUI_CHECKVERSION();
     CreateContext();
-    ImGuiIO& io = GetIO();
     StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(NULL);

@@ -1,11 +1,11 @@
-#include "physics.hpp"
+#include "physics/physics.hpp"
 
 #include "engine.hpp"
 #include "gameobject.hpp"
-#include "transform.hpp"
-#include "collider.hpp"
-#include "rigidbody.hpp"
-#include "boundingbox.hpp"
+#include "physics/transform.hpp"
+#include "physics/collider.hpp"
+#include "physics/rigidbody.hpp"
+#include "physics/boundingbox.hpp"
 #include "internal.hpp"
 
 #include <glm/trigonometric.hpp>

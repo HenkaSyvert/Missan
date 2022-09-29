@@ -42,10 +42,10 @@
     <ClCompile Include="source\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gui.cpp">
+    <ClCompile Include="source\graphics\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\window.cpp">
+    <ClCompile Include="source\graphics\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\resources.cpp">
@@ -57,22 +57,22 @@
     <ClCompile Include="source\graphics\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\collider.cpp">
+    <ClCompile Include="source\physics\collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\boundingbox.cpp">
+    <ClCompile Include="source\physics\boundingbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics.cpp">
+    <ClCompile Include="source\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\transform.cpp">
+    <ClCompile Include="source\physics\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\rigidbody.cpp">
+    <ClCompile Include="source\physics\rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="games\fpsdemo\main.cpp">
@@ -1443,16 +1443,16 @@
     <ClInclude Include="include\engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\boundingbox.hpp">
+    <ClInclude Include="include\physics\boundingbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\physics.hpp">
+    <ClInclude Include="include\physics\physics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rigidbody.hpp">
+    <ClInclude Include="include\physics\rigidbody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\collider.hpp">
+    <ClInclude Include="include\physics\collider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\component.hpp">
@@ -1497,10 +1497,10 @@
     <ClInclude Include="include\graphics\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\transform.hpp">
+    <ClInclude Include="include\physics\transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\window.hpp">
+    <ClInclude Include="include\graphics\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\texture.hpp">
@@ -1534,6 +1534,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\fpsdemo\scripts\inspector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physics\ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

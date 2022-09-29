@@ -7,8 +7,8 @@
 #include "entitycomponentsystem.hpp"
 #include "gameobject.hpp"
 #include "input.hpp"
-#include "window.hpp"
-#include "physics.hpp"
+#include "graphics/window.hpp"
+#include "physics/physics.hpp"
 
 
 using namespace Missan;

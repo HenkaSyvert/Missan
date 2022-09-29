@@ -12,12 +12,13 @@
 #include "engine.hpp"
 #include "gameobject.hpp"
 #include "input.hpp"
-#include "transform.hpp"
-#include "window.hpp"
-#include "collider.hpp"
-#include "physics.hpp"
-#include "rigidbody.hpp"
 
+#include "physics/transform.hpp"
+#include "physics/collider.hpp"
+#include "physics/physics.hpp"
+#include "physics/rigidbody.hpp"
+
+#include "graphics/window.hpp"
 #include "graphics/camera.hpp"
 #include "graphics/color.hpp"
 #include "graphics/light.hpp"

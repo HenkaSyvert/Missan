@@ -1,7 +1,8 @@
 #pragma once
 
 #include "component.hpp"
-#include "window.hpp"
+#include "graphics/window.hpp"
+#include "physics/ray.hpp"
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -60,6 +61,10 @@ namespace Missan {
 
 		__declspec(property(get = getInvProjMat)) glm::mat4 inverseProjectionMatrix;
 		inline glm::mat4 getInvProjMat() { return _invProjMat; }
+
+		Ray ScreenPointToRay(glm::vec2 screenPoint);
+		glm::vec3 ScreenToWorldPoint(glm::vec3 screenPoint);
+
 
 		glm::vec4 clearColor = { .1,.1,.1,.1 };
 

@@ -5,7 +5,7 @@
 #include "graphics/camera.hpp"
 #include "graphics/texture.hpp"
 
-#include "transform.hpp"
+#include "physics/transform.hpp"
 #include "internal.hpp"
 #include "gameobject.hpp"
 #include "component.hpp"

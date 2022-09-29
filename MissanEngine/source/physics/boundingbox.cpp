@@ -1,4 +1,4 @@
-#include "boundingbox.hpp"
+#include "physics/boundingbox.hpp"
 
 using namespace Missan;
 using namespace std;

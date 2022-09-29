@@ -1,8 +1,8 @@
-#include "rigidbody.hpp"
+#include "physics/rigidbody.hpp"
 
-#include "transform.hpp"
-#include "collider.hpp"
-#include "physics.hpp"
+#include "physics/transform.hpp"
+#include "physics/collider.hpp"
+#include "physics/physics.hpp"
 
 #include <iostream>
 

@@ -1,6 +1,6 @@
-#include "collider.hpp"
+#include "physics/collider.hpp"
 
-#include "transform.hpp"
+#include "physics/transform.hpp"
 #include "graphics/mesh.hpp"
 
 #include <vector>
