@@ -1,5 +1,10 @@
 
 
+
+bugs
+	accessor for transform.rotation.x/y/z does not update matrix..
+
+
 physics
 	rotate colliders and bounding boxes
 

@@ -58,6 +58,8 @@ void HandleCollisions() {
 		if (g->GetComponent<Collider>() != nullptr)
 			colliders.push_back(g->GetComponent<Collider>());
 
+	if (colliders.size() <= 1) return;
+
 	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
 
