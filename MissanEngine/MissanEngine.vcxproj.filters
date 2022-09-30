@@ -99,6 +99,9 @@
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\ecs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -1516,6 +1519,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="apps\editor\editor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

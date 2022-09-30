@@ -2,10 +2,18 @@
 #include "gameobject.hpp"
 #include "component.hpp"
 
+#include <queue>
+
 
 using namespace Missan;
 using namespace std;
 
+
+
+
+
+
+queue<int> freeGameObjectIds;
 
 static vector<GameObject*> gameObjectsToBeInstantiated;
 static vector<GameObject*> gameObjectsToBeDestroyed;
