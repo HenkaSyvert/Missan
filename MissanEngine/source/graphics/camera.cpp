@@ -47,19 +47,22 @@ glm::vec3 Camera::ScreenToWorldPoint(glm::vec3 screenPoint) {
 
 void Camera::DisplayInInspector() {
 
-	Text("Camera");
-	DragFloat("field of view", &_fov);
-	DragFloat("near clip plane", &_near);
-	DragFloat("far clip plane", &_far);
-	DragFloat("aspect ratio", &_ar);
-	DragFloat("orthographic size", &_orthoSize);
+	ShowDemoWindow();
 
-	if (BeginMenu("Projection")) {
-		if (MenuItem("Perspective")) _projection = Projection::perspective;
-		if (MenuItem("Orthographic")) _projection = Projection::orthographic;
-		EndMenu();
+	if (CollapsingHeader("Camera")) {
+		SliderFloat("field of view (deg)", &_fov, -15, 400);
+		SliderFloat("near clip plane (m)", &_near, -5, 10);
+		SliderFloat("far clip plane (m)", &_far, 10, 100);
+		SliderFloat("aspect ratio", &_ar, -1, 5);
+		SliderFloat("orthographic size", &_orthoSize, -1, 5);
+
+		if (BeginMenu("Projection")) {
+			if (MenuItem("Perspective")) _projection = Projection::perspective;
+			if (MenuItem("Orthographic")) _projection = Projection::orthographic;
+			EndMenu();
+		}
+
+		ColorEdit4("clear color", (float*)&clearColor);
 	}
-
-	ColorEdit4("clear color", (float*)&clearColor);
 	UpdateMatrices();
 }

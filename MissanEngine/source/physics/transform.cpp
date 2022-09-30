@@ -38,9 +38,10 @@ vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 }
 
 void Transform::DisplayInInspector() {
-	Text("Transform");
-	DragFloat3("position", (float*)&_position);
-	DragFloat3("rotation", (float*)&_rotation);
-	DragFloat3("scale", (float*)&_scale);
+	if (CollapsingHeader("Transform")) {
+		DragFloat3("position", (float*)&_position);
+		DragFloat3("rotation", (float*)&_rotation);
+		DragFloat3("scale", (float*)&_scale);
+	}
 	UpdateMatrix();
 }

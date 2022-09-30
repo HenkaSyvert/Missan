@@ -23,6 +23,8 @@ graphics
 engine
 	make dll
 
+
+
 mouse
 	add select obj functionality
 
@@ -30,3 +32,5 @@ general
 	add descriptiv comments
 	links to internet resources
 
+
+make editor w imgui

@@ -7,6 +7,7 @@ using namespace ImGui;
 using namespace std;
 
 void Renderer::DisplayInInspector() {
-	Text("Renderer");
-	if (material) material->DisplayInInspector();
+	if (CollapsingHeader("Renderer")) {
+		if (material) material->DisplayInInspector();
+	}
 }

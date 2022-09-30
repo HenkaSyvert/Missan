@@ -4,6 +4,7 @@
 #include "imgui/imgui.h"
 
 #include <iostream>
+#include <unordered_map>
 
 using namespace Missan;
 using namespace std;
@@ -57,21 +58,25 @@ void Texture::filterMode(FilterMode fm) {
 }
 
 void Texture::DisplayInInspector() {
-	Text("Texture");
-	WrapMode wm = _wrapMode;
-	if (BeginMenu("Wrap Mode")) {
-		if (MenuItem("Repeat")) wm = WrapMode::repeat;
-		if (MenuItem("Mirrored Repeat")) wm = WrapMode::mirroredRepeat;
-		if (MenuItem("Clamp to Edge")) wm = WrapMode::clampToEdge;
-		if (MenuItem("Clamp to Border")) wm = WrapMode::clampToBorder;
-		EndMenu();
-		wrapMode(wm);
-	}
-	FilterMode fm = _filterMode;
-	if (BeginMenu("Filter Mode")) {
-		if (MenuItem("Nearest")) fm = FilterMode::nearest;
-		if (MenuItem("Linear")) fm = FilterMode::linear;
-		EndMenu();
-		filterMode(fm);
+	unordered_map<WrapMode, string> wmMap;
+	wmMap[WrapMode::repeat] = "repeat";
+	wmMap[WrapMode::mirroredRepeat] = "mirrored repeat";
+	wmMap[WrapMode::clampToEdge] = "clamp to edge";
+	wmMap[WrapMode::clampToBorder] = "clamp to border";
+	unordered_map<FilterMode, string> fmMap;
+	fmMap[FilterMode::nearest] = "nearest";
+	fmMap[FilterMode::linear] = "linear";
+	if (TreeNode("Texture")) {
+		if (BeginCombo("Wrap Mode", wmMap[_wrapMode].c_str())) {
+			for (auto wm : wmMap)
+				if (Selectable(wm.second.c_str(), _wrapMode == wm.first)) wrapMode(wm.first);
+			EndCombo();
+		}
+		if (BeginCombo("Filter Mode", fmMap[_filterMode].c_str())) {
+			for (auto fm : fmMap)
+				if (Selectable(fm.second.c_str(), _filterMode == fm.first)) filterMode(fm.first);
+			EndCombo();
+		}
+		TreePop();
 	}
 }
