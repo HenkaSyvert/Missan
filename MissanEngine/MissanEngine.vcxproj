@@ -91,7 +91,7 @@
     <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
-    <ClCompile Include="games\fpsdemo\main.cpp" />
+    <ClCompile Include="apps\editor\main.cpp" />
     <ClCompile Include="source\graphics\light.cpp" />
     <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
@@ -553,7 +553,7 @@
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
-    <ClInclude Include="games\fpsdemo\editor.hpp" />
+    <ClInclude Include="apps\editor\editor.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />
     <ClInclude Include="include\graphics\color.hpp" />
     <ClInclude Include="include\entitycomponentsystem.hpp" />

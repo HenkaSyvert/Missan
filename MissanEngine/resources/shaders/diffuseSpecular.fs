@@ -33,19 +33,19 @@ void main(){
 	vec4 ambient = material.ambient * light.ambient;
 	result += texture(textureSlot, textureCoord) * ambient;
    
-	//// diffuse
-	//vec3 lightDirection = normalize(light.position - fragmentPosition);
-	//float lightIncline = max(dot(fragmentNormal, lightDirection), 0.0);
-	//vec4 diffuse = (material.diffuse * lightIncline) * light.diffuse;
-	//result += diffuse;
-	//
-	//// specular
-	//vec3 cameraDirection = normalize(cameraPosition - fragmentPosition);
-	//vec3 reflectDirection = reflect(-lightDirection, fragmentNormal);
-	//float specularIncline = max(dot(cameraDirection, reflectDirection), 0.0);
-	//float shine = pow(specularIncline, material.shininess);
-	//vec4 specular = (material.specular * shine) * light.specular;
-	//result += specular;
+	// diffuse
+	vec3 lightDirection = normalize(light.position - fragmentPosition);
+	float lightIncline = max(dot(fragmentNormal, lightDirection), 0.0);
+	vec4 diffuse = (material.diffuse * lightIncline) * light.diffuse;
+	result += diffuse;
+	
+	// specular
+	vec3 cameraDirection = normalize(cameraPosition - fragmentPosition);
+	vec3 reflectDirection = reflect(-lightDirection, fragmentNormal);
+	float specularIncline = max(dot(cameraDirection, reflectDirection), 0.0);
+	float shine = pow(specularIncline, material.shininess);
+	vec4 specular = (material.specular * shine) * light.specular;
+	result += specular;
 
 	fragmentColor = result;
 

@@ -96,11 +96,12 @@ void GraphicsUpdate() {
 			shader.SetVec3("cameraPosition", Camera::main->gameObject->GetComponent<Transform>()->position);
 
 			Light* light = Light::light;
-			shader.SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
-			shader.SetVec4("light.ambient", light->ambient);
-			shader.SetVec4("light.diffuse", light->diffuse);
-			shader.SetVec4("light.specular", light->specular);
-
+			if (light) {
+				shader.SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
+				shader.SetVec4("light.ambient", light->ambient);
+				shader.SetVec4("light.diffuse", light->diffuse);
+				shader.SetVec4("light.specular", light->specular);
+			}
 			Material* material = renderer->material;
 			shader.SetVec4("material.ambient", material->ambient);
 			shader.SetVec4("material.diffuse", material->diffuse);

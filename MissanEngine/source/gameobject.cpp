@@ -24,4 +24,5 @@ GameObject::GameObject(GameObject& copy) {
 		components.push_back(c->Clone());
 		components.back()->gameObject = this;
 	}
+	name = copy.name;
 }

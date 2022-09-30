@@ -96,7 +96,7 @@
     <ClCompile Include="source\graphics\light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="games\fpsdemo\main.cpp">
+    <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1515,7 +1515,7 @@
     <ClInclude Include="include\physics\ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\fpsdemo\editor.hpp">
+    <ClInclude Include="apps\editor\editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

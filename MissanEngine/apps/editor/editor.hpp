@@ -18,8 +18,7 @@ public:
 
     void Start() {
         transform = gameObject->GetComponent<Transform>();
-		gos = EcsGetGameObjects();
-		selected = gos[0];
+
     }
 
     void Update() {
@@ -29,22 +28,35 @@ public:
 
     void OnGui() {
         
-		gos = EcsGetGameObjects();
-		if (BeginMenu("Game Objects")) {
-			for (auto& g : gos) {
-				if (MenuItem(g->name.c_str())) selected = g;
-			}
-			EndMenu();
-		}
-
-
-		for (auto& c : selected->components) c->DisplayInInspector();
+        HierarchyWindow();
+        InspectorWindow(selected);
         
+    }
+
+    void HierarchyWindow() {
+        if (Begin("Hierarchy")) {
+            gos = EcsGetGameObjects();
+            int i = 0;
+            for (auto& g : gos)
+                if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;
+            
+            End();
+        }
+    }
+
+    void InspectorWindow(GameObject* g) {
+        if (Begin("Inspector")) {
+            if (!g) {
+                Text("no game object selected");
+            }
+            else for (auto& c : g->components) c->DisplayInInspector();
+        }
+        End();
     }
 
     void HandleMovement() {
 
-        float moveSpeed = 1;
+        float moveSpeed = 5;
 
 
         int xAxis = 0, zAxis = 0;
@@ -62,6 +74,8 @@ public:
     }
 
     void HandleCamera(){
+        if (!Input::GetMouseButton(MouseButton::Right)) return;
+
         float rotationSpeedDeg = 30.0f;
         float pitchConstraint = 89.9f;
 
