@@ -33,7 +33,7 @@ public:
 	size_t size = 0;
 
 	void InsertData(size_t gameObjectId) {
-
+		std::cout << typeid(T).name() << "[" << gameObjectId << "]: insert\n";
 		size_t componentId = size++;
 		goToIndex[gameObjectId] = componentId;
 		indexToGo[componentId] = gameObjectId;
@@ -42,7 +42,7 @@ public:
 	}
 
 	void RemoveData(size_t gameObjectId) {
-
+		std::cout << typeid(T).name() << "[" << gameObjectId << "]: remove\n";
 		size_t indexOfRemoved = goToIndex[gameObjectId];
 		size_t indexOfLast = size - 1;
 		componentArray[indexOfRemoved] = componentArray[indexOfLast];
@@ -54,10 +54,12 @@ public:
 	}
 
 	T* GetData(size_t gameObjectId) {
+		std::cout << typeid(T).name() << "[" << gameObjectId << "]: get\n";
 		return &componentArray[goToIndex[gameObjectId]];
 	}
 
 	void GameObjectDestroyed(size_t gameObjectId) {
+		std::cout << typeid(T).name() << "[" << gameObjectId << "]: destroy\n";
 		RemoveData(gameObjectId);
 	}
 
@@ -80,7 +82,7 @@ public:
 
 		((ComponentArray<T>*)componentArrays[componentTypeId])->InsertData(gameObjectId);
 
-		std::cout << "added new comp of type " << typeid(T).name() << " to gameobj " << std::to_string(gameObjectId) << "\n";
+		//std::cout << "added new comp of type " << typeid(T).name() << " to gameobj " << std::to_string(gameObjectId) << "\n";
 
 		return ((ComponentArray<T>*)componentArrays[componentTypeId])->GetData(gameObjectId);
 	}
@@ -93,6 +95,11 @@ public:
 	template<typename T>
 	T* GetComponent(size_t gameObjectId) {
 		return &componentArrays[typeid(T).hash_code()]->GetData(gameObjectId);
+	}
+
+	void GameObjectDestroyed(size_t gameObjectId) {
+		for (auto& pair : componentArrays)
+			pair.second->GameObjectDestroyed(gameObjectId);
 	}
 };
 

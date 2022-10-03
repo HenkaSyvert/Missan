@@ -8,7 +8,6 @@ namespace Missan {
 	class Component;
 }
 
-extern std::vector<Missan::Component*> components;
 
 
 // event funcs per component
@@ -20,11 +19,3 @@ void EcsGameObjectDestroy();
 
 
 std::vector<Missan::GameObject*>& EcsGetGameObjects();
-template <class T> T* EcsAddComponent() {
-	components.push_back(new T());
-	return (T*)components.back();
-}
-
-void EcsDeleteComponent(Missan::Component* component);
-
-

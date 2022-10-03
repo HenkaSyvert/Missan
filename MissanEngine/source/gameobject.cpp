@@ -1,4 +1,5 @@
 #include "gameobject.hpp"
+#include "ecs.hpp"
 
 #include <string>
 #include <queue>
@@ -33,15 +34,14 @@ GameObject::GameObject(GameObject& copy) : GameObject() {
 	cout << "GameObject(*copy):\n";
 
 	for (Component* c : copy.components) {
-		components.push_back(c->Clone());
-		components.back()->gameObject = this;
+		cout << "try copy component...\n";
 	}
 	name = copy.name + to_string(id);
 }
 
 GameObject::~GameObject() {
-	for (Component* c : components) 
-		delete c;
+	cout << "~GameObject():\n";
+	componentManager.GameObjectDestroyed(id);
 
 	cout << "putting dead ID: " << id << " back into queue\n";
 	freeIds.push(id);

@@ -2,6 +2,7 @@
 
 #include "component.hpp"
 #include "entitycomponentsystem.hpp"
+#include "ecs.hpp"
 
 #include <vector>
 #include <typeinfo>
@@ -33,8 +34,9 @@ namespace Missan {
 		/// 
 		/// Adds Component of type T, attaches it, and returns pointer
 		template <class T> inline T* AddComponent() {
-			components.push_back(EcsAddComponent<T>());
-			return (T*)components.back();
+			T* component = componentManager.AddComponent<T>(id);
+			components.push_back(component);
+			return component;
 		}	
 
 		/// 
@@ -45,7 +47,7 @@ namespace Missan {
 					return (T*)c;
 			return nullptr;
 		}
-
+		/*
 		/// 
 		/// Removes Component
 		template <class T> inline void RemoveComponent() {
@@ -57,7 +59,7 @@ namespace Missan {
 				}
 			}
 		}
-
+		*/
 		/// 
 		/// Instantiates a copy of original in the active Scene, and returns pointer to the copy
 		static GameObject* Instantiate(GameObject& original);
