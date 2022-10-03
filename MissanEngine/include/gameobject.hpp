@@ -1,7 +1,6 @@
 #pragma once
 
 #include "component.hpp"
-#include "entitycomponentsystem.hpp"
 #include "ecs.hpp"
 
 #include <vector>
@@ -47,19 +46,13 @@ namespace Missan {
 					return (T*)c;
 			return nullptr;
 		}
-		/*
+		
 		/// 
 		/// Removes Component
 		template <class T> inline void RemoveComponent() {
-			for (int i = 0; i < components.size(); i++) {
-				Component* c = components[i];
-				if (typeid(T) == typeid(*c)) {
-					EcsDeleteComponent(c);
-					components.erase(components.begin() + i);
-				}
-			}
+			componentManager.RemoveComponent<T>(id);
 		}
-		*/
+		
 		/// 
 		/// Instantiates a copy of original in the active Scene, and returns pointer to the copy
 		static GameObject* Instantiate(GameObject& original);

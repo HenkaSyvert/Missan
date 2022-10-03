@@ -7,6 +7,7 @@
 #include "physics/rigidbody.hpp"
 #include "physics/boundingbox.hpp"
 #include "internal.hpp"
+#include "entitycomponentsystem.hpp"
 
 #include <glm/trigonometric.hpp>
 

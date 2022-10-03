@@ -11,6 +11,7 @@
 
 #include "component.hpp"
 #include "gameobject.hpp"
+#include "entitycomponentsystem.hpp"
 
 using namespace Missan;
 using namespace ImGui;

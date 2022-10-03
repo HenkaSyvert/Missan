@@ -13,6 +13,7 @@
 #include "gameobject.hpp"
 #include "input.hpp"
 #include "inspectable.hpp"
+#include "entitycomponentsystem.hpp"
 
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
