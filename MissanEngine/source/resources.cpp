@@ -66,7 +66,7 @@ static bool LoadMesh(string fileName) {
 			}
 			else if (token == "f") {
 				for (int i = 0; i < 3; i++) {
-					float v;
+					unsigned int v;
 					file >> v;
 					indices.push_back(v);
 				}

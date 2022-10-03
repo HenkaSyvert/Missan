@@ -69,16 +69,10 @@
     <ClCompile Include="source\physics\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gameobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\physics\rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\entitycomponentsystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\graphics\texture.cpp">
@@ -99,7 +93,10 @@
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ecs.cpp">
+    <ClCompile Include="source\entitycomponentsystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1449,9 +1446,6 @@
     <ClInclude Include="include\missan.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\clonable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1471,9 +1465,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\input.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\entitycomponentsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\internal.hpp">
@@ -1519,6 +1510,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="apps\editor\editor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entitycomponentsystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clonable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ecs.hpp">

@@ -11,10 +11,6 @@ using namespace std;
 
 
 
-
-
-queue<int> freeGameObjectIds;
-
 static vector<GameObject*> gameObjectsToBeInstantiated;
 static vector<GameObject*> gameObjectsToBeDestroyed;
 static vector<GameObject*> gameObjects;

@@ -1,9 +1,5 @@
 #pragma once
 
-// Thanks to Austin Morlan for inspiration
-// https://austinmorlan.com/posts/entity_component_system/
-
-
 
 #include <unordered_map>
 #include <queue>
@@ -11,7 +7,10 @@
 #include <typeinfo>
 #include <iostream>
 
-#include "gameobject.hpp"
+
+
+
+
 
 #define MAX_GAME_OBJECTS 100
 
@@ -20,7 +19,7 @@
 class IComponentArray {
 public:
 	virtual ~IComponentArray() = default;
-	virtual void EntityDestroyed(Missan::GameObject g) = 0;
+	virtual void GameObjectDestroyed(size_t gameObjectId) = 0;
 
 };
 
@@ -29,22 +28,22 @@ class ComponentArray : public IComponentArray {
 
 public:
 	T componentArray[MAX_GAME_OBJECTS];
-	std::unordered_map<Missan::GameObject, size_t> goToIndex;
-	std::unordered_map<size_t, Missan::GameObject> indexToGo;
+	std::unordered_map<size_t, size_t> goToIndex;
+	std::unordered_map<size_t, size_t> indexToGo;
 	size_t size = 0;
 
-	void InsertData(Missan::GameObject g, T component) {
+	void InsertData(size_t gameObjectId) {
 
-		size_t compId = size++;
-		goToIndex[g.id] = compId;
-		indexToGo[compId] = g;
-		componentArray[compId] = component;
+		size_t componentId = size++;
+		goToIndex[gameObjectId] = componentId;
+		indexToGo[componentId] = gameObjectId;
+		componentArray[componentId] = T();
 
 	}
 
-	void RemoveData(Missan::GameObject g) {
+	void RemoveData(size_t gameObjectId) {
 
-		size_t indexOfRemoved = goToIndex[g.id];
+		size_t indexOfRemoved = goToIndex[gameObjectId];
 		size_t indexOfLast = size - 1;
 		componentArray[indexOfRemoved] = componentArray[indexOfLast];
 
@@ -54,8 +53,12 @@ public:
 
 	}
 
-	T& GetData(Missan::GameObject g) {
-		return componentArray[goToIndex[g.id]];
+	T* GetData(size_t gameObjectId) {
+		return &componentArray[goToIndex[gameObjectId]];
+	}
+
+	void GameObjectDestroyed(size_t gameObjectId) {
+		RemoveData(gameObjectId);
 	}
 
 };
@@ -63,39 +66,34 @@ public:
 
 class ComponentManager {
 public:
-
-	std::unordered_map<std::string, size_t> componentTypes;
-	std::unordered_map<std::string, IComponentArray*> componentArrays;
-
-
+	std::unordered_map<size_t, IComponentArray*> componentArrays;
 
 	template<typename T>
-	void RegisterComponent() {
+	T* AddComponent(size_t gameObjectId) {
 
-		std::string name = typeid(T).name();
-		if (componentTypes.find(name))
-			std::cout << "component type already registered\n";
+		size_t componentTypeId = typeid(T).hash_code();
 
-		componentTypes.insert({ typeid(T).name, typeid(T).hash_code });
+		if (componentArrays.find(componentTypeId) == componentArrays.end()) {
+			std::cout << "register new component type\n";
+			componentArrays[componentTypeId] = new ComponentArray<T>();
+		}
 
-		componentArrays.insert({ name, new ComponentArray<T>() });
+		((ComponentArray<T>*)componentArrays[componentTypeId])->InsertData(gameObjectId);
 
+		std::cout << "added new comp of type " << typeid(T).name() << " to gameobj " << std::to_string(gameObjectId) << "\n";
 
+		return ((ComponentArray<T>*)componentArrays[componentTypeId])->GetData(gameObjectId);
 	}
 
 	template<typename T>
-	void AddComponent(Missan::GameObject g, T component) {
-		componentArrays[typeid(T).name]->InsertData(g, component);
-
+	void RemoveComponent(size_t gameObjectId) {
+		componentArrays[typeid(T).hash_code()]->RemoveData(gameObjectId);
 	}
 
 	template<typename T>
-	void RemoveComponent(Missan::GameObject g) {
-		componentArrays[typeid(T).name]->RemoveData(g);
-	}
-
-	template<typename T>
-	T& GetComponent(Missan::GameObject g) {
-		return componentArrays[typeid(T).name]->GetData(g);
+	T* GetComponent(size_t gameObjectId) {
+		return &componentArrays[typeid(T).hash_code()]->GetData(gameObjectId);
 	}
 };
+
+extern ComponentManager componentManager;
