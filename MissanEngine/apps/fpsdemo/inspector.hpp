@@ -38,8 +38,4 @@ public:
 
 	}
 
-	Inspector* Clone() const {
-		return new Inspector(*this);
-	}
-
 };

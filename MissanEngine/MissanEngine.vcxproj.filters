@@ -1518,9 +1518,6 @@
     <ClInclude Include="include\entitycomponentsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\clonable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ecs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

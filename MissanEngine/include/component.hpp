@@ -1,7 +1,6 @@
 #pragma once
 
 #include "gameobject.hpp"
-#include "clonable.hpp"
 #include "inspectable.hpp"
 
 namespace Missan {
@@ -10,19 +9,13 @@ namespace Missan {
 
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
-	/// Currently, derived classes MUST provide implementation of the Clone() method. 
-	class Component : public IClonable, Inspectable {
+	class Component : public Inspectable {
 		
 	public:
 	
 		/// 
 		/// The GameObject this Component is attached to. 
 		GameObject* gameObject = nullptr;
-
-		///
-		/// TODO: remove in future
-		/// Must have definition - empty body - since derived classes will call it.
-		inline virtual ~Component() { };
 
 		///
 		/// Called only once for each GameObject, before all other Event functions
@@ -49,13 +42,6 @@ namespace Missan {
 		inline virtual void OnDestroy() {}
 
 		inline virtual void DisplayInInspector(){}
-
-		///
-		/// TODO: remove in future
-		/// All derived classes of Component must provide an implementation of this method. 
-		/// For class T inhereting from Component, it should look like this:
-		/// T* Clone() const { return new T(*this); } 
-		inline virtual Component* Clone() const = 0;	
 
 	};
 

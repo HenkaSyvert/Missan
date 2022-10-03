@@ -28,9 +28,4 @@ public:
 		if (other->GetComponent<Projectile>() != nullptr) TakeHit();	
 	}
 
-
-
-	Destructible* Clone() const { 
-		return new Destructible(*this); 
-	}
 };

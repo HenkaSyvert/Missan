@@ -555,7 +555,6 @@
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="apps\editor\editor.hpp" />
-    <ClInclude Include="include\clonable.hpp" />
     <ClInclude Include="include\ecs.hpp" />
     <ClInclude Include="include\entitycomponentsystem.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />

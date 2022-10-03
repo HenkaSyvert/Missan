@@ -66,7 +66,6 @@ namespace Missan {
         void Start() { UpdateMatrix(); }
         void DisplayInInspector();
 
-        Transform* Clone() const { return new Transform(*this); }
         
     private:
         glm::vec3 _position = { 0, 0, 0 };

@@ -17,7 +17,6 @@ namespace Missan {
 
 		void DisplayInInspector();
 
-		Light* Clone() const { return new Light(*this); }
 	};
 
 }

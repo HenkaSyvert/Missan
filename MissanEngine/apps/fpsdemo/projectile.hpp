@@ -32,6 +32,4 @@ private:
 	float startTime = 0;
 
 
-
-	Projectile* Clone() const { return new Projectile(*this); }
 };

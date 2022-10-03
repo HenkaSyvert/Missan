@@ -85,6 +85,5 @@ public:
 	}
 
 
-	Weapon* Clone() const { return new Weapon(*this); }
 
 };

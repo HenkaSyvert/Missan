@@ -114,7 +114,5 @@ public:
 	}
 
 
-    Movement* Clone() const { return new Movement(*this); }
-
 
 };

@@ -63,8 +63,6 @@ public:
 	*/
 
 
-	Menu* Clone() const { return new Menu(*this); }
-
 
 };
 

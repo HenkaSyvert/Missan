@@ -85,8 +85,4 @@ public:
         transform->rotation.x = clamp(transform->rotation.x + dxRot, -pitchConstraint, pitchConstraint);
     }
 
-
-
-	Editor* Clone() const { return new Editor(*this); }
-
 };

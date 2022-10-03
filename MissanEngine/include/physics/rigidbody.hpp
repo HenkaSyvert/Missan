@@ -73,6 +73,5 @@ namespace Missan {
 
 
 		void Start();
-		RigidBody* Clone() const { return new RigidBody(*this); }
 	};
 }

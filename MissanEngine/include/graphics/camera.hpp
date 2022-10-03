@@ -73,7 +73,6 @@ namespace Missan {
 
 		inline void Start() { UpdateMatrices(); }
 
-		Camera* Clone() const { return new Camera(*this); }
 
 	private:
 		float _fov = 45;

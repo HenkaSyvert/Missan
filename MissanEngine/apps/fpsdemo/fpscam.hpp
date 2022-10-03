@@ -41,8 +41,4 @@ public:
     }
 
 
-
-    // currently all Components, and thus all scripts, require and implementation of this method
-    FPSCamera* Clone() const { return new FPSCamera(*this); }   // necessary for deep-cloning
-
 };

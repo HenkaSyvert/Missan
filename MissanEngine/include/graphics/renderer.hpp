@@ -24,7 +24,6 @@ namespace Missan {
 
 		void DisplayInInspector();
 
-		Renderer* Clone() const { return new Renderer(*this); }
 
 	};
 
