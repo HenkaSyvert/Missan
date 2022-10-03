@@ -15,10 +15,8 @@ namespace Missan {
 
 	public:
 
-		static int freeId;
-		int id;
+		const size_t& id = _id;
 		std::string name;
-		std::string tag;
 
 		/// 
 		/// Creates new GameObject
@@ -71,6 +69,9 @@ namespace Missan {
 
 		std::vector<class Component*> components;
 
+
+	private:
+		size_t _id;
 	};
 
 }

@@ -15,41 +15,7 @@
 
 #define MAX_GAME_OBJECTS 100
 
-class GameObjectManager {
-public:
-	std::queue<size_t> freeGameObjectIds;
-	size_t livingEntities = 0;
 
-
-	GameObjectManager() {
-
-		// initialize with all free IDs
-		for (int i = 0; i < MAX_GAME_OBJECTS; i++) {
-			freeGameObjectIds.push(i);
-		}
-		std::cout << "GOmanager(): init with " << MAX_GAME_OBJECTS << "max game objects\n";
-	}
-
-	Missan::GameObject CreateGameObject() {
-		size_t newId = freeGameObjectIds.front();
-		freeGameObjectIds.pop();
-		livingEntities++;
-
-		Missan::GameObject g;
-		g.id = newId;
-
-		std::cout << "GOm: create new go with id " << newId << "\n";
-		return g;
-	}
-
-	void DestroyGameObject(Missan::GameObject g) {
-
-		freeGameObjectIds.push(g.id);
-		livingEntities--;
-
-	}
-
-};
 
 class IComponentArray {
 public:
