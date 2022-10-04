@@ -3,6 +3,8 @@
 #include "gameobject.hpp"
 #include "inspectable.hpp"
 
+#include <typeinfo>
+
 namespace Missan {
 
 	class GameObject;
@@ -16,6 +18,8 @@ namespace Missan {
 		/// 
 		/// The GameObject this Component is attached to. 
 		GameObject* gameObject = nullptr;
+
+		inline size_t getTypeId() { return typeid(*this).hash_code(); }
 
 		///
 		/// Called only once for each GameObject, before all other Event functions

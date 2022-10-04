@@ -33,7 +33,7 @@ namespace Missan {
 		/// 
 		/// Adds Component of type T, attaches it, and returns pointer
 		template <class T> inline T* AddComponent() {
-			T* component = componentManager.AddComponent<T>(id);
+			T* component = ECS::AddComponent<T>(id);
 			components.push_back(component);
 			return component;
 		}	
@@ -50,7 +50,7 @@ namespace Missan {
 		/// 
 		/// Removes Component
 		template <class T> inline void RemoveComponent() {
-			componentManager.RemoveComponent<T>(id);
+			ECS::RemoveComponent<T>(id);
 		}
 		
 		/// 

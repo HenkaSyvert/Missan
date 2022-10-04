@@ -27,14 +27,12 @@ GameObject::GameObject() {
 }
 
 GameObject::GameObject(GameObject& copy) : GameObject() {
-	for (Component* c : copy.components) {
-		cout << "try copy component...\n";
-	}
+	ECS::CopyComponents(copy.id, id);
 	name = copy.name + to_string(id);
 }
 
 GameObject::~GameObject() {
-	componentManager.GameObjectDestroyed(id);
+	ECS::DestroyGameObject(id);
 	freeIds.push(id);
 }
 

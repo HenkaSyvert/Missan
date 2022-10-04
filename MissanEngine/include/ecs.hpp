@@ -1,106 +1,43 @@
 #pragma once
 
-
-#include <unordered_map>
-#include <queue>
 #include <string>
-#include <typeinfo>
-#include <iostream>
+
+namespace Missan {
+
+	namespace ECS {
+
+		void* AddComponentById(size_t gameObjectId, size_t componentTypeId, size_t componentSize, std::string componentName, void* component);
+		
+		const void* GetComponentArrayById(size_t componentTypeId);
+		
+		void RemoveComponentById(size_t gameObjectId, size_t componentTypeId);
+		
+		void* GetComponentById(size_t gameObjectId, size_t componentTypeId);
+
+		void CopyComponents(size_t sourceId, size_t destinationId);
+
+		void DestroyGameObject(size_t gameObjectId);
 
 
-
-
-
-
-#define MAX_GAME_OBJECTS 100
-
-
-
-class IComponentArray {
-public:
-	virtual ~IComponentArray() = default;
-	virtual void GameObjectDestroyed(size_t gameObjectId) = 0;
-
-};
-
-template<typename T>
-class ComponentArray : public IComponentArray {
-
-public:
-	T componentArray[MAX_GAME_OBJECTS];
-	std::unordered_map<size_t, size_t> goToIndex;
-	std::unordered_map<size_t, size_t> indexToGo;
-	size_t size = 0;
-
-	void InsertData(size_t gameObjectId) {
-		std::cout << typeid(T).name() << "[" << gameObjectId << "]: insert\n";
-		size_t componentId = size++;
-		goToIndex[gameObjectId] = componentId;
-		indexToGo[componentId] = gameObjectId;
-		componentArray[componentId] = T();
-
-	}
-
-	void RemoveData(size_t gameObjectId) {
-		std::cout << typeid(T).name() << "[" << gameObjectId << "]: remove\n";
-		size_t indexOfRemoved = goToIndex[gameObjectId];
-		size_t indexOfLast = size - 1;
-		componentArray[indexOfRemoved] = componentArray[indexOfLast];
-
-		size_t lastGoId = indexToGo[indexOfLast];
-		goToIndex[lastGoId] = indexOfRemoved;
-		indexToGo[indexOfRemoved] = lastGoId;
-
-	}
-
-	T* GetData(size_t gameObjectId) {
-		std::cout << typeid(T).name() << "[" << gameObjectId << "]: get\n";
-		return &componentArray[goToIndex[gameObjectId]];
-	}
-
-	void GameObjectDestroyed(size_t gameObjectId) {
-		std::cout << typeid(T).name() << "[" << gameObjectId << "]: destroy\n";
-		RemoveData(gameObjectId);
-	}
-
-};
-
-
-class ComponentManager {
-public:
-	std::unordered_map<size_t, IComponentArray*> componentArrays;
-
-	template<typename T>
-	T* AddComponent(size_t gameObjectId) {
-
-		size_t componentTypeId = typeid(T).hash_code();
-
-		if (componentArrays.find(componentTypeId) == componentArrays.end()) {
-			std::cout << "register new component type\n";
-			componentArrays[componentTypeId] = new ComponentArray<T>();
+		template<class T>
+		const T* GetComponentArray() {
+			return (const T*)GetComponentArrayById(typeid(T).hash_code());
 		}
 
-		((ComponentArray<T>*)componentArrays[componentTypeId])->InsertData(gameObjectId);
+		template<class T>
+		T* AddComponent(size_t gameObjectId) {
+			T component;
+			return (T*)AddComponentById(gameObjectId, typeid(T).hash_code(), sizeof(T), typeid(T).name(), &component);
+		}
 
-		//std::cout << "added new comp of type " << typeid(T).name() << " to gameobj " << std::to_string(gameObjectId) << "\n";
+		template<class T>
+		void RemoveComponent(size_t gameObjectId) {
+			RemoveComponentById(gameObjectId, typeid(T).hash_code());
+		}
 
-		return ((ComponentArray<T>*)componentArrays[componentTypeId])->GetData(gameObjectId);
+		template<class T>
+		T* GetComponent(size_t gameObjectId) {
+			return (T*)GetComponentById(gameObjectId, typeid(T).hash_code());
+		}
 	}
-
-	template<typename T>
-	void RemoveComponent(size_t gameObjectId) {
-		componentArrays[typeid(T).hash_code()]->RemoveData(gameObjectId);
-	}
-
-	template<typename T>
-	T* GetComponent(size_t gameObjectId) {
-		return &componentArrays[typeid(T).hash_code()]->GetData(gameObjectId);
-	}
-
-	void GameObjectDestroyed(size_t gameObjectId) {
-		for (auto& pair : componentArrays)
-			pair.second->GameObjectDestroyed(gameObjectId);
-	}
-};
-
-extern ComponentManager componentManager;
+}
