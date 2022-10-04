@@ -8,7 +8,7 @@
 using namespace Missan;
 using namespace std;
 
-
+size_t ECS::freeComponentTypeId = 0;
 class ComponentArray {
 
 public:

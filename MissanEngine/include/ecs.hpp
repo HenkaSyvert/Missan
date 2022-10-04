@@ -19,25 +19,35 @@ namespace Missan {
 		void DestroyGameObject(size_t gameObjectId);
 
 
+		extern size_t freeComponentTypeId;
+		template<class T>
+		size_t GetComponentTypeId() {
+			static size_t typeId = freeComponentTypeId++;
+			return typeId;
+		}
+
 		template<class T>
 		const T* GetComponentArray() {
-			return (const T*)GetComponentArrayById(typeid(T).hash_code());
+			return (const T*)GetComponentArrayById(GetComponentTypeId<T>());
 		}
 
 		template<class T>
 		T* AddComponent(size_t gameObjectId) {
 			T component;
-			return (T*)AddComponentById(gameObjectId, typeid(T).hash_code(), sizeof(T), typeid(T).name(), &component);
+			return (T*)AddComponentById(gameObjectId, GetComponentTypeId<T>(), sizeof(T), typeid(T).name(), &component);
 		}
 
 		template<class T>
 		void RemoveComponent(size_t gameObjectId) {
-			RemoveComponentById(gameObjectId, typeid(T).hash_code());
+			RemoveComponentById(gameObjectId, GetComponentTypeId<T>());
 		}
 
 		template<class T>
 		T* GetComponent(size_t gameObjectId) {
-			return (T*)GetComponentById(gameObjectId, typeid(T).hash_code());
+			return (T*)GetComponentById(gameObjectId, GetComponentTypeId<T>());
 		}
+
+
+
 	}
 }
