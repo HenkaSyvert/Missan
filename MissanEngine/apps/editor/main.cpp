@@ -24,9 +24,8 @@ void PlaceSomeCubes() {
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/stone2.png");
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-    r->material->shader = Shader::unlit;
-    cube = GameObject::Instantiate(cube);
-    Component::Get<Transform>(cube)->position += {2, 0, 0};
+    r->material->shader = Shader::diffuseSpecular;
+
 }
 
 void MakeLight() {
@@ -41,6 +40,7 @@ void MakeLight() {
 int main(){
     
     Engine::Initialize();
+
 
     MakeEditor();
     PlaceSomeCubes();

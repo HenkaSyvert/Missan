@@ -9,7 +9,6 @@ namespace Missan {
 
 	public:
 
-		static Light* light;
 
 		glm::vec4 ambient = Color::white * .2f;
 		glm::vec4 diffuse = Color::white * .5f;

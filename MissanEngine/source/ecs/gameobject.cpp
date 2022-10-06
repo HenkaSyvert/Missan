@@ -33,7 +33,6 @@ size_t GameObject::Instantiate() {
 	size_t id = GetUniqueId();
 	GameObject g;
 	g.id = id;
-	cout << "id: " << id << "\n";
 	gameObjects.Add(id, &g);
 	return id;
 }

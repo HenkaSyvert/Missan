@@ -18,7 +18,7 @@ public:
 		
 		this->elementSize = elementSize;
 		data = (char*)malloc(GetOffset(capacity));
-		std::cout << "packed arr init w el size: " << elementSize << "\nand alloacted " << GetOffset(capacity) << " bytes\n";
+		//std::cout << "packed arr init w el size: " << elementSize << "\nand alloacted " << GetOffset(capacity) << " bytes\n";
 	}
 
 	inline bool IsIdUsed(size_t id) {
@@ -31,7 +31,7 @@ public:
 
 	void Add(size_t id, void* element) {
 
-		if (IsIdUsed(id)) std::cout << "id: " << id << " is already associated with index, cant add element\n";
+		//if (IsIdUsed(id)) std::cout << "id: " << id << " is already associated with index, cant add element\n";
 		
 		size_t index = count++;
 		if (count > capacity) {
@@ -49,7 +49,7 @@ public:
 	void Remove(size_t id) {
 
 		if (!IsIdUsed(id)) {
-			std::cout << "id: " << id << " is not associated with index, can't remove element\n";
+			//std::cout << "id: " << id << " is not associated with index, can't remove element\n";
 			return;
 		}
 
@@ -76,7 +76,7 @@ public:
 	inline void* GetById(size_t id) {
 
 		if (!IsIdUsed(id)) {
-			std::cout << "id: " << id << " is not associated with any index, can't get\n";
+			//std::cout << "id: " << id << " is not associated with any index, can't get\n";
 			return nullptr;
 		}
 

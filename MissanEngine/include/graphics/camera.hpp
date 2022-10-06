@@ -19,9 +19,6 @@ namespace Missan {
 
 		enum class Projection { orthographic, perspective };
 
-		Camera();
-
-		static Camera* main;
 
 		/// 
 		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis

@@ -5,7 +5,7 @@
 namespace Missan {
 
 	class Inspectable {
-
+	public:
 		inline virtual void DisplayInInspector() {}
 
 	};

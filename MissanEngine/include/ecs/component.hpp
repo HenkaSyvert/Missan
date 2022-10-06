@@ -5,6 +5,7 @@
 
 #include <string>
 #include <typeinfo>
+#include <vector>
 
 namespace Missan {
 
@@ -26,7 +27,7 @@ namespace Missan {
 
 		///
 		/// Called when this Collider has begun touching another Collider
-		virtual void OnCollisionEnter(size_t otherGameObjectId){}		
+		virtual void OnCollisionEnter(size_t otherGameObjectId){}
 
 		///
 		/// Called every frame
@@ -44,17 +45,26 @@ namespace Missan {
 		/// Called prior to the GameObject being destroyed
 		inline virtual void OnDestroy() {}
 
-		inline virtual void DisplayInInspector(){}
-
-
+		template<class T> T* GetComponent() { return Component::Get<T>(gameObjectId); }
 
 
 		// Unique ID per component type
 		static size_t numberOfTypes;
+		static std::vector<std::string> typeNames;
 		template<class T> static size_t GetTypeId() {
-			static size_t typeId = numberOfTypes++;
-			RegisterById(typeId, sizeof(T));
+			static const size_t typeId = numberOfTypes++;
+			static bool hasHappenedOnce = false;
+			if (!hasHappenedOnce) {
+				typeNames.push_back(typeid(T).name());
+				RegisterById(typeId, sizeof(T));
+				std::cout << "names.size(): " << typeNames.size() << "\n";
+				hasHappenedOnce = true;
+			}
 			return typeId;
+		}
+
+		static const std::string& GetNameById(size_t id) {
+			return typeNames[id];
 		}
 
 		static void RegisterById(size_t componentTypeId, size_t componentSize);
@@ -66,7 +76,9 @@ namespace Missan {
 			return GetArrayById(GetTypeId<T>());
 		}
 		template<class T> static T* GetRawArray() {
-			return GetArray<T>() ? (T*)GetArray<T>()->data : nullptr;
+			PackedAssociativeArray* componentArray = GetArray<T>();
+			if (!componentArray || componentArray->count == 0) return nullptr;
+			else return (T*)componentArray->data;
 		}
 
 		// Create new component and attach to gameobject

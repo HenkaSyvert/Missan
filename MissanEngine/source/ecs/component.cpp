@@ -7,6 +7,8 @@
 
 #include "util/packedassociativearray.hpp"
 
+#define DEBUG_COMPONENT 1
+
 using namespace Missan;
 using namespace std;
 
@@ -15,6 +17,7 @@ using namespace std;
 static vector<PackedAssociativeArray*> componentArrays;
 
 size_t Component::numberOfTypes = 0;
+vector<string> Component::typeNames;
 static inline bool IsComponentTypeRegistered(size_t componentTypeId) {
 	return componentTypeId < componentArrays.size();
 }
@@ -22,7 +25,7 @@ static inline bool IsComponentTypeRegistered(size_t componentTypeId) {
 
 void Component::RegisterById(size_t componentTypeId, size_t componentSize) {
 	if (IsComponentTypeRegistered(componentTypeId)) return;
-	cout << "register new component ID: " << componentTypeId << "\n";
+	if (DEBUG_COMPONENT) cout << "RegisterById: componentArrays[" << componentTypeId << "] = " << GetNameById(componentTypeId) << "\n";
 	componentArrays.push_back(new PackedAssociativeArray(componentSize));
 }
 
@@ -31,14 +34,13 @@ PackedAssociativeArray* Component::GetArrayById(size_t componentTypeId) {
 
 	if (IsComponentTypeRegistered(componentTypeId)) return componentArrays[componentTypeId];
 
-	cout << "component ID: " << componentTypeId << " is not registered, cant get array\n";
+	if (DEBUG_COMPONENT) cout << "GetArrayById: " << GetNameById(componentTypeId) << " is not registered, can't get array\n";
 	return nullptr;
 }
 
 void Component::AddById(size_t gameObjectId, size_t componentTypeId, size_t componentSize, void* component) {
 
-	cout << "addByid(): goid: " << gameObjectId << " compId: " << componentTypeId << " compsize: " << componentSize << "\n";
-	cout << "componentArrays.size(): " << componentArrays.size() << "\n";
+	if (DEBUG_COMPONENT) cout << "AddById: " << componentTypeId << ": " << GetNameById(componentTypeId) << "[gameobj ID: " << gameObjectId << "]\n";
 	componentArrays[componentTypeId]->Add(gameObjectId, component);
 	// change return type to avoid all casts??
 	// TODO: also, might not be a good idea to call start here? or maybe?
@@ -49,7 +51,7 @@ void Component::AddById(size_t gameObjectId, size_t componentTypeId, size_t comp
 void Component::RemoveById(size_t gameObjectId, size_t componentTypeId) {
 
 	if (!IsComponentTypeRegistered(componentTypeId))
-		cout << "component ID: " << componentTypeId << " is not registered, cant remove element\n";
+		if (DEBUG_COMPONENT) cout << "RemoveById: " << componentTypeId << ": " << GetNameById(componentTypeId) << "[gameobj ID: " << gameObjectId << "] = NULL, cant remove\n";
 
 	componentArrays[componentTypeId]->Remove(gameObjectId);
 }

@@ -22,7 +22,6 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-Light* Light::light = nullptr;
 
 Mesh::Mesh(int vaoId, int elementCount) {
 	this->vaoId = vaoId;
@@ -38,21 +37,34 @@ void GraphicsInitialize() {
 }
 
 void GraphicsUpdate() {
-	if (!Camera::main) return;
+	
+	Camera* cameras = Component::GetRawArray<Camera>();
+
+	if (!cameras) {
+		return;
+	}
+
+	// TODO: add support for several cameras...
+	Camera* camera = cameras;
+
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	vec4 clearColor = Camera::main->clearColor;
+	vec4 clearColor = camera->clearColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
 	Renderer* renderers = Component::GetRawArray<Renderer>();
-	if (!renderers) return;
+	if (!renderers) {
+		return;
+	}
 	size_t renderersCount = Component::GetArray<Renderer>()->count;
 
 	for (size_t i = 0; i < renderersCount; i++) {
 
 		Renderer* renderer = &renderers[i];
 
-		if (!renderer->mesh) continue;
+		if (!renderer->mesh) {
+			continue;
+		}
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(renderer->mesh->vaoId);
@@ -62,13 +74,12 @@ void GraphicsUpdate() {
 		glUseProgram(shader.programId);
 
 		if (&shader == Shader::unlit) {
-
 			mat4 transMat = Component::Get<Transform>(renderer->gameObjectId)->matrix;
 			shader.SetMat4("u_model", transMat);
 
-			mat4 view = Component::Get<Transform>(Camera::main->gameObjectId)->inverseMatrix;
+			mat4 view = Component::Get<Transform>(camera->gameObjectId)->inverseMatrix;
 			shader.SetMat4("u_view", view);
-			shader.SetMat4("u_proj", Camera::main->projectionMatrix);
+			shader.SetMat4("u_proj", camera->projectionMatrix);
 
 			Texture* texture = renderer->material->texture;
 			shader.SetVec4("u_materialColor", renderer->material->ambient);
@@ -90,19 +101,28 @@ void GraphicsUpdate() {
 
 		}
 		else if (&shader == Shader::diffuseSpecular) {
-
+			
 			shader.SetMat4("model", Component::Get<Transform>(renderer->gameObjectId)->matrix);
-			shader.SetMat4("view", Component::Get<Transform>(Camera::main->gameObjectId)->inverseMatrix);
-			shader.SetMat4("projection", Camera::main->projectionMatrix);
+			shader.SetMat4("view", Component::Get<Transform>(camera->gameObjectId)->inverseMatrix);
+			shader.SetMat4("projection", camera->projectionMatrix);
 			shader.SetMat3("normalMatrix", mat3(inverse(transpose(Component::Get<Transform>(renderer->gameObjectId)->matrix))));
-			shader.SetVec3("cameraPosition", Component::Get<Transform>(Camera::main->gameObjectId)->position);
+			shader.SetVec3("cameraPosition", Component::Get<Transform>(camera->gameObjectId)->position);
 
-			Light* light = Light::light;
+			// TODO: add supprt for several lights...
+			Light* lights = Component::GetRawArray<Light>();
+			Light* light = lights;
 			if (light) {
 				shader.SetVec3("light.position", Component::Get<Transform>(light->gameObjectId)->position);
 				shader.SetVec4("light.ambient", light->ambient);
 				shader.SetVec4("light.diffuse", light->diffuse);
 				shader.SetVec4("light.specular", light->specular);
+			}
+			else {
+				// idk some default values for non-light?
+				shader.SetVec3("light.position", {0,0,0});
+				shader.SetVec4("light.ambient", {1,1,1,1});
+				shader.SetVec4("light.diffuse", {1,1,1,1});
+				shader.SetVec4("light.specular", {1,1,1,1});
 			}
 			Material* material = renderer->material;
 			shader.SetVec4("material.ambient", material->ambient);
@@ -125,6 +145,9 @@ void GraphicsUpdate() {
 			glDisableVertexAttribArray(0);
 			glDisableVertexAttribArray(2);
 
+		}
+		else {
+			cout << "wtf invalid shader\n";
 		}
 
 	}

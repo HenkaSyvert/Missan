@@ -8,12 +8,6 @@ using namespace Missan;
 using namespace ImGui;
 using namespace std;
 
-Camera* Camera::main = nullptr;
-
-Camera::Camera() {
-	if (!main) main = this;
-}
-
 void Camera::UpdateMatrices() {
 	if (_projection == Projection::perspective) {
 		_projMat = glm::perspective(glm::radians(_fov), _ar, _near, _far);
