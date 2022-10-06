@@ -10,8 +10,8 @@ namespace Missan {
 	public:
 
 
-		glm::vec4 ambient = Color::white * .2f;
-		glm::vec4 diffuse = Color::white * .5f;
+		glm::vec4 ambient = {.2, .2, .2, 1};
+		glm::vec4 diffuse = {.5, .5, .5, 1};
 		glm::vec4 specular = Color::white;
 
 		void DisplayInInspector();

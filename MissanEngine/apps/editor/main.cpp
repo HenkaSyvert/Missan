@@ -44,7 +44,7 @@ int main(){
 
     MakeEditor();
     PlaceSomeCubes();
-    //MakeLight();
+    MakeLight();
 
 
     Engine::Run();
