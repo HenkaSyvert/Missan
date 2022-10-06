@@ -92,9 +92,8 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
-    <ClCompile Include="source\ecs.cpp" />
-    <ClCompile Include="source\entitycomponentsystem.cpp" />
-    <ClCompile Include="source\gameobject.cpp" />
+    <ClCompile Include="source\ecs\component.cpp" />
+    <ClCompile Include="source\ecs\gameobject.cpp" />
     <ClCompile Include="source\graphics\light.cpp" />
     <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
@@ -555,11 +554,9 @@
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="apps\editor\editor.hpp" />
-    <ClInclude Include="include\ecs.hpp" />
-    <ClInclude Include="include\entitycomponentsystem.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />
     <ClInclude Include="include\graphics\color.hpp" />
-    <ClInclude Include="include\gameobject.hpp" />
+    <ClInclude Include="include\ecs\gameobject.hpp" />
     <ClInclude Include="include\graphics\light.hpp" />
     <ClInclude Include="include\graphics\material.hpp" />
     <ClInclude Include="include\graphics\mesh.hpp" />
@@ -570,7 +567,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
     <ClInclude Include="include\physics\collider.hpp" />
-    <ClInclude Include="include\component.hpp" />
+    <ClInclude Include="include\ecs\component.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />
@@ -589,6 +586,7 @@
     <ClInclude Include="include\graphics\texture.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\physics\transform.hpp" />
+    <ClInclude Include="include\util\packedassociativearray.hpp" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\graphics\window.hpp" />
   </ItemGroup>

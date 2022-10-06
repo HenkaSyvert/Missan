@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs/component.hpp"
 #include "graphics/window.hpp"
 #include "physics/ray.hpp"
 #include "inspectable.hpp"

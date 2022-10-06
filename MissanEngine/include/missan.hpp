@@ -8,12 +8,12 @@
 #include <iostream>
 #include <string>
 
-#include "component.hpp"
+#include "ecs/component.hpp"
+#include "ecs/gameobject.hpp"
+
 #include "engine.hpp"
-#include "gameobject.hpp"
 #include "input.hpp"
 #include "inspectable.hpp"
-#include "entitycomponentsystem.hpp"
 
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"

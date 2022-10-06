@@ -26,7 +26,7 @@ void Camera::UpdateMatrices() {
 
 Ray Camera::ScreenPointToRay(glm::vec2 screenPoint) {
 
-	return Ray(ScreenToWorldPoint(glm::vec3(screenPoint, 0)), gameObject->GetComponent<Transform>()->forward);
+	return Ray(ScreenToWorldPoint(glm::vec3(screenPoint, 0)), Component::Get<Transform>(gameObjectId)->forward);
 
 }
 

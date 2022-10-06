@@ -14,16 +14,12 @@ public:
 
 	GameObject* selected = nullptr;
 	vector<GameObject*> gos;
-    Transform* transform = nullptr;
 
-    void Start() {
-        transform = gameObject->GetComponent<Transform>();
-
-    }
 
     void Update() {
-        HandleCamera();
-        HandleMovement();
+        Transform* transform = Component::Get<Transform>(gameObjectId);
+        HandleCamera(transform);
+        HandleMovement(transform);
     }
 
     void OnGui() {
@@ -35,11 +31,11 @@ public:
 
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
-            gos = EcsGetGameObjects();
             int i = 0;
-            for (auto& g : gos)
+            for (size_t j = 0; j < GameObject::gameObjects.count; j++) {
+                GameObject* g = (GameObject*)GameObject::gameObjects.GetByIndex(j);
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;
-            
+            }
             End();
         }
     }
@@ -49,12 +45,17 @@ public:
             if (!g) {
                 Text("no game object selected");
             }
-            else for (auto& c : g->components) c->DisplayInInspector();
+            else for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+                PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+                Component* component = (Component*)componentArray->GetById(g->id);
+                if (component) component->DisplayInInspector();
+                
+            }
         }
         End();
     }
 
-    void HandleMovement() {
+    void HandleMovement(Transform* transform) {
 
         float moveSpeed = 5;
 
@@ -73,7 +74,7 @@ public:
 
     }
 
-    void HandleCamera(){
+    void HandleCamera(Transform* transform){
         if (!Input::GetMouseButton(MouseButton::Right)) return;
 
         float rotationSpeedDeg = 30.0f;

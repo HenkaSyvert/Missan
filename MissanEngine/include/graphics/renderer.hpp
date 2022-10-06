@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs/component.hpp"
 #include "graphics/material.hpp"
 #include "graphics/mesh.hpp"
 #include "graphics/shader.hpp"
@@ -20,7 +20,8 @@ namespace Missan {
 
 		Material* material = nullptr;
 
-		void Start() { if (!material->shader)material->shader = Shader::unlit; }
+		// TODO: add initialization funcs that run before Start()...
+		//void Start() { if (!material->shader)material->shader = Shader::unlit; }
 
 		void DisplayInInspector();
 

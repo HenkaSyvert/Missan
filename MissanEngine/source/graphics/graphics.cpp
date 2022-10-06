@@ -7,9 +7,8 @@
 
 #include "physics/transform.hpp"
 #include "internal.hpp"
-#include "gameobject.hpp"
-#include "component.hpp"
-#include "entitycomponentsystem.hpp"
+#include "ecs/gameobject.hpp"
+#include "ecs/component.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -45,11 +44,13 @@ void GraphicsUpdate() {
 	vec4 clearColor = Camera::main->clearColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
-	vector<Renderer*> renderers;
-	auto& gameObjects = EcsGetGameObjects();
-	for (auto* g : gameObjects) if (g->GetComponent<Renderer>()) renderers.push_back(g->GetComponent<Renderer>());
+	Renderer* renderers = Component::GetRawArray<Renderer>();
+	if (!renderers) return;
+	size_t renderersCount = Component::GetArray<Renderer>()->count;
 
-	for (auto renderer : renderers) {
+	for (size_t i = 0; i < renderersCount; i++) {
+
+		Renderer* renderer = &renderers[i];
 
 		if (!renderer->mesh) continue;
 
@@ -62,10 +63,10 @@ void GraphicsUpdate() {
 
 		if (&shader == Shader::unlit) {
 
-			mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
+			mat4 transMat = Component::Get<Transform>(renderer->gameObjectId)->matrix;
 			shader.SetMat4("u_model", transMat);
 
-			mat4 view = Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix;
+			mat4 view = Component::Get<Transform>(Camera::main->gameObjectId)->inverseMatrix;
 			shader.SetMat4("u_view", view);
 			shader.SetMat4("u_proj", Camera::main->projectionMatrix);
 
@@ -90,15 +91,15 @@ void GraphicsUpdate() {
 		}
 		else if (&shader == Shader::diffuseSpecular) {
 
-			shader.SetMat4("model", renderer->gameObject->GetComponent<Transform>()->matrix);
-			shader.SetMat4("view", Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix);
+			shader.SetMat4("model", Component::Get<Transform>(renderer->gameObjectId)->matrix);
+			shader.SetMat4("view", Component::Get<Transform>(Camera::main->gameObjectId)->inverseMatrix);
 			shader.SetMat4("projection", Camera::main->projectionMatrix);
-			shader.SetMat3("normalMatrix", mat3(inverse(transpose(renderer->gameObject->GetComponent<Transform>()->matrix))));
-			shader.SetVec3("cameraPosition", Camera::main->gameObject->GetComponent<Transform>()->position);
+			shader.SetMat3("normalMatrix", mat3(inverse(transpose(Component::Get<Transform>(renderer->gameObjectId)->matrix))));
+			shader.SetVec3("cameraPosition", Component::Get<Transform>(Camera::main->gameObjectId)->position);
 
 			Light* light = Light::light;
 			if (light) {
-				shader.SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
+				shader.SetVec3("light.position", Component::Get<Transform>(light->gameObjectId)->position);
 				shader.SetVec4("light.ambient", light->ambient);
 				shader.SetVec4("light.diffuse", light->diffuse);
 				shader.SetVec4("light.specular", light->specular);

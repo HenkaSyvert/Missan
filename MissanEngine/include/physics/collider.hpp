@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs/component.hpp"
 #include "boundingbox.hpp"
 #include "transform.hpp"
 
@@ -12,8 +12,6 @@ namespace Missan {
 
 	public:
 
-		Transform* transform;
-
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap
 		glm::vec3 OverlapsWith(Collider* other);
@@ -23,8 +21,6 @@ namespace Missan {
 		/// By default the boundingBox will grow to encapsulate the attached Mesh (if any)
 		BoundingBox boundingBox;
 
-
-		void Start();
 
 	};
 

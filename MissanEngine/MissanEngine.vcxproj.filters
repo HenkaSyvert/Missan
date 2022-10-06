@@ -93,13 +93,10 @@
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\entitycomponentsystem.cpp">
+    <ClCompile Include="source\ecs\component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gameobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ecs.cpp">
+    <ClCompile Include="source\ecs\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1464,7 +1461,7 @@
     <ClInclude Include="include\physics\collider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\component.hpp">
+    <ClInclude Include="include\ecs\component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\input.hpp">
@@ -1473,7 +1470,7 @@
     <ClInclude Include="include\internal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gameobject.hpp">
+    <ClInclude Include="include\ecs\gameobject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\shader.hpp">
@@ -1515,10 +1512,7 @@
     <ClInclude Include="apps\editor\editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\entitycomponentsystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ecs.hpp">
+    <ClInclude Include="include\util\packedassociativearray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

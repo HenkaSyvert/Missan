@@ -7,45 +7,34 @@ using namespace Missan;
 
 void MakeEditor() {
 
-    GameObject editor;
-    editor.name = "editor";
-    editor.AddComponent<Transform>();
-    editor.AddComponent<Camera>();
-    editor.AddComponent<Editor>();
-
-    auto* g = GameObject::Instantiate(editor);
-    Camera::main = g->GetComponent<Camera>();
+    size_t editor = GameObject::Instantiate();
+    Component::Add<Transform>(editor);
+    Component::Add<Camera>(editor);
+    Component::Add<Editor>(editor);
 
 
 }
 
 void PlaceSomeCubes() {
-    GameObject cube;
-    cube.name = "cube";
-    cube.AddComponent<Transform>();
-    auto* r = cube.AddComponent<Renderer>();
+
+    size_t cube = GameObject::Instantiate();
+    Component::Add<Transform>(cube);
+    Component::Add<Renderer>(cube);
+    auto* r = Component::Get<Renderer>(cube);
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/stone2.png");
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-
-    auto* g = GameObject::Instantiate(cube);
-    g->GetComponent<Transform>()->position += {0, 0, -2};
-    g = GameObject::Instantiate(cube);
-    g->GetComponent<Transform>()->position += {-2, 0, 0};
-    g = GameObject::Instantiate(cube);
-    g->GetComponent<Transform>()->position += {0, 0, 2};
-
+    r->material->shader = Shader::unlit;
+    cube = GameObject::Instantiate(cube);
+    Component::Get<Transform>(cube)->position += {2, 0, 0};
 }
 
 void MakeLight() {
 
-    GameObject g;
-    g.AddComponent<Light>();
-    g.AddComponent<Transform>();
-    g.name = "light";
+    size_t light = GameObject::Instantiate();
+    Component::Add<Transform>(light);
+    Component::Add<Light>(light);
 
-    auto* go = GameObject::Instantiate(g);
-    Light::light = go->GetComponent<Light>();
 
 }
 
@@ -54,7 +43,7 @@ int main(){
     Engine::Initialize();
 
     MakeEditor();
-    //PlaceSomeCubes();
+    PlaceSomeCubes();
     //MakeLight();
 
 

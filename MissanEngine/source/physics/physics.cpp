@@ -1,13 +1,12 @@
 #include "physics/physics.hpp"
 
 #include "engine.hpp"
-#include "gameobject.hpp"
+#include "ecs/gameobject.hpp"
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
 #include "physics/boundingbox.hpp"
 #include "internal.hpp"
-#include "entitycomponentsystem.hpp"
 
 #include <glm/trigonometric.hpp>
 
@@ -18,17 +17,21 @@ using namespace glm;
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces() {
 
-	auto& gos = EcsGetGameObjects();
+	RigidBody* rbs = Component::GetRawArray<RigidBody>();
+	if (!rbs) return;
+	size_t rbsCount = Component::GetArray<RigidBody>()->count;
 
-	// get all RigidBodies
-	vector<RigidBody*> rbs;
-	for (auto* g : gos)
-		if (g->GetComponent<RigidBody>() != nullptr)
-			rbs.push_back(g->GetComponent<RigidBody>());
 
-	for (RigidBody* rb : rbs) {
+	// todo: here could be a good place to have some sort of signature to
+	// only accept game objects with both rigidbody and transofmr, or smth
+	
 
-		Transform* t = rb->gameObject->GetComponent<Transform>();
+	for (size_t i = 0; i < rbsCount; i++) {
+
+		RigidBody* rb = &rbs[i];
+
+		Transform* t = Component::Get<Transform>(rb->gameObjectId);
+		if (!t) continue;
 
 		if (rb->isAffectedByGravity)
 			rb->AddImpulse(Physics::gravity / rb->mass);
@@ -51,29 +54,35 @@ void ApplyForces() {
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
-	auto& gos = EcsGetGameObjects();
 
 	// get all Colliders
-	vector<Collider*> colliders;
-	for (auto* g : gos)
-		if (g->GetComponent<Collider>() != nullptr)
-			colliders.push_back(g->GetComponent<Collider>());
+	Collider* colliders = Component::GetRawArray<Collider>();
+	if (!colliders) return;
+	size_t collidersCount = Component::GetArray<Collider>()->count;
 
-	if (colliders.size() <= 1) return;
+	if (collidersCount <= 1) return;
 
-	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
-		Collider* ca = colliders[i];
+	for (size_t i = 0; i < collidersCount - 1; i++) {
+		Collider* ca = &colliders[i];
 
-		for (unsigned int j = i + 1; j < colliders.size(); j++) {
-			Collider* cb = colliders[j];
+		for (unsigned int j = i + 1; j < collidersCount; j++) {
+			Collider* cb = &colliders[j];
 
 			vec3 overlap = ca->OverlapsWith(cb);
 
 			float tolerance = 0.0001f;
 			if (length(overlap) < tolerance) continue;
 			else {
-				for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
-				for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
+
+				for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+					PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+					((Component*)componentArray->GetByIndex(ca->gameObjectId))->OnCollisionEnter(cb->gameObjectId);
+				}
+				for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+					PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+					((Component*)componentArray->GetByIndex(cb->gameObjectId))->OnCollisionEnter(ca->gameObjectId);
+				}
+
 			}
 		}
 	}

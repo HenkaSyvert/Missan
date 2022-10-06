@@ -9,9 +9,8 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
-#include "component.hpp"
-#include "gameobject.hpp"
-#include "entitycomponentsystem.hpp"
+#include "ecs/component.hpp"
+#include "ecs/gameobject.hpp"
 
 using namespace Missan;
 using namespace ImGui;
@@ -29,8 +28,13 @@ void GuiUpdate() {
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
 
-    auto& gameObjects = EcsGetGameObjects();
-    for (auto* g : gameObjects) for (auto* c : g->components) c->OnGui();
+    // TODO: this is probably wrong, not every component should make a new frame probably. 
+    for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+        PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+        for (size_t index = 0; index < componentArray->count; index++) {
+            ((Component*)componentArray->GetByIndex(index))->OnGui();
+        }
+    }
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

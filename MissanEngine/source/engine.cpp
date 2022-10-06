@@ -4,8 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "internal.hpp"
-#include "entitycomponentsystem.hpp"
-#include "gameobject.hpp"
+#include "ecs/gameobject.hpp"
 #include "input.hpp"
 #include "graphics/window.hpp"
 #include "physics/physics.hpp"
@@ -44,19 +43,33 @@ void Engine::Quit() {
 
 void Engine::Run() {
 	TimeUpdate();
-	EcsComponentsStart();
-	EcsGameObjectInstantiate();
 	
 	while (!glfwWindowShouldClose(window)) {
 		TimeUpdate();
 		PhysicsUpdate();
 		InputUpdate();
-		EcsComponentsUpdate();
-		EcsComponentsLateUpdate();
+		
+		for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+			PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+			for (size_t index = 0; index < componentArray->count; index++) {
+				((Component*)componentArray->GetByIndex(index))->Update();
+			}
+		}
+
+		for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+			PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+			for (size_t index = 0; index < componentArray->count; index++) {
+				((Component*)componentArray->GetByIndex(index))->LateUpdate();
+			}
+		}
+		
 		GraphicsUpdate();		
 		GuiUpdate();
-		EcsGameObjectInstantiate();
-		EcsGameObjectDestroy();
+		
+		for (size_t gameObjectId : GameObject::gameObjectsToDestroy) {
+			GameObject::DestroyImmediate(gameObjectId);
+		}
+		
 		glfwSwapBuffers(window);
 	}	
 
