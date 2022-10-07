@@ -7,7 +7,7 @@
 // and both raw mem version and template
 
 class RawArrayBase {
-	char* const data;
+	char* const data = nullptr;
 	const size_t elementSize;
 	const bool isCopy = false;
 
@@ -18,7 +18,7 @@ public:
 		count(count),
 		elementSize(elementSize),
 		isCopy(makeCopy),
-		data(makeCopy ? (char*)memcpy(malloc(elementSize * count), newData, elementSize * count) : (char*)newData) {
+		data(count == 0 ? nullptr : makeCopy ? (char*)memcpy(malloc(elementSize * count), newData, elementSize * count) : (char*)newData) {
 	}
 
 	~RawArrayBase() {

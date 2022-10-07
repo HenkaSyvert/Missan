@@ -23,6 +23,7 @@ public:
 
     void OnGui() {
         ShowDemoWindow();
+        EcsWindow();
         MenuBar();
         HierarchyWindow();
         InspectorWindow(selected);
@@ -40,9 +41,61 @@ public:
         rb->AddImpulse(dir, {0, 1, 0});
     }
 
+    void EcsWindow() {
+        if (Begin("Entity Component System")) {
+
+            auto& arrs = Component::componentArrays;
+            static int selectedArr = 0;
+            static int selectedComp = 0;
+            {
+                Text("Component Arrays");
+                BeginChild("left pane", {200, 0}, true);
+                for (int i = 0; i < arrs.size(); i++) {
+                    auto arr = Component::componentArrays[i];
+                    if (Selectable(arr->typeName.c_str(), selectedArr == i)) {
+                        selectedArr = i;
+                        selectedComp = 0;
+                    }
+                }
+
+                EndChild();
+            }
+            SameLine();
+
+            auto arr = arrs[selectedArr]->AsRawArrayBase();
+            {
+                BeginChild("mid pane", {200, 0}, true);
+                
+                for (int i = 0; i < arr.count; i++) {
+                    Component* c = (Component*)arr[i];
+                    if (Selectable(("[" + to_string((int)c) + "] " + to_string(i) + ": gameObject " + to_string(c->gameObjectId)).c_str(), selectedComp == i)) {
+                        selectedComp = i;
+                    }
+                }
+
+                EndChild();
+            }
+            SameLine();
+
+            Component* comp = (Component*)arr[selectedComp];
+            {
+                BeginChild("right pane", {200, 0}, true);
+                if (comp) {
+                    Text("Game Object ID: %u", comp->gameObjectId);
+                    comp->DisplayInInspector();
+                }
+                EndChild();
+            }
+
+
+            End();
+        }
+    }
+
     void MenuBar() {
 
         if (BeginMainMenuBar()) {
+            
             if (BeginMenu("Game Object")) {
                 if (BeginMenu("3D Object")) {
                     if (MenuItem("Cube")) SpawnRandomCube();

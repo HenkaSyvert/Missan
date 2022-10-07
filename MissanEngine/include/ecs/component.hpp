@@ -89,9 +89,10 @@ namespace Missan {
 		static void LateUpdateAll();
 		static void OnGuiAll();
 
+		static std::vector<PackedAssociativeArrayBase*> componentArrays;
 	private:
 
-		static std::vector<PackedAssociativeArrayBase*> componentArrays;
+		
 
 		// convenience function to not having to cast every time. 
 		template<class T>

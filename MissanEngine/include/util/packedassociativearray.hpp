@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 #include <iostream>
+#include <string>
+#include <typeinfo>
 
 #include "util/rawarray.hpp"
 
@@ -13,6 +15,7 @@ protected:
 	size_t count = 0;
 	const size_t elementSize;
 	size_t capacity = 100;
+	
 
 	inline bool IsIdUsed(size_t id) const {
 		return idToIndex.find(id) != idToIndex.end();
@@ -23,7 +26,13 @@ protected:
 	}
 
 public:	
-	PackedAssociativeArrayBase(size_t elementSize) : elementSize(elementSize) {
+
+	const std::string typeName;
+
+	PackedAssociativeArrayBase(size_t elementSize, const char* name) 
+		: elementSize(elementSize),
+		typeName(name)
+	{
 		data = (char*)malloc(GetOffset(capacity));
 	}
 
@@ -80,7 +89,8 @@ public:
 template<class T>
 class PackedAssociativeArray : public PackedAssociativeArrayBase {
 public:
-	PackedAssociativeArray() : PackedAssociativeArrayBase(sizeof(T)){}
+	PackedAssociativeArray() 
+		: PackedAssociativeArrayBase(sizeof(T), typeid(T).name()) {}
 
 	inline RawArray<T> AsRawArray() const {
 		return RawArray<T>(data, count);
