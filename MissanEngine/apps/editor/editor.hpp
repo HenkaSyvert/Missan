@@ -16,7 +16,7 @@ public:
 
 
     void Update() {
-        Transform* transform = Component::Get<Transform>(gameObjectId);
+        Transform* transform = GetComponent<Transform>();
         HandleCamera(transform);
         HandleMovement(transform);
     }
@@ -33,7 +33,7 @@ public:
         size_t g = GameObject::CreatePrimitive(GameObject::PrimitiveType::cube);
         return;
         Component::Add<RigidBody>(g);
-        auto* rb = Component::Get<RigidBody>(g);
+        auto* rb = GetComponent<RigidBody>();
         rb->mass = 50;
         vec3 dir = {0, 1, 0};
         dir.z += (float)((rand() % 100) / 100.0f);
@@ -57,8 +57,9 @@ public:
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
             int i = 0;
-            for (size_t j = 0; j < GameObject::gameObjects.count; j++) {
-                GameObject* g = (GameObject*)GameObject::gameObjects.GetByIndex(j);
+            RawArray<GameObject> gs = GameObject::gameObjects.AsRawArray();
+            for (size_t j = 0; j < gs.count; j++) {
+                GameObject* g = &gs[j];
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;
             }
             End();
@@ -70,10 +71,10 @@ public:
             if (!g) {
                 Text("no game object selected");
             }
-            else for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-                PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
-                Component* component = (Component*)componentArray->GetById(g->id);
-                if (component) component->DisplayInInspector();
+            else {
+                RawArray<Component*> comps = Component::GetAttachedComponents(g->id);
+                for (int i = 0; i < comps.count; i++)
+                    comps[i]->DisplayInInspector();
                 
             }
         }

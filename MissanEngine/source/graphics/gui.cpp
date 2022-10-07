@@ -27,14 +27,8 @@ void GuiUpdate() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
-
-    // TODO: this is probably wrong, not every component should make a new frame probably. 
-    for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-        PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
-        for (size_t index = 0; index < componentArray->count; index++) {
-            ((Component*)componentArray->GetByIndex(index))->OnGui();
-        }
-    }
+    
+    Component::OnGuiAll();
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

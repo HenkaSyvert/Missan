@@ -46,64 +46,82 @@ namespace Missan {
 		/// Called prior to the GameObject being destroyed
 		inline virtual void OnDestroy() {}
 
-		template<class T> T* GetComponent() { return Component::Get<T>(gameObjectId); }
+		template<class T>
+		T* GetComponent() { return Component::Get<T>(gameObjectId); }
+
+
+
 
 
 		// Unique ID per component type
 		static size_t numberOfTypes;
-		static std::vector<std::string> typeNames;
 		template<class T> static size_t GetTypeId() {
 			static const size_t typeId = numberOfTypes++;
 			static bool hasHappenedOnce = false;
 			if (!hasHappenedOnce) {
-				typeNames.push_back(typeid(T).name());
-				RegisterById(typeId, sizeof(T));
-				std::cout << "names.size(): " << typeNames.size() << "\n";
+				std::cout << "reg componentArray<" << typeid(T).name() << " : " << typeId << ">\n";
+				Register<T>();
 				hasHappenedOnce = true;
 			}
 			return typeId;
 		}
 
-		static const std::string& GetNameById(size_t id) {
-			return typeNames[id];
-		}
 
-		static void RegisterById(size_t componentTypeId, size_t componentSize);
-
-
-		// get contiguous component array by type
-		static PackedAssociativeArray* GetArrayById(size_t componentTypeId);
-		template <class T> static PackedAssociativeArray* GetArray() {
-			return GetArrayById(GetTypeId<T>());
-		}
 
 		template<class T> static RawArray<T> GetRawArray() {
-			PackedAssociativeArray* componentArray = GetArray<T>();
-			return componentArray ? RawArray<T>(componentArray->data, componentArray->count) : RawArray<T>(nullptr, 0);
+			std::cout << "get raw componentArray<" << typeid(T).name() << ">\n";
+			return GetComponentArray<T>().AsRawArray();
 		}
 
 		static RawArray<Component*> GetAttachedComponents(size_t gameObjectId);
 
 		// Create new component and attach to gameobject
-		static void AddById(size_t gameObjectId, size_t componentTypeId, size_t componentSize, void* component);
 		template<class T> static void Add(size_t gameObjectId) {
-			T component;
-			AddById(gameObjectId, GetTypeId<T>(), sizeof(T), &component);
+			std::cout << "Add componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			auto& arr = GetComponentArray<T>();
+			arr.Add(gameObjectId);
+			auto* comp = arr.Get(gameObjectId);
+			comp->gameObjectId = gameObjectId;
+			arr.Get(gameObjectId)->Start();
 		}
 
 		// remove component from gameobject
-		static void RemoveById(size_t gameObjectId, size_t componentTypeId);
 		template<class T> static void Remove(size_t gameObjectId) {
-			RemoveById(gameObjectId, GetTypeId<T>());
+			std::cout << "Remove componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			auto& arr = GetComponentArray<T>();
+			arr.Get(gameObjectId)->OnDestroy();
+			arr.Remove(gameObjectId);
 		}
 
-		static void* GetById(size_t gameObjectId, size_t componentTypeId);
+
 		template<class T> static T* Get(size_t gameObjectId) {
-			return (T*)GetById(gameObjectId, GetTypeId<T>());
+			std::cout << "Get componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			return GetComponentArray<T>().Get(gameObjectId);
 		}
 
-		// makes new copies of all components attached to source, and attaches them to destination
 		static void Copy(size_t destinationId, size_t sourceId);
+		static void Destroy(size_t gameObjectId);
+
+		static void UpdateAll();
+		static void LateUpdateAll();
+		static void OnGuiAll();
+
+	private:
+
+		static std::vector<PackedAssociativeArrayBase*> componentArrays;
+
+		// convenience function to not having to cast every time. 
+		template<class T>
+		static PackedAssociativeArray<T>& GetComponentArray() {
+			return *(PackedAssociativeArray<T>*)componentArrays[GetTypeId<T>()];
+		}
+
+		template<class T> static void Register() {
+			componentArrays.push_back(new PackedAssociativeArray<T>());
+		}
+
+
+
 
 	};
 

@@ -22,7 +22,7 @@ using namespace std;
 
 
 
-PackedAssociativeArray GameObject::gameObjects(sizeof(GameObject));
+PackedAssociativeArray<GameObject> GameObject::gameObjects;
 vector<size_t> GameObject::gameObjectsToDestroy;
 
 // generate new unique ID or reuse an old one
@@ -40,23 +40,16 @@ static size_t GetUniqueId() {
 
 size_t GameObject::Instantiate() {
 	size_t id = GetUniqueId();
-	GameObject g;
-	g.id = id;
-	gameObjects.Add(id, &g);
+	gameObjects.Add(id);
+	GameObject* g = gameObjects.Get(id);
+	g->id = id;
 	return id;
 }
 
 size_t GameObject::Instantiate(size_t originalId) {
 	size_t id = Instantiate();
 
-	// copy original gameobject's components
-	for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-		void* component = Component::GetById(originalId, componentTypeId);
-		if (component) {
-			size_t componentSize = Component::GetArrayById(componentTypeId)->elementSize;
-			Component::AddById(id, componentTypeId, componentSize, component);
-		}
-	}
+	Component::Copy(id, originalId);
 
 	return id;
 }
@@ -66,14 +59,11 @@ void GameObject::Destroy(size_t gameObjectId) {
 }
 
 void GameObject::DestroyImmediate(size_t gameObjectId) {
-	for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-		((Component*)Component::GetById(gameObjectId, componentTypeId))->OnDestroy();
-		Component::RemoveById(gameObjectId, componentTypeId);
-	}
+	Component::Destroy(gameObjectId);
 }
 
 GameObject* GameObject::GetGameObject(size_t id) {
-	return (GameObject*)gameObjects.GetById(id);
+	return (GameObject*)gameObjects.Get(id);
 }
 
 size_t GameObject::CreatePrimitive(PrimitiveType type) {

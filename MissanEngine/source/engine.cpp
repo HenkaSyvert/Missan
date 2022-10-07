@@ -49,19 +49,9 @@ void Engine::Run() {
 		PhysicsUpdate();
 		InputUpdate();
 		
-		for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-			PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
-			for (size_t index = 0; index < componentArray->count; index++) {
-				((Component*)componentArray->GetByIndex(index))->Update();
-			}
-		}
-
-		for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
-			PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
-			for (size_t index = 0; index < componentArray->count; index++) {
-				((Component*)componentArray->GetByIndex(index))->LateUpdate();
-			}
-		}
+		Component::UpdateAll();
+		Component::LateUpdateAll();
+			
 		
 		GraphicsUpdate();		
 		GuiUpdate();

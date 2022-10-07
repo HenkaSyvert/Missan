@@ -33,7 +33,7 @@ namespace Missan {
 		// actually destroys gameobject, immediately. 
 		static void DestroyImmediate(size_t gameObjectId);
 
-		static PackedAssociativeArray gameObjects;
+		static PackedAssociativeArray<GameObject> gameObjects;
 		static std::vector<size_t> gameObjectsToDestroy;
 		
 		// TODO: these convenient functions are dangerous since pointer can be invalidated if any gameobject is created/destroyed.. 
