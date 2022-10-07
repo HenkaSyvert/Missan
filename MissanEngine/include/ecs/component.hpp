@@ -21,14 +21,13 @@ namespace Missan {
 		/// The GameObject this Component is attached to. 
 		size_t gameObjectId;
 
-
 		///
 		/// Called only once for each GameObject, before all other Event functions
 		inline virtual void Start() {}
 
 		///
 		/// Called when this Collider has begun touching another Collider
-		virtual void OnCollisionEnter(size_t otherGameObjectId){}
+		virtual void OnCollisionEnter(size_t otherGameObjectId) {}
 
 		///
 		/// Called every frame
@@ -52,24 +51,8 @@ namespace Missan {
 
 
 
-
-		// Unique ID per component type
-		static size_t numberOfTypes;
-		template<class T> static size_t GetTypeId() {
-			static const size_t typeId = numberOfTypes++;
-			static bool hasHappenedOnce = false;
-			if (!hasHappenedOnce) {
-				std::cout << "reg componentArray<" << typeid(T).name() << " : " << typeId << ">\n";
-				Register<T>();
-				hasHappenedOnce = true;
-			}
-			return typeId;
-		}
-
-
-
 		template<class T> static RawArray<T> GetRawArray() {
-			std::cout << "get raw componentArray<" << typeid(T).name() << ">\n";
+			//std::cout << "get raw componentArray<" << typeid(T).name() << ">\n";
 			return GetComponentArray<T>().AsRawArray();
 		}
 
@@ -77,7 +60,7 @@ namespace Missan {
 
 		// Create new component and attach to gameobject
 		template<class T> static void Add(size_t gameObjectId) {
-			std::cout << "Add componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			//std::cout << "Add componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
 			auto& arr = GetComponentArray<T>();
 			arr.Add(gameObjectId);
 			auto* comp = arr.Get(gameObjectId);
@@ -87,7 +70,7 @@ namespace Missan {
 
 		// remove component from gameobject
 		template<class T> static void Remove(size_t gameObjectId) {
-			std::cout << "Remove componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			//std::cout << "Remove componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
 			auto& arr = GetComponentArray<T>();
 			arr.Get(gameObjectId)->OnDestroy();
 			arr.Remove(gameObjectId);
@@ -95,7 +78,7 @@ namespace Missan {
 
 
 		template<class T> static T* Get(size_t gameObjectId) {
-			std::cout << "Get componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
+			//std::cout << "Get componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
 			return GetComponentArray<T>().Get(gameObjectId);
 		}
 
@@ -116,13 +99,18 @@ namespace Missan {
 			return *(PackedAssociativeArray<T>*)componentArrays[GetTypeId<T>()];
 		}
 
-		template<class T> static void Register() {
-			componentArrays.push_back(new PackedAssociativeArray<T>());
+		// Unique ID per component type
+		static size_t numberOfTypes;
+		template<class T>
+		static size_t GetTypeId() {
+			static const size_t typeId = numberOfTypes++;
+			static bool isRegistered = false;
+			if (!isRegistered) {
+				std::cout << "reg componentArray<" << typeid(T).name() << " : " << typeId << ">\n";
+				componentArrays.push_back(new PackedAssociativeArray<T>());
+				isRegistered = true;
+			}
+			return typeId;
 		}
-
-
-
-
 	};
-
 }

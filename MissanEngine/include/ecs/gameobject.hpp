@@ -35,9 +35,6 @@ namespace Missan {
 
 		static PackedAssociativeArray<GameObject> gameObjects;
 		static std::vector<size_t> gameObjectsToDestroy;
-		
-		// TODO: these convenient functions are dangerous since pointer can be invalidated if any gameobject is created/destroyed.. 
-		static GameObject* GetGameObject(size_t id);
 
 		// TODO: add more primitives, like cylinder, capsule
 		enum class PrimitiveType { sphere, cube, plane };

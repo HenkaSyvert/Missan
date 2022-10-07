@@ -48,9 +48,7 @@ size_t GameObject::Instantiate() {
 
 size_t GameObject::Instantiate(size_t originalId) {
 	size_t id = Instantiate();
-
 	Component::Copy(id, originalId);
-
 	return id;
 }
 
@@ -60,40 +58,37 @@ void GameObject::Destroy(size_t gameObjectId) {
 
 void GameObject::DestroyImmediate(size_t gameObjectId) {
 	Component::Destroy(gameObjectId);
-}
-
-GameObject* GameObject::GetGameObject(size_t id) {
-	return (GameObject*)gameObjects.Get(id);
+	gameObjectsToDestroy.clear();
 }
 
 size_t GameObject::CreatePrimitive(PrimitiveType type) {
-	size_t g = GameObject::Instantiate();
-	Component::Add<Transform>(g);
+	size_t id = GameObject::Instantiate();
+	Component::Add<Transform>(id);
 	
-	Component::Add<Renderer>(g);
-	Renderer* r = Component::Get<Renderer>(g);
+	Component::Add<Renderer>(id);
+	Renderer* r = Component::Get<Renderer>(id);
 	// TODO: add list of default materials.. 
 	r->material = new Material();
 	r->material->shader = Shader::diffuseSpecular;
-	Component::Add<Collider>(g);
-	Collider* c = Component::Get<Collider>(g);
+	Component::Add<Collider>(id);
+	Collider* c = Component::Get<Collider>(id);
 
 	switch (type) {
 	case PrimitiveType::cube:
 		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
 		// c = different kind of collider?
 		// TODO: add different kind of colliders.. 
-		GameObject::GetGameObject(g)->name = "Cube";
+		gameObjects.Get(id)->name = "Cube";
 		break;
 	case PrimitiveType::sphere:
 		// todo...
-		GameObject::GetGameObject(g)->name = "Sphere";
+		gameObjects.Get(id)->name = "Sphere";
 		break;
 	case PrimitiveType::plane:
 		r->mesh = Resources::GetMesh("resources/meshes/plane.mesh");
-		GameObject::GetGameObject(g)->name = "Plane";
+		gameObjects.Get(id)->name = "Plane";
 		// todo: ditto collider.. 
 		break;
 	}
-	return g;
+	return id;
 }

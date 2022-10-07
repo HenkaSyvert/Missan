@@ -10,41 +10,35 @@ protected:
 	char* data = nullptr;
 	std::unordered_map<size_t, size_t> idToIndex;
 	std::unordered_map<size_t, size_t> indexToId;
-
 	size_t count = 0;
-	size_t capacity = 2;
+	const size_t elementSize;
+	size_t capacity = 100;
 
-	inline bool IsIdUsed(size_t id) {
+	inline bool IsIdUsed(size_t id) const {
 		return idToIndex.find(id) != idToIndex.end();
 	}
 
-	inline size_t GetOffset(size_t index) {
+	inline size_t GetOffset(size_t index) const {
 		return index * elementSize;
 	}
 
-public:
-	size_t elementSize;
-
-	PackedAssociativeArrayBase(size_t elementSize) {
-		
-		this->elementSize = elementSize;
+public:	
+	PackedAssociativeArrayBase(size_t elementSize) : elementSize(elementSize) {
 		data = (char*)malloc(GetOffset(capacity));
-		//std::cout << "packed arr init w el size: " << elementSize << "\nand alloacted " << GetOffset(capacity) << " bytes\n";
 	}
 
 	inline RawArrayBase AsRawArrayBase() const {
 		return RawArrayBase(data, count, elementSize);
 	}
 
+	void Add(size_t id, const void* const element) {
+		if (IsIdUsed(id)) {
+			// no support for game object to have multiple components of same type, just ignore. 
+			return;
+		}
 
-
-	void Add(size_t id, void* element) {
-
-		//if (IsIdUsed(id)) std::cout << "id: " << id << " is already associated with index, cant add element\n";
-		
 		size_t index = count++;
 		if (count > capacity) {
-			std::cout << "needs resize\n";
 			capacity *= 2;
 			data = (char*)realloc(data, GetOffset(capacity));
 		}
@@ -56,9 +50,8 @@ public:
 	}
 
 	void Remove(size_t id) {
-
 		if (!IsIdUsed(id)) {
-			//std::cout << "id: " << id << " is not associated with index, can't remove element\n";
+			// intentionally quietly ignore try to remove non existant component, means dont need check prior. 
 			return;
 		}
 
@@ -68,38 +61,24 @@ public:
 
 		char* removedElement = &data[GetOffset(indexOfRemoved)];
 		char* lastElement = &data[GetOffset(indexOflast)];
-
 		memcpy(removedElement, lastElement, elementSize);
 
 		idToIndex[idOfLast] = indexOfRemoved;
 		indexToId[indexOfRemoved] = idOfLast;
-
 		indexToId.erase(indexOflast);
 		idToIndex.erase(id);
 
 		count--;
-
 	}
 
 	// for getting specific element by index
 	inline void* Get(size_t id) {
-
-		if (!IsIdUsed(id)) {
-			//std::cout << "id: " << id << " is not associated with any index, can't get\n";
-			return nullptr;
-		}
-
-		size_t index = idToIndex[id];
-		return &data[GetOffset(index)];
-
+		return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
 	}
-
 };
-
 
 template<class T>
 class PackedAssociativeArray : public PackedAssociativeArrayBase {
-
 public:
 	PackedAssociativeArray() : PackedAssociativeArrayBase(sizeof(T)){}
 
@@ -107,13 +86,12 @@ public:
 		return RawArray<T>(data, count);
 	}
 
-	void Add(size_t id) {
+	inline void Add(size_t id) {
 		T component;
 		PackedAssociativeArrayBase::Add(id, &component);
 	}
 
-	T* Get(size_t id) {
+	inline T* Get(size_t id) {
 		return (T*)PackedAssociativeArrayBase::Get(id);
 	}
-
 };
