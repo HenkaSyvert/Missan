@@ -2,6 +2,7 @@
 
 #include "inspectable.hpp"
 #include "util/packedassociativearray.hpp"
+#include "util/rawarray.hpp"
 
 #include <string>
 #include <typeinfo>
@@ -75,11 +76,13 @@ namespace Missan {
 		template <class T> static PackedAssociativeArray* GetArray() {
 			return GetArrayById(GetTypeId<T>());
 		}
-		template<class T> static T* GetRawArray() {
+
+		template<class T> static RawArray<T> GetRawArray() {
 			PackedAssociativeArray* componentArray = GetArray<T>();
-			if (!componentArray || componentArray->count == 0) return nullptr;
-			else return (T*)componentArray->data;
+			return componentArray ? RawArray<T>(componentArray->data, componentArray->count) : RawArray<T>(nullptr, 0);
 		}
+
+		static RawArray<Component*> GetAttachedComponents(size_t gameObjectId);
 
 		// Create new component and attach to gameobject
 		static void AddById(size_t gameObjectId, size_t componentTypeId, size_t componentSize, void* component);

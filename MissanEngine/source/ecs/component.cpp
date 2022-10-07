@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "util/packedassociativearray.hpp"
+#include "util/rawarray.hpp"
 
 #define DEBUG_COMPONENT 1
 
@@ -68,4 +69,16 @@ void Component::Copy(size_t destinationId, size_t sourceId) {
 			AddById(destinationId, componentTypeId, componentSize, component);
 		}
 	}
+}
+
+RawArray<Component*> Component::GetAttachedComponents(size_t gameObjectId) {
+	vector<void*> comps;
+	size_t count = 0;
+	for (size_t componentTypeId = 0; componentTypeId < Component::numberOfTypes; componentTypeId++) {
+		PackedAssociativeArray* componentArray = Component::GetArrayById(componentTypeId);
+		void* component = Component::GetById(gameObjectId, componentTypeId);
+		if (component) comps.push_back(component);
+		count++;
+	}
+	return RawArray<Component*>(comps.data(), count, true);
 }

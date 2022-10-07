@@ -1515,6 +1515,9 @@
     <ClInclude Include="include\util\packedassociativearray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\util\rawarray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\glew32s.lib" />

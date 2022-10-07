@@ -587,6 +587,7 @@
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\physics\transform.hpp" />
     <ClInclude Include="include\util\packedassociativearray.hpp" />
+    <ClInclude Include="include\util\rawarray.hpp" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\graphics\window.hpp" />
   </ItemGroup>

@@ -38,51 +38,44 @@ void GraphicsInitialize() {
 
 void GraphicsUpdate() {
 	
-	Camera* cameras = Component::GetRawArray<Camera>();
-
-	if (!cameras) {
-		return;
-	}
+	RawArray<Camera> cameras = Component::GetRawArray<Camera>();
+	if (cameras.count == 0) return;
 
 	// TODO: add support for several cameras...
-	Camera* camera = cameras;
+	Camera& camera = cameras[0];
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	vec4 clearColor = camera->clearColor;
+	vec4 clearColor = camera.clearColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
-	Renderer* renderers = Component::GetRawArray<Renderer>();
-	if (!renderers) {
-		return;
-	}
-	size_t renderersCount = Component::GetArray<Renderer>()->count;
+	RawArray<Renderer> renderers = Component::GetRawArray<Renderer>();
 
-	for (size_t i = 0; i < renderersCount; i++) {
+	for (size_t i = 0; i < renderers.count; i++) {
 
-		Renderer* renderer = &renderers[i];
+		Renderer& renderer = renderers[i];
 
-		if (!renderer->mesh) {
+		if (!renderer.mesh) {
 			continue;
 		}
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glBindVertexArray(renderer->mesh->vaoId);
+		glBindVertexArray(renderer.mesh->vaoId);
 		glEnableVertexAttribArray(0);
 
-		Shader& shader = *renderer->material->shader;
+		Shader& shader = *renderer.material->shader;
 		glUseProgram(shader.programId);
 
 		if (&shader == Shader::unlit) {
-			mat4 transMat = Component::Get<Transform>(renderer->gameObjectId)->matrix;
+			mat4 transMat = Component::Get<Transform>(renderer.gameObjectId)->matrix;
 			shader.SetMat4("u_model", transMat);
 
-			mat4 view = Component::Get<Transform>(camera->gameObjectId)->inverseMatrix;
+			mat4 view = Component::Get<Transform>(camera.gameObjectId)->inverseMatrix;
 			shader.SetMat4("u_view", view);
-			shader.SetMat4("u_proj", camera->projectionMatrix);
+			shader.SetMat4("u_proj", camera.projectionMatrix);
 
-			Texture* texture = renderer->material->texture;
-			shader.SetVec4("u_materialColor", renderer->material->ambient);
+			Texture* texture = renderer.material->texture;
+			shader.SetVec4("u_materialColor", renderer.material->ambient);
 			if (texture) {
 				glEnableVertexAttribArray(1);
 				shader.SetInt("u_texture", 0);
@@ -90,7 +83,7 @@ void GraphicsUpdate() {
 				glBindTexture(GL_TEXTURE_2D, texture->id);
 			}
 
-			glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, renderer.mesh->elementCount, GL_UNSIGNED_INT, 0);
 
 			if (texture) {
 				glBindTexture(GL_TEXTURE_2D, 0);
@@ -102,15 +95,15 @@ void GraphicsUpdate() {
 		}
 		else if (&shader == Shader::diffuseSpecular) {
 			
-			shader.SetMat4("model", Component::Get<Transform>(renderer->gameObjectId)->matrix);
-			shader.SetMat4("view", Component::Get<Transform>(camera->gameObjectId)->inverseMatrix);
-			shader.SetMat4("projection", camera->projectionMatrix);
-			shader.SetMat3("normalMatrix", mat3(inverse(transpose(Component::Get<Transform>(renderer->gameObjectId)->matrix))));
-			shader.SetVec3("cameraPosition", Component::Get<Transform>(camera->gameObjectId)->position);
+			shader.SetMat4("model", Component::Get<Transform>(renderer.gameObjectId)->matrix);
+			shader.SetMat4("view", Component::Get<Transform>(camera.gameObjectId)->inverseMatrix);
+			shader.SetMat4("projection", camera.projectionMatrix);
+			shader.SetMat3("normalMatrix", mat3(inverse(transpose(Component::Get<Transform>(renderer.gameObjectId)->matrix))));
+			shader.SetVec3("cameraPosition", Component::Get<Transform>(camera.gameObjectId)->position);
 
 			// TODO: add supprt for several lights...
-			Light* lights = Component::GetRawArray<Light>();
-			Light* light = lights;
+			RawArray<Light> lights = Component::GetRawArray<Light>();
+			Light* light = &lights[0];
 			if (light) {
 				shader.SetVec3("light.position", Component::Get<Transform>(light->gameObjectId)->position);
 				shader.SetVec4("light.ambient", light->ambient);
@@ -124,13 +117,13 @@ void GraphicsUpdate() {
 				shader.SetVec4("light.diffuse", {1,1,1,1});
 				shader.SetVec4("light.specular", {1,1,1,1});
 			}
-			Material* material = renderer->material;
+			Material* material = renderer.material;
 			shader.SetVec4("material.ambient", material->ambient);
 			shader.SetVec4("material.diffuse", material->diffuse);
 			shader.SetVec4("material.specular", material->specular);
 			shader.SetFloat("material.shininess", material->shininess);
 
-			Texture* texture = renderer->material->texture;
+			Texture* texture = renderer.material->texture;
 			if (texture) {
 				glEnableVertexAttribArray(1);
 				shader.SetInt("textureSlot", 0);
@@ -141,7 +134,7 @@ void GraphicsUpdate() {
 			}
 
 			glEnableVertexAttribArray(2);
-			glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, renderer.mesh->elementCount, GL_UNSIGNED_INT, 0);
 			glDisableVertexAttribArray(0);
 			glDisableVertexAttribArray(2);
 

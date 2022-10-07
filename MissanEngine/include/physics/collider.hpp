@@ -14,7 +14,7 @@ namespace Missan {
 
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap
-		glm::vec3 OverlapsWith(Collider* other);
+		glm::vec3 OverlapsWith(Collider& other);
 
 		/// 
 		/// The bounding box used to calculate overlap. Note that it takes the attached Transform into account.
