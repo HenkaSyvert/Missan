@@ -40,6 +40,10 @@ namespace Missan {
 	/// Functions for accessing assets used by the game
 	namespace Resources {
 
+
+		// TODO: move these 2 into Texture and Mesh respectively, 
+		// and manage them in contiguous arrays.. 
+		
 		//// 
 		/// Returns pointer to Mesh, loads if necessary
 		Mesh* GetMesh(const std::string& fileName);

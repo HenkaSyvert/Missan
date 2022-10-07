@@ -13,7 +13,6 @@ public:
 
 
 	GameObject* selected = nullptr;
-	vector<GameObject*> gos;
 
 
     void Update() {
@@ -23,10 +22,36 @@ public:
     }
 
     void OnGui() {
-        
+        ShowDemoWindow();
+        MenuBar();
         HierarchyWindow();
         InspectorWindow(selected);
-        
+    }
+
+    bool createCube = false;
+    void SpawnRandomCube() {
+        size_t g = GameObject::CreatePrimitive(GameObject::PrimitiveType::cube);
+        return;
+        Component::Add<RigidBody>(g);
+        auto* rb = Component::Get<RigidBody>(g);
+        rb->mass = 50;
+        vec3 dir = {0, 1, 0};
+        dir.z += (float)((rand() % 100) / 100.0f);
+        rb->AddImpulse(dir, {0, 1, 0});
+    }
+
+    void MenuBar() {
+
+        if (BeginMainMenuBar()) {
+            if (BeginMenu("Game Object")) {
+                if (BeginMenu("3D Object")) {
+                    if (MenuItem("Cube")) SpawnRandomCube();
+                    EndMenu();
+                }
+                EndMenu();
+            }
+            EndMainMenuBar();
+        }
     }
 
     void HierarchyWindow() {

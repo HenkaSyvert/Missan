@@ -41,8 +41,6 @@ glm::vec3 Camera::ScreenToWorldPoint(glm::vec3 screenPoint) {
 
 void Camera::DisplayInInspector() {
 
-	ShowDemoWindow();
-
 	if (CollapsingHeader("Camera")) {
 		SliderFloat("field of view (deg)", &_fov, -15, 400);
 		SliderFloat("near clip plane (m)", &_near, -5, 10);

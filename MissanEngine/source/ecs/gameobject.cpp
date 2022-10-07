@@ -8,6 +8,15 @@
 
 #include "util/packedassociativearray.hpp"
 
+#include "physics/transform.hpp"
+#include "physics/collider.hpp"
+
+#include "graphics/renderer.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/material.hpp"
+
+#include "engine.hpp"
+
 using namespace Missan;
 using namespace std;
 
@@ -61,4 +70,40 @@ void GameObject::DestroyImmediate(size_t gameObjectId) {
 		((Component*)Component::GetById(gameObjectId, componentTypeId))->OnDestroy();
 		Component::RemoveById(gameObjectId, componentTypeId);
 	}
+}
+
+GameObject* GameObject::GetGameObject(size_t id) {
+	return (GameObject*)gameObjects.GetById(id);
+}
+
+size_t GameObject::CreatePrimitive(PrimitiveType type) {
+	size_t g = GameObject::Instantiate();
+	Component::Add<Transform>(g);
+	
+	Component::Add<Renderer>(g);
+	Renderer* r = Component::Get<Renderer>(g);
+	// TODO: add list of default materials.. 
+	r->material = new Material();
+	r->material->shader = Shader::diffuseSpecular;
+	Component::Add<Collider>(g);
+	Collider* c = Component::Get<Collider>(g);
+
+	switch (type) {
+	case PrimitiveType::cube:
+		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+		// c = different kind of collider?
+		// TODO: add different kind of colliders.. 
+		GameObject::GetGameObject(g)->name = "Cube";
+		break;
+	case PrimitiveType::sphere:
+		// todo...
+		GameObject::GetGameObject(g)->name = "Sphere";
+		break;
+	case PrimitiveType::plane:
+		r->mesh = Resources::GetMesh("resources/meshes/plane.mesh");
+		GameObject::GetGameObject(g)->name = "Plane";
+		// todo: ditto collider.. 
+		break;
+	}
+	return g;
 }
