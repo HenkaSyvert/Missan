@@ -33,6 +33,7 @@ void Engine::Initialize() {
 	InputInitialize(window);
 	GraphicsInitialize();
 	GuiInitialize(window);
+	ResourcesInitialize();
 }
 
 void Engine::Quit() {

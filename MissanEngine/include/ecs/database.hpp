@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include "packedassociativearray.hpp"
 #include "rawarray.hpp"
@@ -38,6 +39,11 @@ namespace Missan {
 		template<class T>
 		T* Get(size_t id) {
 			return GetArray<T>().Get(id);
+		}
+
+		template<class T>
+		T* Get(const std::string& name) {
+			return GetArray<T>().Get(name);
 		}
 
 		template<class T>

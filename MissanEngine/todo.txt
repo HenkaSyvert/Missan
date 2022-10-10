@@ -17,6 +17,11 @@ graphics
 	look at unity legacy shaders for insp
 
 
+database
+	.from<TypeList ... >()
+	.select( [] lamda-predicate)
+	.foreach( whatever );
+
 project
 	make separate editor app
 	make dll

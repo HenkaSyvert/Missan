@@ -63,7 +63,7 @@ Object::IdType GameObject::CreatePrimitive(PrimitiveType type) {
 
 	switch (type) {
 	case PrimitiveType::cube:
-		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+		r->mesh = resources.Get<Mesh>("cube.mesh");
 		// c = different kind of collider?
 		// TODO: add different kind of colliders.. 
 		gameObjects.Get(id)->name = "Cube";
@@ -73,7 +73,7 @@ Object::IdType GameObject::CreatePrimitive(PrimitiveType type) {
 		gameObjects.Get(id)->name = "Sphere";
 		break;
 	case PrimitiveType::plane:
-		r->mesh = Resources::GetMesh("resources/meshes/plane.mesh");
+		r->mesh = resources.Get<Mesh>("plane.mesh");
 		gameObjects.Get(id)->name = "Plane";
 		// todo: ditto collider.. 
 		break;

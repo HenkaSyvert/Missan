@@ -3,6 +3,7 @@
 #include "ecs/gameobject.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"
+#include "ecs/database.hpp"
 
 namespace Missan {
 
@@ -36,23 +37,8 @@ namespace Missan {
 
 	}
 
-	//// 
-	/// Functions for accessing assets used by the game
-	namespace Resources {
-
-
-		// TODO: move these 2 into Texture and Mesh respectively, 
-		// and manage them in contiguous arrays.. 
-		
-		//// 
-		/// Returns pointer to Mesh, loads if necessary
-		Mesh* GetMesh(const std::string& fileName);
-
-		//// 
-		/// Returns pointer to Texture, loads if necessary
-		Texture* GetTexture(const std::string& fileName);
-
-	}
+	extern Database resources;
+	
 
 }
 
