@@ -13,7 +13,7 @@
 #include <glm/mat4x4.hpp>
 
 #include "color.hpp"
-#include "object.hpp"
+#include "ecs/object.hpp"
 
 namespace Missan {
 

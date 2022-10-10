@@ -4,7 +4,7 @@
 #include "graphics/shader.hpp"
 #include "graphics/texture.hpp"
 #include "inspectable.hpp"
-#include "object.hpp"
+#include "ecs/object.hpp"
 
 namespace Missan {
 

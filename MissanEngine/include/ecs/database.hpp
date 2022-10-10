@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "util/packedassociativearray.hpp"
-#include "util/rawarray.hpp"
+#include "packedassociativearray.hpp"
+#include "rawarray.hpp"
 
 namespace Missan {
 

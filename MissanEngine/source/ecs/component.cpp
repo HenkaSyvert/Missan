@@ -5,8 +5,8 @@
 #include <string>
 #include <stdlib.h>
 
-#include "util/packedassociativearray.hpp"
-#include "util/rawarray.hpp"
+#include "ecs/packedassociativearray.hpp"
+#include "ecs/rawarray.hpp"
 
 #define DEBUG_COMPONENT 1
 

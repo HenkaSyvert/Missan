@@ -5,7 +5,7 @@
 #include <string>
 #include <typeinfo>
 
-#include "util/rawarray.hpp"
+#include "rawarray.hpp"
 
 class PackedAssociativeArrayBase {
 protected:

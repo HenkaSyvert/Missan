@@ -1,7 +1,7 @@
 #pragma once
 
 #include "inspectable.hpp"
-#include "util/database.hpp"
+#include "database.hpp"
 #include "object.hpp"
 
 #include <string>

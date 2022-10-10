@@ -92,13 +92,13 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
-    <ClCompile Include="source\database.cpp" />
+    <ClCompile Include="source\ecs\database.cpp" />
     <ClCompile Include="source\ecs\component.cpp" />
     <ClCompile Include="source\ecs\gameobject.cpp" />
     <ClCompile Include="source\graphics\light.cpp" />
     <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
-    <ClCompile Include="source\object.cpp" />
+    <ClCompile Include="source\ecs\object.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -106,7 +106,7 @@
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
     <ClCompile Include="source\graphics\gui.cpp" />
-    <ClCompile Include="source\resources.cpp" />
+    <ClCompile Include="source\ecs\resources.cpp" />
     <ClCompile Include="source\physics\physics.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
@@ -565,7 +565,7 @@
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\inspectable.hpp" />
-    <ClInclude Include="include\object.hpp" />
+    <ClInclude Include="include\ecs\object.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
@@ -589,9 +589,9 @@
     <ClInclude Include="include\graphics\texture.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\physics\transform.hpp" />
-    <ClInclude Include="include\util\database.hpp" />
-    <ClInclude Include="include\util\packedassociativearray.hpp" />
-    <ClInclude Include="include\util\rawarray.hpp" />
+    <ClInclude Include="include\ecs\database.hpp" />
+    <ClInclude Include="include\ecs\packedassociativearray.hpp" />
+    <ClInclude Include="include\ecs\rawarray.hpp" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\graphics\window.hpp" />
   </ItemGroup>

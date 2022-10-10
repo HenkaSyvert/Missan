@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ecs/component.hpp"
-#include "util/packedassociativearray.hpp"
+#include "component.hpp"
+#include "packedassociativearray.hpp"
 #include "object.hpp"
 
 #include <vector>

@@ -1,4 +1,4 @@
-#include "object.hpp"
+#include "ecs/object.hpp"
 
 #include <queue>
 

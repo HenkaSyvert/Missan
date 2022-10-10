@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "util/packedassociativearray.hpp"
+#include "ecs/packedassociativearray.hpp"
 
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"

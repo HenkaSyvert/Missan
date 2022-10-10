@@ -1,23 +1,15 @@
 
 
-
-bugs
-	accessor for transform.rotation.x/y/z does not update matrix..
-
-
-physics
-	rotate colliders and bounding boxes
-
-
 networking
 
-entity component system
-
-transform
-	quaternions for rotation
-	children
-	translate, rotate, lookat
-	local v world space
+physics
+	transform
+		accessor for transform.rotation.x/y/z does not update matrix..
+		quaternions for rotation
+		children
+		translate, rotate, lookat
+		local v world space
+	rotate colliders and bounding boxes
 
 graphics
 	texture mip map
@@ -25,10 +17,19 @@ graphics
 	look at unity legacy shaders for insp
 
 
-engine
+project
+	make separate editor app
 	make dll
+	add std assets, eg camera script
+	make cool 3d physics & light scene
 
-
+ecs:
+	rm func logic from comps, use systems instread
+	add gameobj signatures
+	rm idToIndex, cast to gameobject instead
+		make db use object
+	add monoBehavious class to rm event funcs from std comps
+	make databases for resources also
 
 mouse
 	add select obj functionality
@@ -36,6 +37,3 @@ mouse
 general
 	add descriptiv comments
 	links to internet resources
-
-
-make editor w imgui
