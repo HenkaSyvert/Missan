@@ -15,51 +15,46 @@ using namespace std;
 
 
 
-vector<PackedAssociativeArrayBase*> Component::componentArrays;
+Database Component::componentArrays;
 
-size_t Component::numberOfTypes = 0;
 
 void Component::Copy(size_t destinationId, size_t sourceId) {
-	for (auto& compArr : componentArrays) {
-		auto* component = compArr->Get(sourceId);
-		if (component) compArr->Add(destinationId, component);
-	}
+	componentArrays.Copy(destinationId, sourceId);
+	RawArray<Component*> newComps = componentArrays.GetAll<Component>(destinationId);
+	for (int i = 0; i < newComps.count; i++) newComps[i]->Start();
 }
 
 void Component::Destroy(size_t gameObjectId) {
-	for (auto& compArr : componentArrays)
-		if (compArr->Get(gameObjectId)) compArr->Remove(gameObjectId);
+	RawArray<Component*> newComps = componentArrays.GetAll<Component>(gameObjectId);
+	for (int i = 0; i < newComps.count; i++) newComps[i]->OnDestroy();
+	componentArrays.RemoveAll(gameObjectId);
+
 }
 
 RawArray<Component*> Component::GetAttachedComponents(size_t gameObjectId) {
-	vector<Component*> comps;
-	for (auto& componentArray : componentArrays){
-		auto component = componentArray->Get(gameObjectId);
-		if (component) comps.push_back((Component*)component);
-	}
-	return RawArray<Component*>(comps.data(), comps.size(), true);
+	return componentArrays.GetAll<Component>(gameObjectId);
 }
 
 void Component::UpdateAll() {
-	for (auto& arr : componentArrays) {
-		auto raw = arr->AsRawArrayBase();
-		for (int i = 0; i < raw.count; i++)
-			((Component*)raw[i])->Update();
+	for (auto* compArr : componentArrays.tables) {
+		RawArrayBase arr = compArr->AsRawArrayBase();
+		for (int i = 0; i < arr.count; i++)
+			((Component*)arr[i])->Update();
 	}
 }
 
 void Component::LateUpdateAll() {
-	for (auto& arr : componentArrays) {
-		auto raw = arr->AsRawArrayBase();
-		for (int i = 0; i < raw.count; i++)
-			((Component*)raw[i])->LateUpdate();
+	for (auto* compArr : componentArrays.tables) {
+		RawArrayBase arr = compArr->AsRawArrayBase();
+		for (int i = 0; i < arr.count; i++)
+			((Component*)arr[i])->LateUpdate();
 	}
 }
 
 void Component::OnGuiAll() {
-	for (auto& arr : componentArrays) {
-		auto raw = arr->AsRawArrayBase();
-		for (int i = 0; i < raw.count; i++)
-			((Component*)raw[i])->OnGui();
+	for (auto* compArr : componentArrays.tables) {
+		RawArrayBase arr = compArr->AsRawArrayBase();
+		for (int i = 0; i < arr.count; i++)
+			((Component*)arr[i])->OnGui();
 	}
 }

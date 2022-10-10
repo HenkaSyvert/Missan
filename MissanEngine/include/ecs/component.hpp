@@ -1,8 +1,7 @@
 #pragma once
 
 #include "inspectable.hpp"
-#include "util/packedassociativearray.hpp"
-#include "util/rawarray.hpp"
+#include "util/database.hpp"
 
 #include <string>
 #include <typeinfo>
@@ -46,40 +45,37 @@ namespace Missan {
 		inline virtual void OnDestroy() {}
 
 		template<class T>
-		T* GetComponent() { return Component::Get<T>(gameObjectId); }
+		inline T* GetComponent() { return Component::Get<T>(gameObjectId); }
 
 
 
 
-		template<class T> static RawArray<T> GetRawArray() {
-			//std::cout << "get raw componentArray<" << typeid(T).name() << ">\n";
-			return GetComponentArray<T>().AsRawArray();
+		template<class T> 
+		inline static RawArray<T> GetRawArray() {
+			return componentArrays.AsRawArray<T>();
 		}
 
 		static RawArray<Component*> GetAttachedComponents(size_t gameObjectId);
 
 		// Create new component and attach to gameobject
-		template<class T> static void Add(size_t gameObjectId) {
-			//std::cout << "Add componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
-			auto& arr = GetComponentArray<T>();
-			arr.Add(gameObjectId);
-			auto* comp = arr.Get(gameObjectId);
-			comp->gameObjectId = gameObjectId;
-			arr.Get(gameObjectId)->Start();
+		template<class T> 
+		inline static void Add(size_t gameObjectId) {
+			componentArrays.Add<T>(gameObjectId);
+			componentArrays.Get<T>(gameObjectId)->gameObjectId = gameObjectId;
+			componentArrays.Get<T>(gameObjectId)->Start();
 		}
 
 		// remove component from gameobject
-		template<class T> static void Remove(size_t gameObjectId) {
-			//std::cout << "Remove componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
-			auto& arr = GetComponentArray<T>();
-			arr.Get(gameObjectId)->OnDestroy();
-			arr.Remove(gameObjectId);
+		template<class T> 
+		inline static void Remove(size_t gameObjectId) {
+			componentArrays.Get<T>(gameObjectId)->OnDestroy();
+			componentArrays.Remove<T>(gameObjectId);
 		}
 
 
-		template<class T> static T* Get(size_t gameObjectId) {
-			//std::cout << "Get componentArray<" << typeid(T).name() << ">[" << gameObjectId << "]\n";
-			return GetComponentArray<T>().Get(gameObjectId);
+		template<class T> 
+		inline static T* Get(size_t gameObjectId) {
+			return componentArrays.Get<T>(gameObjectId);
 		}
 
 		static void Copy(size_t destinationId, size_t sourceId);
@@ -89,29 +85,9 @@ namespace Missan {
 		static void LateUpdateAll();
 		static void OnGuiAll();
 
-		static std::vector<PackedAssociativeArrayBase*> componentArrays;
-	private:
-
+		static Database componentArrays;
 		
 
-		// convenience function to not having to cast every time. 
-		template<class T>
-		static PackedAssociativeArray<T>& GetComponentArray() {
-			return *(PackedAssociativeArray<T>*)componentArrays[GetTypeId<T>()];
-		}
 
-		// Unique ID per component type
-		static size_t numberOfTypes;
-		template<class T>
-		static size_t GetTypeId() {
-			static const size_t typeId = numberOfTypes++;
-			static bool isRegistered = false;
-			if (!isRegistered) {
-				std::cout << "reg componentArray<" << typeid(T).name() << " : " << typeId << ">\n";
-				componentArrays.push_back(new PackedAssociativeArray<T>());
-				isRegistered = true;
-			}
-			return typeId;
-		}
 	};
 }

@@ -44,14 +44,14 @@ public:
     void EcsWindow() {
         if (Begin("Entity Component System")) {
 
-            auto& arrs = Component::componentArrays;
+            auto& arrs = Component::componentArrays.tables;
             static int selectedArr = 0;
             static int selectedComp = 0;
             {
                 Text("Component Arrays");
                 BeginChild("left pane", {200, 0}, true);
                 for (int i = 0; i < arrs.size(); i++) {
-                    auto arr = Component::componentArrays[i];
+                    auto arr = arrs[i];
                     if (Selectable(arr->typeName.c_str(), selectedArr == i)) {
                         selectedArr = i;
                         selectedComp = 0;

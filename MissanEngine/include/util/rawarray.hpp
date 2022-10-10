@@ -11,6 +11,12 @@ class RawArrayBase {
 	const size_t elementSize;
 	const bool isCopy = false;
 
+	inline static char* InitData(const void* const newData, size_t count, size_t elementSize, bool makeCopy) {
+		return count == 0 || elementSize == 0 ? nullptr
+			: makeCopy ? (char*)memcpy(malloc(elementSize * count), newData, elementSize * count)
+			: (char*)newData;
+	}
+
 public:
 	const size_t count;
 
@@ -18,8 +24,8 @@ public:
 		count(count),
 		elementSize(elementSize),
 		isCopy(makeCopy),
-		data(count == 0 ? nullptr : makeCopy ? (char*)memcpy(malloc(elementSize * count), newData, elementSize * count) : (char*)newData) {
-	}
+		data(InitData(newData, count, elementSize, makeCopy)) 
+	{ }
 
 	~RawArrayBase() {
 		if (isCopy) free(data);

@@ -92,6 +92,7 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
+    <ClCompile Include="source\database.cpp" />
     <ClCompile Include="source\ecs\component.cpp" />
     <ClCompile Include="source\ecs\gameobject.cpp" />
     <ClCompile Include="source\graphics\light.cpp" />
@@ -586,6 +587,7 @@
     <ClInclude Include="include\graphics\texture.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\physics\transform.hpp" />
+    <ClInclude Include="include\util\database.hpp" />
     <ClInclude Include="include\util\packedassociativearray.hpp" />
     <ClInclude Include="include\util\rawarray.hpp" />
     <ClInclude Include="include\window.h" />
