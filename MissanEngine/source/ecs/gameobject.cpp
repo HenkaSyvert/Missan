@@ -25,44 +25,32 @@ using namespace std;
 PackedAssociativeArray<GameObject> GameObject::gameObjects;
 vector<size_t> GameObject::gameObjectsToDestroy;
 
-// generate new unique ID or reuse an old one
-static size_t GetUniqueId() {
-	static size_t newId = 0;
-	static queue<size_t> freeIds;
 
-	if (freeIds.empty()) return newId++;
-
-	size_t id = freeIds.front();
-	freeIds.pop();
-
-	return id;
-}
-
-size_t GameObject::Instantiate() {
-	size_t id = GetUniqueId();
+Object::IdType GameObject::Instantiate() {
+	IdType id = GetUniqueId();
 	gameObjects.Add(id);
 	GameObject* g = gameObjects.Get(id);
 	g->id = id;
 	return id;
 }
 
-size_t GameObject::Instantiate(size_t originalId) {
+Object::IdType GameObject::Instantiate(IdType originalId) {
 	size_t id = Instantiate();
 	Component::Copy(id, originalId);
 	return id;
 }
 
-void GameObject::Destroy(size_t gameObjectId) {
+void GameObject::Destroy(IdType gameObjectId) {
 	gameObjectsToDestroy.push_back(gameObjectId);
 }
 
-void GameObject::DestroyImmediate(size_t gameObjectId) {
+void GameObject::DestroyImmediate(IdType gameObjectId) {
 	Component::Destroy(gameObjectId);
 	gameObjectsToDestroy.clear();
 }
 
-size_t GameObject::CreatePrimitive(PrimitiveType type) {
-	size_t id = GameObject::Instantiate();
+Object::IdType GameObject::CreatePrimitive(PrimitiveType type) {
+	IdType id = GameObject::Instantiate();
 	Component::Add<Transform>(id);
 	
 	Component::Add<Renderer>(id);

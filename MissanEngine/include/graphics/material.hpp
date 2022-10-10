@@ -4,10 +4,11 @@
 #include "graphics/shader.hpp"
 #include "graphics/texture.hpp"
 #include "inspectable.hpp"
+#include "object.hpp"
 
 namespace Missan {
 
-	class Material {
+	class Material : public Object {
 
 	public:
 		glm::vec4 ambient = Color::white;

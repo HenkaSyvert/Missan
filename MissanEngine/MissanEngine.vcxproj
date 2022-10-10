@@ -98,6 +98,7 @@
     <ClCompile Include="source\graphics\light.cpp" />
     <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
+    <ClCompile Include="source\object.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -564,6 +565,7 @@
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\inspectable.hpp" />
+    <ClInclude Include="include\object.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />

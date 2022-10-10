@@ -5,10 +5,11 @@
 
 #include <string>
 #include "inspectable.hpp"
+#include "object.hpp"
 
 namespace Missan {
 
-	class Texture : public Inspectable {
+	class Texture : public Object, public Inspectable {
 
 	public:
 

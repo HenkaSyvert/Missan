@@ -18,20 +18,20 @@ using namespace std;
 Database Component::componentArrays;
 
 
-void Component::Copy(size_t destinationId, size_t sourceId) {
+void Component::Copy(IdType destinationId, IdType sourceId) {
 	componentArrays.Copy(destinationId, sourceId);
 	RawArray<Component*> newComps = componentArrays.GetAll<Component>(destinationId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->Start();
 }
 
-void Component::Destroy(size_t gameObjectId) {
+void Component::Destroy(IdType gameObjectId) {
 	RawArray<Component*> newComps = componentArrays.GetAll<Component>(gameObjectId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->OnDestroy();
 	componentArrays.RemoveAll(gameObjectId);
 
 }
 
-RawArray<Component*> Component::GetAttachedComponents(size_t gameObjectId) {
+RawArray<Component*> Component::GetAttachedComponents(IdType gameObjectId) {
 	return componentArrays.GetAll<Component>(gameObjectId);
 }
 

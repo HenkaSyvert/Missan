@@ -13,12 +13,13 @@
 #include <glm/mat4x4.hpp>
 
 #include "color.hpp"
+#include "object.hpp"
 
 namespace Missan {
 
     /// 
     /// Program that runs on the GPU
-    class Shader {
+    class Shader : public Object {
 
     public:
 

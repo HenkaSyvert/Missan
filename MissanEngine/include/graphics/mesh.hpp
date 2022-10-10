@@ -1,10 +1,12 @@
 #pragma once
 
+#include "object.hpp"
+
 namespace Missan {
 
 	/// 
 	/// Stores data about 3D model
-	class Mesh {
+	class Mesh : public Object {
 
 	public:
 		int vaoId;

@@ -102,6 +102,9 @@
     <ClCompile Include="source\database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.shader" />
@@ -1522,6 +1525,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\util\database.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
