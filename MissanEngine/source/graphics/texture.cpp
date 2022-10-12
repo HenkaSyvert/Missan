@@ -15,8 +15,8 @@ using namespace ImGui;
 void Texture::Load(const string& fileName, WrapMode wm, FilterMode fm) {
 
 	IdType id = Object::GetUniqueId();
-	resources.Add<Texture>(id);
-	Texture* t = resources.Get<Texture>(id);
+	ECS::Add<Texture>(id);
+	Texture* t = ECS::Get<Texture>(id);
 	t->id = id;
 
 	stbi_set_flip_vertically_on_load(1);
@@ -36,7 +36,7 @@ void Texture::Load(const string& fileName, WrapMode wm, FilterMode fm) {
 
 	if (localBuffer) stbi_image_free(localBuffer);
 	cout << "id: " << id << ", &t: " << t << ", &t->name: " << &t->name << endl;
-	t->name = fileName;
+	//t->name = fileName;
 
 
 }

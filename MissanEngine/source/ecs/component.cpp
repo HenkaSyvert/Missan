@@ -15,28 +15,26 @@ using namespace std;
 
 
 
-Database Component::componentArrays;
-
-
 void Component::Copy(IdType destinationId, IdType sourceId) {
-	componentArrays.Copy(destinationId, sourceId);
-	RawArray<Component*> newComps = componentArrays.GetAll<Component>(destinationId);
+	ECS::Copy(destinationId, sourceId);
+	RawArray<Component*> newComps = ECS::GetAll<Component>(destinationId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->Start();
 }
 
 void Component::Destroy(IdType gameObjectId) {
-	RawArray<Component*> newComps = componentArrays.GetAll<Component>(gameObjectId);
+	RawArray<Component*> newComps = ECS::GetAll<Component>(gameObjectId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->OnDestroy();
-	componentArrays.RemoveAll(gameObjectId);
+	ECS::RemoveAll(gameObjectId);
 
 }
 
 RawArray<Component*> Component::GetAttachedComponents(IdType gameObjectId) {
-	return componentArrays.GetAll<Component>(gameObjectId);
+	return ECS::GetAll<Component>(gameObjectId);
 }
 
 void Component::UpdateAll() {
-	for (auto* compArr : componentArrays.tables) {
+	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
+		auto compArr = ECS::tables[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->Update();
@@ -44,7 +42,8 @@ void Component::UpdateAll() {
 }
 
 void Component::LateUpdateAll() {
-	for (auto* compArr : componentArrays.tables) {
+	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
+		auto compArr = ECS::tables[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->LateUpdate();
@@ -52,7 +51,8 @@ void Component::LateUpdateAll() {
 }
 
 void Component::OnGuiAll() {
-	for (auto* compArr : componentArrays.tables) {
+	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
+		auto compArr = ECS::tables[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->OnGui();

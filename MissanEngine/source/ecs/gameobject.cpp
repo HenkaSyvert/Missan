@@ -16,20 +16,20 @@
 #include "graphics/material.hpp"
 
 #include "engine.hpp"
+#include "ecs/database.hpp"
 
 using namespace Missan;
 using namespace std;
 
 
 
-PackedAssociativeArray<GameObject> GameObject::gameObjects;
 vector<size_t> GameObject::gameObjectsToDestroy;
 
 
 Object::IdType GameObject::Instantiate() {
 	IdType id = GetUniqueId();
-	gameObjects.Add(id);
-	GameObject* g = gameObjects.Get(id);
+	ECS::Add<GameObject>(id);
+	GameObject* g = ECS::Get<GameObject>(id);
 	g->id = id;
 	return id;
 }
@@ -56,25 +56,25 @@ Object::IdType GameObject::CreatePrimitive(PrimitiveType type) {
 	Component::Add<Renderer>(id);
 	Renderer* r = Component::Get<Renderer>(id);
 	// TODO: add list of default materials.. 
-	r->material = new Material();
-	r->material->shader = Shader::diffuseSpecular;
+	//r->material = new Material();
+	//r->material->shader = Shader::diffuseSpecular;
 	Component::Add<Collider>(id);
 	Collider* c = Component::Get<Collider>(id);
 
 	switch (type) {
 	case PrimitiveType::cube:
-		r->mesh = resources.Get<Mesh>("cube.mesh");
+		//r->mesh = Resources::Get<Mesh>("cube.mesh");
 		// c = different kind of collider?
 		// TODO: add different kind of colliders.. 
-		gameObjects.Get(id)->name = "Cube";
+		ECS::Get<GameObject>(id)->name = "Cube";
 		break;
 	case PrimitiveType::sphere:
 		// todo...
-		gameObjects.Get(id)->name = "Sphere";
+		ECS::Get<GameObject>(id)->name = "Sphere";
 		break;
 	case PrimitiveType::plane:
-		r->mesh = resources.Get<Mesh>("plane.mesh");
-		gameObjects.Get(id)->name = "Plane";
+		//r->mesh = Resources::Get<Mesh>("plane.mesh");
+		ECS::Get<GameObject>(id)->name = "Plane";
 		// todo: ditto collider.. 
 		break;
 	}

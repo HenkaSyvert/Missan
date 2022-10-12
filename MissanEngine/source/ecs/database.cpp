@@ -1,14 +1,41 @@
 #include "ecs/database.hpp"
-
+#include "internal.hpp"
+#include "ecs/gameobject.hpp"
+#include "graphics/texture.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/shader.hpp"
+#include "graphics/material.hpp"
 
 using namespace Missan;
+using namespace std;
 
 
+vector<PackedAssociativeArrayBase*> ECS::tables;
+size_t ECS::numberOfTypes = 0;
+size_t ECS::componentOffset;
 
-void Database::Copy(size_t destinationId, size_t sourceId) {
+void ECS::Copy(size_t destinationId, size_t sourceId) {
 	for (auto& table : tables) if (table->Get(sourceId)) table->Add(destinationId, table->Get(sourceId));	
 }
 
-void Database::RemoveAll(size_t id) {
+void ECS::RemoveAll(size_t id) {
 	for (auto* table : tables) table->Remove(id);
+}
+
+void ECSInitialize() {
+
+	// need to register these in this order because number of asset times is constant, 
+	// but number of components is unknown. allows to handle all component types separate
+	// from assets. 
+
+	using namespace ECS;
+
+	//TODO: getting type ID registers new class, 
+	// make into separate func
+	GetTypeId<GameObject>();
+	GetTypeId<Texture>();
+	GetTypeId<Mesh>();
+	GetTypeId<Shader>();
+	GetTypeId<Material>();
+	componentOffset = numberOfTypes;
 }

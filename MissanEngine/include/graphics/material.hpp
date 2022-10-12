@@ -6,6 +6,8 @@
 #include "inspectable.hpp"
 #include "ecs/object.hpp"
 
+#include <string>
+
 namespace Missan {
 
 	class Material : public Object {
@@ -16,11 +18,13 @@ namespace Missan {
 		glm::vec4 specular = Color::white;
 		float shininess = 32.0f;
 
-		Shader* shader = nullptr;
-		Texture* texture = nullptr;
+		IdType shaderId = NULL;
+		IdType textureId = NULL;
 
 		void DisplayInInspector();
 		
+		static void Load(const std::string& name);
+
 	};
 
 }

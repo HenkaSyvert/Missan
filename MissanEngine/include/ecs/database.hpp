@@ -8,17 +8,12 @@
 
 namespace Missan {
 
-	class Database {
+	namespace ECS {
 
-
-		// convenience function to not having to cast every time. 
-		template<class T>
-		PackedAssociativeArray<T>& GetArray() {
-			return *(PackedAssociativeArray<T>*)tables[GetTypeId<T>()];
-		}
+		extern std::vector<PackedAssociativeArrayBase*> tables;
 
 		// Unique ID per component type
-		size_t numberOfTypes;
+		extern size_t numberOfTypes;
 		template<class T>
 		size_t GetTypeId() {
 			static const size_t typeId = numberOfTypes++;
@@ -30,10 +25,18 @@ namespace Missan {
 			return typeId;
 		}
 
+		// from which index all ECS are types of components (as opposed to assets and gameobject). 
+		extern size_t componentOffset;
 
 
-	public:
-		std::vector<PackedAssociativeArrayBase*> tables;
+		// convenience function to not having to cast every time. 
+		template<class T>
+		PackedAssociativeArray<T>& GetArray() {
+			return *(PackedAssociativeArray<T>*)tables[GetTypeId<T>()];
+		}
+
+
+
 
 
 		template<class T>

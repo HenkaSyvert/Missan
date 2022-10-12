@@ -9,7 +9,7 @@
 
 namespace Missan {
 
-	class Texture : public Object, public Inspectable {
+	class Texture : public Object {
 
 	public:
 

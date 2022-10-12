@@ -44,7 +44,7 @@ public:
     void EcsWindow() {
         if (Begin("Entity Component System")) {
 
-            auto& arrs = Component::componentArrays.tables;
+            auto& arrs = ECS::tables;
             static int selectedArr = 0;
             static int selectedComp = 0;
             {
@@ -110,7 +110,7 @@ public:
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
             int i = 0;
-            RawArray<GameObject> gs = GameObject::gameObjects.AsRawArray();
+            RawArray<GameObject> gs = ECS::AsRawArray<GameObject>();
             for (size_t j = 0; j < gs.count; j++) {
                 GameObject* g = &gs[j];
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;

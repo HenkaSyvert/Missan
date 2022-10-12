@@ -1,5 +1,7 @@
 #include "graphics/material.hpp"
+#include "ecs/database.hpp"
 
+#include <stdio.h>
 
 using namespace Missan;
 using namespace ImGui;
@@ -11,12 +13,17 @@ void Material::DisplayInInspector() {
 		ColorEdit4("diffuse", (float*)&diffuse);
 		ColorEdit4("specular", (float*)&specular);
 		DragFloat("shininess", &shininess);
-		if (texture) texture->DisplayInInspector();
+		//if (texture) texture->DisplayInInspector();
 		if (BeginMenu("Shader")) {
-			if (MenuItem("Unlit")) shader = Shader::unlit;
-			if (MenuItem("Phong")) shader = Shader::diffuseSpecular;
+			//if (MenuItem("Unlit")) shader = Shader::unlit;
+			//if (MenuItem("Phong")) shader = Shader::diffuseSpecular;
 			EndMenu();
 		}
 		TreePop();
 	}
+}
+
+void Material::Load(const std::string& name) {
+
+
 }

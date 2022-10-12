@@ -15,7 +15,7 @@ namespace Missan {
 
 	public:
 
-		template<class T> void AddComponent() {
+		template<class T> inline void AddComponent() {
 			Component::Add<T>(id);
 		}
 
@@ -30,7 +30,6 @@ namespace Missan {
 		// actually destroys gameobject, immediately. 
 		static void DestroyImmediate(IdType gameObjectId);
 
-		static PackedAssociativeArray<GameObject> gameObjects;
 		static std::vector<IdType> gameObjectsToDestroy;
 
 		// TODO: add more primitives, like cylinder, capsule

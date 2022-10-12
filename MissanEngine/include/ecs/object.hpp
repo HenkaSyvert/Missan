@@ -1,10 +1,12 @@
 #pragma once
 
+#include "inspectable.hpp"
+
 #include <string>
 
 namespace Missan {
 
-	class Object {
+	class Object : public Inspectable {
 
 	public:
 
@@ -14,7 +16,7 @@ namespace Missan {
 
 		typedef size_t IdType;
 
-		IdType id;
+		IdType id = NULL;
 
 		static IdType GetUniqueId();
 

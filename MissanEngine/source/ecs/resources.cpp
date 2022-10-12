@@ -20,7 +20,6 @@
 using namespace Missan;
 using namespace std;
 
-Database Missan::resources;
 
 static void PrintCurrentDirectory() {
 	// print current directory
@@ -64,7 +63,6 @@ void ResourcesInitialize() {
 		Mesh::Load(findData.cFileName);
 	} while (FindNextFile(findFile, &findData));
 	SetCurrentDirectory("..");
-	cout << "<Mesh> : " << resources.tables[0]->AsRawArrayBase().count << endl;
 
 	SetCurrentDirectory("textures");
 	PrintCurrentDirectory();
@@ -73,6 +71,5 @@ void ResourcesInitialize() {
 		Texture::Load(findData.cFileName);
 	} while (FindNextFile(findFile, &findData));
 	SetCurrentDirectory("..");
-	cout << "<Texture> : " << resources.tables[1]->AsRawArrayBase().count << endl;
 
 }

@@ -8,6 +8,9 @@
 #include "rawarray.hpp"
 #include "object.hpp"
 
+// TODO: make actual dynamic size work, but now i am lazy
+#define MAX_GAME_OBJECTS 200
+
 namespace Missan {
 
 	class PackedAssociativeArrayBase {
@@ -17,14 +20,14 @@ namespace Missan {
 		std::unordered_map<size_t, size_t> indexToId;
 		size_t count = 0;
 		const size_t elementSize;
-		size_t capacity = 100;
+		size_t capacity = MAX_GAME_OBJECTS;
 
 
-		inline bool IsIdUsed(size_t id) const {
+		inline bool IsIdUsed(Object::IdType id) const {
 			return idToIndex.find(id) != idToIndex.end();
 		}
 
-		inline size_t GetOffset(size_t index) const {
+		inline size_t GetOffset(Object::IdType index) const {
 			return index * elementSize;
 		}
 
@@ -43,7 +46,11 @@ namespace Missan {
 			return RawArrayBase(data, count, elementSize);
 		}
 
-		void Add(size_t id, const void* const element) {
+		void Add(Object::IdType id, const void* const element) {
+
+			// if try to add ID == NULL, just ignore
+			if (!id) return;
+
 			if (IsIdUsed(id)) {
 				// no support for game object to have multiple components of same type, just ignore. 
 				return;
@@ -61,7 +68,7 @@ namespace Missan {
 			memcpy(&data[GetOffset(index)], element, elementSize);
 		}
 
-		void Remove(size_t id) {
+		void Remove(Object::IdType id) {
 			if (!IsIdUsed(id)) {
 				// intentionally quietly ignore try to remove non existant component, means dont need check prior. 
 				return;
@@ -69,7 +76,7 @@ namespace Missan {
 
 			size_t indexOfRemoved = idToIndex[id];
 			size_t indexOflast = count - 1;
-			size_t idOfLast = indexToId[indexOflast];
+			Object::IdType idOfLast = indexToId[indexOflast];
 
 			char* removedElement = &data[GetOffset(indexOfRemoved)];
 			char* lastElement = &data[GetOffset(indexOflast)];
@@ -84,7 +91,7 @@ namespace Missan {
 		}
 
 		// for getting specific element by index
-		inline void* Get(size_t id) {
+		inline void* Get(Object::IdType id) {
 			return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
 		}
 
@@ -107,12 +114,12 @@ namespace Missan {
 			return RawArray<T>(data, count);
 		}
 
-		inline void Add(size_t id) {
+		inline void Add(Object::IdType id) {
 			T component;
 			PackedAssociativeArrayBase::Add(id, &component);
 		}
 
-		inline T* Get(size_t id) {
+		inline T* Get(Object::IdType id) {
 			return (T*)PackedAssociativeArrayBase::Get(id);
 		}
 

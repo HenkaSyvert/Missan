@@ -14,14 +14,8 @@ namespace Missan {
 
 	public:
 
-		/// 
-		/// Mesh to render
-		Mesh* mesh = nullptr;
-
-		Material* material = nullptr;
-
-		// TODO: add initialization funcs that run before Start()...
-		//void Start() { if (!material->shader)material->shader = Shader::unlit; }
+		IdType meshId = NULL;
+		IdType materialId = NULL;
 
 		void DisplayInInspector();
 

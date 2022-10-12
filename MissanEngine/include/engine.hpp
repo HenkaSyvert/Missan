@@ -4,6 +4,9 @@
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"
 #include "ecs/database.hpp"
+#include "ecs/object.hpp"
+
+#include <string>
 
 namespace Missan {
 
@@ -37,7 +40,21 @@ namespace Missan {
 
 	}
 
-	extern Database resources;
+	namespace Resources {
+
+		template<class T>
+		inline T* Get(Object::IdType id) {
+			return ECS::Get<T>(id);
+		}
+
+		template<class T>
+		inline T* Get(std::string name) {
+			RawArray<T> arr = ECS::AsRawArray<T>();
+			for (size_t i = 0; i < arr.count; i++)
+				if (name == arr[i].name) return &arr[i];
+		}
+
+	}
 	
 
 }

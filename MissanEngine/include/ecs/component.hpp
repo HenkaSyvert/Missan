@@ -13,7 +13,7 @@ namespace Missan {
 
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
-	class Component : public Object, public Inspectable {
+	class Component : public Object {
 		
 	public:
 	
@@ -53,7 +53,7 @@ namespace Missan {
 
 		template<class T> 
 		inline static RawArray<T> GetRawArray() {
-			return componentArrays.AsRawArray<T>();
+			return ECS::AsRawArray<T>();
 		}
 
 		static RawArray<Component*> GetAttachedComponents(IdType gameObjectId);
@@ -61,22 +61,22 @@ namespace Missan {
 		// Create new component and attach to gameobject
 		template<class T> 
 		inline static void Add(IdType gameObjectId) {
-			componentArrays.Add<T>(gameObjectId);
-			componentArrays.Get<T>(gameObjectId)->gameObjectId = gameObjectId;
-			componentArrays.Get<T>(gameObjectId)->Start();
+			ECS::Add<T>(gameObjectId);
+			ECS::Get<T>(gameObjectId)->gameObjectId = gameObjectId;
+			ECS::Get<T>(gameObjectId)->Start();
 		}
 
 		// remove component from gameobject
 		template<class T> 
 		inline static void Remove(IdType gameObjectId) {
-			componentArrays.Get<T>(gameObjectId)->OnDestroy();
-			componentArrays.Remove<T>(gameObjectId);
+			ECS::Get<T>(gameObjectId)->OnDestroy();
+			ECS::Remove<T>(gameObjectId);
 		}
 
 
 		template<class T> 
 		inline static T* Get(IdType gameObjectId) {
-			return componentArrays.Get<T>(gameObjectId);
+			return ECS::Get<T>(gameObjectId);
 		}
 
 		static void Copy(IdType destinationId, IdType sourceId);
@@ -86,7 +86,6 @@ namespace Missan {
 		static void LateUpdateAll();
 		static void OnGuiAll();
 
-		static Database componentArrays;
 		
 
 
