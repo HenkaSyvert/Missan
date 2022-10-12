@@ -12,12 +12,14 @@ using namespace Missan;
 using namespace std;
 using namespace ImGui;
 
-void Texture::Load(const string& fileName, WrapMode wm, FilterMode fm) {
+void Texture::Load(const string& fileName) {
 
 	IdType id = Object::GetUniqueId();
 	ECS::Add<Texture>(id);
 	Texture* t = ECS::Get<Texture>(id);
 	t->id = id;
+	t->name = fileName;
+
 
 	stbi_set_flip_vertically_on_load(1);
 	unsigned char* localBuffer = stbi_load(fileName.c_str(), &t->_width, &t->_height, &t->_channels, 4);
@@ -29,14 +31,15 @@ void Texture::Load(const string& fileName, WrapMode wm, FilterMode fm) {
 	glGenTextures(1, &t->_textureId);
 	glBindTexture(GL_TEXTURE_2D, t->_textureId);
 
+	FilterMode fm = FilterMode::linear;
+	WrapMode wm = WrapMode::repeat;
+
 	t->filterMode(fm);
 	t->wrapMode(wm);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t->width, t->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 
 	if (localBuffer) stbi_image_free(localBuffer);
-	cout << "id: " << id << ", &t: " << t << ", &t->name: " << &t->name << endl;
-	//t->name = fileName;
 
 
 }

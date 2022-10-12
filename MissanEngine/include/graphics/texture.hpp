@@ -38,7 +38,7 @@ namespace Missan {
 
 		void DisplayInInspector();
 
-		static void Load(const std::string& fileName, WrapMode wm = WrapMode::repeat, FilterMode fm = FilterMode::linear);
+		static void Load(const std::string& fileName);
 
 
 	private:

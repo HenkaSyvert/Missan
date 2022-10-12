@@ -4,14 +4,13 @@
 #include <fstream>
 #include <string>
 
+#include "ecs/database.hpp"
+
 using namespace Missan;
 using namespace std;
 using namespace glm;
 
-Shader* Shader::unlit = nullptr;
-Shader* Shader::diffuseSpecular = nullptr;
-
-string LoadShader(const string& fileName) {
+static string LoadShader(const string& fileName) {
 	fstream input(fileName);
 
 	if (!input.is_open()) {
@@ -63,15 +62,15 @@ GLint Shader::GetUniformLocation(const string& uniformVariableName) const{
 
 
 
-Shader::Shader(const string& vertexShaderFilePath, const string& fragmentShaderFilePath) {
-	programId = glCreateProgram();
+void Shader::Load(const std::string& name) {
+	size_t programId = glCreateProgram();
 	GLuint vertexShader, fragmentShader;
 	
-	string vertexSourceCode = LoadShader(vertexShaderFilePath);
+	string vertexSourceCode = LoadShader(name + "/vertex.shader");
 	vertexShader = CompileShader(GL_VERTEX_SHADER, vertexSourceCode);
 	glAttachShader(programId, vertexShader);
 
-	string fragmentSourceCode = LoadShader(fragmentShaderFilePath);
+	string fragmentSourceCode = LoadShader(name + "/fragment.shader");
 	fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentSourceCode);
 	glAttachShader(programId, fragmentShader);
 
@@ -92,6 +91,12 @@ Shader::Shader(const string& vertexShaderFilePath, const string& fragmentShaderF
 	glDeleteShader(fragmentShader);
 	glDetachShader(programId, fragmentShader);
 
+	IdType id = Object::GetUniqueId();
+	ECS::Add<Shader>(id);
+	Shader* shader = ECS::Get<Shader>(id);
+	shader->name = name;
+	shader->programId = programId;
+	shader->id = id;
 }
 
 

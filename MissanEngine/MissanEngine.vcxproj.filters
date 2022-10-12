@@ -521,8 +521,8 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="resources\meshes\plane.mesh" />
-    <None Include="resources\shaders\diffuseSpecular.fs" />
-    <None Include="resources\shaders\diffuseSpecular.vs" />
+    <None Include="resources\shaders\phong\fragment.shader" />
+    <None Include="resources\shaders\phong\vertex.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\stb\stb_image.h">

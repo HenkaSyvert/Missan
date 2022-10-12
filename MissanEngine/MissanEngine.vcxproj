@@ -253,8 +253,8 @@
     <None Include="external\glm\gtx\vector_query.inl" />
     <None Include="external\glm\gtx\wrap.inl" />
     <None Include="resources\meshes\plane.mesh" />
-    <None Include="resources\shaders\diffuseSpecular.fs" />
-    <None Include="resources\shaders\diffuseSpecular.vs" />
+    <None Include="resources\shaders\phong\fragment.shader" />
+    <None Include="resources\shaders\phong\vertex.shader" />
     <None Include="shaders\fragment.shader" />
     <None Include="shaders\vertex.shader" />
   </ItemGroup>

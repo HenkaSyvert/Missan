@@ -15,7 +15,8 @@
 
 #include "internal.hpp"
 #include "graphics/texture.hpp"
-
+#include "graphics/shader.hpp"
+#include "graphics/material.hpp"
 
 using namespace Missan;
 using namespace std;
@@ -46,30 +47,26 @@ static void PrintCurrentDirectory() {
 
 }
 
+void LoadAllFilesInDir(const char* dir, const char* filePattern, void loadFunc(const std::string&) ) {
+	SetCurrentDirectory(dir);
+	//PrintCurrentDirectory();
+	WIN32_FIND_DATAA findData;
+	HANDLE findFile = FindFirstFile(filePattern, &findData);
+	do {
+		if (findData.cFileName[0] == '.') continue; //TODO: very elegant solution.. 
+		cout << dir << "::Load(" << filePattern << ": " << findData.cFileName << ")\n";
+		loadFunc(findData.cFileName);
+	} while (FindNextFile(findFile, &findData));
+	SetCurrentDirectory("..");
+}
+
 void ResourcesInitialize() {
 
-	PrintCurrentDirectory();
 	SetCurrentDirectory("resources");
-	PrintCurrentDirectory();
 
-
-	WIN32_FIND_DATAA findData;
-	HANDLE findFile;
-
-	SetCurrentDirectory("meshes");
-	PrintCurrentDirectory();
-	findFile = FindFirstFile("*.mesh", &findData);
-	do {
-		Mesh::Load(findData.cFileName);
-	} while (FindNextFile(findFile, &findData));
-	SetCurrentDirectory("..");
-
-	SetCurrentDirectory("textures");
-	PrintCurrentDirectory();
-	findFile = FindFirstFile("*.png", &findData);
-	do {
-		Texture::Load(findData.cFileName);
-	} while (FindNextFile(findFile, &findData));
-	SetCurrentDirectory("..");
+	LoadAllFilesInDir("meshes", "*.mesh", Mesh::Load);
+	LoadAllFilesInDir("textures", "*.png", Texture::Load);
+	LoadAllFilesInDir("shaders", "*", Shader::Load);
+	LoadAllFilesInDir("materials", "*.mat", Material::Load);
 
 }

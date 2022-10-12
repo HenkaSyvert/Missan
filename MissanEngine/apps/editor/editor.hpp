@@ -42,13 +42,13 @@ public:
     }
 
     void EcsWindow() {
-        if (Begin("Entity Component System")) {
+        if (Begin("Memory")) {
 
             auto& arrs = ECS::tables;
             static int selectedArr = 0;
             static int selectedComp = 0;
             {
-                Text("Component Arrays");
+                Text("Type Arrays");
                 BeginChild("left pane", {200, 0}, true);
                 for (int i = 0; i < arrs.size(); i++) {
                     auto arr = arrs[i];
@@ -62,13 +62,16 @@ public:
             }
             SameLine();
 
+            //TODO: don't know the proper offset to iterate over the array, thence corrupted strings.. 
             auto arr = arrs[selectedArr]->AsRawArrayBase();
             {
                 BeginChild("mid pane", {200, 0}, true);
                 
                 for (int i = 0; i < arr.count; i++) {
-                    Component* c = (Component*)arr[i];
-                    if (Selectable(("[" + to_string((int)c) + "] " + to_string(i) + ": gameObject " + to_string(c->gameObjectId)).c_str(), selectedComp == i)) {
+                    Object* obj = (Object*)arr[i];
+                    std::string str = "[" + to_string((int)obj) + "]: ";
+                    str += obj->name + "[ID: " + to_string(obj->id) + "]";
+                    if (Selectable(str.c_str(), selectedComp == i)) {
                         selectedComp = i;
                     }
                 }

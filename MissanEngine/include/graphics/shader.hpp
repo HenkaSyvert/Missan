@@ -25,17 +25,10 @@ namespace Missan {
 
         GLuint programId;
 
-        /// 
-        /// most basic shader, not affected by lighting
-        static Shader* unlit;
-
-        /// 
-        /// basic lighting shader. combines ambient, diffuse, and specular. 
-        static Shader* diffuseSpecular;
 
         /// 
         /// Compiles new Shader from source code
-        Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+        static void Load(const std::string& name);
      
 
         /// 

@@ -12,7 +12,7 @@ namespace Missan {
 
 		// TODO: mv to separate arr?
 		// todo: some func for making each name unique?
-		std::string name;
+		std::string name = "sdfhsdfkjsdhgfkjdshg";
 
 		typedef size_t IdType;
 

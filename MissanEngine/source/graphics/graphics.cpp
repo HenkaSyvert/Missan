@@ -28,8 +28,6 @@ void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	Shader::unlit = new Shader("resources/shaders/unlit.vs", "resources/shaders/unlit.fs");
-	Shader::diffuseSpecular = new Shader("resources/shaders/diffuseSpecular.vs", "resources/shaders/diffuseSpecular.fs");
 }
 
 void GraphicsUpdate() {
@@ -62,7 +60,7 @@ void GraphicsUpdate() {
 			glEnableVertexAttribArray(0);
 
 			//temp
-			shader = Shader::unlit;
+			if (!shader) shader = &ECS::AsRawArray<Shader>()[0];
 
 			glUseProgram(shader->programId);
 
