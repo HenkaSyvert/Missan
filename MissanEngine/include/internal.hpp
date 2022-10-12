@@ -20,3 +20,4 @@ void GuiTerminate();
 void GraphicsInitialize();
 void GraphicsUpdate();
 
+void ResourcesInitialize();

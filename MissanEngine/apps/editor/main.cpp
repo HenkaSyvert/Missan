@@ -22,8 +22,8 @@ void PlaceSomeCubes() {
     Component::Add<Renderer>(cube);
     auto* r = Component::Get<Renderer>(cube);
     r->material = new Material();
-    r->material->texture = Resources::GetTexture("resources/textures/stone2.png");
-    r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+    r->material->texture = resources.Get<Texture>("resources/textures/stone2.png");
+    r->mesh = resources.Get<Mesh>("resources/meshes/cube.mesh");
     r->material->shader = Shader::diffuseSpecular;
 
 }

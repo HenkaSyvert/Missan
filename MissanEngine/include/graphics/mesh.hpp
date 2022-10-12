@@ -2,6 +2,8 @@
 
 #include "ecs/object.hpp"
 
+#include <string>
+
 namespace Missan {
 
 	/// 
@@ -9,14 +11,14 @@ namespace Missan {
 	class Mesh : public Object {
 
 	public:
-		int vaoId;
+		size_t vaoId;
 
 		// vertices.size() * 3
-		int elementCount;
+		size_t elementCount;
 
 		/// 
 		/// Creates new Mesh
-		Mesh(int vaoId, int vertexCount);
+		static void Load(const std::string& fileName);
 
 	};
 

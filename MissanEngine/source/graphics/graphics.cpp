@@ -23,10 +23,6 @@ using namespace std;
 using namespace glm;
 
 
-Mesh::Mesh(int vaoId, int elementCount) {
-	this->vaoId = vaoId;
-	this->elementCount = elementCount;
-}
 
 void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
@@ -80,7 +76,7 @@ void GraphicsUpdate() {
 				glEnableVertexAttribArray(1);
 				shader.SetInt("u_texture", 0);
 				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, texture->id);
+				glBindTexture(GL_TEXTURE_2D, texture->textureId);
 			}
 
 			glDrawElements(GL_TRIANGLES, renderer.mesh->elementCount, GL_UNSIGNED_INT, 0);

@@ -13,7 +13,7 @@ namespace Missan {
 
 	public:
 
-		const GLuint& id = _id;
+		const GLuint& textureId = _textureId;
 		const int& width = _width;
 		const int& height = _height;
 		const int& channels = _channels;
@@ -38,11 +38,11 @@ namespace Missan {
 
 		void DisplayInInspector();
 
-		Texture(const std::string& fileName, WrapMode wm = WrapMode::repeat, FilterMode fm = FilterMode::linear);
+		static void Load(const std::string& fileName, WrapMode wm = WrapMode::repeat, FilterMode fm = FilterMode::linear);
 
 
 	private:
-		GLuint _id;
+		GLuint _textureId;
 		int _width;
 		int _height;
 		int _channels;
