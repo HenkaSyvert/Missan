@@ -1521,7 +1521,7 @@
     <ClInclude Include="apps\editor\editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\memory\packedassociativearray.hpp">
+    <ClInclude Include="include\memory\objectarray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\memory\rawarray.hpp">

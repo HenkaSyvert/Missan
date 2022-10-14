@@ -10,7 +10,7 @@ using namespace Missan;
 using namespace std;
 
 
-vector<PackedAssociativeArrayBase*> ECS::arrays;
+vector<ObjectArrayBase*> ECS::arrays;
 size_t ECS::numberOfTypes = 0;
 size_t ECS::componentOffset;
 

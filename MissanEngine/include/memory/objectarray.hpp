@@ -16,7 +16,10 @@
 
 namespace Missan {
 
-	class PackedAssociativeArrayBase {
+
+	///
+	/// Dynamic, contiguous, associative array
+	class ObjectArrayBase {
 	protected:
 		char* data = nullptr;
 		std::unordered_map<size_t, size_t> idToIndex;
@@ -38,7 +41,7 @@ namespace Missan {
 
 		const std::string typeName;
 
-		PackedAssociativeArrayBase(size_t elementSize, const char* name)
+		ObjectArrayBase(size_t elementSize, const char* name)
 			: elementSize(elementSize),
 			typeName(name)
 		{
@@ -123,10 +126,10 @@ namespace Missan {
 	};
 
 	template<class T>
-	class PackedAssociativeArray : public PackedAssociativeArrayBase {
+	class ObjectArray : public ObjectArrayBase {
 	public:
-		PackedAssociativeArray()
-			: PackedAssociativeArrayBase(sizeof(T), typeid(T).name()) {}
+		ObjectArray()
+			: ObjectArrayBase(sizeof(T), typeid(T).name()) {}
 
 		inline RawArray<T> AsRawArray() const {
 			return RawArray<T>(data, count);
@@ -135,17 +138,17 @@ namespace Missan {
 		inline void Add(Object::IdType id) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
 			T component;
-			PackedAssociativeArrayBase::Add(id, &component);
+			ObjectArrayBase::Add(id, &component);
 		}
 
 		inline T* Get(Object::IdType id) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
-			return (T*)PackedAssociativeArrayBase::Get(id);
+			return (T*)ObjectArrayBase::Get(id);
 		}
 
 		inline T* Get(const std::string& name) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
-			return (T*)PackedAssociativeArrayBase::Get(name);
+			return (T*)ObjectArrayBase::Get(name);
 		}
 
 	};

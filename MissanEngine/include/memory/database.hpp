@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-#include "packedassociativearray.hpp"
+#include "objectarray.hpp"
 #include "rawarray.hpp"
 
 #define MISSAN_DEBUG_ECS 0
@@ -13,7 +13,7 @@ namespace Missan {
 
 	namespace ECS {
 
-		extern std::vector<PackedAssociativeArrayBase*> arrays;
+		extern std::vector<ObjectArrayBase*> arrays;
 
 		// Unique ID per component type
 		extern size_t numberOfTypes;
@@ -26,7 +26,7 @@ namespace Missan {
 				<< "\n\tnumberOfTypes = " << numberOfTypes << std::endl;
 			if (typeId >= arrays.size()) {
 				if (MISSAN_DEBUG_ECS) std::cout << "\tarrays.push_back()\n";
-				arrays.push_back(new PackedAssociativeArray<T>());
+				arrays.push_back(new ObjectArray<T>());
 			}
 			return typeId;
 		}
@@ -37,8 +37,8 @@ namespace Missan {
 
 		// convenience function to not having to cast every time. 
 		template<class T>
-		PackedAssociativeArray<T>& GetArray() {
-			return *(PackedAssociativeArray<T>*)arrays[GetTypeId<T>()];
+		ObjectArray<T>& GetArray() {
+			return *(ObjectArray<T>*)arrays[GetTypeId<T>()];
 		}
 
 

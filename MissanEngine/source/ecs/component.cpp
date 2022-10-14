@@ -5,8 +5,7 @@
 #include <string>
 #include <stdlib.h>
 
-#include "memory/packedassociativearray.hpp"
-#include "memory/rawarray.hpp"
+#include "memory/database.hpp"
 
 #define DEBUG_COMPONENT 1
 

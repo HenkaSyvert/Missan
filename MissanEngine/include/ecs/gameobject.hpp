@@ -1,7 +1,6 @@
 #pragma once
 
 #include "component.hpp"
-#include "memory/packedassociativearray.hpp"
 #include "memory/object.hpp"
 
 #include <vector>
