@@ -20,6 +20,6 @@ void GuiTerminate();
 void GraphicsInitialize();
 void GraphicsUpdate();
 
-void ECSInitialize();
+void MemoryInitialize();
 
 void ResourcesInitialize();

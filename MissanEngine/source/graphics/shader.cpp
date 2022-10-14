@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 
 using namespace Missan;
 using namespace std;
@@ -92,8 +92,8 @@ void Shader::Load(const std::string& name) {
 	glDetachShader(programId, fragmentShader);
 
 	IdType id = Object::GetUniqueId();
-	ECS::Add<Shader>(id);
-	Shader* shader = ECS::Get<Shader>(id);
+	Memory::Add<Shader>(id);
+	Shader* shader = Memory::Get<Shader>(id);
 	shader->name = name;
 	shader->programId = programId;
 	shader->id = id;

@@ -46,18 +46,18 @@ void GraphicsUpdate() {
 		for (size_t i = 0; i < renderers.count; i++) {
 			Renderer& renderer = renderers[i];
 
-			Mesh* mesh = ECS::Get<Mesh>(renderer.meshId);
+			Mesh* mesh = Memory::Get<Mesh>(renderer.meshId);
 			if (!mesh) {
 				if (MISSAN_DEBUG_GRAPHICS)cout << "\tmesh = null, skipping..\n";
 				continue;
 			}
 
-			Material* material = ECS::Get<Material>(renderer.materialId);
+			Material* material = Memory::Get<Material>(renderer.materialId);
 			Shader* shader = nullptr;
 			Texture* texture = nullptr;
 			if (material) {
-				shader = ECS::Get<Shader>(material->shaderId);
-				texture = ECS::Get<Texture>(material->textureId);
+				shader = Memory::Get<Shader>(material->shaderId);
+				texture = Memory::Get<Texture>(material->textureId);
 				if (MISSAN_DEBUG_GRAPHICS) {
 					if (!shader)cout << "\tshader = null\n";
 					if (!texture)cout << "\ttexture = null\n";
@@ -72,7 +72,7 @@ void GraphicsUpdate() {
 			glEnableVertexAttribArray(0);
 
 			//temp
-			if (!shader) shader = &ECS::AsRawArray<Shader>()[0];
+			if (!shader) shader = &Memory::AsRawArray<Shader>()[0];
 
 			glUseProgram(shader->programId);
 

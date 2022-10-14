@@ -75,8 +75,8 @@ void Mesh::Load(const string& fileName) {
 	}
 
 	IdType id = Object::GetUniqueId();
-	ECS::Add<Mesh>(id);
-	Mesh* m = ECS::Get<Mesh>(id);
+	Memory::Add<Mesh>(id);
+	Mesh* m = Memory::Get<Mesh>(id);
 	m->id = id;
 
 	glGenVertexArrays(1, &m->vaoId);

@@ -5,7 +5,7 @@
 #include <string>
 #include <stdlib.h>
 
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 
 #define DEBUG_COMPONENT 1
 
@@ -15,25 +15,25 @@ using namespace std;
 
 
 void Component::Copy(IdType destinationId, IdType sourceId) {
-	ECS::Copy(destinationId, sourceId);
-	RawArray<Component*> newComps = ECS::GetAll<Component>(destinationId);
+	Memory::Copy(destinationId, sourceId);
+	RawArray<Component*> newComps = Memory::GetAll<Component>(destinationId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->Start();
 }
 
 void Component::Destroy(IdType gameObjectId) {
-	RawArray<Component*> newComps = ECS::GetAll<Component>(gameObjectId);
+	RawArray<Component*> newComps = Memory::GetAll<Component>(gameObjectId);
 	for (int i = 0; i < newComps.count; i++) newComps[i]->OnDestroy();
-	ECS::RemoveAll(gameObjectId);
+	Memory::RemoveAll(gameObjectId);
 
 }
 
 RawArray<Component*> Component::GetAttachedComponents(IdType gameObjectId) {
-	return ECS::GetAll<Component>(gameObjectId);
+	return Memory::GetAll<Component>(gameObjectId);
 }
 
 void Component::UpdateAll() {
-	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
-		auto compArr = ECS::arrays[j];
+	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->Update();
@@ -41,8 +41,8 @@ void Component::UpdateAll() {
 }
 
 void Component::LateUpdateAll() {
-	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
-		auto compArr = ECS::arrays[j];
+	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->LateUpdate();
@@ -50,8 +50,8 @@ void Component::LateUpdateAll() {
 }
 
 void Component::OnGuiAll() {
-	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
-		auto compArr = ECS::arrays[j];
+	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->OnGui();

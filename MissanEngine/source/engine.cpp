@@ -38,7 +38,7 @@ void Engine::Initialize() {
 	InputInitialize(window);
 	GraphicsInitialize();
 	GuiInitialize(window);
-	ECSInitialize();
+	MemoryInitialize();
 	ResourcesInitialize();
 	if (MISSAN_DEBUG_ENGINE)std::cout << "Engine::Initialize() done\n\n";
 }

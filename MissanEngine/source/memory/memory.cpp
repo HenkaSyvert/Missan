@@ -1,4 +1,4 @@
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 #include "internal.hpp"
 #include "ecs/gameobject.hpp"
 #include "graphics/texture.hpp"
@@ -10,25 +10,25 @@ using namespace Missan;
 using namespace std;
 
 
-vector<ObjectArrayBase*> ECS::arrays;
-size_t ECS::numberOfTypes = 0;
-size_t ECS::componentOffset;
+vector<ObjectArrayBase*> Memory::arrays;
+size_t Memory::numberOfTypes = 0;
+size_t Memory::componentOffset;
 
-void ECS::Copy(size_t destinationId, size_t sourceId) {
+void Memory::Copy(size_t destinationId, size_t sourceId) {
 	for (auto& table : arrays) if (table->Get(sourceId)) table->Add(destinationId, table->Get(sourceId));	
 }
 
-void ECS::RemoveAll(size_t id) {
+void Memory::RemoveAll(size_t id) {
 	for (auto* table : arrays) table->Remove(id);
 }
 
-void ECSInitialize() {
+void MemoryInitialize() {
 
 	// need to register these in this order because number of asset times is constant, 
 	// but number of components is unknown. allows to handle all component types separate
 	// from assets. 
 
-	using namespace ECS;
+	using namespace Memory;
 
 	//TODO: getting type ID registers new class, 
 	// make into separate func

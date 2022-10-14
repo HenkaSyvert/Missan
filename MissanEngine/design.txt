@@ -21,7 +21,7 @@ memory:
 	- get/set individual element by ID, or whole type array for iteration. 
 	- (in future, custom memory allocators because why not)
 	- deals with both ASSETS and ECS things. 
-
+	- ONLY resources, component, and gameObject should be coupled to memory
 
 ECS:
 	- layer on top of memory

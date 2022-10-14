@@ -14,7 +14,7 @@
 #include "graphics/material.hpp"
 
 #include "engine.hpp"
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 
 using namespace Missan;
 using namespace std;
@@ -26,8 +26,8 @@ vector<size_t> GameObject::gameObjectsToDestroy;
 
 Object::IdType GameObject::Instantiate() {
 	IdType id = GetUniqueId();
-	ECS::Add<GameObject>(id);
-	GameObject* g = ECS::Get<GameObject>(id);
+	Memory::Add<GameObject>(id);
+	GameObject* g = Memory::Get<GameObject>(id);
 	g->id = id;
 	return id;
 }
@@ -64,15 +64,15 @@ Object::IdType GameObject::CreatePrimitive(PrimitiveType type) {
 		//r->mesh = Resources::Get<Mesh>("cube.mesh");
 		// c = different kind of collider?
 		// TODO: add different kind of colliders.. 
-		ECS::Get<GameObject>(id)->name = "Cube";
+		Memory::Get<GameObject>(id)->name = "Cube";
 		break;
 	case PrimitiveType::sphere:
 		// todo...
-		ECS::Get<GameObject>(id)->name = "Sphere";
+		Memory::Get<GameObject>(id)->name = "Sphere";
 		break;
 	case PrimitiveType::plane:
 		//r->mesh = Resources::Get<Mesh>("plane.mesh");
-		ECS::Get<GameObject>(id)->name = "Plane";
+		Memory::Get<GameObject>(id)->name = "Plane";
 		// todo: ditto collider.. 
 		break;
 	}

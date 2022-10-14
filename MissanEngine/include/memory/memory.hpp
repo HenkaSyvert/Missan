@@ -4,83 +4,86 @@
 #include <string>
 #include <iostream>
 
+#include "object.hpp"
 #include "objectarray.hpp"
 #include "rawarray.hpp"
 
-#define MISSAN_DEBUG_ECS 0
+#define MISSAN_DEBUG_MEMORY 0
 
 namespace Missan {
 
-	namespace ECS {
+	namespace Memory {
 
 		extern std::vector<ObjectArrayBase*> arrays;
 
 		// Unique ID per component type
 		extern size_t numberOfTypes;
 		template<class T>
-		size_t GetTypeId() {
+		inline size_t GetTypeId() {
 			static const size_t typeId = numberOfTypes++;
-			if (MISSAN_DEBUG_ECS) std::cout
+			if (MISSAN_DEBUG_MEMORY) std::cout
 				<< "GetTypeId<" << typeid(T).name()
 				<< ">():\n\ttypeId = " << typeId
 				<< "\n\tnumberOfTypes = " << numberOfTypes << std::endl;
 			if (typeId >= arrays.size()) {
-				if (MISSAN_DEBUG_ECS) std::cout << "\tarrays.push_back()\n";
+				if (MISSAN_DEBUG_MEMORY) std::cout << "\tarrays.push_back()\n";
 				arrays.push_back(new ObjectArray<T>());
 			}
 			return typeId;
 		}
 
-		// from which index all ECS are types of components (as opposed to assets and gameobject). 
-		extern size_t componentOffset;
-
-
 		// convenience function to not having to cast every time. 
 		template<class T>
-		ObjectArray<T>& GetArray() {
+		inline ObjectArray<T>& GetArray() {
 			return *(ObjectArray<T>*)arrays[GetTypeId<T>()];
 		}
 
-
-
-
-
 		template<class T>
-		T* Get(size_t id) {
+		inline T* Get(Object::IdType id) {
 			return GetArray<T>().Get(id);
 		}
 
 		template<class T>
-		T* Get(const std::string& name) {
-			return GetArray<T>().Get(name);
-		}
-
-		template<class T>
-		void Add(size_t id) {
+		inline void Add(Object::IdType id) {
 			GetArray<T>().Add(id);
 		}
 
 		template<class T>
-		void Remove(size_t id) {
+		inline void Remove(Object::IdType id) {
 			GetArray<T>().Remove(id);
 		}
 
 		template<class T>
-		RawArray<T> AsRawArray() {
+		inline RawArray<T> AsRawArray() {
 			return GetArray<T>().AsRawArray();
 		}
 
 
+
+
+		// TODO: move to ECS
+		// from which index all ECS are types of components (as opposed to assets and gameobject). 
+		extern size_t componentOffset;
+
+		// TODO: move to resources
 		template<class T>
-		RawArray<T*> GetAll(size_t id) {
+		inline T* Get(const std::string& name) {
+			return GetArray<T>().Get(name);
+		}
+
+		// TODO: move to ECS
+		template<class T>
+		RawArray<T*> GetAll(Object::IdType id) {
 			std::vector<T*> entries;
 			for (auto& table : arrays) if (table->Get(id)) entries.push_back((T*)table->Get(id));			
 			return RawArray<T*>(entries.data(), entries.size(), true);
 		}
 
+		// TODO: move to ECS?
 		void RemoveAll(size_t id);
 
-		void Copy(size_t destinationId, size_t sourceId);
+		// TODO: move to ECS
+		void Copy(Object::IdType destinationId, Object::IdType sourceId);
 
 
 	};

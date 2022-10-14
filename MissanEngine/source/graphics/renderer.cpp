@@ -8,6 +8,6 @@ using namespace std;
 
 void Renderer::DisplayInInspector() {
 	if (CollapsingHeader("Renderer")) {
-		if (materialId) ECS::Get<Material>(materialId)->DisplayInInspector();
+		if (materialId) Memory::Get<Material>(materialId)->DisplayInInspector();
 	}
 }

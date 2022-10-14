@@ -27,8 +27,8 @@ void Material::DisplayInInspector() {
 void Material::Load(const std::string& name) {
 
 	IdType id = Object::GetUniqueId();
-	ECS::Add<Material>(id);
-	Material* m = ECS::Get<Material>(id);
+	Memory::Add<Material>(id);
+	Material* m = Memory::Get<Material>(id);
 	m->ambient = m->diffuse = m->specular = Color::white;
 	m->shininess = 1;
 	m->id = id;	//TODO: make id assignment part of ECS, this is stupid

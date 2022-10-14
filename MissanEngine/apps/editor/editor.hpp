@@ -48,8 +48,8 @@ public:
             
             Text("Type Arrays");
             BeginChild("left pane", {200, 0}, true);
-            for (int i = 0; i < ECS::arrays.size(); i++) {
-                if (Selectable(ECS::arrays[i]->typeName.c_str(), selectedArray == i)) {
+            for (int i = 0; i < Memory::arrays.size(); i++) {
+                if (Selectable(Memory::arrays[i]->typeName.c_str(), selectedArray == i)) {
                     selectedArray = i;
                     selectedObject = 0;
                 }
@@ -57,7 +57,7 @@ public:
             EndChild();           
             SameLine();
 
-            auto arr = ECS::arrays[selectedArray]->AsRawArrayBase();          
+            auto arr = Memory::arrays[selectedArray]->AsRawArrayBase();
             BeginChild("mid pane", {200, 0}, true);             
             for (int i = 0; i < arr.count; i++) {
                 Object& obj = *(Object*)arr[i];
@@ -99,7 +99,7 @@ public:
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
             int i = 0;
-            RawArray<GameObject> gs = ECS::AsRawArray<GameObject>();
+            RawArray<GameObject> gs = Memory::AsRawArray<GameObject>();
             for (size_t j = 0; j < gs.count; j++) {
                 GameObject* g = &gs[j];
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;

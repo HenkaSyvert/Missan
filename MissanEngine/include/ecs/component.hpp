@@ -1,7 +1,7 @@
 #pragma once
 
 #include "inspectable.hpp"
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 #include "memory/object.hpp"
 
 #include <string>
@@ -53,7 +53,7 @@ namespace Missan {
 
 		template<class T> 
 		inline static RawArray<T> GetRawArray() {
-			return ECS::AsRawArray<T>();
+			return Memory::AsRawArray<T>();
 		}
 
 		static RawArray<Component*> GetAttachedComponents(IdType gameObjectId);
@@ -61,22 +61,22 @@ namespace Missan {
 		// Create new component and attach to gameobject
 		template<class T> 
 		inline static void Add(IdType gameObjectId) {
-			ECS::Add<T>(gameObjectId);
-			ECS::Get<T>(gameObjectId)->gameObjectId = gameObjectId;
-			ECS::Get<T>(gameObjectId)->Start();
+			Memory::Add<T>(gameObjectId);
+			Memory::Get<T>(gameObjectId)->gameObjectId = gameObjectId;
+			Memory::Get<T>(gameObjectId)->Start();
 		}
 
 		// remove component from gameobject
 		template<class T> 
 		inline static void Remove(IdType gameObjectId) {
-			ECS::Get<T>(gameObjectId)->OnDestroy();
-			ECS::Remove<T>(gameObjectId);
+			Memory::Get<T>(gameObjectId)->OnDestroy();
+			Memory::Remove<T>(gameObjectId);
 		}
 
 
 		template<class T> 
 		inline static T* Get(IdType gameObjectId) {
-			return ECS::Get<T>(gameObjectId);
+			return Memory::Get<T>(gameObjectId);
 		}
 
 		static void Copy(IdType destinationId, IdType sourceId);

@@ -2,7 +2,7 @@
 
 #include <stb/stb_image.h>
 #include "imgui/imgui.h"
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 #include "engine.hpp"
 
 #include <iostream>
@@ -15,8 +15,8 @@ using namespace ImGui;
 void Texture::Load(const string& fileName) {
 
 	IdType id = Object::GetUniqueId();
-	ECS::Add<Texture>(id);
-	Texture* t = ECS::Get<Texture>(id);
+	Memory::Add<Texture>(id);
+	Texture* t = Memory::Get<Texture>(id);
 	t->id = id;
 	t->name = fileName;
 

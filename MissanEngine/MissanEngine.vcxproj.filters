@@ -96,7 +96,7 @@
     <ClCompile Include="source\ecs\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\memory\database.cpp">
+    <ClCompile Include="source\memory\memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\memory\object.cpp">
@@ -1527,7 +1527,7 @@
     <ClInclude Include="include\memory\rawarray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\memory\database.hpp">
+    <ClInclude Include="include\memory\memory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\memory\object.hpp">
