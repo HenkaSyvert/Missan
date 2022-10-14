@@ -96,10 +96,10 @@
     <ClCompile Include="source\ecs\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ecs\database.cpp">
+    <ClCompile Include="source\memory\database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ecs\object.cpp">
+    <ClCompile Include="source\memory\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\graphics\mesh.cpp">
@@ -1521,16 +1521,16 @@
     <ClInclude Include="apps\editor\editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\packedassociativearray.hpp">
+    <ClInclude Include="include\memory\packedassociativearray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\rawarray.hpp">
+    <ClInclude Include="include\memory\rawarray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\database.hpp">
+    <ClInclude Include="include\memory\database.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\object.hpp">
+    <ClInclude Include="include\memory\object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,6 +6,8 @@
 
 namespace Missan {
 
+	///
+	/// All objects that can be referenced by Missan. 
 	class Object : public Inspectable {
 
 	public:

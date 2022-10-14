@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ecs/object.hpp"
+#include "memory/object.hpp"
 
 #include <string>
 

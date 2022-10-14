@@ -5,7 +5,7 @@
 
 #include <string>
 #include "inspectable.hpp"
-#include "ecs/object.hpp"
+#include "memory/object.hpp"
 
 namespace Missan {
 

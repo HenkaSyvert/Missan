@@ -1,8 +1,8 @@
 #pragma once
 
 #include "inspectable.hpp"
-#include "database.hpp"
-#include "object.hpp"
+#include "memory/database.hpp"
+#include "memory/object.hpp"
 
 #include <string>
 #include <typeinfo>

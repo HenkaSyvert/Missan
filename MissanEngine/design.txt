@@ -15,6 +15,19 @@ Entity Component System:
 
 
 
+memory:
+	- creates contiguous arrays per type
+	- access via GUID per instance. 
+	- get/set individual element by ID, or whole type array for iteration. 
+	- (in future, custom memory allocators because why not)
+	- deals with both ASSETS and ECS things. 
+
+
+ECS:
+	- layer on top of memory
+	- basically just maps a single game object ID to 1 or more component IDs. 
+	- also handles calling of onDestroy, Start, etc 
+
 flow for asset:
 raw asset in folder --> generate internal format based on import --> actually load into game, in contiguous arr. 
 

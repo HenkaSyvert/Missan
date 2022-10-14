@@ -2,7 +2,7 @@
 
 #include <stb/stb_image.h>
 #include "imgui/imgui.h"
-#include "ecs/database.hpp"
+#include "memory/database.hpp"
 #include "engine.hpp"
 
 #include <iostream>

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "ecs/packedassociativearray.hpp"
+#include "memory/packedassociativearray.hpp"
 
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
@@ -16,7 +16,7 @@
 #include "graphics/material.hpp"
 
 #include "engine.hpp"
-#include "ecs/database.hpp"
+#include "memory/database.hpp"
 
 using namespace Missan;
 using namespace std;

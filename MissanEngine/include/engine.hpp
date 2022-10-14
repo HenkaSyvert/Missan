@@ -3,8 +3,8 @@
 #include "ecs/gameobject.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"
-#include "ecs/database.hpp"
-#include "ecs/object.hpp"
+#include "memory/database.hpp"
+#include "memory/object.hpp"
 
 #include <string>
 

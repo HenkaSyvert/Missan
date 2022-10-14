@@ -92,7 +92,7 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
-    <ClCompile Include="source\ecs\database.cpp" />
+    <ClCompile Include="source\memory\database.cpp" />
     <ClCompile Include="source\ecs\component.cpp" />
     <ClCompile Include="source\ecs\gameobject.cpp" />
     <ClCompile Include="source\ecs\resources.cpp" />
@@ -100,7 +100,7 @@
     <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\graphics\mesh.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
-    <ClCompile Include="source\ecs\object.cpp" />
+    <ClCompile Include="source\memory\object.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
@@ -566,7 +566,7 @@
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\inspectable.hpp" />
-    <ClInclude Include="include\ecs\object.hpp" />
+    <ClInclude Include="include\memory\object.hpp" />
     <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
@@ -590,9 +590,9 @@
     <ClInclude Include="include\graphics\texture.hpp" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\physics\transform.hpp" />
-    <ClInclude Include="include\ecs\database.hpp" />
-    <ClInclude Include="include\ecs\packedassociativearray.hpp" />
-    <ClInclude Include="include\ecs\rawarray.hpp" />
+    <ClInclude Include="include\memory\database.hpp" />
+    <ClInclude Include="include\memory\packedassociativearray.hpp" />
+    <ClInclude Include="include\memory\rawarray.hpp" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\graphics\window.hpp" />
   </ItemGroup>

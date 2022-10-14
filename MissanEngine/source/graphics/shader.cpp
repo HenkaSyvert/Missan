@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-#include "ecs/database.hpp"
+#include "memory/database.hpp"
 
 using namespace Missan;
 using namespace std;
