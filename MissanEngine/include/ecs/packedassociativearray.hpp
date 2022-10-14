@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include <typeinfo>
 
 #include "rawarray.hpp"
@@ -10,6 +11,8 @@
 
 // TODO: make actual dynamic size work, but now i am lazy
 #define MAX_GAME_OBJECTS 200
+
+#define MISSAN_DEBUG_ARRAY 0
 
 namespace Missan {
 
@@ -47,12 +50,21 @@ namespace Missan {
 		}
 
 		void Add(Object::IdType id, const void* const element) {
+			if (MISSAN_DEBUG_ARRAY) std::cout
+				<< "Add(id = " << id
+				<< ", element = " << element << "):\n";
 
 			// if try to add ID == NULL, just ignore
-			if (!id) return;
+			if (!id) {
+				if (MISSAN_DEBUG_ARRAY) std::cout << "\terr: ID is NULL\n";
+				exit(1);
+				return;
+			}
 
 			if (IsIdUsed(id)) {
 				// no support for game object to have multiple components of same type, just ignore. 
+				if(MISSAN_DEBUG_ARRAY)std::cout << "\terr: ID is not used\n";
+				exit(1);
 				return;
 			}
 
@@ -69,8 +81,12 @@ namespace Missan {
 		}
 
 		void Remove(Object::IdType id) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "Remove(id = " << id << "):\n";
+
 			if (!IsIdUsed(id)) {
 				// intentionally quietly ignore try to remove non existant component, means dont need check prior. 
+				if (MISSAN_DEBUG_ARRAY)std::cout << "\terr: ID is unused\n";
+				exit(1);
 				return;
 			}
 
@@ -92,6 +108,8 @@ namespace Missan {
 
 		// for getting specific element by index
 		inline void* Get(Object::IdType id) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "Get(id = " << id << "):\n";
+			if (MISSAN_DEBUG_ARRAY && !IsIdUsed(id))std::cout << "\tID is unused\n";
 			return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
 		}
 
@@ -115,15 +133,18 @@ namespace Missan {
 		}
 
 		inline void Add(Object::IdType id) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
 			T component;
 			PackedAssociativeArrayBase::Add(id, &component);
 		}
 
 		inline T* Get(Object::IdType id) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
 			return (T*)PackedAssociativeArrayBase::Get(id);
 		}
 
 		inline T* Get(const std::string& name) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
 			return (T*)PackedAssociativeArrayBase::Get(name);
 		}
 

@@ -600,6 +600,7 @@
     <Library Include="external\glew\lib\glew32s.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="design.txt" />
     <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

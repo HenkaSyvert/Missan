@@ -33,8 +33,8 @@ RawArray<Component*> Component::GetAttachedComponents(IdType gameObjectId) {
 }
 
 void Component::UpdateAll() {
-	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
-		auto compArr = ECS::tables[j];
+	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
+		auto compArr = ECS::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->Update();
@@ -42,8 +42,8 @@ void Component::UpdateAll() {
 }
 
 void Component::LateUpdateAll() {
-	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
-		auto compArr = ECS::tables[j];
+	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
+		auto compArr = ECS::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->LateUpdate();
@@ -51,8 +51,8 @@ void Component::LateUpdateAll() {
 }
 
 void Component::OnGuiAll() {
-	for (int j = ECS::componentOffset; j < ECS::tables.size(); j++) {
-		auto compArr = ECS::tables[j];
+	for (int j = ECS::componentOffset; j < ECS::arrays.size(); j++) {
+		auto compArr = ECS::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
 			((Component*)arr[i])->OnGui();

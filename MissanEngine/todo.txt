@@ -24,6 +24,7 @@ database
 
 project
 	make separate editor app
+		use #define MISSAN_EDITOR to conditionally compile
 	make dll
 	add std assets, eg camera script
 	make cool 3d physics & light scene

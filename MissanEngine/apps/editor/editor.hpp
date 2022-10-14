@@ -43,53 +43,39 @@ public:
 
     void EcsWindow() {
         if (Begin("Memory")) {
-
-            auto& arrs = ECS::tables;
-            static int selectedArr = 0;
-            static int selectedComp = 0;
-            {
-                Text("Type Arrays");
-                BeginChild("left pane", {200, 0}, true);
-                for (int i = 0; i < arrs.size(); i++) {
-                    auto arr = arrs[i];
-                    if (Selectable(arr->typeName.c_str(), selectedArr == i)) {
-                        selectedArr = i;
-                        selectedComp = 0;
-                    }
+            static size_t selectedArray = 0;
+            static size_t selectedObject = 0;
+            
+            Text("Type Arrays");
+            BeginChild("left pane", {200, 0}, true);
+            for (int i = 0; i < ECS::arrays.size(); i++) {
+                if (Selectable(ECS::arrays[i]->typeName.c_str(), selectedArray == i)) {
+                    selectedArray = i;
+                    selectedObject = 0;
                 }
-
-                EndChild();
             }
+            EndChild();           
             SameLine();
 
-            //TODO: don't know the proper offset to iterate over the array, thence corrupted strings.. 
-            auto arr = arrs[selectedArr]->AsRawArrayBase();
-            {
-                BeginChild("mid pane", {200, 0}, true);
-                
-                for (int i = 0; i < arr.count; i++) {
-                    Object* obj = (Object*)arr[i];
-                    std::string str = "[" + to_string((int)obj) + "]: ";
-                    str += obj->name + "[ID: " + to_string(obj->id) + "]";
-                    if (Selectable(str.c_str(), selectedComp == i)) {
-                        selectedComp = i;
-                    }
+            auto arr = ECS::arrays[selectedArray]->AsRawArrayBase();          
+            BeginChild("mid pane", {200, 0}, true);             
+            for (int i = 0; i < arr.count; i++) {
+                Object& obj = *(Object*)arr[i];
+                std::string str = obj.name + "[ID: " + to_string(obj.id) + "]";
+                if (Selectable(str.c_str(), selectedObject == i)) {
+                    selectedObject = i;
                 }
-
-                EndChild();
             }
+            EndChild();            
             SameLine();
 
-            Component* comp = (Component*)arr[selectedComp];
-            {
-                BeginChild("right pane", {200, 0}, true);
-                if (comp) {
-                    Text("Game Object ID: %u", comp->gameObjectId);
-                    comp->DisplayInInspector();
-                }
-                EndChild();
+            Object* obj = (Object*)arr[selectedObject];    
+            BeginChild("right pane", {200, 0}, true);
+            if (obj) {
+                Text("ID = %u", obj->id);
+                obj->DisplayInInspector();
             }
-
+            EndChild();
 
             End();
         }

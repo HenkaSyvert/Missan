@@ -1,0 +1,49 @@
+
+
+
+
+Entity Component System:
+- Components are stored per type in contigous arrays. 
+- array elements are associative with an game object ID. 
+- All instances of GameObject and Component are ALWAYS managed by the ECS. 
+	- since users are never allowed to manage memory of GameObject or Component directly, 
+	  they can ONLY be instantiated with GameObject::Instantiate() and GameObject::Add<Component>(). 
+- because memory location of instantiated GameObjects and Components may change at end of frame, 
+  because of deletion of other gameobjects/components, any pointer is only valid for 1 frame. 
+	- therefore, users have instanceIDs to identity GameObjects and Components. 
+
+
+
+
+flow for asset:
+raw asset in folder --> generate internal format based on import --> actually load into game, in contiguous arr. 
+
+
+Editor:
+	AssetDatabase
+	Editor
+		CameraEditor
+		AbcEditor
+	EditorApplication
+		stepSingleFrame()
+		IsUpdating?
+		isCompiling?
+		funcDelegate<Update>
+	ExpressionEvaluator
+	EditorWindow : ScriptableObject
+	FileUtil
+	Importer
+		for different file types
+	unique ID per asset
+	.meta file
+		ID + import settings
+
+
+
+editor:
+	assetDatabase
+	- original asset files are left intact. 
+	- they are transformed into internal 
+	  game-ready representation in separate
+	  folder, according to import settings. 
+	- 

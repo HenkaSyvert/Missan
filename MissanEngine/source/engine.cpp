@@ -9,6 +9,11 @@
 #include "graphics/window.hpp"
 #include "physics/physics.hpp"
 
+#include <iostream>
+#include <stdio.h>
+
+#define MISSAN_DEBUG_ENGINE 0
+static bool isDebugStepping = false;
 
 using namespace Missan;
 using namespace std;
@@ -35,6 +40,7 @@ void Engine::Initialize() {
 	GuiInitialize(window);
 	ECSInitialize();
 	ResourcesInitialize();
+	if (MISSAN_DEBUG_ENGINE)std::cout << "Engine::Initialize() done\n\n";
 }
 
 void Engine::Quit() {
@@ -44,25 +50,43 @@ void Engine::Quit() {
 }
 
 void Engine::Run() {
+	if (MISSAN_DEBUG_ENGINE)cout << "\nEngine::Run():\n";
 	TimeUpdate();
 	
 	while (!glfwWindowShouldClose(window)) {
+
+
+		if (MISSAN_DEBUG_ENGINE)cout << "TimeUpdate():\n";
 		TimeUpdate();
+
+		if (MISSAN_DEBUG_ENGINE)cout << "PhysicsUpdate():\n";
 		PhysicsUpdate();
+
+		if (MISSAN_DEBUG_ENGINE)cout << "InputUpdate():\n";
 		InputUpdate();
 		
+		if (MISSAN_DEBUG_ENGINE)cout << "Component::UpdateAll():\n";
 		Component::UpdateAll();
+
+		if (MISSAN_DEBUG_ENGINE)cout << "Component::LateUpdateAll():\n";
 		Component::LateUpdateAll();
 			
-		
+		if (MISSAN_DEBUG_ENGINE)cout << "GraphicsUpdate():\n";
 		GraphicsUpdate();		
+
+		if (MISSAN_DEBUG_ENGINE)cout << "GuiUpdate():\n";
 		GuiUpdate();
 		
+		if (MISSAN_DEBUG_ENGINE)cout << "GameObject::Destroy():\n";
 		for (size_t gameObjectId : GameObject::gameObjectsToDestroy) {
 			GameObject::DestroyImmediate(gameObjectId);
 		}
 		
 		glfwSwapBuffers(window);
+		if (isDebugStepping) {
+			if (MISSAN_DEBUG_ENGINE)cout << "\npress Enter to continue...\n";
+			getchar();
+		}
 	}	
 
 	GuiTerminate();

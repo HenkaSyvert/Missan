@@ -10,16 +10,16 @@ using namespace Missan;
 using namespace std;
 
 
-vector<PackedAssociativeArrayBase*> ECS::tables;
+vector<PackedAssociativeArrayBase*> ECS::arrays;
 size_t ECS::numberOfTypes = 0;
 size_t ECS::componentOffset;
 
 void ECS::Copy(size_t destinationId, size_t sourceId) {
-	for (auto& table : tables) if (table->Get(sourceId)) table->Add(destinationId, table->Get(sourceId));	
+	for (auto& table : arrays) if (table->Get(sourceId)) table->Add(destinationId, table->Get(sourceId));	
 }
 
 void ECS::RemoveAll(size_t id) {
-	for (auto* table : tables) table->Remove(id);
+	for (auto* table : arrays) table->Remove(id);
 }
 
 void ECSInitialize() {

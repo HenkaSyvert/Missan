@@ -19,7 +19,7 @@ namespace Missan {
 	
 		/// 
 		/// The GameObject this Component is attached to. 
-		IdType gameObjectId;
+		IdType gameObjectId = NULL;
 
 		///
 		/// Called only once for each GameObject, before all other Event functions

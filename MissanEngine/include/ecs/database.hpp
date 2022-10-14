@@ -2,25 +2,31 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "packedassociativearray.hpp"
 #include "rawarray.hpp"
+
+#define MISSAN_DEBUG_ECS 0
 
 namespace Missan {
 
 	namespace ECS {
 
-		extern std::vector<PackedAssociativeArrayBase*> tables;
+		extern std::vector<PackedAssociativeArrayBase*> arrays;
 
 		// Unique ID per component type
 		extern size_t numberOfTypes;
 		template<class T>
 		size_t GetTypeId() {
 			static const size_t typeId = numberOfTypes++;
-			static bool isRegistered = false;
-			if (!isRegistered) {
-				tables.push_back(new PackedAssociativeArray<T>());
-				isRegistered = true;
+			if (MISSAN_DEBUG_ECS) std::cout
+				<< "GetTypeId<" << typeid(T).name()
+				<< ">():\n\ttypeId = " << typeId
+				<< "\n\tnumberOfTypes = " << numberOfTypes << std::endl;
+			if (typeId >= arrays.size()) {
+				if (MISSAN_DEBUG_ECS) std::cout << "\tarrays.push_back()\n";
+				arrays.push_back(new PackedAssociativeArray<T>());
 			}
 			return typeId;
 		}
@@ -32,7 +38,7 @@ namespace Missan {
 		// convenience function to not having to cast every time. 
 		template<class T>
 		PackedAssociativeArray<T>& GetArray() {
-			return *(PackedAssociativeArray<T>*)tables[GetTypeId<T>()];
+			return *(PackedAssociativeArray<T>*)arrays[GetTypeId<T>()];
 		}
 
 
@@ -68,7 +74,7 @@ namespace Missan {
 		template<class T>
 		RawArray<T*> GetAll(size_t id) {
 			std::vector<T*> entries;
-			for (auto& table : tables) if (table->Get(id)) entries.push_back((T*)table->Get(id));			
+			for (auto& table : arrays) if (table->Get(id)) entries.push_back((T*)table->Get(id));			
 			return RawArray<T*>(entries.data(), entries.size(), true);
 		}
 

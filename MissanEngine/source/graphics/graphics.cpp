@@ -17,12 +17,14 @@
 #include <glm/mat4x4.hpp>
 
 #include <vector>
+#include <iostream>
 
 using namespace Missan;
 using namespace std;
 using namespace glm;
 
 
+#define MISSAN_DEBUG_GRAPHICS 0
 
 void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
@@ -45,7 +47,10 @@ void GraphicsUpdate() {
 			Renderer& renderer = renderers[i];
 
 			Mesh* mesh = ECS::Get<Mesh>(renderer.meshId);
-			if (!mesh) continue;
+			if (!mesh) {
+				if (MISSAN_DEBUG_GRAPHICS)cout << "\tmesh = null, skipping..\n";
+				continue;
+			}
 
 			Material* material = ECS::Get<Material>(renderer.materialId);
 			Shader* shader = nullptr;
@@ -53,6 +58,13 @@ void GraphicsUpdate() {
 			if (material) {
 				shader = ECS::Get<Shader>(material->shaderId);
 				texture = ECS::Get<Texture>(material->textureId);
+				if (MISSAN_DEBUG_GRAPHICS) {
+					if (!shader)cout << "\tshader = null\n";
+					if (!texture)cout << "\ttexture = null\n";
+				}
+			}
+			else {
+				if (MISSAN_DEBUG_GRAPHICS)cout << "\tmaterial = null\n";
 			}
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
