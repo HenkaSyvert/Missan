@@ -74,10 +74,8 @@ void Mesh::Load(const string& fileName) {
 		}
 	}
 
-	IdType id = Object::GetUniqueId();
-	Memory::Add<Mesh>(id);
+	IdType id = Memory::Add<Mesh>();
 	Mesh* m = Memory::Get<Mesh>(id);
-	m->id = id;
 
 	glGenVertexArrays(1, &m->vaoId);
 	glBindVertexArray(m->vaoId);

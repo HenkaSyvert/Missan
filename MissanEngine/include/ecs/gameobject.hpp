@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 namespace Missan {
 
@@ -17,6 +18,9 @@ namespace Missan {
 		template<class T> inline void AddComponent() {
 			Component::Add<T>(id);
 		}
+
+		std::unordered_map<size_t, Object::IdType> components;
+
 
 
 		// instantiate new game object and return ID

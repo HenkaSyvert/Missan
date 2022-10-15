@@ -25,11 +25,7 @@ vector<size_t> GameObject::gameObjectsToDestroy;
 
 
 Object::IdType GameObject::Instantiate() {
-	IdType id = GetUniqueId();
-	Memory::Add<GameObject>(id);
-	GameObject* g = Memory::Get<GameObject>(id);
-	g->id = id;
-	return id;
+	return Memory::New<GameObject>();
 }
 
 Object::IdType GameObject::Instantiate(IdType originalId) {

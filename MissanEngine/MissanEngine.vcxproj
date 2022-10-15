@@ -583,6 +583,7 @@
     <ClInclude Include="include\physics\ray.hpp" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\physics\rigidbody.hpp" />
+    <ClInclude Include="include\resources.hpp" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\shaderprogram.h" />
     <ClInclude Include="include\graphics\shader.hpp" />

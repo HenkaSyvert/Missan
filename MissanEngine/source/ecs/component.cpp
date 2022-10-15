@@ -14,25 +14,9 @@ using namespace std;
 
 
 
-void Component::Copy(IdType destinationId, IdType sourceId) {
-	Memory::Copy(destinationId, sourceId);
-	RawArray<Component*> newComps = Memory::GetAll<Component>(destinationId);
-	for (int i = 0; i < newComps.count; i++) newComps[i]->Start();
-}
-
-void Component::Destroy(IdType gameObjectId) {
-	RawArray<Component*> newComps = Memory::GetAll<Component>(gameObjectId);
-	for (int i = 0; i < newComps.count; i++) newComps[i]->OnDestroy();
-	Memory::RemoveAll(gameObjectId);
-
-}
-
-RawArray<Component*> Component::GetAttachedComponents(IdType gameObjectId) {
-	return Memory::GetAll<Component>(gameObjectId);
-}
 
 void Component::UpdateAll() {
-	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+	for (int j = Component::componentOffset; j < Memory::arrays.size(); j++) {
 		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
@@ -41,7 +25,7 @@ void Component::UpdateAll() {
 }
 
 void Component::LateUpdateAll() {
-	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+	for (int j = Component::componentOffset; j < Memory::arrays.size(); j++) {
 		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)
@@ -50,7 +34,7 @@ void Component::LateUpdateAll() {
 }
 
 void Component::OnGuiAll() {
-	for (int j = Memory::componentOffset; j < Memory::arrays.size(); j++) {
+	for (int j = Component::componentOffset; j < Memory::arrays.size(); j++) {
 		auto compArr = Memory::arrays[j];
 		RawArrayBase arr = compArr->AsRawArrayBase();
 		for (int i = 0; i < arr.count; i++)

@@ -11,16 +11,6 @@ using namespace std;
 
 
 vector<ObjectArrayBase*> Memory::arrays;
-size_t Memory::numberOfTypes = 0;
-size_t Memory::componentOffset;
-
-void Memory::Copy(size_t destinationId, size_t sourceId) {
-	for (auto& table : arrays) if (table->Get(sourceId)) table->Add(destinationId, table->Get(sourceId));	
-}
-
-void Memory::RemoveAll(size_t id) {
-	for (auto* table : arrays) table->Remove(id);
-}
 
 void MemoryInitialize() {
 
@@ -37,5 +27,4 @@ void MemoryInitialize() {
 	GetTypeId<Mesh>();
 	GetTypeId<Shader>();
 	GetTypeId<Material>();
-	componentOffset = numberOfTypes;
 }

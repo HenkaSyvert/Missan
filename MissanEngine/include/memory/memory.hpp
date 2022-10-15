@@ -12,45 +12,42 @@
 
 namespace Missan {
 
+
+	/// 
+	/// allocates memory in contiguous arrays per class type. 
+	/// memory layout may change for cache friendliness, so
+	/// access is via unique ID instead of pointer. 
+	/// every instance has an unique ID. 
+	/// Use this interface to allow Missan to handle objects that
+	/// accessed frequently, ie gameObjects, components, assets. 
 	namespace Memory {
 
 		extern std::vector<ObjectArrayBase*> arrays;
 
-		// Unique ID per component type
-		extern size_t numberOfTypes;
+		typedef size_t SubclassIdType;
+
+		// Unique ID per Object subclass
+		// used to index index to correct ObjectArray
+		// this func automatically registers new types 
+		// as soon as an unknown type is called. 
 		template<class T>
 		inline size_t GetTypeId() {
-			static const size_t typeId = numberOfTypes++;
+			static const size_t typeId = arrays.size();
+			if (typeId >= arrays.size())) {
+				arrays.push_back(new ObjectArray<T>());
+			}
 			if (MISSAN_DEBUG_MEMORY) std::cout
 				<< "GetTypeId<" << typeid(T).name()
 				<< ">():\n\ttypeId = " << typeId
-				<< "\n\tnumberOfTypes = " << numberOfTypes << std::endl;
-			if (typeId >= arrays.size()) {
-				if (MISSAN_DEBUG_MEMORY) std::cout << "\tarrays.push_back()\n";
-				arrays.push_back(new ObjectArray<T>());
-			}
+				<< "\n\tarrays.size() = " << arrays.size() << std::endl;
 			return typeId;
 		}
 
-		// convenience function to not having to cast every time. 
+
+
 		template<class T>
 		inline ObjectArray<T>& GetArray() {
 			return *(ObjectArray<T>*)arrays[GetTypeId<T>()];
-		}
-
-		template<class T>
-		inline T* Get(Object::IdType id) {
-			return GetArray<T>().Get(id);
-		}
-
-		template<class T>
-		inline void Add(Object::IdType id) {
-			GetArray<T>().Add(id);
-		}
-
-		template<class T>
-		inline void Remove(Object::IdType id) {
-			GetArray<T>().Remove(id);
 		}
 
 		template<class T>
@@ -60,32 +57,42 @@ namespace Missan {
 
 
 
-
-		// TODO: move to ECS
-		// from which index all ECS are types of components (as opposed to assets and gameobject). 
-		extern size_t componentOffset;
-
-		// TODO: move to resources
 		template<class T>
-		inline T* Get(const std::string& name) {
-			return GetArray<T>().Get(name);
+		inline Object::IdType New(T* object = nullptr) {
+			return GetArray<T>().Add(object);
 		}
 
-		// TODO: move to ECS
-		template<class T>
-		RawArray<T*> GetAll(Object::IdType id) {
-			std::vector<T*> entries;
-			for (auto& table : arrays) if (table->Get(id)) entries.push_back((T*)table->Get(id));			
-			return RawArray<T*>(entries.data(), entries.size(), true);
+		/// 
+		/// only use this one if you've already accessed the type array via
+		/// one of the templated funcs, otherwise it might not be created yet. 
+		inline Object::IdType New(size_t arrayIndex, void* object = nullptr) {
+			return arrays[arrayIndex]->Add(object);
 		}
 
-		// TODO: move to ECS?
-		void RemoveAll(size_t id);
-
-		// TODO: move to ECS
-		void Copy(Object::IdType destinationId, Object::IdType sourceId);
 
 
-	};
+		template<class T>
+		inline T* Get(Object::IdType id) {
+			return GetArray<T>().Get(id);
+		}
+
+		inline void* Get(size_t arrayIndex, Object::IdType id) {
+			return arrays[arrayIndex]->Get(id);
+		}
+
+
+
+		template<class T>
+		inline void Delete(Object::IdType id) {
+			GetArray<T>().Remove(id);
+		}
+
+		inline void Delete(size_t arrayIndex, Object::IdType id) {
+			arrays[arrayIndex]->Remove(id);
+		}
+
+
+
+	}
 
 }

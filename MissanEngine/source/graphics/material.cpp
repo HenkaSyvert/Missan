@@ -1,5 +1,5 @@
 #include "graphics/material.hpp"
-#include "memory/database.hpp"
+#include "memory/memory.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -26,8 +26,7 @@ void Material::DisplayInInspector() {
 
 void Material::Load(const std::string& name) {
 
-	IdType id = Object::GetUniqueId();
-	Memory::Add<Material>(id);
+	IdType id = Memory::Add<Material>();
 	Material* m = Memory::Get<Material>(id);
 	m->ambient = m->diffuse = m->specular = Color::white;
 	m->shininess = 1;

@@ -43,8 +43,7 @@ namespace Missan {
 	class RawArray : public RawArrayBase {
 	public:
 		RawArray(const void* const newData, size_t count, bool makeCopy = false)
-			: RawArrayBase(newData, count, sizeof(T), makeCopy)
-		{ }
+			: RawArrayBase(newData, count, sizeof(T), makeCopy) { }
 
 		inline T& operator[](size_t index) const {
 			return *(T*)RawArrayBase::operator[](index);

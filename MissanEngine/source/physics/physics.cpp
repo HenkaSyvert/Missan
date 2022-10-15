@@ -17,7 +17,7 @@ using namespace glm;
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces() {
 
-	RawArray<RigidBody> rbs = Component::GetRawArray<RigidBody>();
+	RawArray<RigidBody> rbs = Memory::AsRawArray<RigidBody>();
 
 
 	// todo: here could be a good place to have some sort of signature to
@@ -53,7 +53,7 @@ void ApplyForces() {
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
 
-	RawArray<Collider> colliders = Component::GetRawArray<Collider>();
+	RawArray<Collider> colliders = Memory::AsRawArray<Collider>();
 	if (colliders.count <= 1) return;
 
 	for (size_t i = 0; i < colliders.count - 1; i++) {

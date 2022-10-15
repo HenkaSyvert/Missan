@@ -21,6 +21,11 @@ namespace Missan {
 		/// The GameObject this Component is attached to. 
 		IdType gameObjectId = NULL;
 
+		
+		// todo: figure out good name for this
+		// and make into typedef?
+		size_t componentTypeId;
+
 		///
 		/// Called only once for each GameObject, before all other Event functions
 		inline virtual void Start() {}
@@ -45,48 +50,15 @@ namespace Missan {
 		/// Called prior to the GameObject being destroyed
 		inline virtual void OnDestroy() {}
 
-		template<class T>
-		inline T* GetComponent() { return Component::Get<T>(gameObjectId); }
 
 
-
-
-		template<class T> 
-		inline static RawArray<T> GetRawArray() {
-			return Memory::AsRawArray<T>();
-		}
-
-		static RawArray<Component*> GetAttachedComponents(IdType gameObjectId);
-
-		// Create new component and attach to gameobject
-		template<class T> 
-		inline static void Add(IdType gameObjectId) {
-			Memory::Add<T>(gameObjectId);
-			Memory::Get<T>(gameObjectId)->gameObjectId = gameObjectId;
-			Memory::Get<T>(gameObjectId)->Start();
-		}
-
-		// remove component from gameobject
-		template<class T> 
-		inline static void Remove(IdType gameObjectId) {
-			Memory::Get<T>(gameObjectId)->OnDestroy();
-			Memory::Remove<T>(gameObjectId);
-		}
-
-
-		template<class T> 
-		inline static T* Get(IdType gameObjectId) {
-			return Memory::Get<T>(gameObjectId);
-		}
-
-		static void Copy(IdType destinationId, IdType sourceId);
-		static void Destroy(IdType gameObjectId);
 
 		static void UpdateAll();
 		static void LateUpdateAll();
 		static void OnGuiAll();
 
 		
+
 
 
 	};

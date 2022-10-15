@@ -9,9 +9,6 @@
 #include "rawarray.hpp"
 #include "object.hpp"
 
-// TODO: make actual dynamic size work, but now i am lazy
-#define MAX_GAME_OBJECTS 200
-
 #define MISSAN_DEBUG_ARRAY 0
 
 namespace Missan {
@@ -23,10 +20,9 @@ namespace Missan {
 	protected:
 		char* data = nullptr;
 		std::unordered_map<size_t, size_t> idToIndex;
-		std::unordered_map<size_t, size_t> indexToId;
 		size_t count = 0;
 		const size_t elementSize;
-		size_t capacity = MAX_GAME_OBJECTS;
+		size_t capacity = 200;
 
 
 		inline bool IsIdUsed(Object::IdType id) const {
@@ -42,8 +38,7 @@ namespace Missan {
 		const std::string typeName;
 
 		ObjectArrayBase(size_t elementSize, const char* name)
-			: elementSize(elementSize),
-			typeName(name)
+			: elementSize(elementSize), typeName(name)
 		{
 			data = (char*)malloc(GetOffset(capacity));
 		}
@@ -52,24 +47,7 @@ namespace Missan {
 			return RawArrayBase(data, count, elementSize);
 		}
 
-		void Add(Object::IdType id, const void* const element) {
-			if (MISSAN_DEBUG_ARRAY) std::cout
-				<< "Add(id = " << id
-				<< ", element = " << element << "):\n";
-
-			// if try to add ID == NULL, just ignore
-			if (!id) {
-				if (MISSAN_DEBUG_ARRAY) std::cout << "\terr: ID is NULL\n";
-				exit(1);
-				return;
-			}
-
-			if (IsIdUsed(id)) {
-				// no support for game object to have multiple components of same type, just ignore. 
-				if(MISSAN_DEBUG_ARRAY)std::cout << "\terr: ID is not used\n";
-				exit(1);
-				return;
-			}
+		Object::IdType Add(const void* const original) {
 
 			size_t index = count++;
 			if (count > capacity) {
@@ -77,10 +55,14 @@ namespace Missan {
 				data = (char*)realloc(data, GetOffset(capacity));
 			}
 
-			indexToId[index] = id;
+			Object::IdType id = Object::GetUniqueId();
 			idToIndex[id] = index;
+			
+			Object* object = (Object*)&data[GetOffset(index)];
+			memcpy(object, original, elementSize);
+			object->id = id;
 
-			memcpy(&data[GetOffset(index)], element, elementSize);
+			return id;
 		}
 
 		void Remove(Object::IdType id) {
@@ -92,63 +74,54 @@ namespace Missan {
 				exit(1);
 				return;
 			}
+			
+			Object* deletedObject = (Object*)&data[GetOffset(idToIndex[id])];
+			Object* lastObject = (Object*)&data[GetOffset(count - 1)];
 
-			size_t indexOfRemoved = idToIndex[id];
-			size_t indexOflast = count - 1;
-			Object::IdType idOfLast = indexToId[indexOflast];
+			memcpy(deletedObject, lastObject, elementSize);
 
-			char* removedElement = &data[GetOffset(indexOfRemoved)];
-			char* lastElement = &data[GetOffset(indexOflast)];
-			memcpy(removedElement, lastElement, elementSize);
-
-			idToIndex[idOfLast] = indexOfRemoved;
-			indexToId[indexOfRemoved] = idOfLast;
-			indexToId.erase(indexOflast);
+			idToIndex[lastObject->id] = idToIndex[id];
 			idToIndex.erase(id);
 
 			count--;
 		}
 
-		// for getting specific element by index
 		inline void* Get(Object::IdType id) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "Get(id = " << id << "):\n";
 			if (MISSAN_DEBUG_ARRAY && !IsIdUsed(id))std::cout << "\tID is unused\n";
 			return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
 		}
 
-		inline void* Get(const std::string& name) {
-			for (int i = 0; i < count; i++)
-				if (!((Object*)data[i])->name.compare(name))
-					return &data[i];
-			return nullptr;
-		}
-
 	};
 
 	template<class T>
 	class ObjectArray : public ObjectArrayBase {
+
+		inline void PrintTypeName() {
+			if(MISSAN_DEBUG_ARRAY) std::cout << "<" << typeName << ">";
+		}
+
 	public:
-		ObjectArray()
-			: ObjectArrayBase(sizeof(T), typeid(T).name()) {}
+		ObjectArray() : ObjectArrayBase(sizeof(T), typeid(T).name()) {}
 
 		inline RawArray<T> AsRawArray() const {
 			return RawArray<T>(data, count);
 		}
 
-		inline void Add(Object::IdType id) {
-			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
-			T component;
-			ObjectArrayBase::Add(id, &component);
+		inline Object::IdType Add(T* object = nullptr) {
+			PrintTypeName();
+			T tempObj;
+			return ObjectArrayBase::Add(object ? &tempObj : object);
 		}
 
 		inline T* Get(Object::IdType id) {
-			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
+			PrintTypeName();
 			return (T*)ObjectArrayBase::Get(id);
 		}
 
-		inline T* Get(const std::string& name) {
-			if (MISSAN_DEBUG_ARRAY)std::cout << "<" << typeid(T).name() << ">";
-			return (T*)ObjectArrayBase::Get(name);
+		inline void Remove(Object::IdType id) {
+			PrintTypeName();
+			ObjectArrayBase::Remove(id);
 		}
 
 	};
