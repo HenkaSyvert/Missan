@@ -19,25 +19,25 @@ namespace Missan {
 			Component::Add<T>(id);
 		}
 
-		std::unordered_map<size_t, Object::IdType> components;
+		std::unordered_map<size_t, InstanceId> components;
 
 
 
 		// instantiate new game object and return ID
-		static IdType Instantiate();
-		static IdType Instantiate(IdType original);
+		static InstanceId Instantiate();
+		static InstanceId Instantiate(InstanceId original);
 
 		// add gameobject to queue to destroy at end of frame
-		static void Destroy(IdType gameObjectId);
+		static void Destroy(InstanceId gameObjectId);
 
 		// actually destroys gameobject, immediately. 
-		static void DestroyImmediate(IdType gameObjectId);
+		static void DestroyImmediate(InstanceId gameObjectId);
 
-		static std::vector<IdType> gameObjectsToDestroy;
+		static std::vector<InstanceId> gameObjectsToDestroy;
 
 		// TODO: add more primitives, like cylinder, capsule
 		enum class PrimitiveType { sphere, cube, plane };
-		static IdType CreatePrimitive(PrimitiveType type);
+		static InstanceId CreatePrimitive(PrimitiveType type);
 
 	};
 

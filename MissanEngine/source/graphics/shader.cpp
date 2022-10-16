@@ -91,7 +91,7 @@ void Shader::Load(const std::string& name) {
 	glDeleteShader(fragmentShader);
 	glDetachShader(programId, fragmentShader);
 
-	IdType id = Memory::New<Shader>();
+	InstanceId id = Memory::New<Shader>();
 	Shader* shader = Memory::Get<Shader>(id);
 	shader->name = name;
 	shader->programId = programId;

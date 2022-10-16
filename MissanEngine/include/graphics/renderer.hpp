@@ -14,8 +14,8 @@ namespace Missan {
 
 	public:
 
-		IdType meshId = NULL;
-		IdType materialId = NULL;
+		InstanceId meshId = NULL;
+		InstanceId materialId = NULL;
 
 		void DisplayInInspector();
 

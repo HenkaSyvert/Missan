@@ -13,23 +13,24 @@
 
 namespace Missan {
 
+	typedef size_t InstanceId;
 
 	///
 	/// Dynamic, contiguous, associative array
 	class ObjectArrayBase {
 	protected:
 		char* data = nullptr;
-		std::unordered_map<size_t, size_t> idToIndex;
+		std::unordered_map<InstanceId, size_t> idToIndex;
 		size_t count = 0;
 		const size_t elementSize;
 		size_t capacity = 200;
 
 
-		inline bool IsIdUsed(Object::IdType id) const {
+		inline bool IsIdUsed(InstanceId id) const {
 			return idToIndex.find(id) != idToIndex.end();
 		}
 
-		inline size_t GetOffset(Object::IdType index) const {
+		inline size_t GetOffset(InstanceId index) const {
 			return index * elementSize;
 		}
 
@@ -47,7 +48,7 @@ namespace Missan {
 			return RawArrayBase(data, count, elementSize);
 		}
 
-		Object::IdType Add(const void* const original) {
+		void Add(InstanceId id, const void* const original) {
 
 			size_t index = count++;
 			if (count > capacity) {
@@ -55,17 +56,14 @@ namespace Missan {
 				data = (char*)realloc(data, GetOffset(capacity));
 			}
 
-			Object::IdType id = Object::GetUniqueId();
 			idToIndex[id] = index;
 			
 			Object* object = (Object*)&data[GetOffset(index)];
 			memcpy(object, original, elementSize);
 			object->id = id;
-
-			return id;
 		}
 
-		void Remove(Object::IdType id) {
+		void Remove(InstanceId id) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "Remove(id = " << id << "):\n";
 
 			if (!IsIdUsed(id)) {
@@ -86,7 +84,7 @@ namespace Missan {
 			count--;
 		}
 
-		inline void* Get(Object::IdType id) {
+		inline void* Get(InstanceId id) {
 			if (MISSAN_DEBUG_ARRAY)std::cout << "Get(id = " << id << "):\n";
 			if (MISSAN_DEBUG_ARRAY && !IsIdUsed(id))std::cout << "\tID is unused\n";
 			return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
@@ -108,18 +106,18 @@ namespace Missan {
 			return RawArray<T>(data, count);
 		}
 
-		inline Object::IdType Add(T* object = nullptr) {
+		inline void Add(InstanceId id, T* object = nullptr) {
 			PrintTypeName();
 			T tempObj;
-			return ObjectArrayBase::Add(object ? &tempObj : object);
+			ObjectArrayBase::Add(id, object ? &tempObj : object);
 		}
 
-		inline T* Get(Object::IdType id) {
+		inline T* Get(InstanceId id) {
 			PrintTypeName();
 			return (T*)ObjectArrayBase::Get(id);
 		}
 
-		inline void Remove(Object::IdType id) {
+		inline void Remove(InstanceId id) {
 			PrintTypeName();
 			ObjectArrayBase::Remove(id);
 		}

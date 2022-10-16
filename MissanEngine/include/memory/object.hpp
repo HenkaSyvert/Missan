@@ -6,6 +6,8 @@
 
 namespace Missan {
 
+	typedef size_t InstanceId;
+
 	///
 	/// All objects that can be referenced by Missan. 
 	class Object : public Inspectable {
@@ -16,11 +18,7 @@ namespace Missan {
 		// todo: some func for making each name unique?
 		std::string name = "sdfhsdfkjsdhgfkjdshg";
 
-		typedef size_t IdType;
-
-		IdType id = NULL;
-
-		static IdType GetUniqueId();
+		InstanceId id = NULL;
 
 	};
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <queue>
 
 #include "object.hpp"
 #include "objectarray.hpp"
@@ -11,6 +12,18 @@
 #define MISSAN_DEBUG_MEMORY 0
 
 namespace Missan {
+
+	// Unique ID per instance
+	typedef size_t InstanceId;
+
+
+
+	// Unique ID per type
+	// also, typeid(T).hash_code() does NOT (apparently) return
+	// a unique ID per type per the specificiation, only that
+	// same class gets same hash, but 2 classes may share hash. 
+	// hence the need for my own TypeId. 
+	typedef size_t TypeId;
 
 
 	/// 
@@ -22,16 +35,21 @@ namespace Missan {
 	/// accessed frequently, ie gameObjects, components, assets. 
 	namespace Memory {
 
+		// IDs of dead objects, to be reused. 
+		extern std::queue<InstanceId> freeIds;
+
 		extern std::vector<ObjectArrayBase*> arrays;
+
+		// generate new unique ID or reuse an old one
+		InstanceId GenerateUniqueInstanceId();
 
 
 		// Unique ID per Object subclass
-		// used to index index to correct ObjectArray
-		// this func automatically registers new types 
-		// as soon as an unknown type is called. 
+		// Since typeId indexes into arrays, unknown types
+		// are also immediately registered when this func is called. 
 		template<class T>
-		inline size_t GetTypeId() {
-			static const size_t typeId = arrays.size();
+		inline TypeId GetTypeId() {
+			static const TypeId typeId = arrays.size();
 			if (typeId >= arrays.size()) {
 				arrays.push_back(new ObjectArray<T>());
 			}
@@ -56,39 +74,44 @@ namespace Missan {
 
 
 
-		template<class T>
-		inline Object::IdType New(T* object = nullptr) {
-			return GetArray<T>().Add(object);
-		}
-
 		/// 
 		/// only use this one if you've already accessed the type array via
 		/// one of the templated funcs, otherwise it might not be created yet. 
-		inline Object::IdType NewById(size_t arrayIndex, void* object = nullptr) {
-			return arrays[arrayIndex]->Add(object);
+		inline InstanceId NewByTypeId(TypeId typeId, void* object = nullptr) {
+			InstanceId id = GenerateUniqueInstanceId();
+			arrays[typeId]->Add(id, object);
+			return id;
+		}
+
+		template<class T>
+		inline InstanceId New(T* object = nullptr) {
+			return NewByTypeId(GetTypeId<T>(), object);
 		}
 
 
 
+
+		inline void* GetByTypeId(TypeId typeId, InstanceId id) {
+			return arrays[typeId]->Get(id);
+		}
+
 		template<class T>
-		inline T* Get(Object::IdType id) {
+		inline T* Get(InstanceId id) {
 			return GetArray<T>().Get(id);
 		}
 
-		inline void* GetById(size_t arrayIndex, Object::IdType id) {
-			return arrays[arrayIndex]->Get(id);
+
+
+		inline void DeleteByTypeId(TypeId typeId, InstanceId id) {
+			arrays[typeId]->Remove(id);
+			freeIds.push(id);
 		}
-
-
 
 		template<class T>
-		inline void Delete(Object::IdType id) {
-			GetArray<T>().Remove(id);
+		inline void Delete(InstanceId id) {
+			DeleteByTypeId(GetTypeId<T>(), id);
 		}
 
-		inline void DeleteById(size_t arrayIndex, Object::IdType id) {
-			arrays[arrayIndex]->Remove(id);
-		}
 
 
 

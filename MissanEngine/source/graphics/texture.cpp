@@ -14,7 +14,7 @@ using namespace ImGui;
 
 void Texture::Load(const string& fileName) {
 
-	IdType id = Memory::New<Texture>();
+	InstanceId id = Memory::New<Texture>();
 	Texture* t = Memory::Get<Texture>(id);
 	t->name = fileName;
 

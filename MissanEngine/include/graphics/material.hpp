@@ -18,8 +18,8 @@ namespace Missan {
 		glm::vec4 specular = Color::white;
 		float shininess = 32.0f;
 
-		IdType shaderId = NULL;
-		IdType textureId = NULL;
+		InstanceId shaderId = NULL;
+		InstanceId textureId = NULL;
 
 		void DisplayInInspector();
 		

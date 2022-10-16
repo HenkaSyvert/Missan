@@ -10,6 +10,7 @@
 
 namespace Missan {
 
+	typedef size_t TypeId;
 
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
@@ -19,12 +20,12 @@ namespace Missan {
 
 		/// 
 		/// The GameObject this Component is attached to. 
-		IdType gameObjectId = NULL;
+		InstanceId gameObjectId = NULL;
 
 
 		// todo: figure out good name for this
 		// and make into typedef?
-		size_t componentTypeId;
+		TypeId typeId;
 
 		///
 		/// Called only once for each GameObject, before all other Event functions
@@ -32,7 +33,7 @@ namespace Missan {
 
 		///
 		/// Called when this Collider has begun touching another Collider
-		virtual void OnCollisionEnter(IdType otherGameObjectId) {}
+		virtual void OnCollisionEnter(InstanceId otherGameObjectId) {}
 
 		///
 		/// Called every frame
@@ -53,20 +54,20 @@ namespace Missan {
 
 
 		template<class T>
-		static T* Add(size_t a) {
+		static T* Add(InstanceId a) {
 			return nullptr;
 		}
 
 		template<class T>
-		static T* Get(size_t as) { return nullptr; }
+		static T* Get(InstanceId as) { return nullptr; }
 
 		template<class T>
 		T* GetComponent() { return nullptr; }
 
 		static RawArray<Component*> GetAttachedComponents(size_t a) { return RawArray<Component*>(0, 0); }
 
-		static void Copy(size_t t, size_t a){}
-		static void Destroy(size_t t){}
+		static void Copy(InstanceId t, InstanceId a){}
+		static void Destroy(InstanceId t){}
 
 		static void UpdateAll();
 		static void LateUpdateAll();
