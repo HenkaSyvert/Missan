@@ -13,7 +13,7 @@ using namespace Missan;
 using namespace std;
 
 
-
+size_t Component::componentOffset = 0;
 
 void Component::UpdateAll() {
 	for (int j = Component::componentOffset; j < Memory::arrays.size(); j++) {

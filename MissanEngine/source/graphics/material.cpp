@@ -26,7 +26,7 @@ void Material::DisplayInInspector() {
 
 void Material::Load(const std::string& name) {
 
-	IdType id = Memory::Add<Material>();
+	IdType id = Memory::New<Material>();
 	Material* m = Memory::Get<Material>(id);
 	m->ambient = m->diffuse = m->specular = Color::white;
 	m->shininess = 1;

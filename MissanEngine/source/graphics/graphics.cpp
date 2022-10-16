@@ -9,6 +9,7 @@
 #include "internal.hpp"
 #include "ecs/gameobject.hpp"
 #include "ecs/component.hpp"
+#include "memory/memory.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -34,7 +35,7 @@ void GraphicsInitialize() {
 
 void GraphicsUpdate() {
 	
-	RawArray<Camera> cameras = Component::GetRawArray<Camera>();
+	RawArray<Camera> cameras = Memory::AsRawArray<Camera>();
 	for(size_t j = 0; j < cameras.count; j++){
 		Camera& camera = cameras[0];
 
@@ -42,7 +43,7 @@ void GraphicsUpdate() {
 		vec4 clearColor = camera.clearColor;
 		glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
-		RawArray<Renderer> renderers = Component::GetRawArray<Renderer>();
+		RawArray<Renderer> renderers = Memory::AsRawArray<Renderer>();
 		for (size_t i = 0; i < renderers.count; i++) {
 			Renderer& renderer = renderers[i];
 
@@ -71,8 +72,6 @@ void GraphicsUpdate() {
 			glBindVertexArray(mesh->vaoId);
 			glEnableVertexAttribArray(0);
 
-			//temp
-			if (!shader) shader = &Memory::AsRawArray<Shader>()[0];
 
 			glUseProgram(shader->programId);
 

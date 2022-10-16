@@ -24,7 +24,6 @@ namespace Missan {
 
 		extern std::vector<ObjectArrayBase*> arrays;
 
-		typedef size_t SubclassIdType;
 
 		// Unique ID per Object subclass
 		// used to index index to correct ObjectArray
@@ -33,7 +32,7 @@ namespace Missan {
 		template<class T>
 		inline size_t GetTypeId() {
 			static const size_t typeId = arrays.size();
-			if (typeId >= arrays.size())) {
+			if (typeId >= arrays.size()) {
 				arrays.push_back(new ObjectArray<T>());
 			}
 			if (MISSAN_DEBUG_MEMORY) std::cout
@@ -65,7 +64,7 @@ namespace Missan {
 		/// 
 		/// only use this one if you've already accessed the type array via
 		/// one of the templated funcs, otherwise it might not be created yet. 
-		inline Object::IdType New(size_t arrayIndex, void* object = nullptr) {
+		inline Object::IdType NewById(size_t arrayIndex, void* object = nullptr) {
 			return arrays[arrayIndex]->Add(object);
 		}
 
@@ -76,7 +75,7 @@ namespace Missan {
 			return GetArray<T>().Get(id);
 		}
 
-		inline void* Get(size_t arrayIndex, Object::IdType id) {
+		inline void* GetById(size_t arrayIndex, Object::IdType id) {
 			return arrays[arrayIndex]->Get(id);
 		}
 
@@ -87,7 +86,7 @@ namespace Missan {
 			GetArray<T>().Remove(id);
 		}
 
-		inline void Delete(size_t arrayIndex, Object::IdType id) {
+		inline void DeleteById(size_t arrayIndex, Object::IdType id) {
 			arrays[arrayIndex]->Remove(id);
 		}
 
