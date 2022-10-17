@@ -2,12 +2,8 @@
 
 #include "inspectable.hpp"
 #include "memory/object.hpp"
-#include "memory/rawarray.hpp"
-#include "memory/idtypes.hpp"
-
-#include <string>
-#include <typeinfo>
-#include <vector>
+#include "memory/memory.hpp"
+#include "ecs/ecs.hpp"
 
 namespace Missan {
 
@@ -50,28 +46,44 @@ namespace Missan {
 
 
 		template<class T>
-		static T* Add(InstanceId a) {
-			return nullptr;
+		inline static InstanceId Add(InstanceId gameObjectId) {
+			return ECS::AddComponent(Memory::GetTypeId<T>(), gameObjectId);
 		}
 
 		template<class T>
-		static T* Get(InstanceId as) { return nullptr; }
+		inline InstanceId AddComponent() {
+			return Add<T>(gameObjectId);
+		}
+
+
 
 		template<class T>
-		T* GetComponent() { return nullptr; }
+		inline static T* Get(InstanceId gameObjectId) {
+			return (T*)ECS::GetComponent(Memory::GetTypeId<T>(), gameObjectId);
+		}
 
-		static RawArray<Component*> GetAttachedComponents(size_t a) { return RawArray<Component*>(0, 0); }
-
-		static void Copy(InstanceId t, InstanceId a){}
-		static void Destroy(InstanceId t){}
-
-		static void UpdateAll();
-		static void LateUpdateAll();
-		static void OnGuiAll();
-
-		static size_t componentOffset;
+		template<class T>
+		inline T* GetComponent() {
+			return Get<T>(gameObjectId);
+		}
 
 
+
+		template<class T>
+		inline static void Remove(InstanceId gameObjectId) {
+			ECS::RemoveComponent(Memory::GetTypeId<T>(), gameObjectId);
+		}
+
+		template<class T>
+		inline void RemoveComponent() {
+			Remove<T>(gameObjectId);
+		}
+
+
+
+		inline static RawArray<Component*> GetAttachedComponents(InstanceId gameObjectId) {
+			return ECS::GetAttachedComponents(gameObjectId);
+		}
 
 	};
 }

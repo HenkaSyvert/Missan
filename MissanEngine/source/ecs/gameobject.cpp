@@ -21,27 +21,6 @@ using namespace std;
 
 
 
-vector<size_t> GameObject::gameObjectsToDestroy;
-
-
-InstanceId GameObject::Instantiate() {
-	return Memory::New<GameObject>();
-}
-
-InstanceId GameObject::Instantiate(InstanceId originalId) {
-	size_t id = Instantiate();
-	Component::Copy(id, originalId);
-	return id;
-}
-
-void GameObject::Destroy(InstanceId gameObjectId) {
-	gameObjectsToDestroy.push_back(gameObjectId);
-}
-
-void GameObject::DestroyImmediate(InstanceId gameObjectId) {
-	Component::Destroy(gameObjectId);
-	gameObjectsToDestroy.clear();
-}
 
 InstanceId GameObject::CreatePrimitive(PrimitiveType type) {
 	InstanceId id = GameObject::Instantiate();

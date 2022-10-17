@@ -20,6 +20,9 @@ namespace Missan {
 	/// accessed frequently, ie gameObjects, components, assets. 
 	namespace Memory {
 
+		// from this index and onwards, there are only components. 
+		extern size_t componentOffset;
+
 		extern std::vector<ObjectArrayBase*> arrays;
 
 
@@ -40,6 +43,10 @@ namespace Missan {
 			return *(ObjectArray<T>*)arrays[GetTypeId<T>()];
 		}
 
+
+
+		RawArrayBase AsRawArrayByTypeId(TypeId typeId);
+
 		template<class T>
 		inline RawArray<T> AsRawArray() {
 			return GetArray<T>().AsRawArray();
@@ -47,11 +54,11 @@ namespace Missan {
 
 
 
-		InstanceId NewByTypeId(TypeId typeId, void* object = nullptr);
+		InstanceId NewByTypeId(TypeId typeId, void* originalObject = nullptr);
 
 		template<class T>
-		inline InstanceId New(T* object = nullptr) {
-			return NewByTypeId(GetTypeId<T>(), object);
+		inline InstanceId New(T* originalObject = nullptr) {
+			return NewByTypeId(GetTypeId<T>(), originalObject);
 		}
 
 

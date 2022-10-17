@@ -90,9 +90,6 @@
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ecs\component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\ecs\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +100,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\ecs\resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ecs\ecs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1534,6 +1534,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\memory\idtypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs\ecs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

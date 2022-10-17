@@ -9,8 +9,7 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
-#include "ecs/component.hpp"
-#include "ecs/gameobject.hpp"
+#include "ecs/ecs.hpp"
 
 using namespace Missan;
 using namespace ImGui;
@@ -28,7 +27,7 @@ void GuiUpdate() {
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
     
-    Component::OnGuiAll();
+    ECS::OnGuiAll();
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

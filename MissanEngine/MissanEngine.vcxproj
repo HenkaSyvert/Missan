@@ -92,8 +92,8 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
+    <ClCompile Include="source\ecs\ecs.cpp" />
     <ClCompile Include="source\memory\memory.cpp" />
-    <ClCompile Include="source\ecs\component.cpp" />
     <ClCompile Include="source\ecs\gameobject.cpp" />
     <ClCompile Include="source\ecs\resources.cpp" />
     <ClCompile Include="source\graphics\light.cpp" />
@@ -556,6 +556,7 @@
     <ClInclude Include="external\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="apps\editor\editor.hpp" />
+    <ClInclude Include="include\ecs\ecs.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />
     <ClInclude Include="include\graphics\color.hpp" />
     <ClInclude Include="include\ecs\gameobject.hpp" />

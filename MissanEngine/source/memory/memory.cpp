@@ -13,6 +13,7 @@ using namespace std;
 
 
 vector<ObjectArrayBase*> Memory::arrays;
+size_t Memory::componentOffset;
 
 // IDs of dead objects, to be reused. 
 static queue<InstanceId> freeIds;
@@ -32,6 +33,9 @@ void MemoryInitialize() {
 	GetTypeId<Mesh>();
 	GetTypeId<Shader>();
 	GetTypeId<Material>();
+
+
+	componentOffset = arrays.size();
 }
 
 // generate new unique ID or reuse an old one
@@ -44,6 +48,11 @@ static InstanceId GenerateUniqueInstanceId() {
 	freeIds.pop();
 
 	return id;
+}
+
+
+RawArrayBase Memory::AsRawArrayByTypeId(TypeId typeId) {
+	return arrays[typeId]->AsRawArrayBase();
 }
 
 

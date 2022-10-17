@@ -1,10 +1,8 @@
 #pragma once
 
-#include "component.hpp"
 #include "memory/object.hpp"
+#include "ecs/ecs.hpp"
 
-#include <vector>
-#include <string>
 #include <unordered_map>
 
 namespace Missan {
@@ -15,25 +13,18 @@ namespace Missan {
 
 	public:
 
-		template<class T> inline void AddComponent() {
-			Component::Add<T>(instanceId);
+
+
+		std::unordered_map<TypeId, InstanceId> components;
+
+
+		inline static InstanceId Instantiate(InstanceId originalGameObjectId = NULL) {
+			return ECS::Instantiate(originalGameObjectId);
 		}
 
-		std::unordered_map<size_t, InstanceId> components;
-
-
-
-		// instantiate new game object and return ID
-		static InstanceId Instantiate();
-		static InstanceId Instantiate(InstanceId original);
-
-		// add gameobject to queue to destroy at end of frame
-		static void Destroy(InstanceId gameObjectId);
-
-		// actually destroys gameobject, immediately. 
-		static void DestroyImmediate(InstanceId gameObjectId);
-
-		static std::vector<InstanceId> gameObjectsToDestroy;
+		inline static void Destroy(InstanceId gameObjectId) {
+			ECS::Destroy(gameObjectId);
+		}
 
 		// TODO: add more primitives, like cylinder, capsule
 		enum class PrimitiveType { sphere, cube, plane };

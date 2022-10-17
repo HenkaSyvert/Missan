@@ -66,10 +66,10 @@ void Engine::Run() {
 		InputUpdate();
 		
 		if (MISSAN_DEBUG_ENGINE)cout << "Component::UpdateAll():\n";
-		Component::UpdateAll();
+		ECS::UpdateAll();
 
 		if (MISSAN_DEBUG_ENGINE)cout << "Component::LateUpdateAll():\n";
-		Component::LateUpdateAll();
+		ECS::LateUpdateAll();
 			
 		if (MISSAN_DEBUG_ENGINE)cout << "GraphicsUpdate():\n";
 		GraphicsUpdate();		
@@ -78,9 +78,7 @@ void Engine::Run() {
 		GuiUpdate();
 		
 		if (MISSAN_DEBUG_ENGINE)cout << "GameObject::Destroy():\n";
-		for (size_t gameObjectId : GameObject::gameObjectsToDestroy) {
-			GameObject::DestroyImmediate(gameObjectId);
-		}
+		ECS::DestroyQueued();
 		
 		glfwSwapBuffers(window);
 		if (isDebugStepping) {
