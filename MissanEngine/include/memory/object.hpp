@@ -1,16 +1,21 @@
 #pragma once
 
 #include "inspectable.hpp"
+#include "idtypes.hpp"
 
 #include <string>
 
 namespace Missan {
 
-	typedef size_t InstanceId;
+	class ObjectArrayBase;
 
 	///
 	/// All objects that can be referenced by Missan. 
 	class Object : public Inspectable {
+
+		InstanceId _instanceId = NULL;
+
+		friend ObjectArrayBase;
 
 	public:
 
@@ -18,7 +23,7 @@ namespace Missan {
 		// todo: some func for making each name unique?
 		std::string name = "sdfhsdfkjsdhgfkjdshg";
 
-		InstanceId id = NULL;
+		const InstanceId& instanceId = _instanceId;
 
 	};
 

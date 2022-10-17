@@ -99,9 +99,6 @@
     <ClCompile Include="source\memory\memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\memory\object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\graphics\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1534,6 +1531,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\resources.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memory\idtypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

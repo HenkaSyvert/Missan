@@ -16,7 +16,7 @@ namespace Missan {
 	public:
 
 		template<class T> inline void AddComponent() {
-			Component::Add<T>(id);
+			Component::Add<T>(instanceId);
 		}
 
 		std::unordered_map<size_t, InstanceId> components;

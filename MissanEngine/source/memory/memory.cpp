@@ -13,7 +13,9 @@ using namespace std;
 
 
 vector<ObjectArrayBase*> Memory::arrays;
-queue<InstanceId> Memory::freeIds;
+
+// IDs of dead objects, to be reused. 
+static queue<InstanceId> freeIds;
 
 void MemoryInitialize() {
 
@@ -33,7 +35,7 @@ void MemoryInitialize() {
 }
 
 // generate new unique ID or reuse an old one
-InstanceId Memory::GenerateUniqueInstanceId() {
+static InstanceId GenerateUniqueInstanceId() {
 	static InstanceId newId = 1;	// start count at 1 because 0 = NULL
 
 	if (freeIds.empty()) return newId++;
@@ -42,4 +44,23 @@ InstanceId Memory::GenerateUniqueInstanceId() {
 	freeIds.pop();
 
 	return id;
+}
+
+
+/// 
+/// only use this one if you've already accessed the type array via
+/// one of the templated funcs, otherwise it might not be created yet. 
+InstanceId Memory::NewByTypeId(TypeId typeId, void* object) {
+	InstanceId id = GenerateUniqueInstanceId();
+	arrays[typeId]->Add(id, object);
+	return id;
+}
+
+void* Memory::GetByTypeId(TypeId typeId, InstanceId id) {
+	return arrays[typeId]->Get(id);
+}
+
+void Memory::DeleteByTypeId(TypeId typeId, InstanceId id) {
+	arrays[typeId]->Remove(id);
+	freeIds.push(id);
 }

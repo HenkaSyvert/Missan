@@ -30,7 +30,6 @@ void Material::Load(const std::string& name) {
 	Material* m = Memory::Get<Material>(id);
 	m->ambient = m->diffuse = m->specular = Color::white;
 	m->shininess = 1;
-	m->id = id;	//TODO: make id assignment part of ECS, this is stupid
 	m->name = name; //TODO: assigning name per class is also stupid. 
 
 	FILE* f = NULL;

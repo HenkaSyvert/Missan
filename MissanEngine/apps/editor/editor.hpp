@@ -61,7 +61,7 @@ public:
             BeginChild("mid pane", {200, 0}, true);             
             for (int i = 0; i < arr.count; i++) {
                 Object& obj = *(Object*)arr[i];
-                std::string str = obj.name + "[ID: " + to_string(obj.id) + "]";
+                std::string str = obj.name + "[ID: " + to_string(obj.instanceId) + "]";
                 if (Selectable(str.c_str(), selectedObject == i)) {
                     selectedObject = i;
                 }
@@ -72,7 +72,7 @@ public:
             Object* obj = (Object*)arr[selectedObject];    
             BeginChild("right pane", {200, 0}, true);
             if (obj) {
-                Text("ID = %u", obj->id);
+                Text("ID = %u", obj->instanceId);
                 obj->DisplayInInspector();
             }
             EndChild();
@@ -114,7 +114,7 @@ public:
                 Text("no game object selected");
             }
             else {
-                RawArray<Component*> comps = Component::GetAttachedComponents(g->id);
+                RawArray<Component*> comps = Component::GetAttachedComponents(g->instanceId);
                 for (int i = 0; i < comps.count; i++)
                     comps[i]->DisplayInInspector();
                 

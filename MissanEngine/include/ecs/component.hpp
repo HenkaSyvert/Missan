@@ -3,6 +3,7 @@
 #include "inspectable.hpp"
 #include "memory/object.hpp"
 #include "memory/rawarray.hpp"
+#include "memory/idtypes.hpp"
 
 #include <string>
 #include <typeinfo>
@@ -10,7 +11,6 @@
 
 namespace Missan {
 
-	typedef size_t TypeId;
 
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
@@ -22,10 +22,6 @@ namespace Missan {
 		/// The GameObject this Component is attached to. 
 		InstanceId gameObjectId = NULL;
 
-
-		// todo: figure out good name for this
-		// and make into typedef?
-		TypeId typeId;
 
 		///
 		/// Called only once for each GameObject, before all other Event functions

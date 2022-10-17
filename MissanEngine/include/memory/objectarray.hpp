@@ -7,13 +7,13 @@
 #include <typeinfo>
 
 #include "rawarray.hpp"
+#include "idtypes.hpp"
 #include "object.hpp"
 
 #define MISSAN_DEBUG_ARRAY 0
 
 namespace Missan {
 
-	typedef size_t InstanceId;
 
 	///
 	/// Dynamic, contiguous, associative array
@@ -26,11 +26,11 @@ namespace Missan {
 		size_t capacity = 200;
 
 
-		inline bool IsIdUsed(InstanceId id) const {
-			return idToIndex.find(id) != idToIndex.end();
+		inline bool IsIdUsed(InstanceId instanceId) const {
+			return idToIndex.find(instanceId) != idToIndex.end();
 		}
 
-		inline size_t GetOffset(InstanceId index) const {
+		inline size_t GetOffset(size_t index) const {
 			return index * elementSize;
 		}
 
@@ -48,7 +48,7 @@ namespace Missan {
 			return RawArrayBase(data, count, elementSize);
 		}
 
-		void Add(InstanceId id, const void* const original) {
+		void Add(InstanceId instanceId, const void* const originalObject) {
 
 			size_t index = count++;
 			if (count > capacity) {
@@ -56,38 +56,38 @@ namespace Missan {
 				data = (char*)realloc(data, GetOffset(capacity));
 			}
 
-			idToIndex[id] = index;
+			idToIndex[instanceId] = index;
 			
 			Object* object = (Object*)&data[GetOffset(index)];
-			memcpy(object, original, elementSize);
-			object->id = id;
+			memcpy(object, originalObject, elementSize);
+			object->_instanceId = instanceId;
 		}
 
-		void Remove(InstanceId id) {
-			if (MISSAN_DEBUG_ARRAY)std::cout << "Remove(id = " << id << "):\n";
+		void Remove(InstanceId instanceId) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "Remove(id = " << instanceId << "):\n";
 
-			if (!IsIdUsed(id)) {
+			if (!IsIdUsed(instanceId)) {
 				// intentionally quietly ignore try to remove non existant component, means dont need check prior. 
 				if (MISSAN_DEBUG_ARRAY)std::cout << "\terr: ID is unused\n";
 				exit(1);
 				return;
 			}
 			
-			Object* deletedObject = (Object*)&data[GetOffset(idToIndex[id])];
+			Object* deletedObject = (Object*)&data[GetOffset(idToIndex[instanceId])];
 			Object* lastObject = (Object*)&data[GetOffset(count - 1)];
 
 			memcpy(deletedObject, lastObject, elementSize);
 
-			idToIndex[lastObject->id] = idToIndex[id];
-			idToIndex.erase(id);
+			idToIndex[lastObject->instanceId] = idToIndex[instanceId];
+			idToIndex.erase(instanceId);
 
 			count--;
 		}
 
-		inline void* Get(InstanceId id) {
-			if (MISSAN_DEBUG_ARRAY)std::cout << "Get(id = " << id << "):\n";
-			if (MISSAN_DEBUG_ARRAY && !IsIdUsed(id))std::cout << "\tID is unused\n";
-			return IsIdUsed(id) ? &data[GetOffset(idToIndex[id])] : nullptr;
+		inline void* Get(InstanceId instanceId) {
+			if (MISSAN_DEBUG_ARRAY)std::cout << "Get(id = " << instanceId << "):\n";
+			if (MISSAN_DEBUG_ARRAY && !IsIdUsed(instanceId))std::cout << "\tID is unused\n";
+			return IsIdUsed(instanceId) ? &data[GetOffset(idToIndex[instanceId])] : nullptr;
 		}
 
 	};
@@ -106,20 +106,20 @@ namespace Missan {
 			return RawArray<T>(data, count);
 		}
 
-		inline void Add(InstanceId id, T* object = nullptr) {
+		inline void Add(InstanceId instanceId, T* originalObject = nullptr) {
 			PrintTypeName();
 			T tempObj;
-			ObjectArrayBase::Add(id, object ? &tempObj : object);
+			ObjectArrayBase::Add(instanceId, originalObject ? &tempObj : originalObject);
 		}
 
-		inline T* Get(InstanceId id) {
+		inline T* Get(InstanceId instanceId) {
 			PrintTypeName();
-			return (T*)ObjectArrayBase::Get(id);
+			return (T*)ObjectArrayBase::Get(instanceId);
 		}
 
-		inline void Remove(InstanceId id) {
+		inline void Remove(InstanceId instanceId) {
 			PrintTypeName();
-			ObjectArrayBase::Remove(id);
+			ObjectArrayBase::Remove(instanceId);
 		}
 
 	};
