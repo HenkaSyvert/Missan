@@ -60,7 +60,7 @@ namespace Missan {
 			
 			Object* object = (Object*)&data[GetOffset(index)];
 			memcpy(object, originalObject, elementSize);
-			object->_instanceId = instanceId;
+			object->instanceId = instanceId;
 		}
 
 		void Remove(InstanceId instanceId) {
@@ -90,6 +90,10 @@ namespace Missan {
 			return IsIdUsed(instanceId) ? &data[GetOffset(idToIndex[instanceId])] : nullptr;
 		}
 
+		inline void Set(InstanceId instanceId, const void* const newData) {
+			memcpy(&data[GetOffset(idToIndex[instanceId])], newData, elementSize);
+		}
+
 	};
 
 	template<class T>
@@ -115,6 +119,10 @@ namespace Missan {
 		inline T* Get(InstanceId instanceId) {
 			PrintTypeName();
 			return (T*)ObjectArrayBase::Get(instanceId);
+		}
+
+		inline void Set(InstanceId instanceId, const T* const newData) {
+			ObjectArrayBase::Set(instanceId, newData);
 		}
 
 		inline void Remove(InstanceId instanceId) {

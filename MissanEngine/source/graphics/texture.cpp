@@ -14,30 +14,32 @@ using namespace ImGui;
 
 void Texture::Load(const string& fileName) {
 
-	InstanceId id = Memory::New<Texture>();
-	Texture* t = Memory::Get<Texture>(id);
-	t->name = fileName;
-
+	Texture t;
+	t.name = fileName;
 
 	stbi_set_flip_vertically_on_load(1);
-	unsigned char* localBuffer = stbi_load(fileName.c_str(), &t->_width, &t->_height, &t->_channels, 4);
+	unsigned char* localBuffer = stbi_load(fileName.c_str(), &t._width, &t._height, &t._channels, 4);
 
 	if (!localBuffer) {
 		cout << "Resources error: could not open file \"" << fileName << "\"\n";
 	}
 
-	glGenTextures(1, &t->_textureId);
-	glBindTexture(GL_TEXTURE_2D, t->_textureId);
+	glGenTextures(1, &t._textureId);
+	glBindTexture(GL_TEXTURE_2D, t._textureId);
 
 	FilterMode fm = FilterMode::linear;
 	WrapMode wm = WrapMode::repeat;
 
-	t->filterMode(fm);
-	t->wrapMode(wm);
+	t.filterMode(fm);
+	t.wrapMode(wm);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t->width, t->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, t.width, t.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 
 	if (localBuffer) stbi_image_free(localBuffer);
+
+
+	InstanceId id = Memory::New<Texture>();
+	Memory::Set<Texture>(id, &t);
 
 
 }

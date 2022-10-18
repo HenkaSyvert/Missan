@@ -5,6 +5,8 @@
 #include "memory/memory.hpp"
 #include "ecs/ecs.hpp"
 
+#include <typeinfo>
+
 namespace Missan {
 
 
@@ -13,6 +15,8 @@ namespace Missan {
 	class Component : public Object {
 
 	public:
+
+		Component() { name = typeid(this).name(); }
 
 		/// 
 		/// The GameObject this Component is attached to. 
@@ -46,13 +50,14 @@ namespace Missan {
 
 
 		template<class T>
-		inline static InstanceId Add(InstanceId gameObjectId) {
-			return ECS::AddComponent(Memory::GetTypeId<T>(), gameObjectId);
+		inline static InstanceId Add(InstanceId gameObjectId, T* originalComp = nullptr) {
+			T comp;
+			return ECS::AddComponent(Memory::GetTypeId<T>(), gameObjectId, originalComp ? originalComp : &comp);
 		}
 
 		template<class T>
-		inline InstanceId AddComponent() {
-			return Add<T>(gameObjectId);
+		inline InstanceId AddComponent(T* originalComp = nullptr) {
+			return Add<T>(gameObjectId, originalComp);
 		}
 
 

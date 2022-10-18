@@ -13,17 +13,11 @@ namespace Missan {
 	/// All objects that can be referenced by Missan. 
 	class Object : public Inspectable {
 
-		InstanceId _instanceId = NULL;
-
-		friend ObjectArrayBase;
-
 	public:
 
-		// TODO: mv to separate arr?
-		// todo: some func for making each name unique?
-		std::string name = "sdfhsdfkjsdhgfkjdshg";
+		InstanceId instanceId = NULL;
 
-		const InstanceId& instanceId = _instanceId;
+		std::string name = "Object";
 
 	};
 

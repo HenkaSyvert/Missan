@@ -54,11 +54,12 @@ namespace Missan {
 
 
 
-		InstanceId NewByTypeId(TypeId typeId, void* originalObject = nullptr);
+		InstanceId NewByTypeId(TypeId typeId, const void* const originalObject = nullptr);
 
 		template<class T>
-		inline InstanceId New(T* originalObject = nullptr) {
-			return NewByTypeId(GetTypeId<T>(), originalObject);
+		inline InstanceId New(const T* const originalObject = nullptr) {
+			T obj;
+			return NewByTypeId(GetTypeId<T>(), originalObject ? originalObject : &obj);
 		}
 
 
@@ -68,6 +69,15 @@ namespace Missan {
 		template<class T>
 		inline T* Get(InstanceId instanceId) {
 			return (T*)GetByTypeId(GetTypeId<T>(), instanceId);
+		}
+
+
+
+		void SetByTypeId(TypeId typeId, InstanceId instanceId, const void* const data);
+
+		template<class T>
+		inline void Set(InstanceId instanceId, const T* const data) {
+			SetByTypeId(GetTypeId<T>(), instanceId, data);
 		}
 
 

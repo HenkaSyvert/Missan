@@ -8,18 +8,17 @@ using namespace Missan;
 void MakeEditor() {
 
     size_t editor = GameObject::Instantiate();
+
     Component::Add<Transform>(editor);
     Component::Add<Camera>(editor);
     Component::Add<Editor>(editor);
 
-
+    Memory::Get<GameObject>(editor)->name = "editor";
 }
 
 void PlaceSomeCubes() {
 
-    size_t cube = GameObject::Instantiate();
-    Component::Add<Transform>(cube);
-    Component::Add<Renderer>(cube);
+    size_t cube = GameObject::CreatePrimitive(GameObject::PrimitiveType::cube);
     //auto* r = Component::Get<Renderer>(cube);
     //r->material = new Material();
     //r->material->texture = Resources::Get<Texture>("resources/textures/stone2.png");
@@ -33,7 +32,7 @@ void MakeLight() {
     size_t light = GameObject::Instantiate();
     Component::Add<Transform>(light);
     Component::Add<Light>(light);
-
+    Memory::Get<GameObject>(light)->name = "light";
 
 }
 
@@ -44,7 +43,7 @@ int main(){
 
     MakeEditor();
     PlaceSomeCubes();
-    //MakeLight();
+    MakeLight();
 
 
     Engine::Run();

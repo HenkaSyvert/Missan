@@ -74,11 +74,10 @@ void Mesh::Load(const string& fileName) {
 		}
 	}
 
-	InstanceId id = Memory::New<Mesh>();
-	Mesh* m = Memory::Get<Mesh>(id);
+	Mesh m;
 
-	glGenVertexArrays(1, &m->vaoId);
-	glBindVertexArray(m->vaoId);
+	glGenVertexArrays(1, &m.vaoId);
+	glBindVertexArray(m.vaoId);
 
 	GLuint iboId;
 	glGenBuffers(1, &iboId);
@@ -89,6 +88,10 @@ void Mesh::Load(const string& fileName) {
 	StoreInAttribList(1, 2, uvs);
 	StoreInAttribList(2, 3, normals);
 
-	m->elementCount = vertices.size() * 3;
-	m->name = fileName;
+	m.elementCount = vertices.size() * 3;
+	m.name = fileName;
+
+	InstanceId id = Memory::New<Mesh>();
+	Memory::Set<Mesh>(id, &m);
+
 }

@@ -1,7 +1,9 @@
 #include "ecs/ecs.hpp"
 #include "ecs/gameobject.hpp"
 #include "ecs/component.hpp"
+#include "memory/idtypes.hpp"
 
+#include <unordered_map>
 #include <vector>
 
 using namespace Missan;
@@ -10,6 +12,8 @@ using namespace std;
 
 vector<InstanceId> gameObjectsToDestroy;
 
+unordered_map<InstanceId, unordered_map<TypeId, InstanceId>> componentMap;
+
 
 InstanceId ECS::Instantiate(InstanceId originalGameObjectId) {
 
@@ -17,10 +21,8 @@ InstanceId ECS::Instantiate(InstanceId originalGameObjectId) {
 
 	if (originalGameObjectId) {
 
-		GameObject* original = Memory::Get<GameObject>(originalGameObjectId);
-		GameObject* newGameObj = Memory::Get<GameObject>(id);
 
-		for (auto& pair : original->components) {
+		for (auto& pair : componentMap[originalGameObjectId]) {
 			void* originalComp = Memory::GetByTypeId(pair.first, pair.second);
 			AddComponent(pair.first, id, originalComp);
 		}
@@ -35,8 +37,7 @@ InstanceId ECS::Instantiate(InstanceId originalGameObjectId) {
 InstanceId ECS::AddComponent(TypeId componentTypeId, InstanceId gameObjectId, void* originalComponent) {
 
 	InstanceId compId = Memory::NewByTypeId(componentTypeId, originalComponent);
-	GameObject* g = Memory::Get<GameObject>(gameObjectId);
-	g->components[componentTypeId] = compId;
+	componentMap[gameObjectId][componentTypeId] = compId;
 
 	Component* comp = (Component*)Memory::GetByTypeId(componentTypeId, compId);
 	comp->gameObjectId = gameObjectId;
@@ -48,19 +49,17 @@ InstanceId ECS::AddComponent(TypeId componentTypeId, InstanceId gameObjectId, vo
 
 
 void* ECS::GetComponent(TypeId componentTypeId, InstanceId gameObjectId) {
-	GameObject* g = Memory::Get<GameObject>(gameObjectId);
-	return Memory::GetByTypeId(componentTypeId, g->components[componentTypeId]);
+	return Memory::GetByTypeId(componentTypeId, componentMap[gameObjectId][componentTypeId]);
 }
 
 
 
 void ECS::RemoveComponent(TypeId componentTypeId, InstanceId gameObjectId) {
-	GameObject* g = Memory::Get<GameObject>(gameObjectId);
-	InstanceId compId = g->components[componentTypeId];
+	InstanceId compId = componentMap[gameObjectId][componentTypeId];
 	Component* comp = (Component*)Memory::GetByTypeId(componentTypeId, compId);
 	comp->OnDestroy();
 	Memory::DeleteByTypeId(componentTypeId, compId);
-	g->components.erase(componentTypeId);
+	componentMap[gameObjectId].erase(componentTypeId);
 }
 
 
@@ -71,7 +70,7 @@ void ECS::Destroy(InstanceId gameObjectId) {
 
 void ECS::DestroyImmediate(InstanceId gameObjectId) {
 	GameObject* g = Memory::Get<GameObject>(gameObjectId);
-	for (auto& pair : g->components)
+	for (auto& pair : componentMap[gameObjectId])
 		RemoveComponent(pair.first, gameObjectId);
 	Memory::Delete<GameObject>(gameObjectId);
 }
@@ -90,7 +89,7 @@ RawArray<Component*> ECS::GetAttachedComponents(InstanceId gameObjectId) {
 	vector<Component*> v;
 
 	GameObject* g = Memory::Get<GameObject>(gameObjectId);
-	for (auto& pair : g->components) {
+	for (auto& pair : componentMap[gameObjectId]) {
 		Component* c = (Component*)Memory::GetByTypeId(pair.first, pair.second);
 		v.push_back(c);
 	}
@@ -106,24 +105,30 @@ RawArray<Component*> ECS::GetAttachedComponents(InstanceId gameObjectId) {
 void ECS::UpdateAll() {
 	for (int i = Memory::componentOffset; i < Memory::arrays.size(); i++) {
 		auto arr = Memory::AsRawArrayByTypeId(i);
-		Component* c = (Component*)arr[i];
-		c->Update();
+		for (int j = 0; j < arr.count; j++) {
+			Component* c = (Component*)arr[j];
+			c->Update();
+		}
 	}
 }
 
 void ECS::LateUpdateAll() {
 	for (int i = Memory::componentOffset; i < Memory::arrays.size(); i++) {
 		auto arr = Memory::AsRawArrayByTypeId(i);
-		Component* c = (Component*)arr[i];
-		c->LateUpdate();
+		for (int j = 0; j < arr.count; j++) {
+			Component* c = (Component*)arr[j];
+			c->LateUpdate();
+		}
 	}
 }
 
 void ECS::OnGuiAll() {
 	for (int i = Memory::componentOffset; i < Memory::arrays.size(); i++) {
 		auto arr = Memory::AsRawArrayByTypeId(i);
-		Component* c = (Component*)arr[i];
-		c->OnGui();
+		for (int j = 0; j < arr.count; j++) {
+			Component* c = (Component*)arr[j];
+			c->OnGui();
+		}
 	}
 }
 

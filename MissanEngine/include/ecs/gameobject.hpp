@@ -13,10 +13,7 @@ namespace Missan {
 
 	public:
 
-
-
-		std::unordered_map<TypeId, InstanceId> components;
-
+		GameObject() { name = "GameObject"; }
 
 		inline static InstanceId Instantiate(InstanceId originalGameObjectId = NULL) {
 			return ECS::Instantiate(originalGameObjectId);

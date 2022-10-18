@@ -59,7 +59,7 @@ RawArrayBase Memory::AsRawArrayByTypeId(TypeId typeId) {
 /// 
 /// only use this one if you've already accessed the type array via
 /// one of the templated funcs, otherwise it might not be created yet. 
-InstanceId Memory::NewByTypeId(TypeId typeId, void* object) {
+InstanceId Memory::NewByTypeId(TypeId typeId, const void* const object) {
 	InstanceId id = GenerateUniqueInstanceId();
 	arrays[typeId]->Add(id, object);
 	return id;
@@ -67,6 +67,10 @@ InstanceId Memory::NewByTypeId(TypeId typeId, void* object) {
 
 void* Memory::GetByTypeId(TypeId typeId, InstanceId id) {
 	return arrays[typeId]->Get(id);
+}
+
+void Memory::SetByTypeId(TypeId typeId, InstanceId instanceId, const void* const data) {
+
 }
 
 void Memory::DeleteByTypeId(TypeId typeId, InstanceId id) {

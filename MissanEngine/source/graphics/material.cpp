@@ -26,21 +26,23 @@ void Material::DisplayInInspector() {
 
 void Material::Load(const std::string& name) {
 
-	InstanceId id = Memory::New<Material>();
-	Material* m = Memory::Get<Material>(id);
-	m->ambient = m->diffuse = m->specular = Color::white;
-	m->shininess = 1;
-	m->name = name; //TODO: assigning name per class is also stupid. 
+	Material m;
+	m.ambient = m.diffuse = m.specular = Color::white;
+	m.shininess = 1;
+	m.name = name;
 
 	FILE* f = NULL;
 	fopen_s(&f, name.c_str(), "r");
 	if (f) fscanf_s(f, "%f %f %f %f %f %f %f %f %f %f",
-		&m->ambient.r, &m->ambient.g, &m->ambient.b,
-		&m->diffuse.r, &m->diffuse.g, &m->diffuse.b,
-		&m->specular.r, &m->specular.g, &m->specular.b,
-		&m->shininess);
+		&m.ambient.r,  &m.ambient.g,  &m.ambient.b,
+		&m.diffuse.r,  &m.diffuse.g,  &m.diffuse.b,
+		&m.specular.r, &m.specular.g, &m.specular.b,
+		&m.shininess);
 	else {
 		cout << "material.load: failed to open file\n";
 	}
+
+	InstanceId id = Memory::New<Material>();
+	Memory::Set<Material>(id, &m);
 
 }
