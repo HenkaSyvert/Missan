@@ -15,10 +15,7 @@ namespace Missan {
 
 	public:
 
-		static int freeId;
-		int id;
 		std::string name;
-		std::string tag;
 
 		/// 
 		/// Creates new GameObject

@@ -7,11 +7,9 @@
 using namespace Missan;
 using namespace std;
 
-int GameObject::freeId = 0;
 
 GameObject::GameObject() {
-	id = freeId++;
-	name = "Game Object (" + to_string(id) + ")";
+	name = "Game Object";
 }
 
 GameObject::~GameObject() {

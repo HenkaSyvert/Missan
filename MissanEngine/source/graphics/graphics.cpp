@@ -23,6 +23,7 @@ using namespace std;
 using namespace glm;
 
 Light* Light::light = nullptr;
+Camera* Camera::main = nullptr;
 
 Mesh::Mesh(int vaoId, int elementCount) {
 	this->vaoId = vaoId;
@@ -35,6 +36,7 @@ void GraphicsInitialize() {
 	glEnable(GL_BLEND);
 	Shader::unlit = new Shader("resources/shaders/unlit/vertex.shader", "resources/shaders/unlit/fragment.shader");
 	Shader::phong = new Shader("resources/shaders/phong/vertex.shader", "resources/shaders/phong/fragment.shader");
+	
 }
 
 void GraphicsUpdate() {

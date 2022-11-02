@@ -19,72 +19,74 @@ namespace Missan {
 
 		enum class Projection { orthographic, perspective };
 
-		Camera();
+		Camera() {
+			if (!main) main = this;
+		}
 
 		static Camera* main;
 
 		/// 
 		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis
-		__declspec(property(get = getFov, put = putFov))float fieldOfView;
-		inline float getFov() { return _fov; }
-		inline void putFov(float f) { _fov = f; UpdateMatrices(); }
+		float fieldOfView = 45;
 
 		/// 
 		/// Objects closer to the Camera than this will be clipped, i.e. not rendered
-		__declspec(property(get = getNear, put = putNear))float nearClipPlane;
-		inline float getNear() { return _near; }
-		inline void putNear(float n) { _near = n; UpdateMatrices(); }
+		float nearClipPlane = 0.1f;
 
 		/// 
 		/// Objects farther away from the Camera than this will be clipped, i.e. not rendered
-		__declspec(property(get = getFar, put = putFar))float farClipPlane;
-		inline float getFar() { return _far; }
-		inline void putFar(float f) { _far = f; UpdateMatrices(); }
+		float farClipPlane = 100;
 
 		/// 
 		/// Screen Width divided by Height, also how "squeezed" the view is on the y-axis
-		__declspec(property(get = getAr, put = putAr)) float aspectRatio;
-		inline float getAr() { return _ar; }
-		inline void putAr(float ar) { _ar = ar; UpdateMatrices(); }
+		float aspectRatio = Window::aspectRatio;
 
-		__declspec(property(get = getOrthoSize, put = putOrthoSize)) float orthographicSize;
-		inline float getOrthoSize() { return _orthoSize; }
-		inline void putOrthoSize(float os) { _orthoSize = os; UpdateMatrices(); }
+		float orthographicSize = 1;
 
-		__declspec(property(get = getProj, put = putProj)) Projection projection;
-		inline Projection getProj() { return _projection; }
-		inline void putProj(Projection p) { _projection = p; UpdateMatrices(); };
+		Projection projection = Projection::perspective;
 
 		/// 
 		/// The projection matrix, which transform points from world space to screen space
-		__declspec(property(get = getProjMat))glm::mat4 projectionMatrix;
-		inline glm::mat4 getProjMat() { return _projMat; }
+		glm::mat4 projectionMatrix;
 
-		__declspec(property(get = getInvProjMat)) glm::mat4 inverseProjectionMatrix;
-		inline glm::mat4 getInvProjMat() { return _invProjMat; }
-
-		Ray ScreenPointToRay(glm::vec2 screenPoint);
-		glm::vec3 ScreenToWorldPoint(glm::vec3 screenPoint);
-
+		glm::mat4 inverseProjectionMatrix;
 
 		glm::vec4 clearColor = { .1,.1,.1,.1 };
 
-		void DisplayInInspector();
+		void DisplayInInspector() {
+			using namespace ImGui;
+			ShowDemoWindow();
 
-		inline void Start() { UpdateMatrices(); }
+			if (CollapsingHeader("Camera")) {
+				SliderFloat("field of view (deg)", &fieldOfView, -15, 400);
+				SliderFloat("near clip plane (m)", &nearClipPlane, -5, 10);
+				SliderFloat("far clip plane (m)", &farClipPlane, 10, 100);
+				SliderFloat("aspect ratio", &aspectRatio, -1, 5);
+				SliderFloat("orthographic size", &orthographicSize, -1, 5);
+
+				if (BeginMenu("Projection")) {
+					if (MenuItem("Perspective")) projection = Projection::perspective;
+					if (MenuItem("Orthographic")) projection = Projection::orthographic;
+					EndMenu();
+				}
+
+				ColorEdit4("clear color", (float*)&clearColor);
+			}
+		}
+
+		void Update() {
+			if (projection == Projection::perspective) {
+				projectionMatrix = glm::perspective(glm::radians(fieldOfView), aspectRatio, nearClipPlane, farClipPlane);
+			}
+			else if (projection == Projection::orthographic) {
+				projectionMatrix = glm::ortho(0.0f, aspectRatio * orthographicSize, 0.0f, orthographicSize, nearClipPlane, farClipPlane);
+			}
+			inverseProjectionMatrix = glm::inverse(projectionMatrix);
+		}
 
 		Camera* Clone() const { return new Camera(*this); }
 
-	private:
-		float _fov = 45;
-		float _near = 0.1f;
-		float _far = 100;
-		float _ar = Window::aspectRatio;
-		float _orthoSize = 1;
-		Projection _projection = Projection::perspective;
-		glm::mat4 _projMat;
-		glm::mat4 _invProjMat;
 
-		void UpdateMatrices();
 	};
+
 }

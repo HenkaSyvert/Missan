@@ -84,9 +84,6 @@
     <ClCompile Include="source\graphics\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\graphics\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -536,6 +533,10 @@
     <None Include="resources\materials\yellow_plastic.mat" />
     <None Include="resources\materials\yellow_rubber.mat" />
     <None Include="resources\meshes\cube.mesh" />
+    <None Include="resources\shaders\phong\fragment.shader" />
+    <None Include="resources\shaders\phong\vertex.shader" />
+    <None Include="resources\shaders\unlit\fragment.shader" />
+    <None Include="resources\shaders\unlit\vertex.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\stb\stb_image.h">
