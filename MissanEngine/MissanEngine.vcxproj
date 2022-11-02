@@ -249,9 +249,31 @@
     <None Include="external\glm\gtx\vector_angle.inl" />
     <None Include="external\glm\gtx\vector_query.inl" />
     <None Include="external\glm\gtx\wrap.inl" />
+    <None Include="resources\materials\black_plastic.mat" />
+    <None Include="resources\materials\black_rubber.mat" />
+    <None Include="resources\materials\brass.mat" />
+    <None Include="resources\materials\bronze.mat" />
+    <None Include="resources\materials\chrome.mat" />
+    <None Include="resources\materials\copper.mat" />
+    <None Include="resources\materials\cyan_plastic.mat" />
+    <None Include="resources\materials\cyan_rubber.mat" />
+    <None Include="resources\materials\emerald.mat" />
+    <None Include="resources\materials\gold.mat" />
+    <None Include="resources\materials\green_plastic.mat" />
+    <None Include="resources\materials\green_rubber.mat" />
+    <None Include="resources\materials\jade.mat" />
+    <None Include="resources\materials\obsidian.mat" />
+    <None Include="resources\materials\red_plastic.mat" />
+    <None Include="resources\materials\red_rubber.mat" />
+    <None Include="resources\materials\ruby.mat" />
+    <None Include="resources\materials\silver.mat" />
+    <None Include="resources\materials\turquoise.mat" />
+    <None Include="resources\materials\white_plastic.mat" />
+    <None Include="resources\materials\white_rubber.mat" />
+    <None Include="resources\materials\yellow_plastic.mat" />
+    <None Include="resources\materials\yellow_rubber.mat" />
+    <None Include="resources\meshes\cube.mesh" />
     <None Include="resources\meshes\plane.mesh" />
-    <None Include="resources\shaders\diffuseSpecular.fs" />
-    <None Include="resources\shaders\diffuseSpecular.vs" />
     <None Include="shaders\fragment.shader" />
     <None Include="shaders\vertex.shader" />
   </ItemGroup>
@@ -596,6 +618,18 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\textures\brickwall.png" />
+    <Image Include="resources\textures\cat.png" />
+    <Image Include="resources\textures\cracked1.jpg" />
+    <Image Include="resources\textures\cracked2.jpg" />
+    <Image Include="resources\textures\cracked3.jpg" />
+    <Image Include="resources\textures\missan_logo.png" />
+    <Image Include="resources\textures\missan_logo64.png" />
+    <Image Include="resources\textures\stone2.png" />
+    <Image Include="resources\textures\stone3.jpg" />
+    <Image Include="resources\textures\stonefloor.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

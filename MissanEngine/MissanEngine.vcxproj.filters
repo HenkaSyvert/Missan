@@ -512,8 +512,30 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="resources\meshes\plane.mesh" />
-    <None Include="resources\shaders\diffuseSpecular.fs" />
-    <None Include="resources\shaders\diffuseSpecular.vs" />
+    <None Include="resources\materials\black_plastic.mat" />
+    <None Include="resources\materials\black_rubber.mat" />
+    <None Include="resources\materials\brass.mat" />
+    <None Include="resources\materials\bronze.mat" />
+    <None Include="resources\materials\chrome.mat" />
+    <None Include="resources\materials\copper.mat" />
+    <None Include="resources\materials\cyan_plastic.mat" />
+    <None Include="resources\materials\cyan_rubber.mat" />
+    <None Include="resources\materials\emerald.mat" />
+    <None Include="resources\materials\gold.mat" />
+    <None Include="resources\materials\green_plastic.mat" />
+    <None Include="resources\materials\green_rubber.mat" />
+    <None Include="resources\materials\jade.mat" />
+    <None Include="resources\materials\obsidian.mat" />
+    <None Include="resources\materials\red_plastic.mat" />
+    <None Include="resources\materials\red_rubber.mat" />
+    <None Include="resources\materials\ruby.mat" />
+    <None Include="resources\materials\silver.mat" />
+    <None Include="resources\materials\turquoise.mat" />
+    <None Include="resources\materials\white_plastic.mat" />
+    <None Include="resources\materials\white_rubber.mat" />
+    <None Include="resources\materials\yellow_plastic.mat" />
+    <None Include="resources\materials\yellow_rubber.mat" />
+    <None Include="resources\meshes\cube.mesh" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\stb\stb_image.h">
@@ -1524,5 +1546,37 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\textures\brickwall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\cat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\cracked1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\cracked2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\cracked3.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\missan_logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\missan_logo64.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\stone2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\stone3.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\textures\stonefloor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

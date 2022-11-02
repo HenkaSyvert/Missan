@@ -33,8 +33,8 @@ void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	Shader::unlit = new Shader("resources/shaders/unlit.vs", "resources/shaders/unlit.fs");
-	Shader::diffuseSpecular = new Shader("resources/shaders/diffuseSpecular.vs", "resources/shaders/diffuseSpecular.fs");
+	Shader::unlit = new Shader("resources/shaders/unlit/vertex.shader", "resources/shaders/unlit/fragment.shader");
+	Shader::phong = new Shader("resources/shaders/phong/vertex.shader", "resources/shaders/phong/fragment.shader");
 }
 
 void GraphicsUpdate() {
@@ -87,7 +87,7 @@ void GraphicsUpdate() {
 			glDisableVertexAttribArray(0);
 
 		}
-		else if (&shader == Shader::diffuseSpecular) {
+		else if (&shader == Shader::phong) {
 
 			shader.SetMat4("model", renderer->gameObject->GetComponent<Transform>()->matrix);
 			shader.SetMat4("view", Camera::main->gameObject->GetComponent<Transform>()->inverseMatrix);

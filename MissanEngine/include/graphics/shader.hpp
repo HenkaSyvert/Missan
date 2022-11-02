@@ -30,7 +30,7 @@ namespace Missan {
 
         /// 
         /// basic lighting shader. combines ambient, diffuse, and specular. 
-        static Shader* diffuseSpecular;
+        static Shader* phong;
 
         /// 
         /// Compiles new Shader from source code

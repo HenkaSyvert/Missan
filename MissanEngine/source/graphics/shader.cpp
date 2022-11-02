@@ -9,7 +9,7 @@ using namespace std;
 using namespace glm;
 
 Shader* Shader::unlit = nullptr;
-Shader* Shader::diffuseSpecular = nullptr;
+Shader* Shader::phong = nullptr;
 
 string LoadShader(const string& fileName) {
 	fstream input(fileName);

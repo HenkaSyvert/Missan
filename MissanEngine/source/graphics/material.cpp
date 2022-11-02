@@ -14,7 +14,7 @@ void Material::DisplayInInspector() {
 		if (texture) texture->DisplayInInspector();
 		if (BeginMenu("Shader")) {
 			if (MenuItem("Unlit")) shader = Shader::unlit;
-			if (MenuItem("Phong")) shader = Shader::diffuseSpecular;
+			if (MenuItem("Phong")) shader = Shader::phong;
 			EndMenu();
 		}
 		TreePop();
