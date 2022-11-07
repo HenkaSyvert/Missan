@@ -121,32 +121,21 @@ namespace Missan {
 		static std::vector<T*> instances;
 
 		Component() {
-			std::cout << "Component<" << typeid(T).name() << ">():\n"
-				<< "instances[" << instances.size() << "] = " << this << std::endl;
 			instances.push_back((T*)this);
 		}
 
 		Component(const Component& original) {
-			std::cout << "Component<" << typeid(T).name() << ">(copy):\n"
-				<< "instances[" << instances.size() << "] = " << this << std::endl;
 			instances.push_back((T*)this);
 		}
 		
 		virtual ~Component() {
-			std::cout << "Component<" << typeid(T).name() << ">():\n";
-			for (int i = 0; i < instances.size(); i++) {
-				if (instances[i] == this) {
-					std::cout << "instances[" << instances.size() << "] = " << this << " = deleted\n";
+			for (int i = 0; i < instances.size(); i++) 
+				if (instances[i] == this) 
 					instances.erase(instances.begin() + i);
-				}
-			}
-
 		}
 
 		Component<T>* Clone() const override {
-			auto t = new T(*(T*)this);
-			std::cout << "Component<" << typeid(T).name() << ">::Clone(" << this << ") = " << t << std::endl;
-			return (Component<T>*)t;
+			return (Component<T>*)new T(*(T*)this);
 		}
 
 		// needs to be declared virtual to pass along to next subclass (i think?). 

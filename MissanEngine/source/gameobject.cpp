@@ -50,12 +50,5 @@ void GameObjectDoDestructions() {
 }
 
 GameObject::~GameObject() {
-	std::cout << "~GameObject(): components.size() = " << components.size() << "\n";
-	int i = 0;
-	for (AbstractComponent* c : components) {
-
-		std::cout << "components[" << i++ << "] = " << c << "\n";
-		delete c;
-	}
-	std::cout << "destructor done, size = " << components.size() << std::endl;
+	for (AbstractComponent* c : components) delete c;	
 }

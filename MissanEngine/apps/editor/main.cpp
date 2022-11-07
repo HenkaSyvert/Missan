@@ -26,11 +26,11 @@ void PlaceSomeCubes() {
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
 
     GameObject* g = GameObject::Instantiate(&cube);
-    g->GetComponent<Transform>()->position += {0, 0, -2};
+    g->GetComponent<Transform>()->position.z -= 2;
     g = GameObject::Instantiate(&cube);
-    g->GetComponent<Transform>()->position += {-2, 0, 0};
+    g->GetComponent<Transform>()->position.x -= 2;
     g = GameObject::Instantiate(&cube);
-    g->GetComponent<Transform>()->position += {0, 0, 2};
+    g->GetComponent<Transform>()->position.z += 2;
 
 }
 

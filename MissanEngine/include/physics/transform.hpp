@@ -17,29 +17,21 @@ namespace Missan {
     public:
         /// 
         /// In world space        
-        __declspec(property(get = getPos, put = putPos)) glm::vec3 position;
-        inline glm::vec3& getPos() {return _position; }
-        inline void putPos(glm::vec3 p) { _position = p; UpdateMatrix(); }
+        glm::vec3 position = { 0, 0, 0 };
 
         /// 
         /// In world space
-        __declspec(property(get = getRot, put = putRot)) glm::vec3 rotation;
-        inline glm::vec3& getRot() { return _rotation; }
-        inline void putRot(glm::vec3 r) { _rotation = r; UpdateMatrix(); }
+        glm::vec3 rotation = { 0, 0, 0 };
 
         /// 
         /// Global scale
-        __declspec(property(get = getScale, put = putScale)) glm::vec3 scale;
-        inline glm::vec3& getScale() { return _scale; }
-        inline void putScale(glm::vec3 s) { _scale = s; UpdateMatrix(); }
+        glm::vec3 scale = { 1, 1, 1 };
 
         /// 
         /// Matrix to transform point from local space to world space
-        __declspec(property(get = getMatrix)) glm::mat4 matrix;
-        inline glm::mat4 getMatrix() { return _matrix; }
+        glm::mat4 matrix = glm::mat4(1.0f);
 
-        __declspec(property(get = getInvMatrix)) glm::mat4 inverseMatrix;
-        inline glm::mat4 getInvMatrix() { return _invMat; }
+        glm::mat4 inverseMatrix = glm::mat4(1.0f);
 
         /// 
         /// Transforms a point from local space to world space
@@ -51,31 +43,19 @@ namespace Missan {
 
         /// 
         /// Local right vector
-        __declspec(property(get = getRight)) glm::vec3 right;
-        inline glm::vec3 getRight(){return normalize(matrix[0]);}
+        glm::vec3 right = { 1, 0, 0 };
 
         /// 
         /// Local up vector
-        __declspec(property(get = getUp)) glm::vec3 up;
-        inline glm::vec3 getUp() { return normalize(matrix[1]); }
+        glm::vec3 up = { 0, 1, 0 };
 
         /// 
         /// Local forward vector
-        __declspec(property(get = getForward)) glm::vec3 forward;
-        inline glm::vec3 getForward() { return -normalize(matrix[2]); }
+        glm::vec3 forward = { 0, 0, 1 };
 
-        void Start() { UpdateMatrix(); }
+        void Start();
+        void Update();
         void DisplayInInspector();
-
-        
-    private:
-        glm::vec3 _position = { 0, 0, 0 };
-        glm::vec3 _rotation = { 0, 0, 0 };
-        glm::vec3 _scale = { 1, 1, 1 };
-        glm::mat4 _matrix;
-        glm::mat4 _invMat;
-
-        void UpdateMatrix();
 
     };
 

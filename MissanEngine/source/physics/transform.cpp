@@ -9,24 +9,37 @@ using namespace std;
 using namespace glm;
 using namespace ImGui;
 
-void Transform::UpdateMatrix() {
+static void UpdateMatrix(Transform& t) {
 
 	// order matters, must be translation-rotation-scale
-	_matrix = mat4(1.0f);
-	_matrix = translate(matrix, _position);
+	t.matrix = mat4(1.0f);
+	t.matrix = translate(t.matrix, t.position);
 	
 	// order matters, must be y-z-x
-	_matrix = rotate(matrix, radians(_rotation.y), vec3(0, 1, 0));
-	_matrix = rotate(matrix, radians(_rotation.z), vec3(0, 0, 1));
-	_matrix = rotate(matrix, radians(_rotation.x), vec3(1, 0, 0));
+	t.matrix = rotate(t.matrix, radians(t.rotation.y), vec3(0, 1, 0));
+	t.matrix = rotate(t.matrix, radians(t.rotation.z), vec3(0, 0, 1));
+	t.matrix = rotate(t.matrix, radians(t.rotation.x), vec3(1, 0, 0));
 	
-	_matrix = glm::scale(_matrix, _scale);
-	_invMat = glm::inverse(_matrix);
+	t.matrix = glm::scale(t.matrix, t.scale);
+	t.inverseMatrix = glm::inverse(t.matrix);
+
+	t.right = normalize(t.matrix[0]); 
+	t.up = normalize(t.matrix[1]); 
+	t.forward = -normalize(t.matrix[2]); 
+
+}
+
+void Transform::Start() {
+	UpdateMatrix(*this);
+}
+
+void Transform::Update() {
+	UpdateMatrix(*this);
 }
 
 vec3 Transform::TransformPoint(vec3& point) {
 	vec4 q(point, 1);
-	q = _matrix * q;
+	q = matrix * q;
 	return vec3(q.x, q.y, q.z);
 }
 
@@ -39,9 +52,8 @@ vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 
 void Transform::DisplayInInspector() {
 	if (CollapsingHeader("Transform")) {
-		DragFloat3("position", (float*)&_position);
-		DragFloat3("rotation", (float*)&_rotation);
-		DragFloat3("scale", (float*)&_scale);
+		DragFloat3("position", (float*)&position);
+		DragFloat3("rotation", (float*)&rotation);
+		DragFloat3("scale", (float*)&scale);
 	}
-	UpdateMatrix();
 }
