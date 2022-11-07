@@ -45,3 +45,22 @@ void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
 	angularImpulse += cross(point, impulse);
 }
 
+
+void RigidBody::DisplayInInspector() {
+
+	using namespace ImGui;
+	ShowDemoWindow();
+
+	if (CollapsingHeader("Rigid Body")) {
+		SliderFloat("Mass (kg)", &mass, 0, 10000);
+		DragFloat3("Linear Velocity", (float*)&linearVelocity);
+		DragFloat3("Inertia Tensor", (float*)&inertiaTensor);
+		DragFloat3("Angular Velocity", (float*)&angularVelocity);
+		DragFloat3("forces", (float*)&forces);
+		DragFloat3("Torques", (float*)&torques);
+		Checkbox("use gravity", &isAffectedByGravity);
+		DragFloat3("Linear Impulse", (float*)&linearImpulse);
+		DragFloat3("Angular Impulse", (float*)&angularImpulse);
+	}
+
+}

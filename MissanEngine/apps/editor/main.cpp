@@ -24,6 +24,9 @@ void PlaceSomeCubes() {
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/stone2.png");
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+    cube.AddComponent<Collider>();
+    auto rb = cube.AddComponent<RigidBody>();
+    rb->isAffectedByGravity = false;
 
     GameObject* g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position.z -= 2;

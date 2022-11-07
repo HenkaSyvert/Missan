@@ -54,8 +54,6 @@ namespace Missan {
 		/// angular impulse that will be applied this frame
 		glm::vec3 angularImpulse = { 0,0,0 };
 
-
-
 		/// 
 		/// Applies force to the RigidBody at point, using world coordinates unless specified otherwise.
 		/// Force applied anywhere but center of mass (i.e. {0, 0, 0} ) will generate torque.
@@ -71,6 +69,7 @@ namespace Missan {
 
 
 
+		void DisplayInInspector();
 
 		void Start();
 	};
