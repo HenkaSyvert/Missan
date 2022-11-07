@@ -20,3 +20,5 @@ void GuiTerminate();
 void GraphicsInitialize();
 void GraphicsUpdate();
 
+void GameObjectDoDestructions();
+void GameObjectDoInstantiations();

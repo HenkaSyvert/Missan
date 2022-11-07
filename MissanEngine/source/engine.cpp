@@ -4,8 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "internal.hpp"
-#include "entitycomponentsystem.hpp"
-#include "gameobject.hpp"
+#include "component.hpp"
 #include "input.hpp"
 #include "graphics/window.hpp"
 #include "physics/physics.hpp"
@@ -44,19 +43,18 @@ void Engine::Quit() {
 
 void Engine::Run() {
 	TimeUpdate();
-	EcsComponentsStart();
-	EcsGameObjectInstantiate();
+	GameObjectDoInstantiations();
 	
 	while (!glfwWindowShouldClose(window)) {
 		TimeUpdate();
 		PhysicsUpdate();
 		InputUpdate();
-		EcsComponentsUpdate();
-		EcsComponentsLateUpdate();
+		for(auto* g : GameObject::gameObjects) for(auto* c : g->components) c->Update();
+		for(auto* g : GameObject::gameObjects) for(auto* c : g->components) c->LateUpdate();
 		GraphicsUpdate();		
 		GuiUpdate();
-		EcsGameObjectInstantiate();
-		EcsGameObjectDestroy();
+		GameObjectDoInstantiations();
+		GameObjectDoDestructions();
 		glfwSwapBuffers(window);
 	}	
 

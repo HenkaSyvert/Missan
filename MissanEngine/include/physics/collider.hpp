@@ -8,7 +8,7 @@ namespace Missan {
 
 	/// 
 	/// Class that detects collisions against other Colliders
-	class Collider : public Component {
+	class Collider : public Component<Collider> {
 
 	public:
 
@@ -25,8 +25,6 @@ namespace Missan {
 
 
 		void Start();
-
-		Collider* Clone() const { return new Collider(*this); }
 
 	};
 

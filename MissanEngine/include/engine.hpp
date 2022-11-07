@@ -1,6 +1,5 @@
 #pragma once
 
-#include "gameobject.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/mesh.hpp"
 

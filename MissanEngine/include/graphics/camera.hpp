@@ -13,17 +13,11 @@ namespace Missan {
 
 	/// 
 	/// Provides view- and projection matrices to transform GameObjects in Scene to screen space
-	class Camera : public Component {
+	class Camera : public Component<Camera> {
 
 	public:
 
 		enum class Projection { orthographic, perspective };
-
-		Camera() {
-			if (!main) main = this;
-		}
-
-		static Camera* main;
 
 		/// 
 		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis
@@ -83,9 +77,6 @@ namespace Missan {
 			}
 			inverseProjectionMatrix = glm::inverse(projectionMatrix);
 		}
-
-		Camera* Clone() const { return new Camera(*this); }
-
 
 	};
 

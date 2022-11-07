@@ -6,14 +6,15 @@
 #include "component.hpp"
 #include "inspectable.hpp"
 
+#include <iostream>
+
 namespace Missan {
 
     /// 
     /// Stores position, rotation, and scale of a GameObject
-    class Transform : public Component {
+    class Transform : public Component<Transform> {
 
     public:
-        
         /// 
         /// In world space        
         __declspec(property(get = getPos, put = putPos)) glm::vec3 position;
@@ -66,7 +67,6 @@ namespace Missan {
         void Start() { UpdateMatrix(); }
         void DisplayInInspector();
 
-        Transform* Clone() const { return new Transform(*this); }
         
     private:
         glm::vec3 _position = { 0, 0, 0 };

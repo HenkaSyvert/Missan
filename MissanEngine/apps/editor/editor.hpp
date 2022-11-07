@@ -7,7 +7,7 @@ using namespace std;
 using namespace ImGui;
 using namespace glm;
 
-class Editor : public Component {
+class Editor : public Component<Editor> {
 
 public:
 
@@ -35,9 +35,8 @@ public:
 
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
-            gos = EcsGetGameObjects();
             int i = 0;
-            for (auto& g : gos)
+            for (auto& g : GameObject::gameObjects)
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;
             
             End();
@@ -85,8 +84,5 @@ public:
         transform->rotation.x = clamp(transform->rotation.x + dxRot, -pitchConstraint, pitchConstraint);
     }
 
-
-
-	Editor* Clone() const { return new Editor(*this); }
 
 };

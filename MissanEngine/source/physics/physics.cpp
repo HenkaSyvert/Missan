@@ -1,7 +1,6 @@
 #include "physics/physics.hpp"
 
 #include "engine.hpp"
-#include "gameobject.hpp"
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
@@ -17,15 +16,7 @@ using namespace glm;
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces() {
 
-	auto& gos = EcsGetGameObjects();
-
-	// get all RigidBodies
-	vector<RigidBody*> rbs;
-	for (auto* g : gos)
-		if (g->GetComponent<RigidBody>() != nullptr)
-			rbs.push_back(g->GetComponent<RigidBody>());
-
-	for (RigidBody* rb : rbs) {
+	for (RigidBody* rb : Component<RigidBody>::instances) {
 
 		Transform* t = rb->gameObject->GetComponent<Transform>();
 
@@ -50,13 +41,8 @@ void ApplyForces() {
 
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
-	auto& gos = EcsGetGameObjects();
 
-	// get all Colliders
-	vector<Collider*> colliders;
-	for (auto* g : gos)
-		if (g->GetComponent<Collider>() != nullptr)
-			colliders.push_back(g->GetComponent<Collider>());
+	vector<Collider*> colliders = Component<Collider>::instances;
 
 	if (colliders.size() <= 1) return;
 

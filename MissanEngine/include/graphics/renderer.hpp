@@ -5,12 +5,11 @@
 #include "graphics/mesh.hpp"
 #include "graphics/shader.hpp"
 
-
 namespace Missan {
 
 	/// 
 	/// Renders GameObject with Mesh and Texture using its Transform
-	class Renderer : public Component {
+	class Renderer : public Component<Renderer> {
 
 	public:
 
@@ -20,11 +19,12 @@ namespace Missan {
 
 		Material* material = nullptr;
 
-		void Start() { if (!material->shader)material->shader = Shader::unlit; }
 
-		void DisplayInInspector();
-
-		Renderer* Clone() const { return new Renderer(*this); }
+		void DisplayInInspector() {
+			if (ImGui::CollapsingHeader("Renderer")) {
+				if (material) material->DisplayInInspector();
+			}
+		}
 
 	};
 

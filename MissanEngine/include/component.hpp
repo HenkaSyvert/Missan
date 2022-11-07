@@ -1,17 +1,71 @@
 #pragma once
 
-#include "gameobject.hpp"
-#include "clonable.hpp"
 #include "inspectable.hpp"
+
+#include <vector>
+#include <typeinfo>
+#include <string>
+#include <iostream>
 
 namespace Missan {
 
-	class GameObject;
+	template<class T>
+	class Component;
+	class AbstractComponent;
+
+	/// 
+	/// Class representing GameObjects in Missan Scenes
+	class GameObject {
+
+	public:
+
+		std::string name = "Game Object";
+		std::vector<AbstractComponent*> components;
+
+		~GameObject();
+
+		/// 
+		/// Adds Component of type T, attaches it, and returns pointer
+		template <class T>
+		inline T* AddComponent() {
+			T* c = new T();
+			c->gameObject = this;
+			components.push_back(c);
+			return c;
+		}
+
+		/// 
+		/// Returns pointer to Component of type T if found, else nullptr
+		template <class T>
+		inline T* GetComponent() {
+			for (auto* c : components) {
+				auto hashseek = typeid(T).hash_code();
+				auto hashfound = typeid(*c).hash_code();
+				if (hashseek == hashfound)
+					return (T*)c;
+			}
+			return nullptr;
+		}
+
+
+
+		static std::vector<GameObject*> gameObjects;
+
+		/// 
+		/// Instantiates a new GameObject (based on original, if given) and calls Start() at end of frame. 
+		static GameObject* Instantiate(GameObject* original = nullptr);
+
+		///
+		/// Marks game object for deletion at end of frame. 
+		static void Destroy(GameObject* gameObject);
+
+
+	};
+
 
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
-	/// Currently, derived classes MUST provide implementation of the Clone() method. 
-	class Component : public IClonable, Inspectable {
+	class AbstractComponent : public Inspectable {
 		
 	public:
 	
@@ -19,10 +73,7 @@ namespace Missan {
 		/// The GameObject this Component is attached to. 
 		GameObject* gameObject = nullptr;
 
-		///
-		/// TODO: remove in future
-		/// Must have definition - empty body - since derived classes will call it.
-		inline virtual ~Component() { };
+		virtual ~AbstractComponent() {}
 
 		///
 		/// Called only once for each GameObject, before all other Event functions
@@ -30,7 +81,7 @@ namespace Missan {
 
 		///
 		/// Called when this Collider has begun touching another Collider
-		virtual void OnCollisionEnter(GameObject* other){}		
+		inline virtual void OnCollisionEnter(GameObject* other) {}		
 
 		///
 		/// Called every frame
@@ -48,15 +99,66 @@ namespace Missan {
 		/// Called prior to the GameObject being destroyed
 		inline virtual void OnDestroy() {}
 
-		inline virtual void DisplayInInspector(){}
+		inline virtual void DisplayInInspector() {}
 
-		///
-		/// TODO: remove in future
-		/// All derived classes of Component must provide an implementation of this method. 
-		/// For class T inhereting from Component, it should look like this:
-		/// T* Clone() const { return new T(*this); } 
-		inline virtual Component* Clone() const = 0;	
+
+
+		inline virtual AbstractComponent* Clone() const = 0;
+		
 
 	};
 
+
+	/// 
+	/// This uses the "curiously recurring template pattern" (CRTP) so that every class
+	/// does not have to provide its own implementation of the clone method, less boiler plate code. 
+	/// also, provides a convenient and syntactically appealing way of gathering instances per component class. 
+	/// there is a one-to-one correspondence between each subclass T and Component<T>. 
+	template<class T>
+	class Component : public AbstractComponent {
+	public:
+
+		static std::vector<T*> instances;
+
+		Component() {
+			std::cout << "Component<" << typeid(T).name() << ">():\n"
+				<< "instances[" << instances.size() << "] = " << this << std::endl;
+			instances.push_back((T*)this);
+		}
+
+		Component(const Component& original) {
+			std::cout << "Component<" << typeid(T).name() << ">(copy):\n"
+				<< "instances[" << instances.size() << "] = " << this << std::endl;
+			instances.push_back((T*)this);
+		}
+		
+		virtual ~Component() {
+			std::cout << "Component<" << typeid(T).name() << ">():\n";
+			for (int i = 0; i < instances.size(); i++) {
+				if (instances[i] == this) {
+					std::cout << "instances[" << instances.size() << "] = " << this << " = deleted\n";
+					instances.erase(instances.begin() + i);
+				}
+			}
+
+		}
+
+		Component<T>* Clone() const override {
+			auto t = new T(*(T*)this);
+			std::cout << "Component<" << typeid(T).name() << ">::Clone(" << this << ") = " << t << std::endl;
+			return (Component<T>*)t;
+		}
+
+		// needs to be declared virtual to pass along to next subclass (i think?). 
+		inline virtual void Start() {}
+		inline virtual void OnCollisionEnter(GameObject* other) {}
+		inline virtual void Update() {}
+		inline virtual void LateUpdate() {}
+		inline virtual void OnGui() {}
+		inline virtual void OnDestroy() {}
+		inline virtual void DisplayInInspector() {}
+	};
+
+	template<class T>
+	std::vector<T*> Component<T>::instances;
 }

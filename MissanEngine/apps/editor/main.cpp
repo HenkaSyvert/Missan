@@ -12,10 +12,7 @@ void MakeEditor() {
     editor.AddComponent<Transform>();
     editor.AddComponent<Camera>();
     editor.AddComponent<Editor>();
-
-    auto* g = GameObject::Instantiate(editor);
-    Camera::main = g->GetComponent<Camera>();
-
+    GameObject::Instantiate(&editor);
 
 }
 
@@ -28,11 +25,11 @@ void PlaceSomeCubes() {
     r->material->texture = Resources::GetTexture("resources/textures/stone2.png");
     r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
 
-    auto* g = GameObject::Instantiate(cube);
+    GameObject* g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position += {0, 0, -2};
-    g = GameObject::Instantiate(cube);
+    g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position += {-2, 0, 0};
-    g = GameObject::Instantiate(cube);
+    g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position += {0, 0, 2};
 
 }
@@ -43,9 +40,7 @@ void MakeLight() {
     g.AddComponent<Light>();
     g.AddComponent<Transform>();
     g.name = "light";
-
-    auto* go = GameObject::Instantiate(g);
-    Light::light = go->GetComponent<Light>();
+    GameObject::Instantiate(&g);
 
 }
 
@@ -56,7 +51,6 @@ int main(){
     MakeEditor();
     PlaceSomeCubes();
     MakeLight();
-
 
     Engine::Run();
 

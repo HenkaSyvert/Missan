@@ -10,7 +10,6 @@
 #include <imgui/imgui_impl_opengl3.h>
 
 #include "component.hpp"
-#include "gameobject.hpp"
 
 using namespace Missan;
 using namespace ImGui;
@@ -28,8 +27,7 @@ void GuiUpdate() {
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
 
-    auto& gameObjects = EcsGetGameObjects();
-    for (auto* g : gameObjects) for (auto* c : g->components) c->OnGui();
+    for (auto* g : GameObject::gameObjects) for (auto* c : g->components) c->OnGui();
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

@@ -10,7 +10,6 @@
 
 #include "component.hpp"
 #include "engine.hpp"
-#include "gameobject.hpp"
 #include "input.hpp"
 #include "inspectable.hpp"
 

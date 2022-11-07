@@ -1,8 +1,5 @@
 #pragma once
 
-#include "gameobject.hpp"
-
-#include <vector>
 
 #include <glm/vec3.hpp>
 

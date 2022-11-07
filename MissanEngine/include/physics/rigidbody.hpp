@@ -8,7 +8,7 @@ namespace Missan {
 
 	///
 	/// Class for GameObjects that are affected by physics
-	class RigidBody : public Component {
+	class RigidBody : public Component<RigidBody> {
 
 	public:
 
@@ -73,6 +73,5 @@ namespace Missan {
 
 
 		void Start();
-		RigidBody* Clone() const { return new RigidBody(*this); }
 	};
 }
