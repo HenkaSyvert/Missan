@@ -54,8 +54,10 @@ void RigidBody::DisplayInInspector() {
 	if (CollapsingHeader("Rigid Body")) {
 		SliderFloat("Mass (kg)", &mass, 0, 10000);
 		DragFloat3("Linear Velocity", (float*)&linearVelocity);
+		SliderFloat("Linear Drag", &linearDrag, 0, 1000);
 		DragFloat3("Inertia Tensor", (float*)&inertiaTensor);
 		DragFloat3("Angular Velocity", (float*)&angularVelocity);
+		SliderFloat("Angular Drag", &angularDrag, 0, 1000);
 		DragFloat3("forces", (float*)&forces);
 		DragFloat3("Torques", (float*)&torques);
 		Checkbox("use gravity", &isAffectedByGravity);

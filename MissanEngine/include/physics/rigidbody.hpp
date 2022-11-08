@@ -20,17 +20,19 @@ namespace Missan {
 		/// The linear velocity (m/s) of this RigidBody
 		glm::vec3 linearVelocity = { 0,0,0 };
 
+		float linearDrag = 1;
 
 
 		/// 
-		/// The angular force required to rotate this RigidBody
+		/// The angular force required to rotate this RigidBody. 
+		/// It's basically the angular equivalent of mass for linear. 
 		glm::vec3 inertiaTensor = { 0,0,0 };
 
 		/// 
 		/// The angular velocity (rad/s) of this RigidBody
 		glm::vec3 angularVelocity = { 0,0,0 };
 
-
+		float angularDrag = 1;
 
 		/// 
 		/// Sum of all linear forces currently acting on this RigidBody

@@ -28,10 +28,12 @@ void ApplyForces() {
 
 		vec3 linearAcceleration = forces / Time::deltaTime / rb->mass;
 		rb->linearVelocity += linearAcceleration * Time::deltaTime;
+		rb->linearVelocity *= clamp(1.0f - rb->linearDrag * Time::deltaTime, 0.0f, 1.0f);
 		t->position += rb->linearVelocity * Time::deltaTime;
 
 		vec3 angularAcceleration = torque / Time::deltaTime / rb->inertiaTensor;
 		rb->angularVelocity += angularAcceleration * Time::deltaTime;
+		rb->angularVelocity *= clamp(1.0f - rb->angularDrag * Time::deltaTime, 0.0f, 1.0f);
 		t->rotation += degrees(rb->angularVelocity) * Time::deltaTime;
 
 		rb->linearImpulse = { 0,0,0 };

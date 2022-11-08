@@ -1,17 +1,11 @@
 
 
 
-bugs
-	accessor for transform.rotation.x/y/z does not update matrix..
-
-
 physics
 	rotate colliders and bounding boxes
 
 
 networking
-
-entity component system
 
 transform
 	quaternions for rotation
@@ -21,7 +15,6 @@ transform
 
 graphics
 	texture mip map
-	std materials from learnopengl
 	look at unity legacy shaders for insp
 
 
