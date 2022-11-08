@@ -46,7 +46,7 @@ namespace Missan {
 		/// is this RigidBody affected by gravity?
 		bool isAffectedByGravity = true;
 
-
+		bool isColliding = false;
 
 		/// 
 		/// Linear impulse that will be applied this frame
@@ -70,6 +70,9 @@ namespace Missan {
 		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
 
+		void OnCollisionEnter(GameObject* other);
+		void OnCollisionStay(GameObject* other);
+		void OnCollisionExit(GameObject* other);
 
 		void DisplayInInspector();
 

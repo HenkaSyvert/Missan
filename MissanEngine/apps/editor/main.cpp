@@ -30,10 +30,13 @@ void PlaceSomeCubes() {
 
     GameObject* g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position.z -= 2;
+    g->name += "1";
     g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position.x -= 2;
+    g->name += "2";
     g = GameObject::Instantiate(&cube);
     g->GetComponent<Transform>()->position.z += 2;
+    g->name += "3";
 
 }
 

@@ -83,6 +83,10 @@ namespace Missan {
 		/// Called when this Collider has begun touching another Collider
 		inline virtual void OnCollisionEnter(GameObject* other) {}		
 
+		inline virtual void OnCollisionStay(GameObject* other) {}
+
+		inline virtual void OnCollisionExit(GameObject* other) {}
+
 		///
 		/// Called every frame
 		inline virtual void Update() {}
@@ -138,14 +142,6 @@ namespace Missan {
 			return (Component<T>*)new T(*(T*)this);
 		}
 
-		// needs to be declared virtual to pass along to next subclass (i think?). 
-		inline virtual void Start() {}
-		inline virtual void OnCollisionEnter(GameObject* other) {}
-		inline virtual void Update() {}
-		inline virtual void LateUpdate() {}
-		inline virtual void OnGui() {}
-		inline virtual void OnDestroy() {}
-		inline virtual void DisplayInInspector() {}
 	};
 
 	template<class T>

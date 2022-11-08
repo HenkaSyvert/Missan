@@ -4,6 +4,8 @@
 #include "boundingbox.hpp"
 #include "transform.hpp"
 
+#include <vector>
+
 namespace Missan {
 
 	/// 
@@ -13,6 +15,9 @@ namespace Missan {
 	public:
 
 		Transform* transform;
+
+		// this is probably very inefficient
+		std::vector<Collider*> overlappingColliders;
 
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap

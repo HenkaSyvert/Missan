@@ -48,22 +48,62 @@ void HandleCollisions() {
 
 	if (colliders.size() <= 1) return;
 
+
+	// find all new collisions, and call OnCollisionEnter
 	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
 
 		for (unsigned int j = i + 1; j < colliders.size(); j++) {
 			Collider* cb = colliders[j];
 
-			vec3 overlap = ca->OverlapsWith(cb);
+			bool wasAlreadyOverlapping = false;
+			for (auto* c : ca->overlappingColliders){
+				if (c == cb) {
+					wasAlreadyOverlapping = true;
+					break;
+				}
+			}
 
+			vec3 overlap = ca->OverlapsWith(cb);
 			float tolerance = 0.0001f;
-			if (length(overlap) < tolerance) continue;
+			bool isOverlapping = length(overlap) > tolerance;
+
+			if (isOverlapping){
+				if (!wasAlreadyOverlapping) {
+					ca->overlappingColliders.push_back(cb);
+					cb->overlappingColliders.push_back(ca);
+					for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
+					for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
+				}
+				for (auto* c : ca->gameObject->components) c->OnCollisionStay(cb->gameObject);
+				for (auto* c : cb->gameObject->components) c->OnCollisionStay(ca->gameObject);
+			}
 			else {
-				for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
-				for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
+				if (wasAlreadyOverlapping) {
+					for (auto* c : ca->gameObject->components) c->OnCollisionExit(cb->gameObject);
+					for (auto* c : cb->gameObject->components) c->OnCollisionExit(ca->gameObject);
+
+					for (size_t i = 0; i < ca->overlappingColliders.size(); i++) {
+						if (cb == ca->overlappingColliders[i]) {
+							ca->overlappingColliders.erase(ca->overlappingColliders.begin() + i);
+							break;
+						}
+					}
+					for (size_t i = 0; i < cb->overlappingColliders.size(); i++) {
+						if (ca == cb->overlappingColliders[i]) {
+							cb->overlappingColliders.erase(cb->overlappingColliders.begin() + i);
+							break;
+						}
+					}
+				}
 			}
 		}
+
+
+
 	}
+
+
 }
 
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
