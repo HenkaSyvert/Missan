@@ -93,8 +93,6 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
-    <ClCompile Include="source\graphics\light.cpp" />
-    <ClCompile Include="source\graphics\material.cpp" />
     <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
     <ClCompile Include="source\input.cpp" />

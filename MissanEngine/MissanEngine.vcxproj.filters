@@ -78,12 +78,6 @@
     <ClCompile Include="source\graphics\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\graphics\material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\graphics\light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

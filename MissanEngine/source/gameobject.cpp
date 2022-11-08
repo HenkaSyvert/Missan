@@ -42,7 +42,7 @@ void GameObjectDoDestructions() {
 			delete c;
 		}
 		auto& gos = GameObject::gameObjects;
-		for (int i = 0; i < gos.size(); i++)
+		for (size_t i = 0; i < gos.size(); i++)
 			if (gos[i] == g) gos.erase(gos.begin() + i);
 		delete g;
 	}

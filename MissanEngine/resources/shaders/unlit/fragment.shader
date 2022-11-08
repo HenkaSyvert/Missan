@@ -1,14 +1,14 @@
 #version 330 core
 
-layout(location = 0) out vec4 color;
+in vec2 fragmentTextureCoord;
 
-in vec2 v_texCoord;
+uniform sampler2D textureSlot;
+uniform vec4 materialColor;
 
-uniform sampler2D u_texture;
-uniform vec4 u_materialColor;
+layout(location = 0) out vec4 fragmentColor;
 
 void main() {
 
-	color = texture(u_texture, v_texCoord) * u_materialColor;
+	fragmentColor = texture(textureSlot, fragmentTextureCoord) * materialColor;
 
 }

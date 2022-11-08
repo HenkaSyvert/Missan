@@ -14,7 +14,10 @@ namespace Missan {
 
 		/// 
 		/// Creates new Mesh
-		Mesh(int vaoId, int vertexCount);
+		Mesh(int vaoId, int elementCount) {
+			this->vaoId = vaoId;
+			this->elementCount = elementCount;
+		}
 
 	};
 

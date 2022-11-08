@@ -1,7 +1,5 @@
 #version 330 core
 
-layout (location = 0) out vec4 fragmentColor;
-
 struct Material{
 	vec4 ambient;
 	vec4 diffuse;
@@ -16,7 +14,7 @@ struct Light{
 	vec4 specular;
 };
 
-in vec2 textureCoord;
+in vec2 fragmentTextureCoord;
 in vec3 fragmentPosition;
 in vec3 fragmentNormal;
 
@@ -25,13 +23,15 @@ uniform Material material;
 uniform Light light;
 uniform sampler2D textureSlot;
 
-void main(){
+layout (location = 0) out vec4 fragmentColor;
+
+void main() {
 
 	vec4 result = vec4(0);
 
 	// ambient
 	vec4 ambient = material.ambient * light.ambient;
-	result += texture(textureSlot, textureCoord) * ambient;
+	result += texture(textureSlot, fragmentTextureCoord) * ambient;
    
 	// diffuse
 	vec3 lightDirection = normalize(light.position - fragmentPosition);

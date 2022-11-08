@@ -13,7 +13,14 @@ namespace Missan {
 		glm::vec4 diffuse = { 0.5, 0.5, 0.5, 1 };
 		glm::vec4 specular = Color::white;
 
-		void DisplayInInspector();
+		void DisplayInInspector() {
+			using namespace ImGui;
+			if (CollapsingHeader("Light")) {
+				ColorEdit4("ambient", (float*)&ambient);
+				ColorEdit4("diffuse", (float*)&diffuse);
+				ColorEdit4("specular", (float*)&specular);
+			}
+		}
 	};
 
 }
