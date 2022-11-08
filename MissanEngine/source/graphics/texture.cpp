@@ -13,14 +13,14 @@ using namespace ImGui;
 Texture::Texture(const string& fileName, WrapMode wm, FilterMode fm) {
 
 	stbi_set_flip_vertically_on_load(1);
-	unsigned char* localBuffer = stbi_load(fileName.c_str(), &_width, &_height, &_channels, 4);
+	unsigned char* localBuffer = stbi_load(fileName.c_str(), &width, &height, &channels, 4);
 
 	if (!localBuffer) {
 		cout << "Resources error: could not open file \"" << fileName << "\"\n";
 	}
 
-	glGenTextures(1, &_id);
-	glBindTexture(GL_TEXTURE_2D, _id);
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
 
 	filterMode(fm);
 	wrapMode(wm);
@@ -39,7 +39,7 @@ Texture::WrapMode Texture::wrapMode() {
 }
 
 void Texture::wrapMode(WrapMode wm) {
-	glBindTexture(GL_TEXTURE_2D, _id);
+	glBindTexture(GL_TEXTURE_2D, id);
 	_wrapMode = wm;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (int)wm);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (int)wm);
@@ -51,7 +51,7 @@ Texture::FilterMode Texture::filterMode() {
 }
 
 void Texture::filterMode(FilterMode fm) {
-	glBindTexture(GL_TEXTURE_2D, _id);
+	glBindTexture(GL_TEXTURE_2D, id);
 	_filterMode = fm;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)fm);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (int)fm);

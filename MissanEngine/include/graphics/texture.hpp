@@ -12,10 +12,10 @@ namespace Missan {
 
 	public:
 
-		const GLuint& id = _id;
-		const int& width = _width;
-		const int& height = _height;
-		const int& channels = _channels;
+		GLuint id;
+		int width;
+		int height;
+		int channels;
 
 		// applies to all texture coords
 		enum class WrapMode {
@@ -41,10 +41,6 @@ namespace Missan {
 
 
 	private:
-		GLuint _id;
-		int _width;
-		int _height;
-		int _channels;
 		WrapMode _wrapMode;
 		FilterMode _filterMode;
 

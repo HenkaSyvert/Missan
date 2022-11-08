@@ -18,7 +18,22 @@ namespace Missan {
 		Shader* shader = nullptr;
 		Texture* texture = nullptr;
 
-		void DisplayInInspector();
+		void DisplayInInspector() {
+			using namespace ImGui;
+			if (TreeNode("Material")) {
+				ColorEdit4("ambient", (float*)&ambient);
+				ColorEdit4("diffuse", (float*)&diffuse);
+				ColorEdit4("specular", (float*)&specular);
+				DragFloat("shininess", &shininess);
+				if (texture) texture->DisplayInInspector();
+				if (BeginMenu("Shader")) {
+					if (MenuItem("Unlit")) shader = Shader::unlit;
+					if (MenuItem("Phong")) shader = Shader::phong;
+					EndMenu();
+				}
+				TreePop();
+			}
+		}
 		
 	};
 

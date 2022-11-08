@@ -21,10 +21,6 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-Mesh::Mesh(int vaoId, int elementCount) {
-	this->vaoId = vaoId;
-	this->elementCount = elementCount;
-}
 
 void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
@@ -36,7 +32,6 @@ void GraphicsInitialize() {
 }
 
 void GraphicsUpdate() {
-	auto f = Component<Camera>::instances;
 	Camera* camera = Component<Camera>::instances[0];
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -46,82 +41,67 @@ void GraphicsUpdate() {
 
 	for (auto renderer : Component<Renderer>::instances) {
 
-		if (!renderer->mesh) continue;
+		Mesh* mesh = renderer->mesh;
+		if (!mesh) continue;
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glBindVertexArray(renderer->mesh->vaoId);
-		glEnableVertexAttribArray(0);
+		Transform* transform = renderer->gameObject->GetComponent<Transform>();
+		Transform* cameraTransform = camera->gameObject->GetComponent<Transform>();
+		Material* material = renderer->material;
 
-		Shader* shader = renderer->material->shader;
+		Shader* shader = material->shader;
 		if (!shader) shader = Shader::unlit;
 
+		Texture* texture = material->texture;
+		Light* light = Component<Light>::instances[0];
+		
+
 		glUseProgram(shader->programId);
+		shader->SetMat4("model", transform->matrix);
+		shader->SetMat4("view", cameraTransform->inverseMatrix);
+		shader->SetMat4("projection", camera->projectionMatrix);
+
+		glBindVertexArray(mesh->vaoId);
+		glEnableVertexAttribArray(0);
+		if (texture) {
+			glEnableVertexAttribArray(1);
+			shader->SetInt("textureSlot", 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture->id);
+		}
+		glEnableVertexAttribArray(2);
+
 
 		if (shader == Shader::unlit) {
-
-			mat4 transMat = renderer->gameObject->GetComponent<Transform>()->matrix;
-			shader->SetMat4("u_model", transMat);
-
-			mat4 view = camera->gameObject->GetComponent<Transform>()->inverseMatrix;
-			shader->SetMat4("u_view", view);
-			shader->SetMat4("u_proj", camera->projectionMatrix);
-
-			Texture* texture = renderer->material->texture;
-			shader->SetVec4("u_materialColor", renderer->material->ambient);
-			if (texture) {
-				glEnableVertexAttribArray(1);
-				shader->SetInt("u_texture", 0);
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, texture->id);
-			}
-
-			glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
-
-			if (texture) {
-				glBindTexture(GL_TEXTURE_2D, 0);
-				glDisableVertexAttribArray(1);
-			}
-
-			glDisableVertexAttribArray(0);
+			
+			shader->SetVec4("materialColor", material->ambient);
 
 		}
 		else if (shader == Shader::phong) {
 
-			shader->SetMat4("model", renderer->gameObject->GetComponent<Transform>()->matrix);
-			shader->SetMat4("view", camera->gameObject->GetComponent<Transform>()->inverseMatrix);
-			shader->SetMat4("projection", camera->projectionMatrix);
-			shader->SetMat3("normalMatrix", mat3(inverse(transpose(renderer->gameObject->GetComponent<Transform>()->matrix))));
-			shader->SetVec3("cameraPosition", camera->gameObject->GetComponent<Transform>()->position);
+			shader->SetMat3("normalMatrix", mat3(inverse(transpose(transform->matrix))));
+			shader->SetVec3("cameraPosition", cameraTransform->position);
 
-			Light* light = Component<Light>::instances[0];
-			if (light) {
-				shader->SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
-				shader->SetVec4("light.ambient", light->ambient);
-				shader->SetVec4("light.diffuse", light->diffuse);
-				shader->SetVec4("light.specular", light->specular);
-			}
-			Material* material = renderer->material;
+			shader->SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
+			shader->SetVec4("light.ambient", light->ambient);
+			shader->SetVec4("light.diffuse", light->diffuse);
+			shader->SetVec4("light.specular", light->specular);			
+			
 			shader->SetVec4("material.ambient", material->ambient);
 			shader->SetVec4("material.diffuse", material->diffuse);
 			shader->SetVec4("material.specular", material->specular);
-			shader->SetFloat("material.shininess", material->shininess);
-
-			Texture* texture = renderer->material->texture;
-			if (texture) {
-				glEnableVertexAttribArray(1);
-				shader->SetInt("textureSlot", 0);
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, texture->id);
-				glBindTexture(GL_TEXTURE_2D, 0);
-				glDisableVertexAttribArray(1);
-			}
-
-			glEnableVertexAttribArray(2);
-			glDrawElements(GL_TRIANGLES, renderer->mesh->elementCount, GL_UNSIGNED_INT, 0);
-			glDisableVertexAttribArray(0);
-			glDisableVertexAttribArray(2);
-
+			shader->SetFloat("material.shininess", material->shininess);		
 		}
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawElements(GL_TRIANGLES, mesh->elementCount, GL_UNSIGNED_INT, 0);
+
+
+		glDisableVertexAttribArray(0);
+		if (texture) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDisableVertexAttribArray(1);
+		}
+		glDisableVertexAttribArray(2);
 
 	}
 }
