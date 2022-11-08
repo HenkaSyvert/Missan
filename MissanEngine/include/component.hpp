@@ -134,7 +134,7 @@ namespace Missan {
 		
 		virtual ~Component() {
 			std::cout << "Component<" << typeid(T).name() << ">():\n";
-			for (int i = 0; i < instances.size(); i++) {
+			for (size_t i = 0; i < instances.size(); i++) {
 				if (instances[i] == this) {
 					std::cout << "instances[" << instances.size() << "] = " << this << " = deleted\n";
 					instances.erase(instances.begin() + i);
