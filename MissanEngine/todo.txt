@@ -39,4 +39,15 @@ physics:
 	transform:
 		add support f child
 	line/wireframe renderer
+	rigidbody:
+		set density based on collider volume and mass, on assummed constant density
+		restitution (or bounciness), but maybe handled by separate physics material. 
 
+
+prerequisties for improving physics:
+	sphere mesh
+		func to generate?
+	draw wireframe for cube and sphere
+		wire frame renderer?
+	draw lines, to visualise vectors
+		line renderer?

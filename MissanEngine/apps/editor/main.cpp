@@ -50,6 +50,17 @@ void MakeLight() {
 
 }
 
+void MakeSphere() {
+    GameObject g;
+    g.AddComponent<Transform>();
+    auto* r = g.AddComponent<Renderer>();
+    r->mesh = new Mesh(Resources::GenerateUvSphere(7, 7));
+    r->material = new Material();
+    r->material->texture = Resources::GetTexture("resources/textures/cat.png");
+    g.name = "sphere";
+    GameObject::Instantiate(&g);
+}
+
 int main(){
     
     Engine::Initialize();
@@ -57,6 +68,7 @@ int main(){
     MakeEditor();
     PlaceSomeCubes();
     MakeLight();
+    MakeSphere();
 
     Engine::Run();
 

@@ -47,6 +47,8 @@ namespace Missan {
 		/// Returns pointer to Texture, loads if necessary
 		Texture* GetTexture(const std::string& fileName);
 
+		Mesh GenerateUvSphere(int stacks, int sectors);
+
 	}
 
 }
