@@ -32,3 +32,11 @@ general
 
 
 make editor w imgui
+
+
+
+physics:
+	transform:
+		add support f child
+	line/wireframe renderer
+

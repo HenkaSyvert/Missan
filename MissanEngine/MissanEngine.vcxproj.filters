@@ -60,9 +60,6 @@
     <ClCompile Include="source\physics\collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\boundingbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1458,9 +1455,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\physics\boundingbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\physics\physics.hpp">

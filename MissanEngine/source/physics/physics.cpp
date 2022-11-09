@@ -4,7 +4,6 @@
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
-#include "physics/boundingbox.hpp"
 #include "internal.hpp"
 
 #include <glm/trigonometric.hpp>
@@ -16,7 +15,7 @@ using namespace glm;
 // Applies linear and angular forces to all RigidBodies
 void ApplyForces() {
 
-	for (RigidBody* rb : Component<RigidBody>::instances) {
+	for (RigidBody* rb : RigidBody::instances) {
 
 		Transform* t = rb->gameObject->GetComponent<Transform>();
 
@@ -44,7 +43,7 @@ void ApplyForces() {
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
 
-	vector<Collider*> colliders = Component<Collider>::instances;
+	vector<Collider*>& colliders = Collider::instances;
 
 	if (colliders.size() <= 1) return;
 

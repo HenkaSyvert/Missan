@@ -19,7 +19,7 @@ void RigidBody::Start() {
 	}
 
 	// currently rigidbodies only work with box colliders
-	auto s = c->boundingBox.size;
+	auto s = c->size;
 	inertiaTensor =  {s.y* s.y + s.z * s.z, s.x* s.x + s.z * s.z, s.x* s.x + s.y * s.y};
 	inertiaTensor *= mass / 12.0f;
 
@@ -53,7 +53,7 @@ void RigidBody::DisplayInInspector() {
 	ShowDemoWindow();
 
 	if (CollapsingHeader("Rigid Body")) {
-		SliderFloat("Mass (kg)", &mass, .01, 10000);
+		SliderFloat("Mass (kg)", &mass, .01f, 10000);
 		DragFloat3("Linear Velocity", (float*)&linearVelocity);
 		SliderFloat("Linear Drag", &linearDrag, 0, 1000);
 		DragFloat3("Inertia Tensor", (float*)&inertiaTensor);

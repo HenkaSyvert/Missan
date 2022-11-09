@@ -13,15 +13,21 @@ namespace Missan {
 
 	public:
 
+		enum class RendererType { Mesh, Line };
+		RendererType type = RendererType::Mesh;
+
 		/// 
 		/// Mesh to render
 		Mesh* mesh = nullptr;
 
 		Material* material = nullptr;
 
+		bool isEnabled = true;
 
 		void DisplayInInspector() {
-			if (ImGui::CollapsingHeader("Renderer")) {
+			using namespace ImGui;
+			if (CollapsingHeader("Renderer")) {
+				Checkbox("Is Enabled", &isEnabled);
 				if (material) material->DisplayInInspector();
 			}
 		}

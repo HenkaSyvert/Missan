@@ -95,6 +95,8 @@ namespace Missan {
 		/// Called every frame, but after all regular Update events
 		inline virtual void LateUpdate() {}
 
+		inline virtual void OnRender() {}
+
 		///
 		/// Called during GUI rendering
 		inline virtual void OnGui() {}

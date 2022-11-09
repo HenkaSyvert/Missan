@@ -32,14 +32,16 @@ void GraphicsInitialize() {
 }
 
 void GraphicsUpdate() {
-	Camera* camera = Component<Camera>::instances[0];
+	Camera* camera = Camera::instances[0];
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	vec4 clearColor = camera->clearColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
 
-	for (auto renderer : Component<Renderer>::instances) {
+	for (auto renderer : Renderer::instances) {
+
+		if (!renderer->isEnabled) continue;
 
 		Mesh* mesh = renderer->mesh;
 		if (!mesh) continue;
@@ -52,7 +54,7 @@ void GraphicsUpdate() {
 		if (!shader) shader = Shader::unlit;
 
 		Texture* texture = material->texture;
-		Light* light = Component<Light>::instances[0];
+		Light* light = Light::instances[0];
 		
 
 		glUseProgram(shader->programId);
@@ -104,4 +106,6 @@ void GraphicsUpdate() {
 		glDisableVertexAttribArray(2);
 
 	}
+
+	for (auto* g : GameObject::gameObjects) for (auto* c : g->components) c->OnRender();
 }

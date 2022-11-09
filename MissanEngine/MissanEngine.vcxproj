@@ -93,7 +93,6 @@
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
     <ClCompile Include="source\gameobject.cpp" />
-    <ClCompile Include="source\physics\boundingbox.cpp" />
     <ClCompile Include="source\physics\collider.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\engine.cpp" />
@@ -583,7 +582,6 @@
     <ClInclude Include="include\graphics\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\inspectable.hpp" />
-    <ClInclude Include="include\physics\boundingbox.hpp" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
     <ClInclude Include="include\physics\collider.hpp" />

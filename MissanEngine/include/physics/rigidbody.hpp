@@ -25,7 +25,8 @@ namespace Missan {
 
 		/// 
 		/// The angular force required to rotate this RigidBody. 
-		/// It's basically the angular equivalent of mass for linear. 
+		/// It's basically the rotational equivalent of mass for linear,
+		/// higher values means more force required to rotate the body.  
 		glm::vec3 inertiaTensor = { 0,0,0 };
 
 		/// 
