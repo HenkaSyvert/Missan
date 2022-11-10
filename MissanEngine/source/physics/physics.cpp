@@ -45,6 +45,9 @@ void HandleCollisions() {
 
 	vector<Collider*>& colliders = Collider::instances;
 
+	// todo: replace per instance overlapping colliders vector with 
+	// static vector here, so in case deleted game objects dont get out of sync
+
 	if (colliders.size() <= 1) return;
 
 
@@ -63,9 +66,7 @@ void HandleCollisions() {
 				}
 			}
 
-			vec3 overlap = ca->OverlapsWith(cb);
-			float tolerance = 0.0001f;
-			bool isOverlapping = length(overlap) > tolerance;
+			bool isOverlapping = ca->OverlapsWith(cb);
 
 			if (isOverlapping){
 				if (!wasAlreadyOverlapping) {

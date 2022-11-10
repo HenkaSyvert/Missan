@@ -64,24 +64,7 @@ void RigidBody::DisplayInInspector() {
 		Checkbox("use gravity", &isAffectedByGravity);
 		DragFloat3("Linear Impulse", (float*)&linearImpulse);
 		DragFloat3("Angular Impulse", (float*)&angularImpulse);
-		Checkbox("Is Colliding?", &isColliding);
+
 	}
 
-}
-
-
-void RigidBody::OnCollisionEnter(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionEnter(" << other->name << ")\n";
-}
-
-void RigidBody::OnCollisionStay(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionStay(" << other->name << ")\n";
-	isColliding = true;
-	gameObject->GetComponent<Renderer>()->material->ambient = Color::red;
-}
-
-void RigidBody::OnCollisionExit(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionExit(" << other->name << ")\n";
-	isColliding = false;
-	gameObject->GetComponent<Renderer>()->material->ambient = Color::green;
 }

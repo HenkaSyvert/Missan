@@ -54,11 +54,15 @@ void MakeSphere() {
     GameObject g;
     g.AddComponent<Transform>();
     auto* r = g.AddComponent<Renderer>();
-    r->mesh = new Mesh(Resources::GenerateUvSphere(7, 7));
+    r->mesh = new Mesh(Resources::GenerateUvSphere(20, 20));
     r->material = new Material();
     r->material->texture = Resources::GetTexture("resources/textures/cat.png");
     g.name = "sphere";
+    g.AddComponent<Collider>();
     GameObject::Instantiate(&g);
+
+    auto* g2 = GameObject::Instantiate(&g);
+    g2->GetComponent<Transform>()->position.x += 2;
 }
 
 int main(){
@@ -66,7 +70,7 @@ int main(){
     Engine::Initialize();
 
     MakeEditor();
-    PlaceSomeCubes();
+    //PlaceSomeCubes();
     MakeLight();
     MakeSphere();
 

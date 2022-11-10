@@ -14,6 +14,7 @@ namespace Missan {
 	public:
 
 		enum class Shape { box, sphere };
+		Shape shape = Shape::sphere;
 
 		Transform* transform;
 
@@ -22,8 +23,9 @@ namespace Missan {
 
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap
-		glm::vec3 OverlapsWith(Collider* other);
+		bool OverlapsWith(Collider* other);
 
+		// for sphere collider, x component will be used as radius. 
 		glm::vec3 size = { 1,1,1 };
 
 		inline std::vector<glm::vec3> GetVertices() {
@@ -64,15 +66,14 @@ namespace Missan {
 			};
 		}
 
-		void DisplayInInspector() {
+		void DisplayInInspector();
 
-			using namespace ImGui;
-
-
-		}
-
+		bool isColliding = false;
 
 		void Start();
+		void OnCollisionEnter(GameObject* other);
+		void OnCollisionStay(GameObject* other);
+		void OnCollisionExit(GameObject* other);
 
 	};
 

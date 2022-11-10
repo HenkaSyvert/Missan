@@ -118,7 +118,7 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 
 		float stackAngle = M_PI / 2 - stack * stackDeltaAngle;
 		float z = sinf(stackAngle);
-		std::cout << "stack angle: " << stackAngle<<"\n";
+		//std::cout << "stack angle: " << stackAngle<<"\n";
 		for (int sector = 0; sector <= sectors; sector++) {
 
 			float sectorAngle = sector * sectorDeltaAngle;
@@ -127,12 +127,14 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 			float y = cosf(stackAngle) * sinf(sectorAngle);
 
 			// normals are same as vertices
-			vertices.push_back(x);
-			vertices.push_back(y);
-			vertices.push_back(z);
+			// but, currently this sphere will have a radius of 2, 
+			// and we want a unit sphere, so div / 2
+			vertices.push_back(x / 2);
+			vertices.push_back(y / 2);
+			vertices.push_back(z / 2);
 
-			std::cout << "sector angle: " << sectorAngle << ", ";
-			std::cout << "x:" << x << ", y:" << y << ", z:" << z << "\n";
+			//std::cout << "sector angle: " << sectorAngle << ", ";
+			//std::cout << "x:" << x << ", y:" << y << ", z:" << z << "\n";
 
 			// texture uv coordinates, normalized to [0, 1] range
 			uvs.push_back((float)sector / sectors);
@@ -158,7 +160,7 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 			}
 
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 	}
 
 	GLuint vaoId;
@@ -174,7 +176,7 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 	StoreInAttribList(1, 2, uvs);
 	StoreInAttribList(2, 3, vertices);
 
-	std::cout << "vertices.size = " << vertices.size() << "\nindicies.size() = " << indices.size() << "\n";
+	//std::cout << "vertices.size = " << vertices.size() << "\nindicies.size() = " << indices.size() << "\n";
 
 	return Mesh(vaoId, vertices.size() * 3);
 	

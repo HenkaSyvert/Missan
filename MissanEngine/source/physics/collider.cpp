@@ -2,6 +2,7 @@
 
 #include "physics/transform.hpp"
 #include "graphics/mesh.hpp"
+#include "graphics/renderer.hpp"
 
 #include <vector>
 
@@ -11,9 +12,42 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
+bool SphereOnSphereOverlap(Collider* a, Collider* b) {
+
+	Transform* aTransform = a->gameObject->GetComponent<Transform>();
+	Transform* bTransform = b->gameObject->GetComponent<Transform>();
+
+	vec3 difference = aTransform->position - bTransform->position;
+	
+	// using the cubed values is computationally quicker. 
+	float distanceCubed = dot(difference, difference);
+	
+	// not really sure how to do this, so I just use x component of scale to scale the sphere. 
+	float aRadius = a->size.x * aTransform->scale.x;
+	float bRadius = b->size.x * bTransform->scale.x;
+
+	float aRadiusCubed = aRadius * aRadius * aRadius;
+	float bRadiusCubed = bRadius * bRadius * bRadius;
+
+	if (distanceCubed < aRadiusCubed + bRadiusCubed) {
+		// we have overlap. 
+		std::cout << "sphere overlap " << aRadius << ", " << bRadius << "\n";
+		//std::cout << "apos: " << aPosition.x << "," << aPosition.y << "," << aPosition.z
+			//<< "bpos: " << bPosition.x << "," << bPosition.y << "," << bPosition.z << "\n";
+		return true;
+	}
+	else return false;
+
+}
+
+
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
-vec3 Collider::OverlapsWith(Collider* other) {
+bool Collider::OverlapsWith(Collider* other) {
+
+	if (shape == Shape::sphere && other->shape == Shape::sphere) {
+		return SphereOnSphereOverlap(this, other);
+	}
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
 	// DO NOT overlap IF there exists an axis upon which the ranges of their projected 
@@ -66,7 +100,7 @@ vec3 Collider::OverlapsWith(Collider* other) {
 		bool isOverlap = ourMin < theirMax && ourMax > theirMin;
 
 		if (!isOverlap) {
-			return vec3(0, 0, 0);
+			return false;
 		}
 		else {
 			float ourMid = ourMax - ourMin;
@@ -81,10 +115,37 @@ vec3 Collider::OverlapsWith(Collider* other) {
 	}
 
 	// otherwise there is overlap
-	return displacement;
+	return true;
 }
 
 void Collider::Start() {
 	transform = gameObject->GetComponent<Transform>();
 	Mesh* mesh = gameObject->GetComponent<Mesh>();
+}
+
+void Collider::OnCollisionEnter(GameObject* other) {
+	cout << gameObject->name << ".OnCollisionEnter(" << other->name << ")\n";
+}
+
+void Collider::OnCollisionStay(GameObject* other) {
+	cout << gameObject->name << ".OnCollisionStay(" << other->name << ")\n";
+	isColliding = true;
+	gameObject->GetComponent<Renderer>()->material->ambient = Color::red;
+}
+
+void Collider::OnCollisionExit(GameObject* other) {
+	cout << gameObject->name << ".OnCollisionExit(" << other->name << ")\n";
+	isColliding = false;
+	gameObject->GetComponent<Renderer>()->material->ambient = Color::green;
+}
+
+
+void Collider::DisplayInInspector() {
+
+	using namespace ImGui;
+	if (CollapsingHeader("Collider")) {
+		DragFloat3("position", (float*)&size, 0.01f);
+		Checkbox("Is Colliding?", &isColliding);
+	}
+
 }
