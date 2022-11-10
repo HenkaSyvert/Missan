@@ -56,7 +56,7 @@ void MakeSphere() {
     auto* r = g.AddComponent<Renderer>();
     r->mesh = new Mesh(Resources::GenerateUvSphere(20, 20));
     r->material = new Material();
-    r->material->texture = Resources::GetTexture("resources/textures/cat.png");
+    r->material->texture = Resources::GetTexture("resources/textures/blank.png");
     g.name = "sphere";
     g.AddComponent<Collider>();
     GameObject::Instantiate(&g);

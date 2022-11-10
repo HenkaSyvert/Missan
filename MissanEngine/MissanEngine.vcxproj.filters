@@ -1552,5 +1552,8 @@
     <Image Include="resources\textures\stonefloor.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\textures\blank.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

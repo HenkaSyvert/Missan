@@ -8,6 +8,7 @@
 #include "physics/transform.hpp"
 #include "internal.hpp"
 #include "component.hpp"
+#include "engine.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -54,6 +55,7 @@ void GraphicsUpdate() {
 		if (!shader) shader = Shader::unlit;
 
 		Texture* texture = material->texture;
+
 		Light* light = Light::instances[0];
 		
 
@@ -64,12 +66,12 @@ void GraphicsUpdate() {
 
 		glBindVertexArray(mesh->vaoId);
 		glEnableVertexAttribArray(0);
-		if (texture) {
-			glEnableVertexAttribArray(1);
-			shader->SetInt("textureSlot", 0);
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->id);
-		}
+
+		glEnableVertexAttribArray(1);
+		shader->SetInt("textureSlot", 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture->id);
+		
 		glEnableVertexAttribArray(2);
 
 
@@ -99,10 +101,8 @@ void GraphicsUpdate() {
 
 
 		glDisableVertexAttribArray(0);
-		if (texture) {
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glDisableVertexAttribArray(1);
-		}
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
 
 	}

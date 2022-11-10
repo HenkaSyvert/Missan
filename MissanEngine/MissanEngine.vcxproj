@@ -614,6 +614,7 @@
     <Text Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\textures\blank.png" />
     <Image Include="resources\textures\brickwall.png" />
     <Image Include="resources\textures\cat.png" />
     <Image Include="resources\textures\cracked1.jpg" />

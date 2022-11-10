@@ -20,18 +20,18 @@ bool SphereOnSphereOverlap(Collider* a, Collider* b) {
 	vec3 difference = aTransform->position - bTransform->position;
 	
 	// using the cubed values is computationally quicker. 
-	float distanceCubed = dot(difference, difference);
+	float distanceCubed = length(difference);
 	
 	// not really sure how to do this, so I just use x component of scale to scale the sphere. 
 	float aRadius = a->size.x * aTransform->scale.x;
 	float bRadius = b->size.x * bTransform->scale.x;
 
-	float aRadiusCubed = aRadius * aRadius * aRadius;
-	float bRadiusCubed = bRadius * bRadius * bRadius;
+	float radiiSummedSquared = (aRadius + bRadius);// *(aRadius + bRadius);
 
-	if (distanceCubed < aRadiusCubed + bRadiusCubed) {
+	if (distanceCubed < radiiSummedSquared) {
 		// we have overlap. 
 		std::cout << "sphere overlap " << aRadius << ", " << bRadius << "\n";
+		std::cout << "distance: " << (distanceCubed) << ", radii sum: " << (radiiSummedSquared) << "\n";
 		//std::cout << "apos: " << aPosition.x << "," << aPosition.y << "," << aPosition.z
 			//<< "bpos: " << bPosition.x << "," << bPosition.y << "," << bPosition.z << "\n";
 		return true;
