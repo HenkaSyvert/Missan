@@ -1,6 +1,11 @@
 #include "component.hpp"
 #include "internal.hpp"
 
+#include "physics/collider.hpp"
+#include "physics/transform.hpp"
+#include "graphics/renderer.hpp"
+#include "engine.hpp"
+
 using namespace Missan;
 using namespace std;
 
@@ -51,4 +56,30 @@ void GameObjectDoDestructions() {
 
 GameObject::~GameObject() {
 	for (AbstractComponent* c : components) delete c;	
+}
+
+GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
+
+	GameObject* g = Instantiate();
+	g->AddComponent<Transform>();
+	auto* r = g->AddComponent<Renderer>();
+	r->material = new Material();
+	r->material->texture = Resources::GetTexture("resources/textures/blank.png");
+	r->material->shader = Shader::phong;
+	auto* c = g->AddComponent<Collider>();
+
+	switch (type) {
+	case PrimitiveType::Cube:
+		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
+		c->shape = Collider::Shape::aabb;
+		g->name = "Cube";
+		break;
+	case PrimitiveType::Sphere:
+		r->mesh = new Mesh(Resources::GenerateUvSphere(20, 20));
+		c->shape = Collider::Shape::sphere;
+		g->name = "Sphere";
+		break;
+	}
+
+	return g;
 }

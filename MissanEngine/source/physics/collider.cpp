@@ -29,6 +29,25 @@ float CalcSphereToSphereDistance(Collider* a, Collider* b) {
 
 }
 
+// AABB (axis aligned bounding box) does not take rotation into account. 
+// returns overlap along x,y,z axes. 
+vec3 CalcAabbToAabbDistance(Collider* a, Collider* b) {
+
+	Transform* aTransform = a->gameObject->GetComponent<Transform>();
+	Transform* bTransform = b->gameObject->GetComponent<Transform>();
+
+	vec3 aMin = aTransform->position - a->size / 2.0f;
+	vec3 aMax = aTransform->position + a->size / 2.0f;
+	vec3 bMin = bTransform->position - b->size / 2.0f;
+	vec3 bMax = bTransform->position + b->size / 2.0f;
+
+	return {
+		bMin.x > aMax.x ? bMin.x - aMax.x : aMin.x - bMax.x,
+		bMin.y > aMax.y ? bMin.y - aMax.y : aMin.y - bMax.y,
+		bMin.z > aMax.z ? bMin.z - aMax.z : aMin.z - bMax.z
+	};
+
+}
 
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
@@ -36,6 +55,11 @@ float Collider::OverlapsWith(Collider* other) {
 
 	if (shape == Shape::sphere && other->shape == Shape::sphere) {
 		return CalcSphereToSphereDistance(this, other);
+	}
+	else if (shape == Shape::aabb && other->shape == Shape::aabb) {
+		vec3 v = CalcAabbToAabbDistance(this, other);
+		if (v.x < 0 && v.y < 0 && v.z < 0) return true;
+		else return false;
 	}
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
@@ -133,7 +157,7 @@ void Collider::DisplayInInspector() {
 
 	using namespace ImGui;
 	if (CollapsingHeader("Collider")) {
-		DragFloat3("position", (float*)&size, 0.01f);
+		DragFloat3("size", (float*)&size, 0.01f);
 		Checkbox("Is Colliding?", &isColliding);
 	}
 

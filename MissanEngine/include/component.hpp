@@ -59,6 +59,8 @@ namespace Missan {
 		/// Marks game object for deletion at end of frame. 
 		static void Destroy(GameObject* gameObject);
 
+		enum class PrimitiveType { Cube, Sphere, Plane };
+		static GameObject* InstantiatePrimitive(PrimitiveType type);
 
 	};
 

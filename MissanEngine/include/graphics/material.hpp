@@ -10,9 +10,9 @@ namespace Missan {
 	class Material {
 
 	public:
-		glm::vec4 ambient = Color::grey;
-		glm::vec4 diffuse = Color::grey;
-		glm::vec4 specular = Color::grey;
+		glm::vec4 ambient = Color::blue;
+		glm::vec4 diffuse = Color::blue;
+		glm::vec4 specular = Color::blue;
 		float shininess = 32.0f;
 
 		Shader* shader = nullptr;

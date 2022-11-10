@@ -4,6 +4,7 @@
 #include "graphics/window.hpp"
 #include "physics/ray.hpp"
 #include "inspectable.hpp"
+#include "graphics/color.hpp"
 
 #include <glm/trigonometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -45,7 +46,7 @@ namespace Missan {
 
 		glm::mat4 inverseProjectionMatrix;
 
-		glm::vec4 clearColor = { .1,.1,.1,.1 };
+		glm::vec4 clearColor = Color::grey * 0.1f;
 
 		void DisplayInInspector() {
 			using namespace ImGui;

@@ -13,7 +13,7 @@ namespace Missan {
 
 	public:
 
-		enum class Shape { box, sphere };
+		enum class Shape { box, sphere, aabb };
 		Shape shape = Shape::sphere;
 
 		Transform* transform;
@@ -24,6 +24,9 @@ namespace Missan {
 
 		// for sphere collider, x component will be used as radius. 
 		glm::vec3 size = { 1,1,1 };
+
+
+
 
 		inline std::vector<glm::vec3> GetVertices() {
 			
