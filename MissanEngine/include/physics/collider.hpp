@@ -18,12 +18,9 @@ namespace Missan {
 
 		Transform* transform;
 
-		// this is probably very inefficient
-		std::vector<Collider*> overlappingColliders;
-
 		/// 
 		/// The amount of overlap between this Collider and other. 0 means no overlap
-		bool OverlapsWith(Collider* other);
+		float OverlapsWith(Collider* other);
 
 		// for sphere collider, x component will be used as radius. 
 		glm::vec3 size = { 1,1,1 };

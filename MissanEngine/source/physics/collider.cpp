@@ -12,41 +12,30 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-bool SphereOnSphereOverlap(Collider* a, Collider* b) {
+float CalcSphereToSphereDistance(Collider* a, Collider* b) {
 
 	Transform* aTransform = a->gameObject->GetComponent<Transform>();
 	Transform* bTransform = b->gameObject->GetComponent<Transform>();
 
 	vec3 difference = aTransform->position - bTransform->position;
-	
-	// using the cubed values is computationally quicker. 
-	float distanceCubed = length(difference);
+
+	float distance = length(difference);
 	
 	// not really sure how to do this, so I just use x component of scale to scale the sphere. 
 	float aRadius = a->size.x * aTransform->scale.x;
 	float bRadius = b->size.x * bTransform->scale.x;
 
-	float radiiSummedSquared = (aRadius + bRadius);// *(aRadius + bRadius);
-
-	if (distanceCubed < radiiSummedSquared) {
-		// we have overlap. 
-		std::cout << "sphere overlap " << aRadius << ", " << bRadius << "\n";
-		std::cout << "distance: " << (distanceCubed) << ", radii sum: " << (radiiSummedSquared) << "\n";
-		//std::cout << "apos: " << aPosition.x << "," << aPosition.y << "," << aPosition.z
-			//<< "bpos: " << bPosition.x << "," << bPosition.y << "," << bPosition.z << "\n";
-		return true;
-	}
-	else return false;
+	return distance - aRadius - bRadius;
 
 }
 
 
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
-bool Collider::OverlapsWith(Collider* other) {
+float Collider::OverlapsWith(Collider* other) {
 
 	if (shape == Shape::sphere && other->shape == Shape::sphere) {
-		return SphereOnSphereOverlap(this, other);
+		return CalcSphereToSphereDistance(this, other);
 	}
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,

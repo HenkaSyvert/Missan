@@ -40,6 +40,8 @@ void ApplyForces() {
 	}
 }
 
+static vector<pair<Collider*, Collider*>> collisions;
+
 // Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
 
@@ -59,19 +61,22 @@ void HandleCollisions() {
 			Collider* cb = colliders[j];
 
 			bool wasAlreadyOverlapping = false;
-			for (auto* c : ca->overlappingColliders){
-				if (c == cb) {
+			int collisionIndex;
+			for (size_t k = 0; k < collisions.size(); k++) {
+				auto p = collisions[k];
+				if (p.first == ca && p.second == cb || p.first == cb && p.second == ca) {
 					wasAlreadyOverlapping = true;
+					collisionIndex = k;
 					break;
 				}
 			}
 
-			bool isOverlapping = ca->OverlapsWith(cb);
+			float overlap = ca->OverlapsWith(cb);
+			bool isOverlapping = overlap < 0;
 
 			if (isOverlapping){
 				if (!wasAlreadyOverlapping) {
-					ca->overlappingColliders.push_back(cb);
-					cb->overlappingColliders.push_back(ca);
+					collisions.push_back({ ca, cb });
 					for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
 					for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
 				}
@@ -83,18 +88,7 @@ void HandleCollisions() {
 					for (auto* c : ca->gameObject->components) c->OnCollisionExit(cb->gameObject);
 					for (auto* c : cb->gameObject->components) c->OnCollisionExit(ca->gameObject);
 
-					for (size_t i = 0; i < ca->overlappingColliders.size(); i++) {
-						if (cb == ca->overlappingColliders[i]) {
-							ca->overlappingColliders.erase(ca->overlappingColliders.begin() + i);
-							break;
-						}
-					}
-					for (size_t i = 0; i < cb->overlappingColliders.size(); i++) {
-						if (ca == cb->overlappingColliders[i]) {
-							cb->overlappingColliders.erase(cb->overlappingColliders.begin() + i);
-							break;
-						}
-					}
+					collisions.erase(collisions.begin() + collisionIndex);
 				}
 			}
 		}
