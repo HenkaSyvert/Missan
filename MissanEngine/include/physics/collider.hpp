@@ -7,73 +7,77 @@
 
 namespace Missan {
 
+	// axis aligned bounding box. used for 1st sweep to find potential overlaps. 
+	class Aabb {
+
+	public:
+
+		// todo: these are inter dependent, make properties?
+		glm::vec3 min = { -.5, -.5, -.5 };
+		glm::vec3 max = { .5, .5, .5 };
+		glm::vec3 size = { 1, 1, 1 };
+		glm::vec3 extents = { .5, .5, .5 };
+
+
+	};
+
+
 	/// 
 	/// Class that detects collisions against other Colliders
 	class Collider : public Component<Collider> {
 
 	public:
 
-		enum class Shape { box, sphere, aabb };
-		Shape shape = Shape::sphere;
-
 		Transform* transform;
 
-		/// 
-		/// The amount of overlap between this Collider and other. 0 means no overlap
 		float OverlapsWith(Collider* other);
 
-		// for sphere collider, x component will be used as radius. 
-		glm::vec3 size = { 1,1,1 };
+		glm::vec3 center = { 0, 0, 0 };
+		Aabb aabb;
 
 
-
-
-		inline std::vector<glm::vec3> GetVertices() {
-			
-			float x = size.x / 2;
-			float y = size.y / 2;
-			float z = size.z / 2;
-			return {
-				{  x, -y, -z },
-				{  x, -y,  z },
-				{  x,  y, -z },
-				{  x,  y,  z },
-				{ -x, -y, -z },
-				{ -x, -y,  z },
-				{ -x,  y, -z },
-				{ -x,  y,  z }
-			};
-
-		}
-
-		/// 
-		/// The face normals of this bounding box
-		inline std::vector<glm::vec3> GetNormals() {
-			return {
-				{ 1,0,0 },
-				{ 0,1,0 },
-				{ 0,0,1 }
-			};
-		}
-
-		/// 
-		/// Vectors representing the edges (vertex-i - vertex-j)
-		inline std::vector<glm::vec3> GetEdgeVectors() {
-			return {
-				{ 1,0,0 },
-				{ 0,1,0 },
-				{ 0,0,1 }
-			};
-		}
-
-		void DisplayInInspector();
 
 		bool isColliding = false;
 
 		void Start();
-		void OnCollisionEnter(GameObject* other);
-		void OnCollisionStay(GameObject* other);
-		void OnCollisionExit(GameObject* other);
+		virtual void OnCollisionEnter(GameObject* other);
+		virtual void OnCollisionStay(GameObject* other);
+		virtual void OnCollisionExit(GameObject* other);
+
+	};
+
+	class BoxCollider : public Collider {
+
+	public:
+		glm::vec3 size = { 1, 1, 1 };
+
+		void DisplayInInspector() {
+
+			using namespace ImGui;
+			if (CollapsingHeader("Box Collider")) {
+				DragFloat3("size", (float*)&size, 0.01f);
+				Checkbox("Is Colliding?", &isColliding);
+			}
+
+		}
+
+	};
+
+	class SphereCollider : public Collider {
+
+	public:
+		// todo: change to radius = 0.5, unity does it that way. 
+		float radius = 1;
+
+		void DisplayInInspector() {
+
+			using namespace ImGui;
+			if (CollapsingHeader("Sphere Collider")) {
+				DragFloat("radius", &radius, 0.01f);
+				Checkbox("Is Colliding?", &isColliding);
+			}
+
+		}
 
 	};
 

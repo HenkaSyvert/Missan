@@ -19,7 +19,7 @@ void RigidBody::Start() {
 	}
 
 	// currently rigidbodies only work with box colliders
-	auto s = c->size;
+	auto s = vec3(1, 1, 1);
 	inertiaTensor =  {s.y* s.y + s.z * s.z, s.x* s.x + s.z * s.z, s.x* s.x + s.y * s.y};
 	inertiaTensor *= mass / 12.0f;
 

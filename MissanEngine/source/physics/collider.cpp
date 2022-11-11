@@ -3,6 +3,7 @@
 #include "physics/transform.hpp"
 #include "graphics/mesh.hpp"
 #include "graphics/renderer.hpp"
+#include "physics/collision.hpp"
 
 #include <vector>
 
@@ -12,7 +13,7 @@ using namespace Missan;
 using namespace std;
 using namespace glm;
 
-float CalcSphereToSphereDistance(Collider* a, Collider* b) {
+float CalcSphereToSphereDistance(SphereCollider* a, SphereCollider* b) {
 
 	Transform* aTransform = a->gameObject->GetComponent<Transform>();
 	Transform* bTransform = b->gameObject->GetComponent<Transform>();
@@ -22,16 +23,18 @@ float CalcSphereToSphereDistance(Collider* a, Collider* b) {
 	float distance = length(difference);
 	
 	// not really sure how to do this, so I just use x component of scale to scale the sphere. 
-	float aRadius = a->size.x * aTransform->scale.x;
-	float bRadius = b->size.x * bTransform->scale.x;
+	float aRadius = a->radius * aTransform->scale.x;
+	float bRadius = b->radius * bTransform->scale.x;
 
-	return distance - aRadius - bRadius;
+	float separation = distance - aRadius - bRadius;
+
+	return separation;
 
 }
 
 // AABB (axis aligned bounding box) does not take rotation into account. 
 // returns overlap along x,y,z axes. 
-vec3 CalcAabbToAabbDistance(Collider* a, Collider* b) {
+vec3 CalcAabbToAabbDistance(BoxCollider* a, BoxCollider* b) {
 
 	Transform* aTransform = a->gameObject->GetComponent<Transform>();
 	Transform* bTransform = b->gameObject->GetComponent<Transform>();
@@ -57,7 +60,7 @@ vec3 CalcAabbToAabbDistance(Collider* a, Collider* b) {
 
 }
 
-float CalcSphereToAabbDistance(Collider* a, Collider* b) {
+float CalcSphereToAabbDistance(SphereCollider* a, BoxCollider* b) {
 
 	Transform* aTransform = a->gameObject->GetComponent<Transform>();
 	Transform* bTransform = b->gameObject->GetComponent<Transform>();
@@ -65,8 +68,9 @@ float CalcSphereToAabbDistance(Collider* a, Collider* b) {
 	vec3 aPos = aTransform->position;
 	vec3 bPos = bTransform->position;
 
-	vec3 aMin = aPos - a->size / 2.0f * aTransform->scale;
-	vec3 aMax = aPos + a->size / 2.0f * aTransform->scale;
+	// Todo: add so that spere radius is affected by max(scale). 
+	vec3 aMin = aPos - a->radius / 2.0f * aTransform->scale;
+	vec3 aMax = aPos + a->radius / 2.0f * aTransform->scale;
 	vec3 bMin = bPos - b->size / 2.0f * bTransform->scale;
 	vec3 bMax = bPos + b->size / 2.0f * bTransform->scale;
 
@@ -79,29 +83,31 @@ float CalcSphereToAabbDistance(Collider* a, Collider* b) {
 
 	}
 
-	return distance - a->size.x * a->size.x;
+	return distance - a->radius * a->radius;
 
 }
 
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
 float Collider::OverlapsWith(Collider* other) {
-
-	if (shape == Shape::sphere && other->shape == Shape::sphere) {
-		return CalcSphereToSphereDistance(this, other);
+	
+	if (typeid(SphereCollider) == typeid(*this) && typeid(*other) == typeid(SphereCollider)) {
+		return CalcSphereToSphereDistance((SphereCollider*)this, (SphereCollider*)other);
 	}
-	else if (shape == Shape::aabb && other->shape == Shape::aabb) {
-		vec3 v = CalcAabbToAabbDistance(this, other);
+	else if (typeid(BoxCollider) == typeid(*this) && typeid(*other) == typeid(BoxCollider)) {
+		vec3 v = CalcAabbToAabbDistance((BoxCollider*)this, (BoxCollider*)other);
 		if (v.x < 0 && v.y < 0 && v.z < 0) return v.x;
 		return 1.0f;
 	}
-	else if (shape == Shape::sphere && other->shape == Shape::aabb) {
-		return CalcSphereToAabbDistance(this, other);
+	else if (typeid(SphereCollider) == typeid(*this) && typeid(*other) == typeid(BoxCollider)) {
+		return CalcSphereToAabbDistance((SphereCollider*)this, (BoxCollider*)other);
 	}
-	else if (shape == Shape::aabb && other->shape == Shape::sphere) {
-		return CalcSphereToAabbDistance(other, this);
+	else if (typeid(BoxCollider) == typeid(*this) && typeid(*other) == typeid(SphereCollider)) {
+		return CalcSphereToAabbDistance((SphereCollider*)other, (BoxCollider*)this);
 	}
-
+	//std::cout << typeid(*this).name() << " || " << typeid(*other).name();
+	return true;
+	/*
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
 	// DO NOT overlap IF there exists an axis upon which the ranges of their projected 
 	// points do not overlap. 
@@ -168,7 +174,7 @@ float Collider::OverlapsWith(Collider* other) {
 	}
 
 	// otherwise there is overlap
-	return true;
+	return true;*/
 }
 
 void Collider::Start() {
@@ -177,28 +183,19 @@ void Collider::Start() {
 }
 
 void Collider::OnCollisionEnter(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionEnter(" << other->name << ")\n";
+	//cout << gameObject->name << ".OnCollisionEnter(" << other->name << ")\n";
 }
 
 void Collider::OnCollisionStay(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionStay(" << other->name << ")\n";
+	//cout << gameObject->name << ".OnCollisionStay(" << other->name << ")\n";
 	isColliding = true;
 	gameObject->GetComponent<Renderer>()->material->ambient = Color::red;
 }
 
 void Collider::OnCollisionExit(GameObject* other) {
-	cout << gameObject->name << ".OnCollisionExit(" << other->name << ")\n";
+	//cout << gameObject->name << ".OnCollisionExit(" << other->name << ")\n";
 	isColliding = false;
 	gameObject->GetComponent<Renderer>()->material->ambient = Color::green;
 }
 
 
-void Collider::DisplayInInspector() {
-
-	using namespace ImGui;
-	if (CollapsingHeader("Collider")) {
-		DragFloat3("size", (float*)&size, 0.01f);
-		Checkbox("Is Colliding?", &isColliding);
-	}
-
-}
