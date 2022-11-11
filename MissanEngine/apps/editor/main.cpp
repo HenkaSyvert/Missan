@@ -18,8 +18,8 @@ void MakeEditor() {
 
 void PlaceSomeCubes() {
     auto* cube = GameObject::InstantiatePrimitive(GameObject::PrimitiveType::Cube);
-    auto* cube2 = GameObject::Instantiate(cube);
-    cube2->GetComponent<Transform>()->position.x += 1;
+    //auto* cube2 = GameObject::Instantiate(cube);
+    //cube2->GetComponent<Transform>()->position.x += 1;
 
 }
 
@@ -35,8 +35,8 @@ void MakeLight() {
 
 void MakeSphere() {
     auto* cube = GameObject::InstantiatePrimitive(GameObject::PrimitiveType::Sphere);
-    auto* cube2 = GameObject::Instantiate(cube);
-    cube2->GetComponent<Transform>()->position.x += 1;
+    //auto* cube2 = GameObject::Instantiate(cube);
+    //cube2->GetComponent<Transform>()->position.x += 1;
 }
 
 int main(){
@@ -46,7 +46,7 @@ int main(){
     MakeEditor();
     PlaceSomeCubes();
     MakeLight();
-    //MakeSphere();
+    MakeSphere();
 
     Engine::Run();
 

@@ -57,6 +57,32 @@ vec3 CalcAabbToAabbDistance(Collider* a, Collider* b) {
 
 }
 
+float CalcSphereToAabbDistance(Collider* a, Collider* b) {
+
+	Transform* aTransform = a->gameObject->GetComponent<Transform>();
+	Transform* bTransform = b->gameObject->GetComponent<Transform>();
+
+	vec3 aPos = aTransform->position;
+	vec3 bPos = bTransform->position;
+
+	vec3 aMin = aPos - a->size / 2.0f * aTransform->scale;
+	vec3 aMax = aPos + a->size / 2.0f * aTransform->scale;
+	vec3 bMin = bPos - b->size / 2.0f * bTransform->scale;
+	vec3 bMax = bPos + b->size / 2.0f * bTransform->scale;
+
+	float distance = 0;
+
+	for (int i = 0; i < 3; i++) {
+
+		if (aPos[i] < bMin[i]) distance += (bMin[i] - aPos[i]) * (bMin[i] - aPos[i]);
+		if (aPos[i] > bMax[i]) distance += (aPos[i] - bMax[i]) * (aPos[i] - bMax[i]);
+
+	}
+
+	return distance - a->size.x * a->size.x;
+
+}
+
 // Returns a vector representing the shortest displacement requried to separate the 2 Colliders.
 // The positive direction of the vector is from "other" to "this"
 float Collider::OverlapsWith(Collider* other) {
@@ -68,6 +94,12 @@ float Collider::OverlapsWith(Collider* other) {
 		vec3 v = CalcAabbToAabbDistance(this, other);
 		if (v.x < 0 && v.y < 0 && v.z < 0) return v.x;
 		return 1.0f;
+	}
+	else if (shape == Shape::sphere && other->shape == Shape::aabb) {
+		return CalcSphereToAabbDistance(this, other);
+	}
+	else if (shape == Shape::aabb && other->shape == Shape::sphere) {
+		return CalcSphereToAabbDistance(other, this);
 	}
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
