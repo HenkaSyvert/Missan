@@ -36,16 +36,24 @@ vec3 CalcAabbToAabbDistance(Collider* a, Collider* b) {
 	Transform* aTransform = a->gameObject->GetComponent<Transform>();
 	Transform* bTransform = b->gameObject->GetComponent<Transform>();
 
-	vec3 aMin = aTransform->position - a->size / 2.0f;
-	vec3 aMax = aTransform->position + a->size / 2.0f;
-	vec3 bMin = bTransform->position - b->size / 2.0f;
-	vec3 bMax = bTransform->position + b->size / 2.0f;
+	vec3 aPos = aTransform->position;
+	vec3 bPos = bTransform->position;
 
-	return {
-		bMin.x > aMax.x ? bMin.x - aMax.x : aMin.x - bMax.x,
-		bMin.y > aMax.y ? bMin.y - aMax.y : aMin.y - bMax.y,
-		bMin.z > aMax.z ? bMin.z - aMax.z : aMin.z - bMax.z
+	vec3 aMin = aPos - a->size / 2.0f * aTransform->scale;
+	vec3 aMax = aPos + a->size / 2.0f * aTransform->scale;
+	vec3 bMin = bPos - b->size / 2.0f * bTransform->scale;
+	vec3 bMax = bPos + b->size / 2.0f * bTransform->scale;
+
+	//cout << "amin: " << aMin.x << ", amax: " << aMax.x << ", bmin: " << bMin.x << ", bmax: " << bMax.x << "\n";
+
+	vec3 distance = {
+		aPos.x < bPos.x ? bMin.x - aMax.x : aMin.x - bMax.x,
+		aPos.y < bPos.y ? bMin.y - aMax.y : aMin.y - bMax.y,
+		aPos.z < bPos.z ? bMin.z - aMax.z : aMin.z - bMax.z
 	};
+
+	//std::cout << "distance: " << distance.x << "\n";
+	return distance;
 
 }
 
@@ -58,8 +66,8 @@ float Collider::OverlapsWith(Collider* other) {
 	}
 	else if (shape == Shape::aabb && other->shape == Shape::aabb) {
 		vec3 v = CalcAabbToAabbDistance(this, other);
-		if (v.x < 0 && v.y < 0 && v.z < 0) return true;
-		else return false;
+		if (v.x < 0 && v.y < 0 && v.z < 0) return v.x;
+		return 1.0f;
 	}
 
 	// The Separating axis Theorem states that 2 sets of points, forming convex shapes,
