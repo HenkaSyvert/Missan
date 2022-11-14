@@ -9,7 +9,9 @@ void MakeEditor() {
 
     GameObject editor;
     editor.name = "editor";
-    editor.AddComponent<Transform>();
+    auto* t = editor.AddComponent<Transform>();
+    t->position = { 5, 5, 5 };
+    t->rotation = { -35, 45, 0 };
     editor.AddComponent<Camera>();
     editor.AddComponent<Editor>();
     GameObject::Instantiate(&editor);

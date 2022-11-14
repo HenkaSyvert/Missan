@@ -67,29 +67,24 @@ bool AabbAabbCollision(Collider* a, Collider* b) {
 
 bool BoxSphereCollision(Collider* box, Collider* sphere) {
 
+	vec3 axis = normalize(box->transform->position - sphere->transform->position);
 	vector<vec3> vertices = box->transform->TransformPoints(unitCube);
-	for (auto axis : box->transform->axes) {
 
-		float center = dot(sphere->transform->position, axis);
+	float min = numeric_limits<float>::infinity();
+	float max = -numeric_limits<float>::infinity();
+	for (int i = 0; i < 8; i++) {
 
-		float min = numeric_limits<float>::infinity();
-		float max = -numeric_limits<float>::infinity();
-
-		for (int i = 0; i < 8; i++) {
-
-			float proj = dot(vertices[i], axis);
-			min = proj < min ? proj : min;
-			max = proj > max ? proj : max;
-
-		}
-
-		float totalSpan = glm::max(max, center + sphere->radius) - glm::min(min, center - sphere->radius);
-		float spanSum = (max - min) + sphere->radius * 2;
-		if (spanSum < totalSpan) return false;
+		float proj = dot(vertices[i], axis);
+		min = proj < min ? proj : min;
+		max = proj > max ? proj : max;
 
 	}
+	float center = dot(sphere->transform->position, axis);
 
-	return true;
+	float totalSpan = glm::max(max, center + sphere->radius) - glm::min(min, center - sphere->radius);
+	float spanSum = (max - min) + sphere->radius * 2;
+	if (spanSum < totalSpan) return false;
+	else return true;
 
 }
 
