@@ -4,15 +4,161 @@
 #include "physics/transform.hpp"
 #include "physics/collider.hpp"
 #include "physics/rigidbody.hpp"
+#include "physics/collision.hpp"
 #include "internal.hpp"
 
 #include <glm/trigonometric.hpp>
+#include <glm/glm.hpp>
+
+#include <limits>
+#include <vector>
 
 using namespace Missan;
 using namespace std;
 using namespace glm;
 
-// Applies linear and angular forces to all RigidBodies
+const vector<vec3> unitCube = {
+	{0.5, 0.5, 0.5},
+	{0.5, 0.5, -.5},
+	{0.5, -.5, 0.5},
+	{0.5, -.5, -.5},
+	{-.5, 0.5, 0.5},
+	{-.5, 0.5, -.5},
+	{-.5, -.5, 0.5},
+	{-.5, -.5, -.5}
+};
+
+bool SphereSphereCollision(Collider* a, Collider* b) {
+
+	vec3 difference = a->transform->position - b->transform->position;
+	float distance = length(difference);
+
+	float aRadius = a->radius * a->transform->scale.x;
+	float bRadius = b->radius * b->transform->scale.x;
+
+	float separation = distance - aRadius - bRadius;
+	return separation < 0;
+}
+
+bool AabbAabbCollision(Collider* a, Collider* b) {
+
+	// since AABB collision is supposed to be a cheap detection for potential collisions,
+	// and since sphere colliders grow to max(scale x/y/z) aabb also grows this way. 
+	float aScale = glm::max(glm::max(a->transform->scale.x, a->transform->scale.y), a->transform->scale.z);
+	float bScale = glm::max(glm::max(b->transform->scale.x, b->transform->scale.y), b->transform->scale.z);
+
+	vec3 aPos = a->transform->position;
+	vec3 bPos = b->transform->position;
+
+	vec3 aMin = aPos - a->size / 2.0f * aScale;
+	vec3 aMax = aPos + a->size / 2.0f * aScale;
+	vec3 bMin = bPos - b->size / 2.0f * bScale;
+	vec3 bMax = bPos + b->size / 2.0f * bScale;
+
+	vec3 distance = {
+		aPos.x < bPos.x ? bMin.x - aMax.x : aMin.x - bMax.x,
+		aPos.y < bPos.y ? bMin.y - aMax.y : aMin.y - bMax.y,
+		aPos.z < bPos.z ? bMin.z - aMax.z : aMin.z - bMax.z
+	};
+
+	return distance.x < 0 || distance.y < 0 || distance.z < 0;
+
+}
+
+bool BoxSphereCollision(Collider* box, Collider* sphere) {
+
+	vector<vec3> vertices = box->transform->TransformPoints(unitCube);
+	for (auto axis : box->transform->axes) {
+
+		float center = dot(sphere->transform->position, axis);
+
+		float min = numeric_limits<float>::infinity();
+		float max = -numeric_limits<float>::infinity();
+
+		for (int i = 0; i < 8; i++) {
+
+			float proj = dot(vertices[i], axis);
+			min = proj < min ? proj : min;
+			max = proj > max ? proj : max;
+
+		}
+
+		float totalSpan = glm::max(max, center + sphere->radius) - glm::min(min, center - sphere->radius);
+		float spanSum = (max - min) + sphere->radius * 2;
+		if (spanSum < totalSpan) return false;
+
+	}
+
+	return true;
+
+}
+
+bool BoxBoxCollision(Collider* a, Collider* b) {
+
+	// for cuboid-cuboid collision, the axes to test are the 
+	// face normals (which are the same as the transform axes)
+	// and also all cross products of the edges of each cuboid 
+	// (which happens to align with the face normals). 
+	vector<vec3> axes;
+	for (auto aAxis : a->transform->axes) {
+		axes.push_back(aAxis);
+		for (auto bAxis : b->transform->axes) {
+			axes.push_back(bAxis);
+			axes.push_back(cross(aAxis, bAxis));
+		}
+	}
+
+	const vector<vec3> aVertices = a->transform->TransformPoints(unitCube);
+	const vector<vec3> bVertices = b->transform->TransformPoints(unitCube);
+
+	for (auto axis : axes) {
+
+		float aMin = numeric_limits<float>::infinity();
+		float aMax = -numeric_limits<float>::infinity();
+		float bMin = numeric_limits<float>::infinity();
+		float bMax = -numeric_limits<float>::infinity();
+
+		// go through each vertex and project onto axis to find min and max
+		for (int i = 0; i < 8; i++) {
+
+			float aProj = dot(aVertices[i], axis);
+			float bProj = dot(bVertices[i], axis);
+
+			aMin = aProj < aMin ? aProj : aMin;
+			aMax = aProj > aMax ? aProj : aMax;
+
+			bMin = bProj < bMin ? bProj : bMin;
+			bMax = bProj > bMax ? bProj : bMax;
+
+		}
+
+		float totalSpan = glm::max(aMax, bMax) - glm::min(aMin, bMin);
+		float spanSum = (aMax - aMin) + (bMax - bMin);
+
+		if (totalSpan > spanSum) return false;
+
+	}
+
+	return true;
+
+}
+
+bool IsOverlapping(Collider* a, Collider* b) {
+
+	if (a->shape == Collider::Shape::sphere) {
+		if (b->shape == Collider::Shape::sphere) return SphereSphereCollision(a, b);
+		else return BoxSphereCollision(b, a);
+	}
+	else {
+		if (b->shape == Collider::Shape::sphere) return BoxSphereCollision(a, b);
+		else return BoxBoxCollision(a, b);
+	}
+
+}
+
+
+
+
 void ApplyForces() {
 
 	for (RigidBody* rb : RigidBody::instances) {
@@ -40,20 +186,14 @@ void ApplyForces() {
 	}
 }
 
-static vector<pair<Collider*, Collider*>> collisions;
+vector<Collision> collisions;
 
-// Detects collisions between colliders, and later calls OnCollisionEnter for those who collided
 void HandleCollisions() {
 
 	vector<Collider*>& colliders = Collider::instances;
 
-	// todo: replace per instance overlapping colliders vector with 
-	// static vector here, so in case deleted game objects dont get out of sync
-
 	if (colliders.size() <= 1) return;
 
-
-	// find all new collisions, and call OnCollisionEnter
 	for (unsigned int i = 0; i < colliders.size() - 1; i++) {
 		Collider* ca = colliders[i];
 
@@ -64,19 +204,21 @@ void HandleCollisions() {
 			int collisionIndex;
 			for (size_t k = 0; k < collisions.size(); k++) {
 				auto p = collisions[k];
-				if (p.first == ca && p.second == cb || p.first == cb && p.second == ca) {
+				if (p.ourCollider == ca && p.otherCollider == cb || p.ourCollider == cb && p.otherCollider == ca) {
 					wasAlreadyOverlapping = true;
 					collisionIndex = k;
 					break;
 				}
 			}
 
-			float overlap = ca->OverlapsWith(cb);
-			bool isOverlapping = overlap < 0;
-
-			if (isOverlapping){
+			if (IsOverlapping(ca, cb)) {
 				if (!wasAlreadyOverlapping) {
-					collisions.push_back({ ca, cb });
+
+					Collision collision;
+					collision.ourCollider = ca;
+					collision.otherCollider = cb;
+					collisions.push_back(collision);
+
 					for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
 					for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
 				}

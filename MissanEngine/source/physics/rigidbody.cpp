@@ -12,11 +12,7 @@ using namespace std;
 using namespace glm;
 
 void RigidBody::Start() {
-	auto* c = gameObject->GetComponent<Collider>();
-	if (c == nullptr) {
-		cout << "RigidBody requires Collider Component!\n";
-		exit(EXIT_FAILURE);
-	}
+
 
 	// currently rigidbodies only work with box colliders
 	auto s = vec3(1, 1, 1);

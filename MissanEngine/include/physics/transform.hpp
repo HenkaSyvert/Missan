@@ -41,17 +41,23 @@ namespace Missan {
         /// Transforms several points from local space to world space
         std::vector<glm::vec3> TransformPoints(std::vector<glm::vec3> points);
 
+        glm::vec3 axes[3] = {
+            {1, 0, 0},
+            {0, 1, 0},
+            {0, 0, 1}
+        };
+
         /// 
         /// Local right vector
-        glm::vec3 right = { 1, 0, 0 };
+        glm::vec3& right = axes[0];
 
         /// 
         /// Local up vector
-        glm::vec3 up = { 0, 1, 0 };
+        glm::vec3& up = axes[1];
 
         /// 
         /// Local forward vector
-        glm::vec3 forward = { 0, 0, 1 };
+        glm::vec3& forward = axes[2];
 
         void Start();
         void Update();

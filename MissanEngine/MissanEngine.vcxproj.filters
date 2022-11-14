@@ -57,9 +57,6 @@
     <ClCompile Include="source\graphics\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\physics\collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

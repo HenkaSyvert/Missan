@@ -29,6 +29,7 @@ void GraphicsInitialize() {
 	glEnable(GL_BLEND);
 	Shader::unlit = new Shader("resources/shaders/unlit/vertex.shader", "resources/shaders/unlit/fragment.shader");
 	Shader::phong = new Shader("resources/shaders/phong/vertex.shader", "resources/shaders/phong/fragment.shader");
+
 	
 }
 

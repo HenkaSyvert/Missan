@@ -127,9 +127,9 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 			float y = cosf(stackAngle) * sinf(sectorAngle);
 
 			// normals are same as vertices
-			vertices.push_back(x);
-			vertices.push_back(y);
-			vertices.push_back(z);
+			vertices.push_back(x / 2);
+			vertices.push_back(y / 2);
+			vertices.push_back(z / 2);
 
 			//std::cout << "sector angle: " << sectorAngle << ", ";
 			//std::cout << "x:" << x << ", y:" << y << ", z:" << z << "\n";

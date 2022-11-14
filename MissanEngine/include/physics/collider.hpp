@@ -2,6 +2,8 @@
 
 #include "component.hpp"
 #include "transform.hpp"
+#include "graphics/color.hpp"
+#include "graphics/renderer.hpp"
 
 #include <vector>
 
@@ -28,55 +30,52 @@ namespace Missan {
 
 	public:
 
-		Transform* transform;
+		enum class Shape { box, sphere };
+		Shape shape = Shape::box;
 
-		float OverlapsWith(Collider* other);
+		Transform* transform = nullptr;
 
-		glm::vec3 center = { 0, 0, 0 };
+		glm::vec3 center = { 0, 0, 0 };	// todo: make relevant
+		glm::vec3 size = { 1, 1, 1 };
+		float& radius = size[0];
+		//for future capsules:
+		// float& height = size[1];
+		// int& direction = size[2];
+		// alternatively, use union
+
 		Aabb aabb;
-
-
-
 		bool isColliding = false;
 
-		void Start();
-		virtual void OnCollisionEnter(GameObject* other);
-		virtual void OnCollisionStay(GameObject* other);
-		virtual void OnCollisionExit(GameObject* other);
-
-	};
-
-	class BoxCollider : public Collider {
-
-	public:
-		glm::vec3 size = { 1, 1, 1 };
-
-		void DisplayInInspector() {
-
-			using namespace ImGui;
-			if (CollapsingHeader("Box Collider")) {
-				DragFloat3("size", (float*)&size, 0.01f);
-				Checkbox("Is Colliding?", &isColliding);
-			}
-
+		void Start() {
+			transform = gameObject->GetComponent<Transform>();
+			if (shape == Shape::sphere) radius = 0.5f;
 		}
 
-	};
+		void OnCollisionStay(GameObject* other) {
+			isColliding = true;
+			gameObject->GetComponent<Renderer>()->material->ambient = Color::red;
+		}
 
-	class SphereCollider : public Collider {
-
-	public:
-		// todo: change to radius = 0.5, unity does it that way. 
-		float radius = 1;
+		void OnCollisionExit(GameObject* other) {
+			isColliding = false;
+			gameObject->GetComponent<Renderer>()->material->ambient = Color::green;
+		}
 
 		void DisplayInInspector() {
 
 			using namespace ImGui;
-			if (CollapsingHeader("Sphere Collider")) {
-				DragFloat("radius", &radius, 0.01f);
-				Checkbox("Is Colliding?", &isColliding);
+			if (shape == Shape::box) {
+				if (CollapsingHeader("Box Collider")) {
+					DragFloat3("size", (float*)&size, 0.01f);
+					Checkbox("Is Colliding?", &isColliding);
+				}
 			}
-
+			else if (shape == Shape::sphere) {
+				if (CollapsingHeader("Sphere Collider")) {
+					DragFloat("radius", &radius, 0.01f);
+					Checkbox("Is Colliding?", &isColliding);
+				}
+			}
 		}
 
 	};

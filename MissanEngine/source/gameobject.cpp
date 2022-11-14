@@ -66,16 +66,17 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 	r->material = new Material();
 	r->material->texture = Resources::GetTexture("resources/textures/blank.png");
 	r->material->shader = Shader::phong;
+	auto* c = g->AddComponent<Collider>();
 
 	switch (type) {
 	case PrimitiveType::Cube:
-		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");
-		g->AddComponent<BoxCollider>();
+		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");	
+		c->shape = Collider::Shape::box;
 		g->name = "Cube";
 		break;
 	case PrimitiveType::Sphere:
-		r->mesh = new Mesh(Resources::GenerateUvSphere(20, 20));
-		g->AddComponent<SphereCollider>();
+		r->mesh = new Mesh(Resources::GenerateUvSphere(30, 30));
+		c->shape = Collider::Shape::sphere;
 		g->name = "Sphere";
 		break;
 	}

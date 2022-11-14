@@ -45,7 +45,7 @@ namespace Missan {
 
 		/// 
 		/// is this RigidBody affected by gravity?
-		bool isAffectedByGravity = true;
+		bool isAffectedByGravity = false;
 
 		/// 
 		/// Linear impulse that will be applied this frame
