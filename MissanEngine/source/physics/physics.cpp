@@ -28,19 +28,40 @@ const vector<vec3> unitCube = {
 	{-.5, -.5, -.5}
 };
 
-bool SphereSphereCollision(Collider* a, Collider* b) {
+// TODO: make collider.size/radius work properly with transform.scale. 
+// TODO2: make collider.center relevant
+
+
+Collision SphereSphereCollision(Collider* a, Collider* b) {
 
 	vec3 difference = a->transform->position - b->transform->position;
 	float distance = length(difference);
 
-	float aRadius = a->radius * a->transform->scale.x;
-	float bRadius = b->radius * b->transform->scale.x;
+	float aScale = glm::max(glm::max(a->transform->scale.x, a->transform->scale.y), a->transform->scale.z);
+	float bScale = glm::max(glm::max(b->transform->scale.x, b->transform->scale.y), b->transform->scale.z);
+
+	float aRadius = a->radius * aScale;
+	float bRadius = b->radius * bScale;
 
 	float separation = distance - aRadius - bRadius;
-	return separation < 0;
+	
+	Collision collision;
+	if (separation < 0) {
+		// means there is no collision, don't bother filling out other details. 
+		return collision;
+	}
+
+	// otherwise, will always only be a single contact point. 
+	ContactPoint p;
+	p.separation = separation;
+	p.normal = normalize(difference);
+	p.point = a->transform->position - difference / 2.0f;
+
+	collision.contactPoints.push_back(p);
+	return collision;
 }
 
-bool AabbAabbCollision(Collider* a, Collider* b) {
+Collision AabbAabbCollision(Collider* a, Collider* b) {
 
 	// since AABB collision is supposed to be a cheap detection for potential collisions,
 	// and since sphere colliders grow to max(scale x/y/z) aabb also grows this way. 
@@ -61,34 +82,58 @@ bool AabbAabbCollision(Collider* a, Collider* b) {
 		aPos.z < bPos.z ? bMin.z - aMax.z : aMin.z - bMax.z
 	};
 
-	return distance.x < 0 || distance.y < 0 || distance.z < 0;
+	//return distance.x < 0 || distance.y < 0 || distance.z < 0;
+	// TODO: implement collision
+	return Collision();
 
 }
 
-bool BoxSphereCollision(Collider* box, Collider* sphere) {
+Collision BoxSphereCollision(Collider* box, Collider* sphere) {
 
-	vec3 axis = normalize(box->transform->position - sphere->transform->position);
+	vector<vec3> axes;
+	for (auto axis : box->transform->axes)axes.push_back(axis);
+	normalize(box->transform->position - sphere->transform->position);
+
 	vector<vec3> vertices = box->transform->TransformPoints(unitCube);
 
-	float min = numeric_limits<float>::infinity();
-	float max = -numeric_limits<float>::infinity();
-	for (int i = 0; i < 8; i++) {
+	Collision collision;
 
-		float proj = dot(vertices[i], axis);
-		min = proj < min ? proj : min;
-		max = proj > max ? proj : max;
+	for (auto axis : axes) {
+	
+		float min = numeric_limits<float>::infinity();
+		float max = -numeric_limits<float>::infinity();
+		
+		for (int i = 0; i < 8; i++) {
 
+			float proj = dot(vertices[i], axis);
+			min = proj < min ? proj : min;
+			max = proj > max ? proj : max;
+
+		}
+
+
+		float center = dot(sphere->transform->position, axis);
+
+		float totalSpan = glm::max(max, center + sphere->radius) - glm::min(min, center - sphere->radius);
+		float spanSum = (max - min) + sphere->radius * 2;
+		float separation = totalSpan - spanSum;
+
+		if (separation > 0) {
+			// overlap on this axis
+			ContactPoint p;
+			p.separation = separation;
+			p.normal = normalize(axis);
+			p.point = center + p.normal * separation;	// TODO: not really sure which of the 2 points of contact this is supposed to be. 
+
+			collision.contactPoints.push_back(p);
+		}
 	}
-	float center = dot(sphere->transform->position, axis);
 
-	float totalSpan = glm::max(max, center + sphere->radius) - glm::min(min, center - sphere->radius);
-	float spanSum = (max - min) + sphere->radius * 2;
-	if (spanSum < totalSpan) return false;
-	else return true;
+	return collision;
 
 }
 
-bool BoxBoxCollision(Collider* a, Collider* b) {
+Collision BoxBoxCollision(Collider* a, Collider* b) {
 
 	// for cuboid-cuboid collision, the axes to test are the 
 	// face normals (which are the same as the transform axes)
@@ -105,6 +150,8 @@ bool BoxBoxCollision(Collider* a, Collider* b) {
 
 	const vector<vec3> aVertices = a->transform->TransformPoints(unitCube);
 	const vector<vec3> bVertices = b->transform->TransformPoints(unitCube);
+
+	Collision collision;
 
 	for (auto axis : axes) {
 
@@ -129,16 +176,24 @@ bool BoxBoxCollision(Collider* a, Collider* b) {
 
 		float totalSpan = glm::max(aMax, bMax) - glm::min(aMin, bMin);
 		float spanSum = (aMax - aMin) + (bMax - bMin);
+		float separation = totalSpan - spanSum;
 
-		if (totalSpan > spanSum) return false;
+		if (separation > 0) {
+			ContactPoint p;
+			p.separation = separation;
+			p.normal = normalize(axis);
+			// TODO: make p.point relevant. 
+			
+			collision.contactPoints.push_back(p);
+		}
 
 	}
 
-	return true;
+	return collision;
 
 }
 
-bool IsOverlapping(Collider* a, Collider* b) {
+Collision IsOverlapping(Collider* a, Collider* b) {
 
 	if (a->shape == Collider::Shape::sphere) {
 		if (b->shape == Collider::Shape::sphere) return SphereSphereCollision(a, b);
@@ -183,7 +238,7 @@ void ApplyForces() {
 
 vector<Collision> collisions;
 
-void HandleCollisions() {
+void DetectCollisions() {
 
 	vector<Collider*>& colliders = Collider::instances;
 
@@ -199,19 +254,34 @@ void HandleCollisions() {
 			int collisionIndex;
 			for (size_t k = 0; k < collisions.size(); k++) {
 				auto p = collisions[k];
-				if (p.ourCollider == ca && p.otherCollider == cb || p.ourCollider == cb && p.otherCollider == ca) {
+				if (p.thisCollider == ca && p.otherCollider == cb || p.thisCollider == cb && p.otherCollider == ca) {
 					wasAlreadyOverlapping = true;
 					collisionIndex = k;
 					break;
 				}
 			}
 
-			if (IsOverlapping(ca, cb)) {
+			Collision collision = IsOverlapping(ca, cb);
+			bool isOverlapping = !collision.contactPoints.empty();
+
+			if (isOverlapping) {
 				if (!wasAlreadyOverlapping) {
 
-					Collision collision;
-					collision.ourCollider = ca;
+					collision.thisCollider = ca;
 					collision.otherCollider = cb;
+					collision.thisTransform = ca->transform;
+					collision.otherTransform = cb->transform;
+					collision.thisRigidbody = ca->gameObject->GetComponent<RigidBody>();
+					collision.otherRigidbody = cb->gameObject->GetComponent<RigidBody>();
+
+					if (collision.thisRigidbody && collision.otherRigidbody) {
+
+						// not sure this is correct. 
+						collision.relativeVelocity = collision.thisRigidbody->linearVelocity - collision.otherRigidbody->linearVelocity;
+
+
+					}
+
 					collisions.push_back(collision);
 
 					for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
@@ -233,15 +303,28 @@ void HandleCollisions() {
 
 
 	}
+}
 
+
+void ResolveCollisions() {
+
+	for (auto& collision : collisions) {
+
+		if (!collision.thisRigidbody && !collision.otherRigidbody) continue;
+
+
+
+
+	}
 
 }
+
 
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 
 void PhysicsUpdate() {
 	ApplyForces();
-	HandleCollisions();
+	DetectCollisions();
 }
 
 
