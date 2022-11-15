@@ -9,7 +9,7 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
-#include "component.hpp"
+#include "ecs.hpp"
 
 using namespace Missan;
 using namespace ImGui;

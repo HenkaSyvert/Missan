@@ -107,7 +107,7 @@ namespace Missan {
 
 		///
 		/// Called only once for each GameObject, before all other Event functions
-		virtual void Start();
+		inline virtual void Start() {}
 
 		///
 		/// Called when this Collider has begun touching another Collider

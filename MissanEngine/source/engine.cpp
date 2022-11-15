@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "internal.hpp"
-#include "component.hpp"
+#include "ecs.hpp"
 #include "input.hpp"
 #include "graphics/window.hpp"
 #include "physics/physics.hpp"

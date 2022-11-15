@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs.hpp"
 #include "graphics/color.hpp"
 
 namespace Missan {

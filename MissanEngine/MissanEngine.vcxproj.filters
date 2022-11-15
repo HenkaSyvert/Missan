@@ -75,7 +75,7 @@
     <ClCompile Include="apps\editor\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gameobject.cpp">
+    <ClCompile Include="source\ecs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1463,7 +1463,7 @@
     <ClInclude Include="include\physics\collider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\component.hpp">
+    <ClInclude Include="include\ecs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\input.hpp">

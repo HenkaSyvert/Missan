@@ -92,7 +92,7 @@
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
-    <ClCompile Include="source\gameobject.cpp" />
+    <ClCompile Include="source\ecs.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
@@ -584,7 +584,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\engine.hpp" />
     <ClInclude Include="include\physics\collider.hpp" />
-    <ClInclude Include="include\component.hpp" />
+    <ClInclude Include="include\ecs.hpp" />
     <ClInclude Include="include\gameobject.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\input.h" />

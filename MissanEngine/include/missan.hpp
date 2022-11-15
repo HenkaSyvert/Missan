@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string>
 
-#include "component.hpp"
+#include "ecs.hpp"
 #include "engine.hpp"
 #include "input.hpp"
 #include "inspectable.hpp"

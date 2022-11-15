@@ -1,4 +1,4 @@
-#include "component.hpp"
+#include "ecs.hpp"
 #include "internal.hpp"
 
 #include "physics/collider.hpp"
@@ -30,7 +30,7 @@ GameObject* GameObject::Instantiate(GameObject* original) {
 
 void GameObjectDoInstantiations() {
 	for (auto* g : newGameObjects) {
-		for (auto* c : g->components) c->Start();
+		g->Start();
 		GameObject::gameObjects.push_back(g);
 	}
 	newGameObjects.clear();
@@ -42,10 +42,8 @@ void GameObject::Destroy(GameObject* gameObject) {
 
 void GameObjectDoDestructions() {
 	for (auto* g : deadGameObjects) {
-		for (auto* c : g->components) {
-			c->OnDestroy();
-			delete c;
-		}
+		g->OnDestroy();
+		
 		auto& gos = GameObject::gameObjects;
 		for (size_t i = 0; i < gos.size(); i++)
 			if (gos[i] == g) gos.erase(gos.begin() + i);
@@ -84,13 +82,12 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 	return g;
 }
 
-void AbstractComponent::Start() {
-	transform = GetComponent<Transform>();
-}
-
 void GameObject::Start() {
 	transform = GetComponent<Transform>();
-	for (auto* c : components) c->Start();
+	for (auto* c : components) {
+		c->transform = transform;
+		c->Start();
+	}
 }
 void GameObject::OnCollisionEnter(GameObject* other) { for (auto* c : components) c->OnCollisionEnter(other); }
 void GameObject::OnCollisionStay(GameObject* other) { for (auto* c : components) c->OnCollisionStay(other); }

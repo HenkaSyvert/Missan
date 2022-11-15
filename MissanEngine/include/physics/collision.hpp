@@ -2,7 +2,7 @@
 #include "physics/rigidbody.hpp"
 #include "physics/collider.hpp"
 #include "transform.hpp"
-#include "component.hpp"
+#include "ecs.hpp"
 
 #include <glm/vec3.hpp>
 

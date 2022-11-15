@@ -3,7 +3,7 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <vector>
-#include "component.hpp"
+#include "ecs.hpp"
 #include "inspectable.hpp"
 
 #include <iostream>

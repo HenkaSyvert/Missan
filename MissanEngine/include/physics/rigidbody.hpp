@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs.hpp"
 #include "physics/collider.hpp"
 
 #include <glm/vec3.hpp>

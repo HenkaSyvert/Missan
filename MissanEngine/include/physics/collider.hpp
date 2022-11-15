@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs.hpp"
 #include "transform.hpp"
 #include "graphics/color.hpp"
 #include "graphics/renderer.hpp"

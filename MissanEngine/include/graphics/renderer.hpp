@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "ecs.hpp"
 #include "graphics/material.hpp"
 #include "graphics/mesh.hpp"
 #include "graphics/shader.hpp"

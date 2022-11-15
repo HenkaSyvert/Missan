@@ -7,7 +7,7 @@
 
 #include "physics/transform.hpp"
 #include "internal.hpp"
-#include "component.hpp"
+#include "ecs.hpp"
 #include "engine.hpp"
 
 #include <GL/glew.h>
