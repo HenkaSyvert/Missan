@@ -9,10 +9,6 @@
 
 namespace Missan {
 
-	template<class T>
-	class Component;
-	class AbstractComponent;
-
 	/// 
 	/// Class representing GameObjects in Missan Scenes
 	class GameObject : public Inspectable {
@@ -20,7 +16,7 @@ namespace Missan {
 	public:
 
 		std::string name = "Game Object";
-		std::vector<AbstractComponent*> components;
+		std::vector<class AbstractComponent*> components;
 		class Transform* transform = nullptr;
 
 		~GameObject();
@@ -50,7 +46,7 @@ namespace Missan {
 
 
 
-		static std::vector<GameObject*> gameObjects;
+		static std::vector<GameObject*> instances;
 
 		/// 
 		/// Instantiates a new GameObject (based on original, if given) and calls Start() at end of frame. 

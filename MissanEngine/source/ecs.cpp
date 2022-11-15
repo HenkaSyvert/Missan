@@ -9,7 +9,7 @@
 using namespace Missan;
 using namespace std;
 
-vector<GameObject*> GameObject::gameObjects;
+vector<GameObject*> GameObject::instances;
 static vector<GameObject*> newGameObjects;
 static vector<GameObject*> deadGameObjects;
 
@@ -31,7 +31,7 @@ GameObject* GameObject::Instantiate(GameObject* original) {
 void GameObjectDoInstantiations() {
 	for (auto* g : newGameObjects) {
 		g->Start();
-		GameObject::gameObjects.push_back(g);
+		GameObject::instances.push_back(g);
 	}
 	newGameObjects.clear();
 }
@@ -44,7 +44,7 @@ void GameObjectDoDestructions() {
 	for (auto* g : deadGameObjects) {
 		g->OnDestroy();
 		
-		auto& gos = GameObject::gameObjects;
+		auto& gos = GameObject::instances;
 		for (size_t i = 0; i < gos.size(); i++)
 			if (gos[i] == g) gos.erase(gos.begin() + i);
 		delete g;

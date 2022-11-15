@@ -49,8 +49,8 @@ void Engine::Run() {
 		TimeUpdate();
 		PhysicsUpdate();
 		InputUpdate();
-		for(auto* g : GameObject::gameObjects) g->Update();
-		for(auto* g : GameObject::gameObjects) g->LateUpdate();
+		for(auto* g : GameObject::instances) g->Update();
+		for(auto* g : GameObject::instances) g->LateUpdate();
 		GraphicsUpdate();		
 		GuiUpdate();
 		GameObjectDoInstantiations();

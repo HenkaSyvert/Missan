@@ -31,7 +31,7 @@ public:
     void HierarchyWindow() {
         if (Begin("Hierarchy")) {
             int i = 0;
-            for (auto& g : GameObject::gameObjects)
+            for (auto& g : GameObject::instances)
                 if (Selectable((to_string(i++) + ": " + g->name).c_str(), selected == g)) selected = g;
             
             End();

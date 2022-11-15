@@ -106,5 +106,5 @@ void GraphicsUpdate() {
 
 	}
 
-	for (auto* g : GameObject::gameObjects) g->OnRender();
+	for (auto* g : GameObject::instances) g->OnRender();
 }
