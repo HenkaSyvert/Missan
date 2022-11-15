@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component.hpp"
+#include "physics/collider.hpp"
 
 #include <glm/vec3.hpp>
 
@@ -55,6 +56,7 @@ namespace Missan {
 		/// angular impulse that will be applied this frame
 		glm::vec3 angularImpulse = { 0,0,0 };
 
+		Collider* collider = nullptr;
 
 		/// 
 		/// Applies force to the RigidBody at point, using world coordinates unless specified otherwise.

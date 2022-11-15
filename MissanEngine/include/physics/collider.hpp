@@ -33,8 +33,6 @@ namespace Missan {
 		enum class Shape { box, sphere };
 		Shape shape = Shape::box;
 
-		Transform* transform = nullptr;
-
 		glm::vec3 center = { 0, 0, 0 };	// todo: make relevant
 		glm::vec3 size = { 1, 1, 1 };
 		float& radius = size[0];
@@ -47,18 +45,17 @@ namespace Missan {
 		bool isColliding = false;
 
 		void Start() {
-			transform = gameObject->GetComponent<Transform>();
 			if (shape == Shape::sphere) radius = 0.5f;
 		}
 
 		void OnCollisionStay(GameObject* other) {
 			isColliding = true;
-			gameObject->GetComponent<Renderer>()->material->ambient = Color::red;
+			GetComponent<Renderer>()->material->ambient = Color::red;
 		}
 
 		void OnCollisionExit(GameObject* other) {
 			isColliding = false;
-			gameObject->GetComponent<Renderer>()->material->ambient = Color::green;
+			GetComponent<Renderer>()->material->ambient = Color::green;
 		}
 
 		void DisplayInInspector() {

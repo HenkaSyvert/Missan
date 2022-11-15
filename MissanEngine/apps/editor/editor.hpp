@@ -14,12 +14,7 @@ public:
 
 	GameObject* selected = nullptr;
 	vector<GameObject*> gos;
-    Transform* transform = nullptr;
 
-    void Start() {
-        transform = gameObject->GetComponent<Transform>();
-
-    }
 
     void Update() {
         HandleCamera();
@@ -48,7 +43,7 @@ public:
             if (!g) {
                 Text("no game object selected");
             }
-            else for (auto& c : g->components) c->DisplayInInspector();
+            else g->DisplayInInspector();
         }
         End();
     }

@@ -83,3 +83,21 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 
 	return g;
 }
+
+void AbstractComponent::Start() {
+	transform = GetComponent<Transform>();
+}
+
+void GameObject::Start() {
+	transform = GetComponent<Transform>();
+	for (auto* c : components) c->Start();
+}
+void GameObject::OnCollisionEnter(GameObject* other) { for (auto* c : components) c->OnCollisionEnter(other); }
+void GameObject::OnCollisionStay(GameObject* other) { for (auto* c : components) c->OnCollisionStay(other); }
+void GameObject::OnCollisionExit(GameObject* other) { for (auto* c : components) c->OnCollisionExit(other); }
+void GameObject::Update() { for (auto* c : components) c->Update(); }
+void GameObject::LateUpdate() { for (auto* c : components) c->LateUpdate(); }
+void GameObject::OnRender() { for (auto* c : components) c->OnRender(); }
+void GameObject::OnGui() { for (auto* c : components) c->OnGui(); }
+void GameObject::OnDestroy() { for (auto* c : components) c->OnDestroy(); }
+void GameObject::DisplayInInspector() { for (auto* c : components) c->DisplayInInspector(); }

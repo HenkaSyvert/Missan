@@ -48,8 +48,6 @@ void GraphicsUpdate() {
 		Mesh* mesh = renderer->mesh;
 		if (!mesh) continue;
 
-		Transform* transform = renderer->gameObject->GetComponent<Transform>();
-		Transform* cameraTransform = camera->gameObject->GetComponent<Transform>();
 		Material* material = renderer->material;
 
 		Shader* shader = material->shader;
@@ -61,8 +59,8 @@ void GraphicsUpdate() {
 		
 
 		glUseProgram(shader->programId);
-		shader->SetMat4("model", transform->matrix);
-		shader->SetMat4("view", cameraTransform->inverseMatrix);
+		shader->SetMat4("model", renderer->transform->matrix);
+		shader->SetMat4("view", camera->transform->inverseMatrix);
 		shader->SetMat4("projection", camera->projectionMatrix);
 
 		glBindVertexArray(mesh->vaoId);
@@ -83,10 +81,10 @@ void GraphicsUpdate() {
 		}
 		else if (shader == Shader::phong) {
 
-			shader->SetMat3("normalMatrix", mat3(inverse(transpose(transform->matrix))));
-			shader->SetVec3("cameraPosition", cameraTransform->position);
+			shader->SetMat3("normalMatrix", mat3(inverse(transpose(renderer->transform->matrix))));
+			shader->SetVec3("cameraPosition", camera->transform->position);
 
-			shader->SetVec3("light.position", light->gameObject->GetComponent<Transform>()->position);
+			shader->SetVec3("light.position", light->transform->position);
 			shader->SetVec4("light.ambient", light->ambient);
 			shader->SetVec4("light.diffuse", light->diffuse);
 			shader->SetVec4("light.specular", light->specular);			
@@ -108,5 +106,5 @@ void GraphicsUpdate() {
 
 	}
 
-	for (auto* g : GameObject::gameObjects) for (auto* c : g->components) c->OnRender();
+	for (auto* g : GameObject::gameObjects) g->OnRender();
 }

@@ -271,8 +271,8 @@ void DetectCollisions() {
 					collision.otherCollider = cb;
 					collision.thisTransform = ca->transform;
 					collision.otherTransform = cb->transform;
-					collision.thisRigidbody = ca->gameObject->GetComponent<RigidBody>();
-					collision.otherRigidbody = cb->gameObject->GetComponent<RigidBody>();
+					collision.thisRigidbody = ca->GetComponent<RigidBody>();
+					collision.otherRigidbody = cb->GetComponent<RigidBody>();
 
 					if (collision.thisRigidbody && collision.otherRigidbody) {
 
@@ -284,16 +284,16 @@ void DetectCollisions() {
 
 					collisions.push_back(collision);
 
-					for (auto* c : ca->gameObject->components) c->OnCollisionEnter(cb->gameObject);
-					for (auto* c : cb->gameObject->components) c->OnCollisionEnter(ca->gameObject);
+					ca->gameObject->OnCollisionEnter(cb->gameObject);
+					cb->gameObject->OnCollisionEnter(ca->gameObject);
 				}
-				for (auto* c : ca->gameObject->components) c->OnCollisionStay(cb->gameObject);
-				for (auto* c : cb->gameObject->components) c->OnCollisionStay(ca->gameObject);
+				ca->gameObject->OnCollisionStay(cb->gameObject);
+				cb->gameObject->OnCollisionStay(ca->gameObject);
 			}
 			else {
 				if (wasAlreadyOverlapping) {
-					for (auto* c : ca->gameObject->components) c->OnCollisionExit(cb->gameObject);
-					for (auto* c : cb->gameObject->components) c->OnCollisionExit(ca->gameObject);
+					ca->gameObject->OnCollisionExit(cb->gameObject);
+					cb->gameObject->OnCollisionExit(ca->gameObject);
 
 					collisions.erase(collisions.begin() + collisionIndex);
 				}

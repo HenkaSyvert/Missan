@@ -27,7 +27,7 @@ void GuiUpdate() {
     ImGui_ImplGlfw_NewFrame();
     NewFrame();
 
-    for (auto* g : GameObject::gameObjects) for (auto* c : g->components) c->OnGui();
+    for (auto* g : GameObject::gameObjects) g->OnGui();
 
     Render();
     ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());

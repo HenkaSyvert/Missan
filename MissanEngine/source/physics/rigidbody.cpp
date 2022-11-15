@@ -19,14 +19,15 @@ void RigidBody::Start() {
 	inertiaTensor =  {s.y* s.y + s.z * s.z, s.x* s.x + s.z * s.z, s.x* s.x + s.y * s.y};
 	inertiaTensor *= mass / 12.0f;
 
+	collider = GetComponent<Collider>();
+
 }
 
 
 void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
-		auto* t = gameObject->GetComponent<Transform>();
-		newForce = t->TransformPoint(newForce);
-		point = t->TransformPoint(point);
+		newForce = transform->TransformPoint(newForce);
+		point = transform->TransformPoint(point);
 	}
 	forces += newForce;
 	torques += cross(point, newForce);
@@ -34,9 +35,8 @@ void RigidBody::AddForce(vec3 newForce, vec3 point, bool useLocalSpace) {
 
 void RigidBody::AddImpulse(vec3 impulse, vec3 point, bool useLocalSpace) {
 	if (useLocalSpace) {
-		auto* t = gameObject->GetComponent<Transform>();
-		impulse = t->TransformPoint(impulse);
-		point = t->TransformPoint(point);
+		impulse = transform->TransformPoint(impulse);
+		point = transform->TransformPoint(point);
 	}
 	linearImpulse += impulse;
 	angularImpulse += cross(point, impulse);

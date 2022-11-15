@@ -29,6 +29,8 @@ namespace Missan {
 
 	public:
 
+		// TODO: cleanup, probably better to just have duplicate collisions per gameobject, 
+		// since impulse and rel velocity are also relative to go. 
 		Transform* thisTransform = nullptr;
 		RigidBody* thisRigidbody = nullptr;
 		Collider* thisCollider = nullptr;

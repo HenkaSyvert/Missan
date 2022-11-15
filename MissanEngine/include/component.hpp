@@ -15,12 +15,13 @@ namespace Missan {
 
 	/// 
 	/// Class representing GameObjects in Missan Scenes
-	class GameObject {
+	class GameObject : public Inspectable {
 
 	public:
 
 		std::string name = "Game Object";
 		std::vector<AbstractComponent*> components;
+		class Transform* transform = nullptr;
 
 		~GameObject();
 
@@ -62,6 +63,22 @@ namespace Missan {
 		enum class PrimitiveType { Cube, Sphere, Plane };
 		static GameObject* InstantiatePrimitive(PrimitiveType type);
 
+
+		// these are syntacitcal sugar for calling the respective functions
+		// for all attached components, to avoid writing loops. 
+		void Start();
+		void OnCollisionEnter(GameObject* other);
+		void OnCollisionStay(GameObject* other);
+		void OnCollisionExit(GameObject* other);
+		void Update();
+		void LateUpdate();
+		void OnRender();
+		void OnGui();
+		void OnDestroy();
+		void DisplayInInspector();
+
+
+
 	};
 
 
@@ -74,12 +91,23 @@ namespace Missan {
 		/// 
 		/// The GameObject this Component is attached to. 
 		GameObject* gameObject = nullptr;
+		class Transform* transform = nullptr;
 
 		virtual ~AbstractComponent() {}
 
+		template <class T>
+		inline T* GetComponent() {
+			return gameObject->GetComponent<T>();
+		}
+
+		template <class T>
+		inline T* AddComponent() {
+			return gameObject->AddComponent<T>();
+		}
+
 		///
 		/// Called only once for each GameObject, before all other Event functions
-		inline virtual void Start() {}
+		virtual void Start();
 
 		///
 		/// Called when this Collider has begun touching another Collider
@@ -108,7 +136,6 @@ namespace Missan {
 		inline virtual void OnDestroy() {}
 
 		inline virtual void DisplayInInspector() {}
-
 
 
 		inline virtual AbstractComponent* Clone() const = 0;
