@@ -64,3 +64,11 @@ void RigidBody::DisplayInInspector() {
 	}
 
 }
+
+
+void RigidBody::OnCollisionEnter(Collision collision) {
+
+	// TODO: what point to apply impulse to?.. average of all contact points?
+	AddImpulse(collision.impulse, collision.contactPoints[0].point, true);
+
+}

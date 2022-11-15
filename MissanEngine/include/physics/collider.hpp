@@ -48,12 +48,12 @@ namespace Missan {
 			if (shape == Shape::sphere) radius = 0.5f;
 		}
 
-		void OnCollisionStay(GameObject* other) {
+		void OnCollisionStay(Collision collision) {
 			isColliding = true;
 			GetComponent<Renderer>()->material->ambient = Color::red;
 		}
 
-		void OnCollisionExit(GameObject* other) {
+		void OnCollisionExit(Collision collision) {
 			isColliding = false;
 			GetComponent<Renderer>()->material->ambient = Color::green;
 		}

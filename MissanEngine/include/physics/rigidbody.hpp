@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ecs.hpp"
+#include "physics/collision.hpp"
 #include "physics/collider.hpp"
 
 #include <glm/vec3.hpp>
@@ -71,6 +72,8 @@ namespace Missan {
 		/// Impulse, unlike force, is only applied once
 		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
+
+		void OnCollisionEnter(Collision collision);
 
 		void DisplayInInspector();
 

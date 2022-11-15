@@ -45,7 +45,7 @@ vec3 Transform::TransformPoint(vec3& point) {
 
 vector<vec3> Transform::TransformPoints(vector<vec3> points) {
 	vector<vec3> ps;
-	for (auto p : points)
+	for (auto& p : points)
 		ps.push_back(TransformPoint(p));
 	return ps;
 }

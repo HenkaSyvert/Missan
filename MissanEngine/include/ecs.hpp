@@ -63,9 +63,9 @@ namespace Missan {
 		// these are syntacitcal sugar for calling the respective functions
 		// for all attached components, to avoid writing loops. 
 		void Start();
-		void OnCollisionEnter(GameObject* other);
-		void OnCollisionStay(GameObject* other);
-		void OnCollisionExit(GameObject* other);
+		void OnCollisionEnter(Collision collision);
+		void OnCollisionStay(Collision collision);
+		void OnCollisionExit(Collision collision);
 		void Update();
 		void LateUpdate();
 		void OnRender();
@@ -107,11 +107,11 @@ namespace Missan {
 
 		///
 		/// Called when this Collider has begun touching another Collider
-		inline virtual void OnCollisionEnter(GameObject* other) {}		
+		inline virtual void OnCollisionEnter(Collision collision) {}		
 
-		inline virtual void OnCollisionStay(GameObject* other) {}
+		inline virtual void OnCollisionStay(Collision collision) {}
 
-		inline virtual void OnCollisionExit(GameObject* other) {}
+		inline virtual void OnCollisionExit(Collision collision) {}
 
 		///
 		/// Called every frame

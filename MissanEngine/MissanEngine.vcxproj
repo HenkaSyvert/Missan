@@ -97,6 +97,7 @@
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\graphics\graphics.cpp" />
     <ClCompile Include="source\graphics\gui.cpp" />
+    <ClCompile Include="source\physics\collision.cpp" />
     <ClCompile Include="source\resources.cpp" />
     <ClCompile Include="source\physics\physics.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />

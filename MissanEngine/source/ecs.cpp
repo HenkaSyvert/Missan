@@ -1,6 +1,7 @@
 #include "ecs.hpp"
 #include "internal.hpp"
 
+#include "physics/collision.hpp"
 #include "physics/collider.hpp"
 #include "physics/transform.hpp"
 #include "graphics/renderer.hpp"
@@ -89,9 +90,9 @@ void GameObject::Start() {
 		c->Start();
 	}
 }
-void GameObject::OnCollisionEnter(GameObject* other) { for (auto* c : components) c->OnCollisionEnter(other); }
-void GameObject::OnCollisionStay(GameObject* other) { for (auto* c : components) c->OnCollisionStay(other); }
-void GameObject::OnCollisionExit(GameObject* other) { for (auto* c : components) c->OnCollisionExit(other); }
+void GameObject::OnCollisionEnter(Collision collision) { for (auto* c : components) c->OnCollisionEnter(collision); }
+void GameObject::OnCollisionStay(Collision collision) { for (auto* c : components) c->OnCollisionStay(collision); }
+void GameObject::OnCollisionExit(Collision collision) { for (auto* c : components) c->OnCollisionExit(collision); }
 void GameObject::Update() { for (auto* c : components) c->Update(); }
 void GameObject::LateUpdate() { for (auto* c : components) c->LateUpdate(); }
 void GameObject::OnRender() { for (auto* c : components) c->OnRender(); }
