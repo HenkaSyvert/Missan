@@ -20,6 +20,7 @@ void MakeEditor() {
 
 void PlaceSomeCubes() {
     auto* cube = GameObject::InstantiatePrimitive(GameObject::PrimitiveType::Cube);
+    cube->AddComponent<RigidBody>();
     auto* cube2 = GameObject::Instantiate(cube);
     cube->GetComponent<Transform>()->position.z -= 2;
     cube2->GetComponent<Transform>()->position.z += 2;

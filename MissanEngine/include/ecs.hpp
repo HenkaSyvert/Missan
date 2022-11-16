@@ -1,6 +1,7 @@
 #pragma once
 
 #include "inspectable.hpp"
+#include "physics/collision.hpp"
 
 #include <vector>
 #include <typeinfo>

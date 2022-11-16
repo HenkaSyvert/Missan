@@ -50,19 +50,6 @@ void ApplyForces() {
 }
 
 
-void ResolveCollisions() {
-
-	for (auto& collision : collisions) {
-
-		if (!collision.thisRigidbody && !collision.otherRigidbody) continue;
-
-
-
-
-	}
-
-}
-
 
 vec3 Physics::gravity = { 0.0f, -9.81f, 0.0f };
 

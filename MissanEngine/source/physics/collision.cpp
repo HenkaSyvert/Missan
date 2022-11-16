@@ -2,6 +2,8 @@
 #include "physics/collider.hpp"
 #include "physics/collision.hpp"
 #include "engine.hpp"
+#include "internal.hpp"
+#include "physics/rigidbody.hpp"
 
 #include <vector>
 #include <limits>
@@ -12,7 +14,7 @@ using namespace glm;
 
 
 
-vector<pair<Collision, Collision>> collisionsLastFrame;
+vector<pair<Collision, Collision>> oldCollisions;
 
 const vector<vec3> unitCube = {
 	{0.5, 0.5, 0.5},
@@ -92,7 +94,7 @@ bool TestBoxSphereCollision(Collider* box, Collider* sphere, vector<ContactPoint
 
 	vector<vec3> vertices = box->transform->TransformPoints(unitCube);
 
-	bool isOverlapping = false;
+	bool isOverlapping = true;
 
 	for (const auto& axis : axes) {
 
@@ -119,7 +121,7 @@ bool TestBoxSphereCollision(Collider* box, Collider* sphere, vector<ContactPoint
 			p.normal = axis;	// these all SHOULD already be normalized
 			p.point = box->transform->position + p.normal * separation;
 			contactPoints.push_back(p);
-			isOverlapping = true;
+			isOverlapping = false;
 		}
 	}
 
@@ -145,7 +147,7 @@ bool TestBoxBoxCollision(Collider* a, Collider* b, vector<ContactPoint>& contact
 	const vector<vec3> aVertices = a->transform->TransformPoints(unitCube);
 	const vector<vec3> bVertices = b->transform->TransformPoints(unitCube);
 
-	bool isOverlapping = false;
+	bool isOverlapping = true;
 
 	for (const auto& axis : axes) {
 
@@ -176,9 +178,9 @@ bool TestBoxBoxCollision(Collider* a, Collider* b, vector<ContactPoint>& contact
 			ContactPoint p;
 			p.separation = separation;
 			p.normal = axis;	// these should all be normalized already
-			p.point = 
+			//p.point = 
 			contactPoints.push_back(p);
-			isOverlapping = true;
+			isOverlapping = false;
 		}
 
 	}
@@ -208,6 +210,8 @@ Collision TestCollision(Collider* a, Collider* b, bool& isOverlap) {
 
 void DetectCollisions() {
 
+	vector<pair<Collision, Collision>> newCollisions;
+
 	vector<Collider*>& colliders = Collider::instances;
 	if (colliders.size() <= 1) return;
 
@@ -218,9 +222,9 @@ void DetectCollisions() {
 			Collider* cb = colliders[j];
 
 			bool wasAlreadyOverlapping = false;
-			pair<Collision, Collision>* oldCollisionPair;
-			for (size_t k = 0; k < collisionsLastFrame.size(); k++) {
-				auto& p = collisionsLastFrame[k];
+			pair<Collision, Collision>* oldCollisionPair = nullptr;
+			for (size_t k = 0; k < oldCollisions.size(); k++) {
+				auto& p = oldCollisions[k];
 				if (p.first.otherCollider == ca && p.second.otherCollider == cb || p.first.otherCollider == cb && p.second.otherCollider == ca) {
 					wasAlreadyOverlapping = true;
 					oldCollisionPair = &p;
@@ -261,6 +265,7 @@ void DetectCollisions() {
 
 				}
 
+				newCollisions.push_back({aCollision, bCollision});
 
 				if (!wasAlreadyOverlapping) {
 
@@ -272,17 +277,15 @@ void DetectCollisions() {
 			}
 			else {
 				if (wasAlreadyOverlapping) {
-					ca->gameObject->OnCollisionExit(oldc);
-					cb->gameObject->OnCollisionExit(bcoll);
-
-					collisions.erase(collisions.begin() + collisionIndex);
+					oldCollisionPair->first.other->OnCollisionExit(oldCollisionPair->second);
+					oldCollisionPair->second.other->OnCollisionExit(oldCollisionPair->first);
 				}
 			}
 		}
-
-
-
 	}
+
+	oldCollisions = newCollisions;
+
 }
 
 

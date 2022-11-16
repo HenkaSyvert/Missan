@@ -1,9 +1,4 @@
 #pragma once
-#include "physics/rigidbody.hpp"
-#include "physics/collider.hpp"
-#include "transform.hpp"
-#include "ecs.hpp"
-
 #include <glm/vec3.hpp>
 
 #include <vector>
@@ -24,9 +19,9 @@ namespace Missan {
 
 	public:
 
-		RigidBody* otherRigidBody = nullptr;
-		Collider* otherCollider = nullptr;
-		GameObject* other = nullptr;
+		class RigidBody* otherRigidBody = nullptr;
+		class Collider* otherCollider = nullptr;
+		class GameObject* other = nullptr;
 
 		glm::vec3 relativeVelocity;
 

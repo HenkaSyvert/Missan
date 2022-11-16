@@ -12,6 +12,7 @@ void InputUpdate();
 GLFWwindow* WindowInitialize();
 
 void PhysicsUpdate();
+void DetectCollisions();
 
 void GuiInitialize(GLFWwindow* window);
 void GuiUpdate();
