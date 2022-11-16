@@ -139,10 +139,10 @@ bool TestBoxBoxCollision(Collider* a, Collider* b, vector<ContactPoint>& contact
 	for (const auto& aAxis : a->transform->axes) {
 		axes.push_back(aAxis);
 		for (const auto& bAxis : b->transform->axes) {
-			axes.push_back(bAxis);
 			axes.push_back(normalize(cross(aAxis, bAxis)));
 		}
 	}
+	for (const auto& axis : b->transform->axes) axes.push_back(axis);
 
 	const vector<vec3> aVertices = a->transform->TransformPoints(unitCube);
 	const vector<vec3> bVertices = b->transform->TransformPoints(unitCube);
