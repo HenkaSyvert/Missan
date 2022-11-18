@@ -25,18 +25,44 @@ namespace Missan {
 
 
 	/// 
-	/// Class that detects collisions against other Colliders
+	/// Class that detects collisions against other Colliders. 
+	/// Colliders are affected by the scale and rotation of the Transform. 
 	class Collider : public Component<Collider> {
 
 	public:
 
-		enum class Shape { box, sphere };
+		///
+		/// The shapes that the Collider class supports. 
+		enum class Shape { 
+			
+			///
+			/// A cuboid
+			box,
+			
+			///
+			/// A sphere. The sphere Collider will be scaled by the largest component of
+			/// the Transform's scale, so that it always encapsulates the object. 
+			sphere 
+		};
+
+		///
+		/// The shape of this collider. 
 		Shape shape = Shape::box;
 
+		///
+		/// The offset (in local space) of this Collider relative to the Transform's origin. 
 		glm::vec3 center = { 0, 0, 0 };	// todo: make relevant
+
+		///
+		/// The size of this Collider in along the x,y,z axes. Size is modifed by the
+		/// scale of the Transform. Sphere Colliders do not use size. 
 		glm::vec3 size = { 1, 1, 1 };
+
+		///
+		/// The radius of the sphere Collider. Box Colliders do not use radius. 
 		float& radius = size[0];
-		//for future capsules:
+
+		//for future capsule Colliders:
 		// float& height = size[1];
 		// int& direction = size[2];
 		// alternatively, use union

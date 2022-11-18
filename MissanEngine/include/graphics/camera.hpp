@@ -15,8 +15,6 @@ namespace Missan {
 	/// 
 	/// Camera renders the scene onto to the screen. 
 	/// TODO: add camera render to texture. 
-	/// Provides projection matrix (and inverse) to transform coordinates from
-	/// world space to screen space. 
 	/// TODO: Screen space is normalized to... not sure?
 	class Camera : public Component<Camera> {
 
@@ -44,7 +42,6 @@ namespace Missan {
 		/// TODO: very this is true: orthographicSize defines half the vertical length of 
 		/// the viewing volume. The horizontal length is defined by the aspectRatio. 
 		float orthographicSize = 1;
-
 
 		///
 		/// The types of projection supported by the Camera class. Not all fields are used 

@@ -9,32 +9,41 @@
 namespace Missan {
 
 	///
-	/// Class for GameObjects that are affected by physics
+	/// Class for GameObjects that are affected by physics. GameObjects with RigidBodies
+	/// are automatically simulated by the physics engine. 
 	class RigidBody : public Component<RigidBody> {
 
 	public:
 
 		/// 
-		/// The mass (kg) of this RigidBody
+		/// The mass (kg) of this RigidBody. 
 		float mass = 1.0f;
 
 		/// 
-		/// The linear velocity (m/s) of this RigidBody
+		/// The linear velocity (m/s) of this RigidBody. 
 		glm::vec3 linearVelocity = { 0,0,0 };
 
+		///
+		/// The linear drag of this RigidBody. This simulates air (or other medium) resistance, 
+		/// though only as an approximation, not according to the actual formulae. 
 		float linearDrag = 1;
 
 
 		/// 
 		/// The angular force required to rotate this RigidBody. 
-		/// It's basically the rotational equivalent of mass for linear,
-		/// higher values means more force required to rotate the body.  
+		/// It's basically the rotational equivalent of mass:
+		/// higher values means more force required to rotate the body. 
+		/// TODO: (verify) it is actually a matrix, but for symmetrical shapes 
+		/// (such as sphere or cuboids) it is enough to just store the main diagonal. 
 		glm::vec3 inertiaTensor = { 0,0,0 };
 
 		/// 
 		/// The angular velocity (rad/s) of this RigidBody
 		glm::vec3 angularVelocity = { 0,0,0 };
 
+		///
+		/// The angular drag of this RigidBody. This simulates air (or other medium) resistance, 
+		/// though only as an approximation, not according to the actual formulae. 
 		float angularDrag = 1;
 
 		/// 
@@ -57,6 +66,8 @@ namespace Missan {
 		/// angular impulse that will be applied this frame
 		glm::vec3 angularImpulse = { 0,0,0 };
 
+		///
+		/// The Collider of this GameObject. 
 		Collider* collider = nullptr;
 
 		/// 

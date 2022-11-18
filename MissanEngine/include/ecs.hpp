@@ -149,6 +149,9 @@ namespace Missan {
 		/// 
 		/// The GameObject this Component is attached to. 
 		GameObject* gameObject = nullptr;
+
+		///
+		/// The Transform of this GameObject. 
 		class Transform* transform = nullptr;
 
 		///
@@ -156,11 +159,15 @@ namespace Missan {
 		/// delete components while still calling the correct destructor. 
 		virtual ~AbstractComponent() {}
 
+		/// 
+		/// Returns pointer to Component of type T if found, else nullptr
 		template <class T>
 		inline T* GetComponent() {
 			return gameObject->GetComponent<T>();
 		}
 
+		/// 
+		/// Creates new instance of component T and attaches it to the GameObject. 
 		template <class T>
 		inline T* AddComponent() {
 			return gameObject->AddComponent<T>();
@@ -226,6 +233,8 @@ namespace Missan {
 	class Component : public AbstractComponent {
 	public:
 
+		///
+		/// All instaces of this class. 
 		static std::vector<T*> instances;
 
 		Component() {
