@@ -37,7 +37,7 @@ void GraphicsUpdate() {
 	Camera* camera = Camera::instances[0];
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	vec4 clearColor = camera->clearColor;
+	vec4 clearColor = camera->backgroundColor;
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
 
@@ -59,8 +59,8 @@ void GraphicsUpdate() {
 		
 
 		glUseProgram(shader->programId);
-		shader->SetMat4("model", renderer->transform->matrix);
-		shader->SetMat4("view", camera->transform->inverseMatrix);
+		shader->SetMat4("model", renderer->transform->localToWorldMatrix);
+		shader->SetMat4("view", camera->transform->worldToLocalMatrix);
 		shader->SetMat4("projection", camera->projectionMatrix);
 
 		glBindVertexArray(mesh->vaoId);
@@ -81,7 +81,7 @@ void GraphicsUpdate() {
 		}
 		else if (shader == Shader::phong) {
 
-			shader->SetMat3("normalMatrix", mat3(inverse(transpose(renderer->transform->matrix))));
+			shader->SetMat3("normalMatrix", mat3(inverse(transpose(renderer->transform->localToWorldMatrix))));
 			shader->SetVec3("cameraPosition", camera->transform->position);
 
 			shader->SetVec3("light.position", light->transform->position);

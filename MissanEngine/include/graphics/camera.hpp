@@ -13,40 +13,69 @@
 namespace Missan {
 
 	/// 
-	/// Provides view- and projection matrices to transform GameObjects in Scene to screen space
+	/// Camera renders the scene onto to the screen. 
+	/// TODO: add camera render to texture. 
+	/// Provides projection matrix (and inverse) to transform coordinates from
+	/// world space to screen space. 
+	/// TODO: Screen space is normalized to... not sure?
 	class Camera : public Component<Camera> {
 
 	public:
 
-		enum class Projection { orthographic, perspective };
-
 		/// 
-		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis
+		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis. 
 		float fieldOfView = 45;
 
 		/// 
-		/// Objects closer to the Camera than this will be clipped, i.e. not rendered
+		/// The distance from the Camera (in meters) for which objects closer than this will 
+		/// be clipped, i.e. not rendered. 
 		float nearClipPlane = 0.1f;
 
 		/// 
-		/// Objects farther away from the Camera than this will be clipped, i.e. not rendered
+		/// The distance from the Camera (in meters) for which objects further away than this will 
+		/// be clipped, i.e. not rendered. 
 		float farClipPlane = 100;
 
 		/// 
-		/// Screen Width divided by Height, also how "squeezed" the view is on the y-axis
+		/// Screen Width divided by Height, also how "squeezed" the view is on the y-axis. 
 		float aspectRatio = Window::aspectRatio;
 
+		///
+		/// TODO: very this is true: orthographicSize defines half the vertical length of 
+		/// the viewing volume. The horizontal length is defined by the aspectRatio. 
 		float orthographicSize = 1;
 
+
+		///
+		/// The types of projection supported by the Camera class. Not all fields are used 
+		/// by all projections. 
+		enum class Projection {
+
+			///
+			/// In an orthogonal projection, all projection lines are orthogonal to the
+			/// projection plane (thence the name). Orthographic projection uses 
+			/// orthographicSize, aspectRatio, and the Camera's Transform. 
+			orthographic,
+
+			///
+			/// A perspective projection gives the standard 3D effect of objects further
+			/// away being smaller. Perspective projection uses fieldOfView, near- and farClipPlane,
+			/// aspectRatio, and the Camera's Transform. 
+			perspective
+		};
+
+		///
+		/// The type of projection currently used by the Camera. 
 		Projection projection = Projection::perspective;
 
 		/// 
-		/// The projection matrix, which transform points from world space to screen space
+		/// The projection matrix, which transform points from world space to screen space,
+		/// as per the type of projection being used. 
 		glm::mat4 projectionMatrix;
 
-		glm::mat4 inverseProjectionMatrix;
-
-		glm::vec4 clearColor = Color::grey * 0.1f;
+		///
+		/// The color of the background, where no objects have been rendered. 
+		glm::vec4 backgroundColor = Color::grey * 0.4f;
 
 		void DisplayInInspector() {
 			using namespace ImGui;
@@ -65,7 +94,7 @@ namespace Missan {
 					EndMenu();
 				}
 
-				ColorEdit4("clear color", (float*)&clearColor);
+				ColorEdit4("Background color", (float*)&backgroundColor);
 			}
 		}
 
@@ -76,7 +105,6 @@ namespace Missan {
 			else if (projection == Projection::orthographic) {
 				projectionMatrix = glm::ortho(0.0f, aspectRatio * orthographicSize, 0.0f, orthographicSize, nearClipPlane, farClipPlane);
 			}
-			inverseProjectionMatrix = glm::inverse(projectionMatrix);
 		}
 
 	};
