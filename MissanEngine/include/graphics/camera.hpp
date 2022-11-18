@@ -52,18 +52,18 @@ namespace Missan {
 			/// In an orthogonal projection, all projection lines are orthogonal to the
 			/// projection plane (thence the name). Orthographic projection uses 
 			/// orthographicSize, aspectRatio, and the Camera's Transform. 
-			orthographic,
+			Orthographic,
 
 			///
 			/// A perspective projection gives the standard 3D effect of objects further
 			/// away being smaller. Perspective projection uses fieldOfView, near- and farClipPlane,
 			/// aspectRatio, and the Camera's Transform. 
-			perspective
+			Perspective
 		};
 
 		///
 		/// The type of projection currently used by the Camera. 
-		Projection projection = Projection::perspective;
+		Projection projection = Projection::Perspective;
 
 		/// 
 		/// The projection matrix, which transform points from world space to screen space,
@@ -86,8 +86,8 @@ namespace Missan {
 				SliderFloat("orthographic size", &orthographicSize, -1, 5);
 
 				if (BeginMenu("Projection")) {
-					if (MenuItem("Perspective")) projection = Projection::perspective;
-					if (MenuItem("Orthographic")) projection = Projection::orthographic;
+					if (MenuItem("Perspective")) projection = Projection::Perspective;
+					if (MenuItem("Orthographic")) projection = Projection::Orthographic;
 					EndMenu();
 				}
 
@@ -96,10 +96,10 @@ namespace Missan {
 		}
 
 		void Update() {
-			if (projection == Projection::perspective) {
+			if (projection == Projection::Perspective) {
 				projectionMatrix = glm::perspective(glm::radians(fieldOfView), aspectRatio, nearClipPlane, farClipPlane);
 			}
-			else if (projection == Projection::orthographic) {
+			else if (projection == Projection::Orthographic) {
 				projectionMatrix = glm::ortho(0.0f, aspectRatio * orthographicSize, 0.0f, orthographicSize, nearClipPlane, farClipPlane);
 			}
 		}

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
-#include <vector>
 #include "ecs.hpp"
 #include "inspectable.hpp"
 
-#include <iostream>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+
+#include <vector>
 
 namespace Missan {
 
@@ -18,6 +18,7 @@ namespace Missan {
     class Transform : public Component<Transform> {
 
     public:
+
         /// 
         /// The world space position of the Transform. 
         glm::vec3 position = { 0, 0, 0 };
@@ -29,22 +30,6 @@ namespace Missan {
         /// 
         /// The global scale of the Transform. 
         glm::vec3 scale = { 1, 1, 1 };
-
-        /// 
-        /// Matrix that transforms points from local space to world space. 
-        glm::mat4 localToWorldMatrix = glm::mat4(1.0f);
-
-        ///
-        /// Matrix that transforms points from world space to local space. 
-        glm::mat4 worldToLocalMatrix = glm::mat4(1.0f);
-
-        /// 
-        /// Transforms a point from local space to world space. 
-        glm::vec3 TransformPoint(glm::vec3& point);
-
-        /// 
-        /// Transforms several points from local space to world space. 
-        std::vector<glm::vec3> TransformPoints(std::vector<glm::vec3> points);
 
         ///
         /// The local right, up, and forward axes of this Transform. 
@@ -66,12 +51,29 @@ namespace Missan {
         /// Local forward axis. 
         glm::vec3& forward = axes[2];
 
+        /// 
+        /// Matrix that transforms points from local space to world space. 
+        glm::mat4 localToWorldMatrix = glm::mat4(1.0f);
+
+        ///
+        /// Matrix that transforms points from world space to local space. 
+        glm::mat4 worldToLocalMatrix = glm::mat4(1.0f);
+
+        /// 
+        /// Transforms a point from local space to world space using localToWorldMatrix. 
+        glm::vec3 TransformPoint(glm::vec3& point);
+
+        /// 
+        /// Transforms several points from local space to world space using localToWorldMatrix. 
+        std::vector<glm::vec3> TransformPoints(std::vector<glm::vec3> points);
+
         void Start();
+
         void Update();
+
         void DisplayInInspector();
 
     };
-
 
 }
 

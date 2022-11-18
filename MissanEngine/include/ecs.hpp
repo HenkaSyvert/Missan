@@ -215,22 +215,21 @@ namespace Missan {
 		/// the frame it was marked for destruction. 
 		inline virtual void OnDestroy() {}
 
-		inline virtual void DisplayInInspector() {}
-
-
+		///
+		/// This is, combined with Component<T>::Clone(), is necessary
+		/// to do proper cloning via A
 		inline virtual AbstractComponent* Clone() const = 0;
 		
-
 	};
-
 
 	/// 
 	/// This uses the "curiously recurring template pattern" (CRTP) so that every class
-	/// does not have to provide its own implementation of the clone method, less boiler plate code. 
-	/// also, provides a convenient and syntactically appealing way of gathering instances per component class. 
-	/// there is a one-to-one correspondence between each subclass T and Component<T>. 
+	/// does not have to provide its own implementation of the Clone method: less boiler plate code. 
+	/// Also, provides a convenient and syntactically appealing way of gathering all instances of Component classes. 
+	/// There is a one-to-one correspondence between each subclass T and Component<T>. 
 	template<class T>
 	class Component : public AbstractComponent {
+
 	public:
 
 		///

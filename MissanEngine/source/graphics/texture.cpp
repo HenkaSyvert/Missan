@@ -59,13 +59,13 @@ void Texture::filterMode(FilterMode fm) {
 
 void Texture::DisplayInInspector() {
 	unordered_map<WrapMode, string> wmMap;
-	wmMap[WrapMode::repeat] = "repeat";
-	wmMap[WrapMode::mirroredRepeat] = "mirrored repeat";
-	wmMap[WrapMode::clampToEdge] = "clamp to edge";
-	wmMap[WrapMode::clampToBorder] = "clamp to border";
+	wmMap[WrapMode::Repeat] = "repeat";
+	wmMap[WrapMode::MirroredRepeat] = "mirrored repeat";
+	wmMap[WrapMode::ClampToEdge] = "clamp to edge";
+	wmMap[WrapMode::ClampToBorder] = "clamp to border";
 	unordered_map<FilterMode, string> fmMap;
-	fmMap[FilterMode::nearest] = "nearest";
-	fmMap[FilterMode::linear] = "linear";
+	fmMap[FilterMode::Nearest] = "nearest";
+	fmMap[FilterMode::Linear] = "linear";
 	if (TreeNode("Texture")) {
 		if (BeginCombo("Wrap Mode", wmMap[_wrapMode].c_str())) {
 			for (auto wm : wmMap)

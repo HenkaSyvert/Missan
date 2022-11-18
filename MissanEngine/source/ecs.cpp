@@ -70,12 +70,12 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 	switch (type) {
 	case PrimitiveType::Cube:
 		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");	
-		c->shape = Collider::Shape::box;
+		c->shape = Collider::Shape::Box;
 		g->name = "Cube";
 		break;
 	case PrimitiveType::Sphere:
 		r->mesh = new Mesh(Resources::GenerateUvSphere(30, 30));
-		c->shape = Collider::Shape::sphere;
+		c->shape = Collider::Shape::Sphere;
 		g->name = "Sphere";
 		break;
 	}

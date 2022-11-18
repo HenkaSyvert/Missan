@@ -3,10 +3,13 @@
 namespace Missan {
 
 	/// 
-	/// Stores data about 3D model
+	/// Stores data about 3D model. 
 	class Mesh {
 
 	public:
+
+		///
+		/// The vertex array object ID used by OpenGL to identify this Mesh. 
 		int vaoId;
 
 		// vertices.size() * 3

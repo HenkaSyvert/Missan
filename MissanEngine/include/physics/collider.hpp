@@ -37,17 +37,17 @@ namespace Missan {
 			
 			///
 			/// A cuboid
-			box,
+			Box,
 			
 			///
 			/// A sphere. The sphere Collider will be scaled by the largest component of
 			/// the Transform's scale, so that it always encapsulates the object. 
-			sphere 
+			Sphere 
 		};
 
 		///
 		/// The shape of this collider. 
-		Shape shape = Shape::box;
+		Shape shape = Shape::Box;
 
 		///
 		/// The offset (in local space) of this Collider relative to the Transform's origin. 
@@ -71,7 +71,7 @@ namespace Missan {
 		bool isColliding = false;
 
 		void Start() {
-			if (shape == Shape::sphere) radius = 0.5f;
+			if (shape == Shape::Sphere) radius = 0.5f;
 		}
 
 		void OnCollisionStay(Collision collision) {
@@ -87,13 +87,13 @@ namespace Missan {
 		void DisplayInInspector() {
 
 			using namespace ImGui;
-			if (shape == Shape::box) {
+			if (shape == Shape::Box) {
 				if (CollapsingHeader("Box Collider")) {
 					DragFloat3("size", (float*)&size, 0.01f);
 					Checkbox("Is Colliding?", &isColliding);
 				}
 			}
-			else if (shape == Shape::sphere) {
+			else if (shape == Shape::Sphere) {
 				if (CollapsingHeader("Sphere Collider")) {
 					DragFloat("radius", &radius, 0.01f);
 					Checkbox("Is Colliding?", &isColliding);

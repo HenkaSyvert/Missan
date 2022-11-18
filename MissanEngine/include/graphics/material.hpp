@@ -37,11 +37,11 @@ namespace Missan {
 		float shininess = 32.0f;
 
 		///
-		/// The Shader used by the material. 
+		/// The Shader used by the Material. 
 		Shader* shader = nullptr;
 
 		///
-		/// The texture used by this material. 
+		/// The Texture used by this Material. 
 		Texture* texture = nullptr;
 
 		void DisplayInInspector() {

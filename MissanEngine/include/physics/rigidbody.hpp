@@ -28,7 +28,6 @@ namespace Missan {
 		/// though only as an approximation, not according to the actual formulae. 
 		float linearDrag = 1;
 
-
 		/// 
 		/// The angular force required to rotate this RigidBody. 
 		/// It's basically the rotational equivalent of mass:
@@ -83,11 +82,12 @@ namespace Missan {
 		/// Impulse, unlike force, is only applied once
 		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
-
 		void OnCollisionEnter(Collision collision);
 
 		void DisplayInInspector();
 
 		void Start();
+
 	};
+
 }

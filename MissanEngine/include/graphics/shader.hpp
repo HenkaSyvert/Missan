@@ -17,11 +17,13 @@
 namespace Missan {
 
     /// 
-    /// Program that runs on the GPU
+    /// Program that runs on the GPU. 
     class Shader {
 
     public:
 
+        ///
+        /// The shader program ID used by OpenGL to identify this shader program. 
         GLuint programId;
 
         /// 

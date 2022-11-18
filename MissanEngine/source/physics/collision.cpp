@@ -193,12 +193,12 @@ Collision TestCollision(Collider* a, Collider* b, bool& isOverlap) {
 
 	Collision collision;
 
-	if (a->shape == Collider::Shape::sphere) {
-		if (b->shape == Collider::Shape::sphere) isOverlap = TestSphereSphereCollision(a, b, collision.contactPoints);
+	if (a->shape == Collider::Shape::Sphere) {
+		if (b->shape == Collider::Shape::Sphere) isOverlap = TestSphereSphereCollision(a, b, collision.contactPoints);
 		else isOverlap = TestBoxSphereCollision(b, a, collision.contactPoints);
 	}
 	else {
-		if (b->shape == Collider::Shape::sphere) isOverlap = TestBoxSphereCollision(a, b, collision.contactPoints);
+		if (b->shape == Collider::Shape::Sphere) isOverlap = TestBoxSphereCollision(a, b, collision.contactPoints);
 		else isOverlap = TestBoxBoxCollision(a, b, collision.contactPoints);
 	}
 

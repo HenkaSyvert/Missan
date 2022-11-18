@@ -17,9 +17,11 @@ namespace Missan {
 		RendererType type = RendererType::Mesh;
 
 		/// 
-		/// Mesh to render
+		/// Mesh to render. 
 		Mesh* mesh = nullptr;
 
+		///
+		/// The Material used to render. 
 		Material* material = nullptr;
 
 		bool isEnabled = true;
