@@ -225,7 +225,7 @@ void DetectCollisions() {
 			pair<Collision, Collision>* oldCollisionPair = nullptr;
 			for (size_t k = 0; k < oldCollisions.size(); k++) {
 				auto& p = oldCollisions[k];
-				if (p.first.otherCollider == ca && p.second.otherCollider == cb || p.first.otherCollider == cb && p.second.otherCollider == ca) {
+				if (p.first.collider == ca && p.second.collider == cb || p.first.collider == cb && p.second.collider == ca) {
 					wasAlreadyOverlapping = true;
 					oldCollisionPair = &p;
 					break;
@@ -241,19 +241,19 @@ void DetectCollisions() {
 			if (isOverlap) {
 
 				Collision bCollision(aCollision);
-				bCollision.otherCollider = ca;
-				bCollision.other = ca->gameObject;
-				bCollision.otherRigidBody = ca->GetComponent<RigidBody>();
+				bCollision.collider = ca;
+				bCollision.gameObject = ca->gameObject;
+				bCollision.rigidBody = ca->GetComponent<RigidBody>();
 				for (auto& p : bCollision.contactPoints) p.normal *= -1;			
 
-				aCollision.otherCollider = cb;
-				aCollision.other = cb->gameObject;
-				aCollision.otherRigidBody = cb->GetComponent<RigidBody>();
+				aCollision.collider = cb;
+				aCollision.gameObject = cb->gameObject;
+				aCollision.rigidBody = cb->GetComponent<RigidBody>();
 
 				// apply forces and such only happens if both colliders have rigid bodies
-				if (aCollision.otherRigidBody && bCollision.otherRigidBody) {
+				if (aCollision.rigidBody && bCollision.rigidBody) {
 					
-					aCollision.relativeVelocity = aCollision.otherRigidBody->linearVelocity - bCollision.otherRigidBody->linearVelocity;
+					aCollision.relativeVelocity = aCollision.rigidBody->linearVelocity - bCollision.rigidBody->linearVelocity;
 					bCollision.relativeVelocity = -aCollision.relativeVelocity;
 
 					vec3 forceSum = { 0, 0, 0 };
@@ -277,8 +277,8 @@ void DetectCollisions() {
 			}
 			else {
 				if (wasAlreadyOverlapping) {
-					oldCollisionPair->first.other->OnCollisionExit(oldCollisionPair->second);
-					oldCollisionPair->second.other->OnCollisionExit(oldCollisionPair->first);
+					oldCollisionPair->first.gameObject->OnCollisionExit(oldCollisionPair->second);
+					oldCollisionPair->second.gameObject->OnCollisionExit(oldCollisionPair->first);
 				}
 			}
 		}

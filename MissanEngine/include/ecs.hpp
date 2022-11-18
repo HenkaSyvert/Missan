@@ -11,19 +11,30 @@
 namespace Missan {
 
 	/// 
-	/// Class representing GameObjects in Missan Scenes
+	/// Class representing GameObjects in Missan scenes. 
 	class GameObject : public Inspectable {
 
 	public:
 
+		///
+		/// The name of the GameObject. 
 		std::string name = "Game Object";
+
+		///
+		/// The components attached to this GameObject. There can only be a
+		/// single instance per class type attached. 
 		std::vector<class AbstractComponent*> components;
+
+		///
+		/// The transform of this GameObject. 
 		class Transform* transform = nullptr;
 
+		///
+		/// Deletes and frees all attached components. 
 		~GameObject();
 
 		/// 
-		/// Adds Component of type T, attaches it, and returns pointer
+		/// Creates new instance of component T and attaches it to the GameObject. 
 		template <class T>
 		inline T* AddComponent() {
 			T* c = new T();
@@ -47,38 +58,88 @@ namespace Missan {
 
 
 
+
+
+		///
+		/// All active GameObjects in the scene, i.e. those that have been instantiated
+		/// using GameObject::Instantiate(). GameObjects created on the stack are not 
+		/// actually instantiated into the scene. 
 		static std::vector<GameObject*> instances;
 
 		/// 
-		/// Instantiates a new GameObject (based on original, if given) and calls Start() at end of frame. 
+		/// Instantiates a new GameObject calls Start() at end of frame. 
+		/// If an original GameObject is provided, its new instances of all
+		/// its components are created and attached to the new GameObject. 
+		/// The cloned components will be copies of the original components, 
+		/// but will have their references to gameObject and transform set
+		/// correctly, but all other fields are simply copied as is. 
 		static GameObject* Instantiate(GameObject* original = nullptr);
 
 		///
-		/// Marks game object for deletion at end of frame. 
+		/// Marks game object for deletion, will call OnDestroy() at end of
+		/// current frame, and then delete gameObject and all its attached 
+		/// components. 
 		static void Destroy(GameObject* gameObject);
 
+		///
+		/// Primitive types that can be created with GameObject::InstantiatePrimitive(). 
 		enum class PrimitiveType { Cube, Sphere, Plane };
+
+		///
+		/// Instantiates a GameObject with a transform, collider, and renderer, 
+		/// according to the primitive type. 
 		static GameObject* InstantiatePrimitive(PrimitiveType type);
 
 
-		// these are syntacitcal sugar for calling the respective functions
-		// for all attached components, to avoid writing loops. 
+
+
+		// These functions are used to neatly call the respective function
+		// for all attached components without having to write loops. They are
+		// just used by the engine and should not be called in user scripts. 
+
+		///
+		/// Calls the Start() event function for all attached components. 
 		void Start();
+
+		///
+		/// Calls the OnCollisionEnter() event function for all attached components. 
 		void OnCollisionEnter(Collision collision);
+
+		///
+		/// Calls the OnCollisionStay() event function for all attached components. 
 		void OnCollisionStay(Collision collision);
+
+		///
+		/// Calls the OnCollisionEnter() event function for all attached components. 
 		void OnCollisionExit(Collision collision);
+
+		///
+		/// Calls the Update() event function for all attached components. 
 		void Update();
+
+		///
+		/// Calls the LateUpdate() event function for all attached components. 
 		void LateUpdate();
+
+		///
+		/// Calls the OnRender() event function for all attached components. 
 		void OnRender();
+
+		///
+		/// Calls the OnGui() event function for all attached components. 
 		void OnGui();
+
+		///
+		/// Calls the OnDestroy() event function for all attached components. 
 		void OnDestroy();
+
+		///
+		/// Calls the DispayInInspector() event function for all attached components. 
 		void DisplayInInspector();
-
-
 
 	};
 
-
+	///
 	/// Components define behavior of GameObjects. To make a custom script, inherit from Component. 
 	/// Override the event functions - here listed in order of execution - in your own scripts. 
 	class AbstractComponent : public Inspectable {
@@ -90,6 +151,9 @@ namespace Missan {
 		GameObject* gameObject = nullptr;
 		class Transform* transform = nullptr;
 
+		///
+		/// The destructor is virtual so that base pointers can be used to 
+		/// delete components while still calling the correct destructor. 
 		virtual ~AbstractComponent() {}
 
 		template <class T>
@@ -103,25 +167,36 @@ namespace Missan {
 		}
 
 		///
-		/// Called only once for each GameObject, before all other Event functions
+		/// Only called once, at instantiation or start of simulation. Use this
+		/// for initialization. 
 		inline virtual void Start() {}
 
 		///
-		/// Called when this Collider has begun touching another Collider
+		/// Called when this Collider has begun touching another Collider. 
+		/// The Collision information passed is from the perspective of our Collider. 
 		inline virtual void OnCollisionEnter(Collision collision) {}		
 
+		///
+		/// Called every frame this Collider collides with another Collider. 
+		/// The Collision information passed is from the perspective of our Collider. 
 		inline virtual void OnCollisionStay(Collision collision) {}
 
+		///
+		/// Called on the frame that this Collider has stopped colliding with another Collider. 
+		/// The Collision information passed is from the perspective of our Collider. 
 		inline virtual void OnCollisionExit(Collision collision) {}
 
 		///
-		/// Called every frame
+		/// Called once every frame. Bulk of logic goes here. 
 		inline virtual void Update() {}
 
 		///
-		/// Called every frame, but after all regular Update events
+		/// Called once every frame, but after all regular Update events. Use this
+		/// for logic that is dependent on being executed last. 
 		inline virtual void LateUpdate() {}
 
+		///
+		/// Called at the end of the graphics update. 
 		inline virtual void OnRender() {}
 
 		///
@@ -129,7 +204,8 @@ namespace Missan {
 		inline virtual void OnGui() {}
 		
 		///
-		/// Called prior to the GameObject being destroyed
+		/// Called once before the GameObject is destroyed, at the end of
+		/// the frame it was marked for destruction. 
 		inline virtual void OnDestroy() {}
 
 		inline virtual void DisplayInInspector() {}
