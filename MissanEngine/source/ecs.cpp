@@ -62,9 +62,6 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 	GameObject* g = Instantiate();
 	g->AddComponent<Transform>();
 	auto* r = g->AddComponent<Renderer>();
-	r->material = new Material();
-	r->material->texture = Resources::GetTexture("resources/textures/blank.png");
-	r->material->shader = Shader::phong;
 	auto* c = g->AddComponent<Collider>();
 
 	switch (type) {
@@ -95,7 +92,6 @@ void GameObject::OnCollisionStay(Collision collision) { for (auto* c : component
 void GameObject::OnCollisionExit(Collision collision) { for (auto* c : components) c->OnCollisionExit(collision); }
 void GameObject::Update() { for (auto* c : components) c->Update(); }
 void GameObject::LateUpdate() { for (auto* c : components) c->LateUpdate(); }
-void GameObject::OnRender() { for (auto* c : components) c->OnRender(); }
 void GameObject::OnGui() { for (auto* c : components) c->OnGui(); }
 void GameObject::OnDestroy() { for (auto* c : components) c->OnDestroy(); }
 void GameObject::DisplayInInspector() { for (auto* c : components) c->DisplayInInspector(); }

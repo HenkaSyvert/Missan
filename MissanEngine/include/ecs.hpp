@@ -57,9 +57,6 @@ namespace Missan {
 		}
 
 
-
-
-
 		///
 		/// All active GameObjects in the scene, i.e. those that have been instantiated
 		/// using GameObject::Instantiate(). GameObjects created on the stack are not 
@@ -83,7 +80,7 @@ namespace Missan {
 
 		///
 		/// Primitive types that can be created with GameObject::InstantiatePrimitive(). 
-		enum class PrimitiveType { Cube, Sphere, Plane };
+		enum class PrimitiveType { Cube, Sphere };
 
 		///
 		/// Instantiates a GameObject with a transform, collider, and renderer, 
@@ -120,10 +117,6 @@ namespace Missan {
 		///
 		/// Calls the LateUpdate() event function for all attached components. 
 		void LateUpdate();
-
-		///
-		/// Calls the OnRender() event function for all attached components. 
-		void OnRender();
 
 		///
 		/// Calls the OnGui() event function for all attached components. 
@@ -201,10 +194,6 @@ namespace Missan {
 		/// Called once every frame, but after all regular Update events. Use this
 		/// for logic that is dependent on being executed last. 
 		inline virtual void LateUpdate() {}
-
-		///
-		/// Called at the end of the graphics update. 
-		inline virtual void OnRender() {}
 
 		///
 		/// Called during GUI rendering

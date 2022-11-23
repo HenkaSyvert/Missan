@@ -36,6 +36,9 @@ const Color Color::grey		 = { 0.5f, 0.5f, 0.5f, 1.0f };
 const Color Color::darkGrey  = { 0.2f, 0.2f, 0.2f, 1.0f };
 const Color Color::lightGrey = { 0.8f, 0.8f, 0.8f, 1.0f };
 
+Material* Material::defaultMaterial = nullptr;
+
+
 void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -43,7 +46,10 @@ void GraphicsInitialize() {
 	Shader::unlit = new Shader("resources/shaders/unlit/vertex.shader", "resources/shaders/unlit/fragment.shader");
 	Shader::phong = new Shader("resources/shaders/phong/vertex.shader", "resources/shaders/phong/fragment.shader");
 
-	
+	Material::defaultMaterial = new Material();
+	Material::defaultMaterial->shader = Shader::phong;
+	Material::defaultMaterial->texture = Resources::GetTexture("resources/textures/blank.png");
+
 }
 
 void GraphicsUpdate() {
@@ -62,15 +68,11 @@ void GraphicsUpdate() {
 		if (!mesh) continue;
 
 		Material* material = renderer->material;
-
 		Shader* shader = material->shader;
-		if (!shader) shader = Shader::unlit;
-
 		Texture* texture = material->texture;
 
 		Light* light = Light::instances[0];
 		
-
 		glUseProgram(shader->programId);
 		shader->SetMat4("model", renderer->transform->localToWorldMatrix);
 		shader->SetMat4("view", camera->transform->worldToLocalMatrix);
@@ -119,5 +121,4 @@ void GraphicsUpdate() {
 
 	}
 
-	for (auto* g : GameObject::instances) g->OnRender();
 }

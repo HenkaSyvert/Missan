@@ -44,6 +44,8 @@ namespace Missan {
 		/// The Texture used by this Material. 
 		Texture* texture = nullptr;
 
+		static Material* defaultMaterial;
+
 		void DisplayInInspector() {
 			using namespace ImGui;
 			if (TreeNode("Material")) {
