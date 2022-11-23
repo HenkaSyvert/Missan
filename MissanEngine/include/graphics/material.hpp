@@ -19,17 +19,17 @@ namespace Missan {
 		///
 		/// The ambient color of this material. This is the color that 
 		/// will blend with the lights' ambient colors. 
-		glm::vec4 ambient = Color::blue;
+		Color ambient = Color::blue;
 
 		///
 		/// The diffuse color of this material. This is the color that 
 		/// will blend with the lights' diffuse colors. 
-		glm::vec4 diffuse = Color::blue;
+		Color diffuse = Color::blue;
 
 		///
 		/// The specular color of this material. This is the color that
 		/// will blend with the lights' specular colors. 
-		glm::vec4 specular = Color::blue;
+		Color specular = Color::blue;
 
 		///
 		/// How shiny this object is. Higher values results in a more concentrated specular
