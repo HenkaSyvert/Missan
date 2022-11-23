@@ -70,7 +70,7 @@ namespace Missan {
 
 		///
 		/// The color of the background, where no objects have been rendered. 
-		Color backgroundColor = Color::darkGrey;
+		Color backgroundColor = Color::Lerp(Color::black, Color::white, 0.2);
 
 		void DisplayInInspector() {
 			using namespace ImGui;

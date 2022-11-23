@@ -19,22 +19,22 @@ namespace Missan {
 		///
 		/// The ambient color of this material. This is the color that 
 		/// will blend with the lights' ambient colors. 
-		Color ambient = Color::blue;
+		Color ambient = Color::lightGrey;
 
 		///
 		/// The diffuse color of this material. This is the color that 
 		/// will blend with the lights' diffuse colors. 
-		Color diffuse = Color::blue;
+		Color diffuse = Color::lightGrey;
 
 		///
 		/// The specular color of this material. This is the color that
 		/// will blend with the lights' specular colors. 
-		Color specular = Color::blue;
+		Color specular = Color::lightGrey;
 
 		///
 		/// How shiny this object is. Higher values results in a more concentrated specular
 		/// bright spot, giving a more glassy and metallic appearance. 
-		float shininess = 32.0f;
+		float shininess = 8;
 
 		///
 		/// The Shader used by the Material. 
