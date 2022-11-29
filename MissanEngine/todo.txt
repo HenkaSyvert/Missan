@@ -21,7 +21,7 @@ graphics
 engine
 	make dll
 
-
+overload global new/delete operators, and put ecs there?
 
 mouse
 	add select obj functionality

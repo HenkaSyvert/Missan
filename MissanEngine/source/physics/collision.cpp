@@ -241,12 +241,14 @@ void DetectCollisions() {
 			if (isOverlap) {
 
 				Collision bCollision(aCollision);
+				bCollision.transform = ca->transform;
 				bCollision.collider = ca;
 				bCollision.gameObject = ca->gameObject;
 				bCollision.rigidBody = ca->GetComponent<RigidBody>();
 				for (auto& p : bCollision.contactPoints) p.normal *= -1;			
 
 				aCollision.collider = cb;
+				aCollision.transform = cb->transform;
 				aCollision.gameObject = cb->gameObject;
 				aCollision.rigidBody = cb->GetComponent<RigidBody>();
 

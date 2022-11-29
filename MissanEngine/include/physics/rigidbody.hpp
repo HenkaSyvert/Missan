@@ -83,6 +83,7 @@ namespace Missan {
 		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
 
 		void OnCollisionEnter(Collision collision);
+		void OnCollisionStay(Collision collision);
 
 		void DisplayInInspector();
 
