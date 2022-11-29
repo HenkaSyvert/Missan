@@ -1,26 +1,43 @@
 #pragma once
 
 #include <glm/vec4.hpp>
-#include <glm/vec3.hpp>
 
 namespace Missan {
 
 	///
-	/// Some predefined colors in RGBA format. Each color component is normalized in range [0, 1]. 
+	/// Defines colors in RGBA format. Each color component is normalized in range [0, 1]. 
 	/// Alpha component defines transparancy, with 1 being opaque and 0 being transparent. 
-	namespace Color {
+	class Color : public glm::vec4 {
 
-		constexpr glm::vec4 red		= {1.0f, 0.0f, 0.0f, 1.0f};
-		constexpr glm::vec4 green	= {0.0f, 1.0f, 0.0f, 1.0f};
-		constexpr glm::vec4 blue	= {0.0f, 0.0f, 1.0f, 1.0f};
-		constexpr glm::vec4 white	= {1.0f, 1.0f, 1.0f, 1.0f};
-		constexpr glm::vec4 black	= {0.0f, 0.0f, 0.0f, 1.0f};
-		constexpr glm::vec4 clear	= {0.0f, 0.0f, 0.0f, 0.0f};
-		constexpr glm::vec4 cyan	= {0.0f, 1.0f, 1.0f, 1.0f};
-		constexpr glm::vec4 magenta = {1.0f, 0.0f, 1.0f, 1.0f};
-		constexpr glm::vec4 yellow	= {1.0f, 1.0f, 0.0f, 1.0f};
-		constexpr glm::vec4 grey	= {0.5f, 0.5f, 0.5f, 1.0f};
+	public:
+		
+		// to use super class' constructor, so can use initializer lists. 
+		using glm::vec4::vec4;
+		Color(glm::vec4 v) : glm::vec4(v) {}
 
-	}
+		static const Color red;
+		static const Color green;
+		static const Color blue;
+		static const Color white;
+		static const Color black;
+		static const Color clear;
+		static const Color cyan;
+		static const Color magenta;
+		static const Color yellow;
+		static const Color grey;
+		static const Color darkGrey;
+		static const Color lightGrey;
+
+		// Leaves the alpha value unmodified, because that's what you usually want. 
+		inline Color operator*(float f) { return { r * f, g * f, b * f, a }; }
+
+		// Linearly interpolates between Colors a and b by value t. 
+		// t should be in range [0, 1] with t = 0 returning a, and
+		// t = 1 returning b. 
+		inline static Color Lerp(Color a, Color b, float t) {
+			return a * (1 - t) + b * t;
+		}
+
+	};
 
 }

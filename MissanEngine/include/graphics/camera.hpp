@@ -2,8 +2,6 @@
 
 #include "ecs.hpp"
 #include "graphics/window.hpp"
-#include "physics/ray.hpp"
-#include "inspectable.hpp"
 #include "graphics/color.hpp"
 
 #include <glm/trigonometric.hpp>
@@ -72,7 +70,7 @@ namespace Missan {
 
 		///
 		/// The color of the background, where no objects have been rendered. 
-		glm::vec4 backgroundColor = Color::grey * 0.4f;
+		Color backgroundColor = Color::Lerp(Color::black, Color::white, 0.2);
 
 		void DisplayInInspector() {
 			using namespace ImGui;
@@ -96,12 +94,9 @@ namespace Missan {
 		}
 
 		void Update() {
-			if (projection == Projection::Perspective) {
-				projectionMatrix = glm::perspective(glm::radians(fieldOfView), aspectRatio, nearClipPlane, farClipPlane);
-			}
-			else if (projection == Projection::Orthographic) {
-				projectionMatrix = glm::ortho(0.0f, aspectRatio * orthographicSize, 0.0f, orthographicSize, nearClipPlane, farClipPlane);
-			}
+			projectionMatrix = projection == Projection::Perspective
+				? glm::perspective(glm::radians(fieldOfView), aspectRatio, nearClipPlane, farClipPlane)
+				: glm::ortho(0.0f, aspectRatio * orthographicSize, 0.0f, orthographicSize, nearClipPlane, farClipPlane);			
 		}
 
 	};

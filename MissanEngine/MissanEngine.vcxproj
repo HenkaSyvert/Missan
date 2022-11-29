@@ -595,7 +595,6 @@
     <ClInclude Include="include\missan.hpp" />
     <ClInclude Include="include\physics\collision.hpp" />
     <ClInclude Include="include\physics\physics.hpp" />
-    <ClInclude Include="include\physics\ray.hpp" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\physics\rigidbody.hpp" />
     <ClInclude Include="include\scene.h" />

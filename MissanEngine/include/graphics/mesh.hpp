@@ -22,7 +22,6 @@ namespace Missan {
 			this->elementCount = elementCount;
 		}
 
-
 	};
 
 }

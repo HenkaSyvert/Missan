@@ -26,6 +26,10 @@ namespace Missan {
 
 		bool isEnabled = true;
 
+		void Start() {
+			if (!material) material = Material::defaultMaterial;
+		}
+
 		void DisplayInInspector() {
 			using namespace ImGui;
 			if (CollapsingHeader("Renderer")) {
