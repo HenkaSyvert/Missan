@@ -20,9 +20,8 @@ e.g. every **Update** or **OnCollisionEnter**.
 - **Graphical User Interface** via ImGui
 - Importing **Assets**, like textures. 
 
-
-## Video Presentation
-[![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
+![A basic Editor](editorAndLight.png)
+Editor showing the Components of the selected GameObject in the Inspector window. 
 
 ## Scripting
 This example shows how to write a simple first person shooter style
@@ -80,8 +79,11 @@ GameObject player;
 player.AddComponent<FpsMovement>();    // our script. 
 player.AddComponent<Camera>();         // built-in Component. 
 GameObject::Instantiate(&player);      // now player exists in game scene. 
-
 ```
+## Video Presentation
+(In Swedish) where talk about the project and game engines in general. \
+[![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
+
 ## The Report
 The report (in Swedish), as part of the project course:
 [Link to report](https://drive.google.com/file/d/1UEbyQDgeKQjmjQmAAX_eAy41uurMqaDQ/view?usp=sharing)
