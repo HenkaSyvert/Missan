@@ -1,16 +1,25 @@
 ## About
-Missan Engine is a game engine written by me ([LinkedIn: Henrik Syvertsson](https://www.linkedin.com/in/henrik-syvertsson-806983197/)) 
+Missan Engine is a game engine written by
+([LinkedIn: Henrik Syvertsson](https://www.linkedin.com/in/henrik-syvertsson-806983197/)) 
 as part of a project at Karlstad University. 
-Missan provides an API and environment in which
-users can create interactive simulations. 
+Missan provides a scripting API with which users can create interactive simulations. 
 
-It is written (as much as possible) from scratch, in C++ with OpenGL/GLFW as a base. 
-This project is a work in progress, but some notable features it currently supports are:
-- **Scripting Engine** which allows user-defined scripts to be injected at various stages of the game loop. 
-- **Physics Engine**, implemented from scratch. Collision avoidance currently only partly implemented. 
-- **Graphical User Interface**, via 3rd party library ImGui. 
-- Importing **Assets**, like textures. 
+It is written in C++ with OpenGL (via GLEW) as renderer and GLFW as platform. 
+It also uses glm as for maths, 
+ImGui for GUI, 
+doxygen for documentation, 
+and stb for file handling. 
+
+The scripting API is inspired by Unity3D's API, 
+so it should look very familiar to those who know it. 
+Some features that Missan supports are:
+- **Scripting Engine** which allows user-defined scripts to be injected at various stages of the game loop,
+e.g. every **Update** or **OnCollisionEnter**. 
 - Fundamental Built-in **Components** like Transform, Renderer, Camera, Collider, RigidBody. 
+- **Physics Engine** which handles applying forces, and detecting and resolving collisions. 
+- **Graphical User Interface** via ImGui
+- Importing **Assets**, like textures. 
+
 
 ## Video Presentation
 [![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
@@ -20,7 +29,8 @@ This project is a work in progress, but some notable features it currently suppo
 This example shows how to write a simple first person camera script using Missan API:
 ```c++
 // Simple script for rotating camera with mouse
-// User defined scripts must inherit from Component, which provides event functions that can be overrided. 
+// User defined scripts must inherit from Component, which provides event functions that can be overrided,
+// in this case Start() and Update(). 
 class FPSCamera : public Component {
 
 public:   
@@ -45,6 +55,15 @@ public:
         transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);      
     }
 }
+
+...
+
+// How to instantiate a GameObject with the script:
+GameObject player;
+player.AddComponent<FPSCamera>();
+GameObject::Instantiate(&player);
+
+
 ```
 ## The Report
 The report (in Swedish), as part of the project course:
