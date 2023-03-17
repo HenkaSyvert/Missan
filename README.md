@@ -25,7 +25,7 @@ Editor showing the Components of the selected GameObject in the Inspector window
 
 ## Scripting
 This example shows how to write a simple first person shooter style
-movement and camera script using [Missan scripting API (Link)](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
+movement and camera script using [Missan scripting API (Link)](https://henkasyvert.github.io/Missan/)
 ```c++
 // Simple script for rotating camera with mouse and moving with WASD. 
 // User defined scripts must inherit from Component, which provides
