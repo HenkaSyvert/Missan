@@ -1,5 +1,5 @@
 ## About
-Missan Engine is a game engine written by
+Missan is a game engine written by
 [Henrik Syvertsson (LinkedIn)](https://www.linkedin.com/in/henrik-syvertsson-806983197/) 
 as part of a project at Karlstad University. 
 Missan provides a scripting API with which users can create interactive simulations. 
