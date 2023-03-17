@@ -28,7 +28,6 @@ namespace Missan {
 
 		///
 		/// The number of channels this Texture has. 
-		/// TODO: i.e. wheter it is RGB or RGBA. Currently only supports rgba. 
 		int channels;
 
 		// applies to all texture coords

@@ -1,11 +1,11 @@
 
 
-
-physics
+colliders
 	rotate colliders and bounding boxes
-
-
-networking
+	fix interdependent dimension properties (min, max, size, extents)
+	fix types: sphere, box, capsule, mesh
+	make collider radius work with transform scale
+	fix so can offset collider from transform origin with collider.center
 
 transform
 	quaternions for rotation
@@ -16,38 +16,28 @@ transform
 graphics
 	texture mip map
 	look at unity legacy shaders for insp
+	line/wireframe renderer
 
+
+rigidbody:
+	set density based on collider volume and mass, on assummed constant density
+	restitution (or bounciness), but maybe handled by separate physics material. 
+	fix inertia tensors for asymmetrical and composite colliders. 
 
 engine
 	make dll
-
-overload global new/delete operators, and put ecs there?
+	add python bindings
 
 mouse
 	add select obj functionality
 
-general
-	add descriptiv comments
-	links to internet resources
+camera
+	render to texture. 
+	fix screen space normalization
 
+light
+	add directional, spot, point types
 
-make editor w imgui
+texture
+	make it support both rgb and rgba
 
-
-
-physics:
-	transform:
-		add support f child
-	line/wireframe renderer
-	rigidbody:
-		set density based on collider volume and mass, on assummed constant density
-		restitution (or bounciness), but maybe handled by separate physics material. 
-
-
-prerequisties for improving physics:
-	sphere mesh
-		func to generate?
-	draw wireframe for cube and sphere
-		wire frame renderer?
-	draw lines, to visualise vectors
-		line renderer?

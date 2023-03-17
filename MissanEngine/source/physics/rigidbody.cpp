@@ -67,13 +67,11 @@ void RigidBody::DisplayInInspector() {
 
 void RigidBody::OnCollisionEnter(Collision collision) {
 
-	// TODO: what point to apply impulse to?.. average of all contact points?
 	AddImpulse(collision.contactPoints[0].normal * collision.contactPoints[0].separation * glm::length(collision.impulse), {0,0,0});
 
 }
 void RigidBody::OnCollisionStay(Collision collision) {
 
-	// TODO: what point to apply impulse to?.. average of all contact points?
 	collision.transform->position += collision.contactPoints[0].normal * collision.contactPoints[0].separation;
 
 }

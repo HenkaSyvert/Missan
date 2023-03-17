@@ -12,7 +12,7 @@ namespace Missan {
 
     /// 
     /// Stores position, rotation, and scale of a GameObject
-    /// TODO: every GameObject has a Transform. Transforms can also have a parent, 
+    /// Every GameObject has a Transform. Transforms can also have a parent, 
     /// which allows you to apply position, rotation, and scale hierarchically. This
     /// hierarchy is visible in the Hierarchy window in the Editor. 
     class Transform : public Component<Transform> {

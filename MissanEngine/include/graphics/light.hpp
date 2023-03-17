@@ -7,7 +7,6 @@ namespace Missan {
 
 	///
 	/// Represents a light source in the scene. 
-	/// TODO: can be of directional, spotlight, or point type. 
 	/// Not all fields are used by the different types. 
 	/// Note that not all shaders take lighting into account. 
 	class Light : public Component<Light> {

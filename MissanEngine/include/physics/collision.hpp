@@ -26,13 +26,11 @@ namespace Missan {
 
 		///
 		/// The normal of the point of contact. 
-		/// TODO: this is the normal of the face that was collided with (but is this really true??..)
 		glm::vec3 normal;		
 
 		///
 		/// The separation (or penetration, as is the case when a collision has happened) 
 		/// between the two GameObjects. 
-		/// TODO: unity seems to have a use case for positive separations? investigate. 
 		float separation;
 
 	};

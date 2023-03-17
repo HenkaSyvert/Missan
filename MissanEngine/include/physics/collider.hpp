@@ -14,7 +14,6 @@ namespace Missan {
 
 	public:
 
-		// todo: these are inter dependent, make properties?
 		glm::vec3 min = { -.5, -.5, -.5 };
 		glm::vec3 max = { .5, .5, .5 };
 		glm::vec3 size = { 1, 1, 1 };

@@ -31,9 +31,8 @@ namespace Missan {
 		// Leaves the alpha value unmodified, because that's what you usually want. 
 		inline Color operator*(float f) { return { r * f, g * f, b * f, a }; }
 
-		// Linearly interpolates between Colors a and b by value t. 
-		// t should be in range [0, 1] with t = 0 returning a, and
-		// t = 1 returning b. 
+		// Linearly interpolates between Colors a and b by value t. t should be in
+		// range [0, 1] with t = 0 returning a, and t = 1 returning b. 
 		inline static Color Lerp(Color a, Color b, float t) {
 			return a * (1 - t) + b * t;
 		}

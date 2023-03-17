@@ -27,9 +27,6 @@ const vector<vec3> unitCube = {
 	{-.5, -.5, -.5}
 };
 
-// TODO: make collider.size/radius work properly with transform.scale. 
-// TODO2: make collider.center relevant
-
 
 // these contact point finding functions always return contact points from the perspective of the first collider. 
 
@@ -58,7 +55,6 @@ bool TestSphereSphereCollision(Collider* a, Collider* b, vector<ContactPoint>& c
 
 }
 
-// TODO: optimize, check
 Collision AabbAabbCollision(Collider* a, Collider* b) {
 
 	// since AABB collision is supposed to be a cheap detection for potential collisions,
@@ -81,7 +77,6 @@ Collision AabbAabbCollision(Collider* a, Collider* b) {
 	};
 
 	//return distance.x < 0 || distance.y < 0 || distance.z < 0;
-	// TODO: implement collision
 	return Collision();
 
 }

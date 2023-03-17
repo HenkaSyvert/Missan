@@ -12,8 +12,6 @@ namespace Missan {
 
 	/// 
 	/// Camera renders the scene onto to the screen. 
-	/// TODO: add camera render to texture. 
-	/// TODO: Screen space is normalized to... not sure?
 	class Camera : public Component<Camera> {
 
 	public:
@@ -37,7 +35,6 @@ namespace Missan {
 		float aspectRatio = Window::aspectRatio;
 
 		///
-		/// TODO: very this is true: orthographicSize defines half the vertical length of 
 		/// the viewing volume. The horizontal length is defined by the aspectRatio. 
 		float orthographicSize = 1;
 
