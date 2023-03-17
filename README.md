@@ -1,6 +1,6 @@
 ## About
 Missan Engine is a game engine written by
-([LinkedIn: Henrik Syvertsson](https://www.linkedin.com/in/henrik-syvertsson-806983197/)) 
+[Henrik Syvertsson (LinkedIn)](https://www.linkedin.com/in/henrik-syvertsson-806983197/) 
 as part of a project at Karlstad University. 
 Missan provides a scripting API with which users can create interactive simulations. 
 
@@ -25,7 +25,7 @@ e.g. every **Update** or **OnCollisionEnter**.
 [![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
 
 ## Scripting
-This example shows how to write a simply first person shooter style
+This example shows how to write a simple first person shooter style
 movement and camera script using [Missan scripting API (Link)](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
 ```c++
 // Simple script for rotating camera with mouse and moving with WASD. 
