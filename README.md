@@ -25,44 +25,61 @@ e.g. every **Update** or **OnCollisionEnter**.
 [![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
 
 ## Scripting
-[Link to Missan Scripting API Documentation](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
-This example shows how to write a simple first person camera script using Missan API:
+This example shows how to write a simply first person shooter style
+movement and camera script using [Missan scripting API (Link)](https://henkasyvert.github.io/Missan/class_missan_1_1_component.html)
 ```c++
-// Simple script for rotating camera with mouse
-// User defined scripts must inherit from Component, which provides event functions that can be overrided,
-// in this case Start() and Update(). 
-class FPSCamera : public Component {
+// Simple script for rotating camera with mouse and moving with WASD. 
+// User defined scripts must inherit from Component, which provides
+// event-functions that can be overrided, in this case just Update(). 
+class FpsMovement : public Component<FpsMovement> {
 
-public:   
-    float rotationSpeedDeg = 30.0f;	  // How fast the camera rotates, or mouse sensitivity. 
-    float pitchConstraint = 89.9f; 	  // limits maximum pitch (in degrees), i.e. rotation on the x-axis. 
-    Transform* transform = nullptr;	  // pointer to transform component attached to this game object. 
-    
-    // Start is called once when game starts. Initialization should happen here. 
-    void Start() {        
-        // fetching this pointer once here is cheaper than doing it in every frame in Update(). 
-        transform = GetGameObject().GetComponent<Transform>(); 
-    }
-  
-    // Update is called every frame. Bulk of game logic should happen here. 
-    void Update() {
-        // calculate delta rotation by mouse input. Use delta time for smooth, frame-rate independent movement. 
-        float dyRot = -Input::mouseDelta.x * rotationSpeedDeg * Time::unscaledDeltaTime;
-        float dxRot = -Input::mouseDelta.y * rotationSpeedDeg * Time::unscaledDeltaTime;
-        
-        // apply delta rotations and clamp x-axis
-        transform->rotationDeg.y += dyRot;
-        transform->rotationDeg.x = glm::clamp(transform->rotationDeg.x + dxRot, -pitchConstraint, pitchConstraint);      
-    }
+public: 
+
+   float rotationSpeed = 30.0f;     // How fast the camera rotates, i.e. mouse sensitivity. 
+   float pitchConstraint = 89.9f;   // limits maximum pitch (in degrees), i.e. rotation on the x-axis. 
+
+   float moveSpeed = 5;
+
+
+   // Update is called every frame. Bulk of game logic should happen here. 
+   void Update() {
+
+      // handle looking with Camera
+      // calculate delta rotation by mouse input. 
+      // Use deltaTime for smooth, frame-rate independent movement. 
+      float dyRot = -Input::mouseDelta.x * rotationSpeed * Time::deltaTime;
+      float dxRot = -Input::mouseDelta.y * rotationSpeed * Time::deltaTime;
+
+      // apply delta rotations and clamp x-axis
+      transform->rotation.y += dyRot;
+      transform->rotation.x = glm::clamp(transform->rotation.x + dxRot, -pitchConstraint, pitchConstraint);      
+
+
+      // Handle Movement
+      float xAxis = 0;
+      float zAxis = 0;
+      if (Input::GetKey(Keycode::D)) xAxis += 1;
+      if (Input::GetKey(Keycode::A)) xAxis -= 1;
+      if (Input::GetKey(Keycode::S)) zAxis -= 1;
+      if (Input::GetKey(Keycode::W)) zAxis += 1;
+
+      float dx = xAxis * moveSpeed * Time::deltaTime;
+      float dz = zAxis * moveSpeed * Time::deltaTime;
+
+      // apply movement relative to current rotation
+      transform->position += dx * transform->right;
+      transform->position += dz * transform->forward;
+
+   }
 }
 
 ...
 
-// How to instantiate a GameObject with the script:
+// how to instantiate GameObject with script:
 GameObject player;
-player.AddComponent<FPSCamera>();
-GameObject::Instantiate(&player);
-
+player.AddComponent<FpsMovement>();    // our script. 
+player.AddComponent<Camera>();         // built-in Component. 
+GameObject::Instantiate(&player);      // now player exists in game scene. 
 
 ```
 ## The Report
