@@ -1,10 +1,5 @@
 ## About
-Missan is a game engine written by
-[Henrik Syvertsson (LinkedIn)](https://www.linkedin.com/in/henrik-syvertsson-806983197/) 
-as part of a project at Karlstad University. 
-Missan provides a scripting API with which users can create interactive simulations. 
-
-It is written in C++ with OpenGL (via GLEW) as renderer and GLFW as platform. 
+Missan is a 3D game engine written in C++ with OpenGL (via GLEW) as renderer and GLFW as platform. 
 It also uses glm as for maths, 
 ImGui for GUI, 
 doxygen for documentation, 
@@ -83,7 +78,3 @@ GameObject::Instantiate(&player);      // now player exists in game scene.
 ## Video Presentation
 (In Swedish) where talk about the project and game engines in general. \
 [![Missan Engine Presentation](https://img.youtube.com/vi/S2b47aMwBjc/0.jpg)](https://www.youtube.com/watch?v=S2b47aMwBjc)
-
-## The Report
-The report (in Swedish), as part of the project course:
-[Link to report](https://drive.google.com/file/d/1UEbyQDgeKQjmjQmAAX_eAy41uurMqaDQ/view?usp=sharing)
