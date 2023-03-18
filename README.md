@@ -19,9 +19,9 @@ e.g. every **Update** or **OnCollisionEnter**.
 - **Physics Engine** which handles applying forces, and detecting and resolving collisions. 
 - **Graphical User Interface** via ImGui
 - Importing **Assets**, like textures. 
+- Editor showing the Components of the selected GameObject in the Inspector window. 
 
 ![A basic Editor](editor.png)
-- Editor showing the Components of the selected GameObject in the Inspector window. 
 
 ## Scripting
 This example shows how to write a simple first person shooter style
