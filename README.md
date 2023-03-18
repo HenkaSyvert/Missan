@@ -20,8 +20,8 @@ e.g. every **Update** or **OnCollisionEnter**.
 - **Graphical User Interface** via ImGui
 - Importing **Assets**, like textures. 
 
-![A basic Editor](editorAndLight.png)
-Editor showing the Components of the selected GameObject in the Inspector window. 
+![A basic Editor](editor.png)
+- Editor showing the Components of the selected GameObject in the Inspector window. 
 
 ## Scripting
 This example shows how to write a simple first person shooter style
