@@ -11,7 +11,9 @@
 namespace Missan {
 
 	/// 
-	/// Class representing GameObjects in Missan scenes. 
+	/// Class representing GameObjects in Missan Scenes. The functionality of GameObjects
+	/// is defined by the Components that are attached to it. GameObjects do not actually
+	/// exist in a Scene until they are instantiated with GameObject::Instantiate(). 
 	class GameObject : public Inspectable {
 
 	public:
@@ -21,8 +23,8 @@ namespace Missan {
 		std::string name = "Game Object";
 
 		///
-		/// The components attached to this GameObject. There can only be a
-		/// single instance per class type attached. 
+		/// The Components attached to this GameObject. A GameObject can only
+		/// have a single instance attached per Component type. 
 		std::vector<class AbstractComponent*> components;
 
 		///
@@ -30,11 +32,11 @@ namespace Missan {
 		class Transform* transform = nullptr;
 
 		///
-		/// Deletes and frees all attached components. 
+		/// Deletes and frees all attached Components. 
 		~GameObject();
 
 		/// 
-		/// Creates new instance of component T and attaches it to the GameObject. 
+		/// Creates new instance of Component T and attaches it to the GameObject. 
 		template <class T>
 		inline T* AddComponent() {
 			T* c = new T();
@@ -44,7 +46,7 @@ namespace Missan {
 		}
 
 		/// 
-		/// Returns pointer to Component of type T if found, else nullptr
+		/// Returns pointer to Component of type T if found, else nullptr. 
 		template <class T>
 		inline T* GetComponent() {
 			for (auto* c : components) {
@@ -58,24 +60,22 @@ namespace Missan {
 
 
 		///
-		/// All active GameObjects in the scene, i.e. those that have been instantiated
+		/// All active GameObjects in the Scene, i.e. those that have been instantiated
 		/// using GameObject::Instantiate(). GameObjects created on the stack are not 
-		/// actually instantiated into the scene. 
+		/// actually instantiated into the Scene. 
 		static std::vector<GameObject*> instances;
 
 		/// 
-		/// Instantiates a new GameObject calls Start() at end of frame. 
-		/// If an original GameObject is provided, its new instances of all
-		/// its components are created and attached to the new GameObject. 
-		/// The cloned components will be copies of the original components, 
-		/// but will have their references to gameObject and transform set
-		/// correctly, but all other fields are simply copied as is. 
+		/// Instantiates a new GameObject and calls Start() at end of frame. 
+		/// If an original GameObject is provided, copies of all its Components
+		/// are instantiated and attached to the new GameObject. The cloned 
+		/// Components will have the pointers to their respective GameObject and
+		/// Transform set correctly, but all other fields are simply copied as is. 
 		static GameObject* Instantiate(GameObject* original = nullptr);
 
 		///
-		/// Marks game object for deletion, will call OnDestroy() at end of
-		/// current frame, and then delete gameObject and all its attached 
-		/// components. 
+		/// Marks gameObject for deletion, which will call OnDestroy() at end of
+		/// current frame, and then delete gameObject and all its attached Components. 
 		static void Destroy(GameObject* gameObject);
 
 		///
@@ -83,8 +83,8 @@ namespace Missan {
 		enum class PrimitiveType { Cube, Sphere };
 
 		///
-		/// Instantiates a GameObject with a transform, collider, and renderer, 
-		/// according to the primitive type. 
+		/// Instantiates a GameObject with a Transform, Collider, and Renderer, 
+		/// according to the PrimitiveType. 
 		static GameObject* InstantiatePrimitive(PrimitiveType type);
 
 
@@ -153,14 +153,14 @@ namespace Missan {
 		virtual ~AbstractComponent() {}
 
 		/// 
-		/// Returns pointer to Component of type T if found, else nullptr
+		/// Returns pointer to Component of type T if found, else nullptr. 
 		template <class T>
 		inline T* GetComponent() {
 			return gameObject->GetComponent<T>();
 		}
 
 		/// 
-		/// Creates new instance of component T and attaches it to the GameObject. 
+		/// Creates new instance of Component T and attaches it to the GameObject. 
 		template <class T>
 		inline T* AddComponent() {
 			return gameObject->AddComponent<T>();
@@ -173,17 +173,17 @@ namespace Missan {
 
 		///
 		/// Called when this Collider has begun touching another Collider. 
-		/// The Collision information passed is from the perspective of our Collider. 
+		/// The Collision information passed is from the perspective of this Collider. 
 		inline virtual void OnCollisionEnter(Collision collision) {}		
 
 		///
 		/// Called every frame this Collider collides with another Collider. 
-		/// The Collision information passed is from the perspective of our Collider. 
+		/// The Collision information passed is from the perspective of this Collider. 
 		inline virtual void OnCollisionStay(Collision collision) {}
 
 		///
 		/// Called on the frame that this Collider has stopped colliding with another Collider. 
-		/// The Collision information passed is from the perspective of our Collider. 
+		/// The Collision information passed is from the perspective of this Collider. 
 		inline virtual void OnCollisionExit(Collision collision) {}
 
 		///
@@ -196,7 +196,7 @@ namespace Missan {
 		inline virtual void LateUpdate() {}
 
 		///
-		/// Called during GUI rendering
+		/// Called during GUI rendering. 
 		inline virtual void OnGui() {}
 		
 		///
@@ -205,8 +205,7 @@ namespace Missan {
 		inline virtual void OnDestroy() {}
 
 		///
-		/// This is, combined with Component<T>::Clone(), is necessary
-		/// to do proper cloning via A
+		/// This is necessary to do proper copying through base class pointer. 
 		inline virtual AbstractComponent* Clone() const = 0;
 		
 	};
@@ -214,15 +213,15 @@ namespace Missan {
 	/// 
 	/// This uses the "curiously recurring template pattern" (CRTP) so that every class
 	/// does not have to provide its own implementation of the Clone method: less boiler plate code. 
-	/// Also, provides a convenient and syntactically appealing way of gathering all instances of Component classes. 
-	/// There is a one-to-one correspondence between each subclass T and Component<T>. 
+	/// Also, provides a convenient and syntactically appealing way of gathering all instances of Component classes,
+	/// e.g. Renderer::instances. There is a one-to-one correspondence between each subclass T and Component<T>. 
 	template<class T>
 	class Component : public AbstractComponent {
 
 	public:
 
 		///
-		/// All instaces of this class. 
+		/// All instances of this class. 
 		static std::vector<T*> instances;
 
 		Component() {

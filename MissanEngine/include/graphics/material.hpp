@@ -8,7 +8,7 @@
 namespace Missan {
 
 	///
-	/// A material defines how an object reacts to light. It is possible to have
+	/// A Material defines how an object reacts to Lights. It is possible to have
 	/// completely different colors for ambient, diffuse, and specular, but this
 	/// would produce unrealistic results, since real physical light is not 
 	/// divided this way. 
@@ -17,22 +17,22 @@ namespace Missan {
 	public:
 
 		///
-		/// The ambient color of this material. This is the color that 
-		/// will blend with the lights' ambient colors. 
+		/// The ambient Color of this Material. This is the Color that 
+		/// will blend with the Lights' ambient Colors. 
 		Color ambient = Color::lightGrey;
 
 		///
-		/// The diffuse color of this material. This is the color that 
-		/// will blend with the lights' diffuse colors. 
+		/// The diffuse Color of this Material. This is the Color that 
+		/// will blend with the Lights' diffuse Colors. 
 		Color diffuse = Color::lightGrey;
 
 		///
-		/// The specular color of this material. This is the color that
-		/// will blend with the lights' specular colors. 
+		/// The specular Color of this Material. This is the Color that
+		/// will blend with the Lights' specular Colors. 
 		Color specular = Color::lightGrey;
 
 		///
-		/// How shiny this object is. Higher values results in a more concentrated specular
+		/// How shiny this Material is. Higher values results in a more concentrated specular
 		/// bright spot, giving a more glassy and metallic appearance. 
 		float shininess = 8;
 

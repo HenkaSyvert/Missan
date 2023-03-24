@@ -160,6 +160,8 @@ namespace Missan {
 		Menu = 348
 	};
 
+	///
+	/// Mouse button codes. 
 	enum class MouseButton : int {
 		Left = 0,
 		Right = 1,
@@ -173,39 +175,39 @@ namespace Missan {
 	namespace Input {
 
 		/// 
-		/// Current X and Y of mouse. Note that {0, 0} is in top-left corner
+		/// Current X and Y coordinates of mouse. Note that {0, 0} is in top-left corner. 
 		extern const glm::vec3& mousePosition;
 
 		/// 
-		/// Delta X and Y since last frame. Note that {0, 0} is in top-left corner
+		/// Delta X and Y since last frame. Note that {0, 0} is in top-left corner. 
 		extern const glm::vec3& mouseDelta;
 
 
 
 		///
-		/// Returns true the frame the user pressed the key
+		/// Returns true the during the first frame the key was pressed. 
 		bool GetKeyDown(Keycode keycode);
 
 		/// 
-		/// Returns true while the users holds down the key
+		/// Returns true all frames the key is pressed. 
 		bool GetKey(Keycode keycode);
 
 		///
-		/// Returns true the frame the user releases the key
+		/// Returns true the first frame key is no longer pressed. 
 		bool GetKeyUp(Keycode keycode);
 
 
 
 		///
-		/// returns true the frame given button is first pressed.
+		/// Returns true the during the first frame the button was pressed. 
 		bool GetMouseButtonDown(MouseButton button);
 
 		///
-		/// returns true while the users holds the button
+		/// Returns true all frames the button is pressed. 
 		bool GetMouseButton(MouseButton button);
 
 		///
-		/// returns true the frame the user releases the key
+		/// Returns true the first frame button is no longer pressed. 
 		bool GetMouseButtonUp(MouseButton button);
 		
 	}

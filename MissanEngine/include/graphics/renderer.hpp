@@ -8,12 +8,26 @@
 namespace Missan {
 
 	/// 
-	/// Renders GameObject with Mesh and Texture using its Transform
+	/// Renders GameObject with Mesh and Texture using its Transform. 
 	class Renderer : public Component<Renderer> {
 
 	public:
 
-		enum class RendererType { Mesh, Line };
+		///
+		/// Different types of Renderer. 
+		enum class RendererType { 
+			
+			///
+			/// Normal Renderer for a 3D object. 
+			Mesh, 
+			
+			///
+			/// Renderer for lines. 
+			Line 
+		};
+
+		///
+		/// The type of Renderer this is. 
 		RendererType type = RendererType::Mesh;
 
 		/// 
@@ -21,9 +35,11 @@ namespace Missan {
 		Mesh* mesh = nullptr;
 
 		///
-		/// The Material used to render. 
+		/// The Material to render. 
 		Material* material = nullptr;
 
+		///
+		/// Is this Renderer enabled?
 		bool isEnabled = true;
 
 		void Start() {

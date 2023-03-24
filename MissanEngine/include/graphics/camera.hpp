@@ -11,62 +11,63 @@
 namespace Missan {
 
 	/// 
-	/// Camera renders the scene onto to the screen. 
+	/// Camera renders the Scene onto to the screen. 
 	class Camera : public Component<Camera> {
 
 	public:
 
 		/// 
-		/// The field of view in degrees, i.e. how "wide" the Camera sees around the y-axis. 
+		/// The field of view (in degrees), i.e. how "wide" the Camera sees around the y-axis. 
 		float fieldOfView = 45;
 
 		/// 
-		/// The distance from the Camera (in meters) for which objects closer than this will 
-		/// be clipped, i.e. not rendered. 
+		/// Distance from the Camera (in meters) to the near clip plane. Objects
+		/// closer than this will be clipped, i.e. not rendered. 
 		float nearClipPlane = 0.1f;
 
 		/// 
-		/// The distance from the Camera (in meters) for which objects further away than this will 
-		/// be clipped, i.e. not rendered. 
+		/// Distance from the Camera (in meters) to the far clip plane. Objects
+		/// further away than this will be clipped, i.e. not rendered. 
 		float farClipPlane = 100;
 
 		/// 
-		/// Screen Width divided by Height, also how "squeezed" the view is on the y-axis. 
+		/// Screen Width divided by Height, how "squeezed" the view is on the y-axis. 
 		float aspectRatio = Window::aspectRatio;
 
 		///
-		/// the viewing volume. The horizontal length is defined by the aspectRatio. 
+		/// The viewing volume, when using Orthographic Projection. The horizontal length 
+		/// is defined by the aspectRatio, and vertical length is implicitly defined. 
 		float orthographicSize = 1;
 
 		///
-		/// The types of projection supported by the Camera class. Not all fields are used 
-		/// by all projections. 
+		/// The types of Projection supported by the Camera class. Not all fields are used 
+		/// by all Projections. 
 		enum class Projection {
 
 			///
-			/// In an orthogonal projection, all projection lines are orthogonal to the
-			/// projection plane (thence the name). Orthographic projection uses 
+			/// In an Orthographic Projection, all projection lines are orthogonal to the
+			/// projection plane (thence the name). Orthographic Projection uses 
 			/// orthographicSize, aspectRatio, and the Camera's Transform. 
 			Orthographic,
 
 			///
-			/// A perspective projection gives the standard 3D effect of objects further
-			/// away being smaller. Perspective projection uses fieldOfView, near- and farClipPlane,
-			/// aspectRatio, and the Camera's Transform. 
+			/// A Perspective Projection gives the standard 3D effect of objects further
+			/// away appearing smaller. Perspective Projection uses fieldOfView, nearClipPlane,
+			/// and farClipPlane, aspectRatio, and the Camera's Transform. 
 			Perspective
 		};
 
 		///
-		/// The type of projection currently used by the Camera. 
+		/// The type of Projection currently used by the Camera. 
 		Projection projection = Projection::Perspective;
 
 		/// 
 		/// The projection matrix, which transform points from world space to screen space,
-		/// as per the type of projection being used. 
+		/// as per the type of Projection being used. 
 		glm::mat4 projectionMatrix;
 
 		///
-		/// The color of the background, where no objects have been rendered. 
+		/// The Color of the background, where no objects have been rendered. 
 		Color backgroundColor = Color::Lerp(Color::black, Color::white, 0.2);
 
 		void DisplayInInspector() {
