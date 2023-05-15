@@ -17,7 +17,7 @@ namespace Missan {
 
 		/// 
 		/// The mass (kg) of this RigidBody. 
-		float mass = 1.0f;
+		float mass = 10.0f;
 
 		/// 
 		/// The linear velocity (m/s) of this RigidBody. 
@@ -68,24 +68,53 @@ namespace Missan {
 		Collider* collider = nullptr;
 
 		/// 
-		/// Applies force to the RigidBody at point, using world coordinates unless specified otherwise.
+		/// Applies force to the RigidBody at point, using world coordinates.
 		/// Force applied anywhere but center of mass (i.e. {0, 0, 0} ) will generate torque.
 		/// Force, unlike an impulse, is applied continuously once added, e.g. gravity is only added once
 		/// but affects the RigidBody each frame
-		void AddForce(glm::vec3 newForce, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
+		void AddForce(glm::vec3 newForce, glm::vec3 point = { 0,0,0 }) {
+			forces += newForce;
+			torques += cross(point, newForce);
+		}
 
 		/// 
-		/// Applies an impulse to the RigidBody at point, using world coordinates unless specified otherwise.
+		/// Applies an impulse to the RigidBody at point, using world coordinates.
 		/// Impulse applied anywhere but center of mass (i.e. {0, 0, 0} ) will generate torque.
-		/// Impulse, unlike force, is only applied once
-		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }, bool useLocalSpace = false);
+		void AddImpulse(glm::vec3 impulse, glm::vec3 point = { 0,0,0 }) {
+			linearImpulse += impulse;
+			angularImpulse += cross(point, impulse);
+		}
 
-		void OnCollisionEnter(Collision collision);
-		void OnCollisionStay(Collision collision);
+		void DisplayInInspector() {
+			using namespace ImGui;
+			ShowDemoWindow();
 
-		void DisplayInInspector();
+			if (CollapsingHeader("Rigid Body")) {
+				SliderFloat("Mass (kg)", &mass, .01f, 10000);
+				DragFloat3("Linear Velocity", (float*)&linearVelocity);
+				SliderFloat("Linear Drag", &linearDrag, 0, 1000);
+				DragFloat3("Inertia Tensor", (float*)&inertiaTensor);
+				DragFloat3("Angular Velocity", (float*)&angularVelocity);
+				SliderFloat("Angular Drag", &angularDrag, 0, 1000);
+				DragFloat3("forces", (float*)&forces);
+				DragFloat3("Torques", (float*)&torques);
+				Checkbox("use gravity", &isAffectedByGravity);
+				DragFloat3("Linear Impulse", (float*)&linearImpulse);
+				DragFloat3("Angular Impulse", (float*)&angularImpulse);
 
-		void Start();
+			}
+		}
+
+		void Start() {
+			// currently rigidbodies only work with box colliders
+			auto s = glm::vec3(1, 1, 1);
+			inertiaTensor = { s.y * s.y + s.z * s.z,
+							  s.x * s.x + s.z * s.z,
+							  s.x * s.x + s.y * s.y };
+			inertiaTensor *= mass / 12.0f;
+
+			collider = GetComponent<Collider>();
+		}
 
 	};
 

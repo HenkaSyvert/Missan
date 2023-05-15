@@ -106,7 +106,7 @@ Mesh Resources::GenerateUvSphere(int stacks, int sectors) {
 	std::vector<unsigned int> indices;
 	// line indices? for rendering just longitudes and latitudes. 
 
-	float M_PI = acos(-1);
+	float M_PI = acosf(-1.0f);
 	float stackDeltaAngle = M_PI / stacks;
 	float sectorDeltaAngle = 2 * M_PI / sectors;
 

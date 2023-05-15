@@ -19,11 +19,7 @@ namespace Missan {
 			
 			///
 			/// Normal Renderer for a 3D object. 
-			Mesh, 
-			
-			///
-			/// Renderer for lines. 
-			Line 
+			Mesh
 		};
 
 		///

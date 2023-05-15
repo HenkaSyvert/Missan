@@ -102,9 +102,7 @@
     <ClCompile Include="source\physics\physics.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\graphics\texture.cpp" />
-    <ClCompile Include="source\physics\transform.cpp" />
     <ClCompile Include="source\graphics\window.cpp" />
-    <ClCompile Include="source\physics\rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="external\glm\detail\func_common.inl" />
