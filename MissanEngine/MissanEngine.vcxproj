@@ -91,7 +91,6 @@
     <ClCompile Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="$(SolutionDir)submodules\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
     <ClCompile Include="src\ecs.cpp" />
     <ClCompile Include="src\input.cpp" />
@@ -571,7 +570,7 @@
     <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_rectpack.h" />
     <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_textedit.h" />
     <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_truetype.h" />
-    <ClInclude Include="external\stb\stb_image.h" />
+    <ClInclude Include="$(SolutionDir)submodules\stb\stb_image.h" />
     <ClInclude Include="apps\editor\editor.hpp" />
     <ClInclude Include="include\camera.hpp" />
     <ClInclude Include="include\color.hpp" />
