@@ -50,7 +50,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)submodules\imgui;$(SolutionDir)submodules;$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -69,7 +69,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)submodules\imgui;$(SolutionDir)submodules;$(SolutionDir)MissanEngine\external\glew\include;$(SolutionDir)MissanEngine\external;$(SolutionDir)MissanEngine\include;$(SolutionDir)MissanEngine\external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -83,13 +83,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\submodules\imgui\imgui_tables.cpp" />
     <ClCompile Include="external\glm\detail\glm.cpp" />
-    <ClCompile Include="external\imgui\imgui.cpp" />
-    <ClCompile Include="external\imgui\imgui_demo.cpp" />
-    <ClCompile Include="external\imgui\imgui_draw.cpp" />
-    <ClCompile Include="external\imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\imgui.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\imgui_demo.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\imgui_draw.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="$(SolutionDir)submodules\imgui\imgui_widgets.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="apps\editor\main.cpp" />
     <ClCompile Include="source\ecs.cpp" />
@@ -562,14 +563,14 @@
     <ClInclude Include="external\glm\vec3.hpp" />
     <ClInclude Include="external\glm\vec4.hpp" />
     <ClInclude Include="external\glm\vector_relational.hpp" />
-    <ClInclude Include="external\imgui\imconfig.h" />
-    <ClInclude Include="external\imgui\imgui.h" />
-    <ClInclude Include="external\imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="external\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="external\imgui\imgui_internal.h" />
-    <ClInclude Include="external\imgui\imstb_rectpack.h" />
-    <ClInclude Include="external\imgui\imstb_textedit.h" />
-    <ClInclude Include="external\imgui\imstb_truetype.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imconfig.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imgui.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imgui_internal.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_rectpack.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_textedit.h" />
+    <ClInclude Include="$(SolutionDir)submodules\imgui\imstb_truetype.h" />
     <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="apps\editor\editor.hpp" />
     <ClInclude Include="include\graphics\camera.hpp" />
