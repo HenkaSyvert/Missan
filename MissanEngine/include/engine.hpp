@@ -1,7 +1,7 @@
 #pragma once
 
-#include "graphics/texture.hpp"
-#include "graphics/mesh.hpp"
+#include "texture.hpp"
+#include "mesh.hpp"
 
 namespace Missan {
 
