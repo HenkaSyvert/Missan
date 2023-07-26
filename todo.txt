@@ -25,7 +25,6 @@ rigidbody:
 	fix inertia tensors for asymmetrical and composite colliders. 
 
 engine
-	make dll
 	add python bindings
 
 mouse
