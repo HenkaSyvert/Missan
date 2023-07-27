@@ -34,7 +34,7 @@ namespace Missan {
 
         /// 
         /// Compiles new Shader from source code
-        Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+        Shader(const std::string& path);
      
 
         /// 

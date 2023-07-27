@@ -24,14 +24,14 @@ string LoadShader(const string& fileName) {
 	return str;
 }
 
-void PrintGLErrorMsg(GLuint id) {
-	int maxLength;
-	glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
+void PrintCompilationError(GLuint shader) {
+	int length;
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 
-	vector<char> infoLog(maxLength);
-	glGetShaderInfoLog(id, maxLength, &maxLength, &infoLog[0]);
+	GLchar* infoLog = (GLchar*)alloca(length);
+	glGetShaderInfoLog(shader, length, NULL, infoLog);
 
-	cout << string(infoLog.data()) << endl;
+	spdlog::error(infoLog);
 }
 
 GLuint CompileShader(GLuint shaderType, const string& shaderSourceCode) {
@@ -44,7 +44,7 @@ GLuint CompileShader(GLuint shaderType, const string& shaderSourceCode) {
 	glGetShaderiv(shader, GL_COMPILE_STATUS, (int*)&isCompiled);
 	if (isCompiled == GL_FALSE) {
 
-		PrintGLErrorMsg(shader);
+		PrintCompilationError(shader);
 		glDeleteShader(shader);
 		exit(EXIT_FAILURE);
 	}
@@ -61,15 +61,15 @@ GLint Shader::GetUniformLocation(const string& uniformVariableName) const{
 
 
 
-Shader::Shader(const string& vertexShaderFilePath, const string& fragmentShaderFilePath) {
+Shader::Shader(const string& path) {
 	programId = glCreateProgram();
 	GLuint vertexShader, fragmentShader;
 	
-	string vertexSourceCode = LoadShader(vertexShaderFilePath);
+	string vertexSourceCode = "#version 330 core\n#define COMPILE_VERTEX\n" + LoadShader(path);
 	vertexShader = CompileShader(GL_VERTEX_SHADER, vertexSourceCode);
 	glAttachShader(programId, vertexShader);
 
-	string fragmentSourceCode = LoadShader(fragmentShaderFilePath);
+	string fragmentSourceCode = "#version 330 core\n#define COMPILE_FRAGMENT\n" + LoadShader(path);
 	fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentSourceCode);
 	glAttachShader(programId, fragmentShader);
 
@@ -77,7 +77,7 @@ Shader::Shader(const string& vertexShaderFilePath, const string& fragmentShaderF
 	int isLinked = 0;
 	glGetProgramiv(programId, GL_LINK_STATUS, (int*)&isLinked);
 	if (isLinked == GL_FALSE) {
-		PrintGLErrorMsg(programId);
+		PrintCompilationError(programId);
 		glDeleteProgram(programId);
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);

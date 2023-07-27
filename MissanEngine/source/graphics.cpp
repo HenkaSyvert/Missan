@@ -36,8 +36,8 @@ void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	Shader::unlit = new Shader(dataFolder + "shaders/unlit/vertex.shader", dataFolder + "shaders/unlit/fragment.shader");
-	Shader::phong = new Shader(dataFolder + "shaders/phong/vertex.shader", dataFolder + "shaders/phong/fragment.shader");
+	Shader::unlit = new Shader(dataFolder + "shaders/unlit.glsl");
+	Shader::phong = new Shader(dataFolder + "shaders/phong.glsl");
 
 	Material::defaultMaterial = new Material();
 	Material::defaultMaterial->shader = Shader::phong;
