@@ -36,7 +36,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external;$(SolutionDir)external\glm;$(SolutionDir)external\imgui;$(SolutionDir)external\glew\include;$(ProjectDir)\include;$(SolutionDir)external\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\spdlog\include;$(SolutionDir)external;$(SolutionDir)external\glm;$(SolutionDir)external\imgui;$(SolutionDir)external\glew\include;$(ProjectDir)\include;$(SolutionDir)external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
@@ -561,6 +561,7 @@
     <ClInclude Include="$(SolutionDir)external\imgui\imstb_textedit.h" />
     <ClInclude Include="$(SolutionDir)external\imgui\imstb_truetype.h" />
     <ClInclude Include="$(SolutionDir)external\stb\stb_image.h" />
+    <ClInclude Include="..\external\spdlog\include\spdlog\spdlog.h" />
     <ClInclude Include="include\camera.hpp" />
     <ClInclude Include="include\color.hpp" />
     <ClInclude Include="include\light.hpp" />

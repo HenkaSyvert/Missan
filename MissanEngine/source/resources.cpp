@@ -3,6 +3,8 @@
 #include "internal.hpp"
 #include "texture.hpp"
 
+#include <spdlog/spdlog.h>
+
 using namespace Missan;
 using namespace std;
 
@@ -25,7 +27,7 @@ static bool LoadMesh(string fileName) {
 
 	ifstream file(fileName);
 	if (!file) {
-		cout << "error: unable to open file " << fileName << endl;
+		spdlog::error("cannot open {}", fileName);
 		return false;
 	}
 

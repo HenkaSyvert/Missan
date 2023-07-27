@@ -3,6 +3,8 @@
 #include <stb/stb_image.h>
 #include "texture.hpp"
 
+#include <spdlog/spdlog.h>
+
 using namespace Missan;
 using namespace std;
 using namespace ImGui;
@@ -13,7 +15,7 @@ Texture::Texture(const string& fileName, WrapMode wm, FilterMode fm) {
 	unsigned char* localBuffer = stbi_load(fileName.c_str(), &width, &height, &channels, 4);
 
 	if (!localBuffer) {
-		cout << "Resources error: could not open file \"" << fileName << "\"\n";
+		spdlog::error("cannot not open {}", fileName);
 	}
 
 	glGenTextures(1, &id);

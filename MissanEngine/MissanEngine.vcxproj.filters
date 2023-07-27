@@ -1505,6 +1505,9 @@
     <ClInclude Include="include\pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\external\spdlog\include\spdlog\spdlog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="$(SolutionDir)external\glew\lib\glew32s.lib" />

@@ -1,5 +1,6 @@
 #include "pch.hpp"
 #include "shader.hpp"
+#include <spdlog/spdlog.h>
 
 using namespace Missan;
 using namespace std;
@@ -12,7 +13,7 @@ string LoadShader(const string& fileName) {
 	fstream input(fileName);
 
 	if (!input.is_open()) {
-		cout << "error: could not open \"" << fileName << "\"\n";
+		spdlog::error("cannot open {}", fileName);
 		exit(EXIT_FAILURE);
 	}
 

@@ -2,6 +2,8 @@
 #include "window.hpp"
 #include "internal.hpp"
 
+#include <spdlog/spdlog.h>
+
 using namespace Missan;
 using namespace std;
 
@@ -11,14 +13,16 @@ static int h = 1200;
 static float ar = 0;
 const string title = "Missan 3D";
 
-void glfwErrorCallback(int error, const char* desc) {
-    cout << "GLFW Error " << error << ": " << desc << endl;
+static void glfwErrorCallback(int error, const char* desc) {
+    spdlog::critical("GLFW error {}: {}", error, desc);
+    exit(EXIT_FAILURE);
 }
 
-void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
     w = width;
     h = height;
+
 }
 
 const int& Window::width = w;
@@ -29,10 +33,12 @@ GLFWwindow* WindowInitialize() {
     ar = (float)w / h;
 
     glfwSetErrorCallback(glfwErrorCallback);
+
     if (!glfwInit()) {
-        cout << "glfwInit() failed\n";
+        spdlog::critical("glfwInit() failed");
         exit(EXIT_FAILURE);
     }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -40,7 +46,7 @@ GLFWwindow* WindowInitialize() {
     window = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        cout << "glfwCreateWindow() failed\n";
+        spdlog::critical("glfwCreateWindow() failed");
         exit(EXIT_FAILURE);
     }
 
@@ -49,11 +55,11 @@ GLFWwindow* WindowInitialize() {
 
     int glewState = glewInit();
     if (glewState != GLEW_OK) {
-        cout << "GLEW Error: " << glewGetErrorString(glewState) << endl;
+        spdlog::critical("GLEW Error: {}", (char*)glewGetErrorString(glewState));
         exit(EXIT_FAILURE);
     }
 
-    cout << glGetString(GL_VERSION) << endl;
+    spdlog::info("GL version: {}", (char*)glGetString(GL_VERSION));
 
     glViewport(0, 0, w, h);
     glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
@@ -64,6 +70,7 @@ GLFWwindow* WindowInitialize() {
 void Window::SetIsCursorVisible(bool isVisible) {
     if (isVisible) glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    spdlog::info("SetIsCursorVisible({})", isVisible);
 }
 
 
