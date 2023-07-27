@@ -1,22 +1,14 @@
+#include "pch.hpp"
 #include "light.hpp"
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "renderer.hpp"
 #include "camera.hpp"
 #include "texture.hpp"
-
 #include "transform.hpp"
 #include "internal.hpp"
 #include "ecs.hpp"
 #include "engine.hpp"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
-
-#include <vector>
 
 using namespace Missan;
 using namespace std;
@@ -38,17 +30,18 @@ const Color Color::lightGrey = { 0.8f, 0.8f, 0.8f, 1.0f };
 
 Material* Material::defaultMaterial = nullptr;
 
+const string dataFolder = "../MissanEngine/data/";
 
 void GraphicsInitialize() {
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	Shader::unlit = new Shader("../MissanEngine/resources/shaders/unlit/vertex.shader", "../MissanEngine/resources/shaders/unlit/fragment.shader");
-	Shader::phong = new Shader("../MissanEngine/resources/shaders/phong/vertex.shader", "../MissanEngine/resources/shaders/phong/fragment.shader");
+	Shader::unlit = new Shader(dataFolder + "shaders/unlit/vertex.shader", dataFolder + "shaders/unlit/fragment.shader");
+	Shader::phong = new Shader(dataFolder + "shaders/phong/vertex.shader", dataFolder + "shaders/phong/fragment.shader");
 
 	Material::defaultMaterial = new Material();
 	Material::defaultMaterial->shader = Shader::phong;
-	Material::defaultMaterial->texture = Resources::GetTexture("resources/textures/blank.png");
+	Material::defaultMaterial->texture = Resources::GetTexture(dataFolder + "textures/blank.png");
 
 }
 

@@ -1,10 +1,7 @@
-#include "texture.hpp"
-
+#include "pch.hpp"
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
-#include "imgui/imgui.h"
-
-#include <iostream>
-#include <unordered_map>
+#include "texture.hpp"
 
 using namespace Missan;
 using namespace std;

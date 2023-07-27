@@ -1,6 +1,6 @@
+#include "pch.hpp"
 #include "ecs.hpp"
 #include "internal.hpp"
-
 #include "collision.hpp"
 #include "collider.hpp"
 #include "transform.hpp"
@@ -66,7 +66,7 @@ GameObject* GameObject::InstantiatePrimitive(PrimitiveType type) {
 
 	switch (type) {
 	case PrimitiveType::Cube:
-		r->mesh = Resources::GetMesh("resources/meshes/cube.mesh");	
+		r->mesh = Resources::GetMesh("../MissanEngine/data/meshes/cube.mesh");	
 		c->shape = Collider::Shape::Box;
 		g->name = "Cube";
 		break;

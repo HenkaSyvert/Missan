@@ -1,16 +1,5 @@
+#include "pch.hpp"
 #include "engine.hpp"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <vector>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <cstdlib>
-#include <unordered_map>
-
 #include "internal.hpp"
 #include "texture.hpp"
 

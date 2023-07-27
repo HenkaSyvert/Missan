@@ -1,5 +1,5 @@
+#include "pch.hpp"
 #include "physics.hpp"
-
 #include "engine.hpp"
 #include "transform.hpp"
 #include "collider.hpp"
@@ -7,19 +7,9 @@
 #include "collision.hpp"
 #include "internal.hpp"
 
-
-#include <glm/trigonometric.hpp>
-#include <glm/glm.hpp>
-
-#include <limits>
-#include <vector>
-
 using namespace Missan;
 using namespace std;
 using namespace glm;
-
-
-
 
 
 void ApplyForces() {

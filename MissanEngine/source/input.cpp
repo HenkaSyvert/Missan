@@ -1,15 +1,6 @@
-#pragma once
-
+#include "pch.hpp"
 #include "input.hpp"
 #include "internal.hpp"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <unordered_map>
-
-#include <glm/vec3.hpp>
-
 
 using namespace Missan;
 using namespace std;

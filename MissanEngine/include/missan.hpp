@@ -1,16 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtx/projection.hpp>
-
-#include <imgui/imgui.h>
-
 #include "ecs.hpp"
 #include "engine.hpp"
 #include "input.hpp"

@@ -1,14 +1,11 @@
+
+#include "pch.hpp"
 #include "engine.hpp"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "internal.hpp"
 #include "ecs.hpp"
 #include "input.hpp"
 #include "window.hpp"
 #include "physics.hpp"
-
 
 using namespace Missan;
 using namespace std;

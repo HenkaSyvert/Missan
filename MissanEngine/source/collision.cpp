@@ -1,3 +1,4 @@
+#include "pch.hpp"
 #include "transform.hpp"
 #include "collider.hpp"
 #include "collision.hpp"
@@ -5,13 +6,9 @@
 #include "internal.hpp"
 #include "rigidbody.hpp"
 
-#include <vector>
-#include <limits>
-
 using namespace Missan;
 using namespace std;
 using namespace glm;
-
 
 
 vector<pair<Collision, Collision>> oldCollisions;

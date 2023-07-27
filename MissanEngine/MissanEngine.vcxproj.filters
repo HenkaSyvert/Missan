@@ -48,28 +48,28 @@
     <ClCompile Include="source\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\glm\glm\detail\glm.cpp">
+    <ClCompile Include="source\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_tables.cpp">
+    <ClCompile Include="..\external\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui.cpp">
+    <ClCompile Include="..\external\imgui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_demo.cpp">
+    <ClCompile Include="..\external\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_draw.cpp">
+    <ClCompile Include="..\external\imgui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\backends\imgui_impl_glfw.cpp">
+    <ClCompile Include="..\external\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\backends\imgui_impl_opengl3.cpp">
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_widgets.cpp">
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1500,6 +1500,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(SolutionDir)external\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

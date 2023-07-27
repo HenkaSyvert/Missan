@@ -1,14 +1,6 @@
+#include "pch.hpp"
 #include "internal.hpp"
-
 #include "window.hpp"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_glfw.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
-
 #include "ecs.hpp"
 
 using namespace Missan;

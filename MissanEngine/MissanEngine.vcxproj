@@ -38,7 +38,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external;$(SolutionDir)external\glm;$(SolutionDir)external\imgui;$(SolutionDir)external\glew\include;$(ProjectDir)\include;$(SolutionDir)external\glfw\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -57,20 +58,36 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)external\glm\glm\detail\glm.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_tables.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_demo.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_draw.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="$(SolutionDir)external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_glfw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\backends\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\ecs.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\engine.cpp" />
     <ClCompile Include="source\graphics.cpp" />
     <ClCompile Include="source\gui.cpp" />
     <ClCompile Include="source\collision.cpp" />
+    <ClCompile Include="source\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\resources.cpp" />
     <ClCompile Include="source\physics.cpp" />
     <ClCompile Include="source\shader.cpp" />
@@ -549,6 +566,7 @@
     <ClInclude Include="include\light.hpp" />
     <ClInclude Include="include\material.hpp" />
     <ClInclude Include="include\mesh.hpp" />
+    <ClInclude Include="include\pch.hpp" />
     <ClInclude Include="include\renderer.hpp" />
     <ClInclude Include="include\input.hpp" />
     <ClInclude Include="include\inspectable.hpp" />

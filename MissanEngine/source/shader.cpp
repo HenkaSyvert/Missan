@@ -1,8 +1,5 @@
+#include "pch.hpp"
 #include "shader.hpp"
-
-#include <iostream>
-#include <fstream>
-#include <string>
 
 using namespace Missan;
 using namespace std;
